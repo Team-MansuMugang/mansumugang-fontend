@@ -3,6 +3,7 @@ import BigButton from '../../components/BigButton';
 import CheckButton from '../../components/CheckButton';
 import Input from '../../components/Input';
 import InputContainer from '../../components/InputContainer';
+import SubLink from '../../components/SubLink';
 
 const TestPage = () => {
   return (
@@ -25,6 +26,7 @@ const TestPage = () => {
         <Input placeholder="27" />
       </InputContainer>
       <BigButton disabled={false}>회원가입</BigButton>
+      <SubLink to="/">회원가입</SubLink>
     </body>
   );
 };

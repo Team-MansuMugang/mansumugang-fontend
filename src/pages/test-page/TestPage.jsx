@@ -1,4 +1,8 @@
-import { BigButton, CheckButton, Input, InputContainer } from '../../components/components';
+// import { BigButton, CheckButton, Input, InputContainer } from '../../components/components';
+import BigButton from '../../components/BigButton';
+import CheckButton from '../../components/CheckButton';
+import Input from '../../components/Input';
+import InputContainer from '../../components/InputContainer';
 
 const TestPage = () => {
   return (
@@ -16,7 +20,7 @@ const TestPage = () => {
         <Input placeholder="4" />
         <Input placeholder="27" />
       </InputContainer>
-      <BigButton>회원가입</BigButton>
+      <BigButton disabled={false}>회원가입</BigButton>
     </body>
   );
 };

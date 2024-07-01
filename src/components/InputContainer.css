@@ -13,10 +13,30 @@
 .input-container-children :last-child {
   margin-right: 0px;
 }
+.input-container-descriptions {
+  display: flex;
+}
 .input-container p {
   font-size: var(--text-size-body-small);
   color: var(--color--neutral-0);
-  font-weight: bold;
   margin: 10px 0px;
   padding-left: 6px;
+}
+.input-container .description {
+  font-weight: bold;
+}
+.input-container-success .status-description {
+  color: var(--color-semantic-success);
+}
+.input-container-warning .status-description {
+  color: var(--color-semantic-warning);
+}
+.input-container-error .status-description {
+  color: var(--color-semantic-error);
+}
+.input-container-important .status-description {
+  color: var(--color-semantic-important);
+}
+.input-container-info .status-description {
+  color: var(--color-semantic-info);
 }

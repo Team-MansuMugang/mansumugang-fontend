@@ -8,8 +8,12 @@ const TestPage = () => {
   return (
     <body>
       <h1>Test Page</h1>
-      <InputContainer description="아이디">
-        <Input placeholder="아이디" />
+      <InputContainer
+        description="아이디"
+        status="warning"
+        statusDescription="! 중복된 아이디 입니다."
+      >
+        <Input placeholder="아이디" status="warning" />
         <CheckButton>중복 확인</CheckButton>
       </InputContainer>
       <InputContainer description="비밀번호">

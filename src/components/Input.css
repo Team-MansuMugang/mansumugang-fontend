@@ -17,17 +17,17 @@
 }
 
 .input-success {
-  border-color: var(--color-semantic-success); /* 성공 상태의 테두리 색 */
+  border-color: var(--color-semantic-success);
 }
 .input-warning {
-  border-color: var(--color-semantic-warning); /* 성공 상태의 테두리 색 */
+  border-color: var(--color-semantic-warning);
 }
 .input-error {
-  border-color: var(--color-semantic-error); /* 에러 상태의 테두리 색 */
+  border-color: var(--color-semantic-error);
 }
 .input-important {
-  border-color: var(--color-semantic-important); /* 에러 상태의 테두리 색 */
+  border-color: var(--color-semantic-important);
 }
 .input-info {
-  border-color: var(--color-semantic-info); /* 에러 상태의 테두리 색 */
+  border-color: var(--color-semantic-info);
 }

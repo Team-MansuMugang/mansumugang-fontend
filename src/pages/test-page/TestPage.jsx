@@ -4,6 +4,7 @@ import CheckButton from '../../components/CheckButton';
 import Input from '../../components/Input';
 import InputContainer from '../../components/InputContainer';
 import SubLink from '../../components/SubLink';
+import ToggleSwitch from '../../components/ToggleSwitch';
 
 const TestPage = () => {
   return (
@@ -27,6 +28,7 @@ const TestPage = () => {
       </InputContainer>
       <BigButton disabled={false}>회원가입</BigButton>
       <SubLink to="/">회원가입</SubLink>
+      <ToggleSwitch labels={['보호자', '케어 맴버']} active={0} />
     </body>
   );
 };

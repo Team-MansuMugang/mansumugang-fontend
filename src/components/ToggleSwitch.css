@@ -1,0 +1,22 @@
+.toggle-switch {
+  background-color: var(--color-neutral-95);
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  height: 47px;
+  padding: 4px;
+  border-radius: var(--round-size-medium);
+}
+.toggle-switch button {
+  flex: 1;
+  border: none;
+  border-radius: var(--round-size-medium);
+  font-size: var(--text-size-body-small);
+  background-color: var(--color-neutral-90);
+  color: var(--color-neutral-0);
+}
+.toggle-switch button:disabled {
+  background-color: var(--color-neutral-95);
+  color: var(--color-neutral-15);
+}

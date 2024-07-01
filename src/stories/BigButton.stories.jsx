@@ -5,5 +5,13 @@ export default {
   title: 'BigButton',
 };
 
-export const Default = () => <BigButton>Button</BigButton>;
-export const Disabled = () => <BigButton disabled={true}>Button</BigButton>;
+export const Default = (args) => <BigButton {...args} />;
+Default.args = {
+  children: 'Button',
+  disabled: false,
+};
+export const Disabled = (args) => <BigButton {...args} />;
+Disabled.args = {
+  children: 'Button',
+  disabled: true,
+};

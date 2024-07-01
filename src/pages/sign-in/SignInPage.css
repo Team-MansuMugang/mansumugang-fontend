@@ -1,0 +1,63 @@
+h1 {
+  font-size: 30px;
+  font-weight: 140%;
+  color: #007846;
+  text-align: center;
+}
+p {
+  font-size: 18px;
+  font-weight: bold;
+  color: #94a19c;
+  text-align: center;
+}
+.sign-in-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* 페이지 전체 높이 사용 */
+  padding: 20px;
+  box-sizing: border-box; /* 패딩을 포함한 박스 크기 계산 */
+}
+/* input 스타일 (Input 컴포넌트에 적용) */
+input {
+  width: 80%;
+  max-width: 300px;
+  margin: 4.5px 0;
+  padding: 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* button 스타일 (BigButton 컴포넌트에 적용) */
+button {
+  width: 80%;
+  max-width: 300px;
+  margin: 20px 0;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: #007846;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* a 스타일 (SubLink 컴포넌트에 적용) */
+a {
+  display: block;
+  text-align: center;
+  margin: 10px 0;
+  color: #007846;
+  text-decoration: none;
+}
+
+a:last-of-type {
+  margin-top: auto; /* 최하단에 배치 */
+}

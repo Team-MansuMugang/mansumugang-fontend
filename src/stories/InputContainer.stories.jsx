@@ -1,10 +1,10 @@
-import InputContainer from '../components/InputContainer';
+import InputWrapper from '../components/InputWrapper';
 import Input from '../components/Input';
 import CheckButton from '../components/CheckButton';
 
 export default {
-  component: InputContainer,
-  title: 'InputContainer',
+  component: InputWrapper,
+  title: 'InputWrapper',
 };
 
 const defaultArgs = {
@@ -13,10 +13,10 @@ const defaultArgs = {
 };
 
 const Template = (args) => (
-  <InputContainer {...args}>
+  <InputWrapper {...args}>
     <Input></Input>
     <CheckButton>button</CheckButton>
-  </InputContainer>
+  </InputWrapper>
 );
 
 export const Default = Template.bind({});

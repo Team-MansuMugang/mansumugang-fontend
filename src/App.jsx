@@ -1,6 +1,8 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import TestPage from './pages/test/TestPage';
-import SignInPage from './pages/sign-in/SignInPage';
+import TestPage from './pages/test-page/TestPage';
+import SignUpHeader from './pages/sign-up/SignUpHeader';
+import GuardianSignUpPage from './pages/sign-up/GuardianSignUpPage';
+import PatientSignUpPage from './pages/sign-up/PatientSignUpPage';
 
 const router = createBrowserRouter([
   {
@@ -12,8 +14,21 @@ const router = createBrowserRouter([
     element: <TestPage />,
   },
   {
-    path: '/sign-in',
-    element: <SignInPage />,
+    element: <SignUpHeader />,
+    children: [
+      {
+        path: '/sign-up',
+        element: <PatientSignUpPage />,
+      },
+      {
+        path: '/sign-up/patient',
+        element: <PatientSignUpPage />,
+      },
+      {
+        path: '/sign-up/Guardian',
+        element: <GuardianSignUpPage />,
+      },
+    ],
   },
 ]);
 

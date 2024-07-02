@@ -1,10 +1,12 @@
 import './ToggleSwitch.css';
 import '../index.css';
 
-const ToggleSwitch = ({ labels = ['A', 'B'], active = 0 }) => {
+const ToggleSwitch = ({ labels = ['A', 'B'], active = 0, onClicks }) => {
   const buttons = labels.map((label, index) => {
+    const handleClick = onClicks?.[index] ?? (() => {});
+
     return (
-      <button key={label} disabled={active !== index}>
+      <button key={label} disabled={active === index} onClick={handleClick}>
         {label}
       </button>
     );

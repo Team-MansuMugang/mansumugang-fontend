@@ -46,3 +46,7 @@
   --round-size-medium: 10px;
   --round-size-large: 20px;
 }
+
+body {
+  margin: 0px;
+}

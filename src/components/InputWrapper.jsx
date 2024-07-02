@@ -1,28 +1,28 @@
-import './InputContainer.css';
+import './InputWrapper.css';
 import '../index.css';
 import PropTypes from 'prop-types';
 
-const InputContainer = ({
+const InputWrapper = ({
   children,
   description = 'description',
   status = 'default',
   statusDescription = '',
 }) => {
   return (
-    <div className={`input-container input-container-${status}`}>
-      <div className="input-container-descriptions">
+    <div className={`input-wrapper input-wrapper-${status}`}>
+      <div className="input-wrapper-descriptions">
         <p className="description">{description}</p>
         <p className="status-description">{statusDescription}</p>
       </div>
-      <div className="input-container-children">{children}</div>
+      <div className="input-wrapper-children">{children}</div>
     </div>
   );
 };
 
-InputContainer.propTypes = {
+InputWrapper.propTypes = {
   description: PropTypes.string,
   status: PropTypes.oneOf(['default', 'success', 'warning', 'error', 'important', 'info']),
   statusDescription: PropTypes.string,
 };
 
-export default InputContainer;
+export default InputWrapper;

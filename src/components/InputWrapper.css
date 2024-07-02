@@ -1,0 +1,39 @@
+.input-wrapper-children {
+  display: flex;
+}
+.input-wrapper-children * {
+  margin: 0px 5px;
+}
+.input-wrapper-children :first-child {
+  margin-left: 0px;
+}
+.input-wrapper-children :last-child {
+  margin-right: 0px;
+}
+.input-wrapper-descriptions {
+  display: flex;
+}
+.input-wrapper p {
+  font-size: var(--text-size-body-small);
+  color: var(--color--neutral-0);
+  margin: 0px 0px 5px 0px;
+  padding-left: 6px;
+}
+.input-wrapper .description {
+  font-weight: bold;
+}
+.input-wrapper-success .status-description {
+  color: var(--color-semantic-success);
+}
+.input-wrapper-warning .status-description {
+  color: var(--color-semantic-warning);
+}
+.input-wrapper-error .status-description {
+  color: var(--color-semantic-error);
+}
+.input-wrapper-important .status-description {
+  color: var(--color-semantic-important);
+}
+.input-wrapper-info .status-description {
+  color: var(--color-semantic-info);
+}

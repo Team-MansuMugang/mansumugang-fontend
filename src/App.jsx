@@ -3,6 +3,7 @@ import TestPage from './pages/test/TestPage';
 import SignUpHeader from './pages/sign-up/SignUpHeader';
 import GuardianSignUpPage from './pages/sign-up/GuardianSignUpPage';
 import PatientSignUpPage from './pages/sign-up/PatientSignUpPage';
+import SignInPage from './pages/sign-in/SignInPage';
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
   {
     path: '/test',
     element: <TestPage />,
+  },
+  {
+    path: '/sign-in',
+    element: <SignInPage />,
   },
   {
     element: <SignUpHeader />,

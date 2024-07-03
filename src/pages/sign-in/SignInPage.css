@@ -1,63 +1,42 @@
-h1 {
-  font-size: 30px;
-  font-weight: 140%;
-  color: #007846;
-  text-align: center;
-}
-p {
-  font-size: 18px;
-  font-weight: bold;
-  color: #94a19c;
-  text-align: center;
-}
-.sign-in-container {
+.sign-in {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh; /* 페이지 전체 높이 사용 */
-  padding: 20px;
-  box-sizing: border-box; /* 패딩을 포함한 박스 크기 계산 */
+  text-align: center;
+}
+.sign-in-h1 {
+  color: var(--color-primary);
+  font-weight: bold;
+  margin-top: 150px;
+  margin-bottom: 13px;
+}
+.sign-in-p {
+  font-size: 17px;
+  font-weight: bold;
+  color: #94a19c;
+}
+.sign-in-container {
+  margin-top: 16px;
+  margin-bottom: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
 }
 /* input 스타일 (Input 컴포넌트에 적용) */
-input {
-  width: 80%;
-  max-width: 300px;
-  margin: 4.5px 0;
-  padding: 10px;
-  font-size: 14px;
-  box-sizing: border-box;
+.sign-in-input {
+  margin-top: 1px;
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
 }
-
-/* button 스타일 (BigButton 컴포넌트에 적용) */
-button {
-  width: 80%;
-  max-width: 300px;
-  margin: 20px 0;
-  padding: 10px;
-  font-size: 16px;
-  box-sizing: border-box;
-  background-color: #007846;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.sign-up-link {
+  margin-top: 15px;
 }
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-/* a 스타일 (SubLink 컴포넌트에 적용) */
-a {
-  display: block;
-  text-align: center;
-  margin: 10px 0;
-  color: #007846;
-  text-decoration: none;
-}
-
-a:last-of-type {
-  margin-top: auto; /* 최하단에 배치 */
+.found-link {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3rem;
+  margin-top: 250px;
 }

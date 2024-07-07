@@ -7,13 +7,9 @@ const SignInPage = () => {
   return (
     <>
       <div className="sign-in">
-        <div className="sign-in-h1">
-          <h1>만수무강</h1>
-        </div>
+        <h1>만수무강</h1>
 
-        <div className="sign-in-p">
-          <p>만수무강을 위한 노인 케어 서비스</p>
-        </div>
+        <p>만수무강을 위한 노인 케어 서비스</p>
 
         <div className="sign-in-input">
           <Input placeholder="아이디" status="default" />
@@ -21,9 +17,7 @@ const SignInPage = () => {
         </div>
 
         <BigButton disabled={false}>로그인</BigButton>
-        <div className="sign-up-link">
-          <SubLink to="/">회원가입</SubLink>
-        </div>
+        <SubLink to="/">회원가입</SubLink>
         <div className="found-link">
           <SubLink to="/">아이디 / 비밀번호 찾기</SubLink>
         </div>

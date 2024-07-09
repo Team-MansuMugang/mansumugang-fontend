@@ -4,6 +4,9 @@ import SignUpHeader from './pages/sign-up/SignUpHeader';
 import GuardianSignUpPage from './pages/sign-up/GuardianSignUpPage';
 import PatientSignUpPage from './pages/sign-up/PatientSignUpPage';
 import SignInPage from './pages/sign-in/SignInPage';
+import ChangeBirthday from './pages/user-account/ChangeBirthday';
+import ChangeEmail from './pages/user-account/ChangeEmail';
+import PasswordChange from './pages/user-account/PasswordChange';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +20,18 @@ const router = createBrowserRouter([
   {
     path: '/sign-in',
     element: <SignInPage />,
+  },
+  {
+    path: '/change-birthday',
+    element: <ChangeBirthday />,
+  },
+  {
+    path: '/change-email',
+    element: <ChangeEmail />,
+  },
+  {
+    path: '/password-change',
+    element: <PasswordChange />,
   },
   {
     element: <SignUpHeader />,

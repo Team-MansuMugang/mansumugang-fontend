@@ -9,7 +9,17 @@ import { validateParameters } from '../utility/validate.js';
 const baseURL = 'http://minnnisu.iptime.org';
 
 const submitProtectorSignup = async (params) => {
-  validateParameters(params, ['username', 'password', 'passwordCheck', 'name', 'birthdate']);
+  validateParameters(params, [
+    'username',
+    'password',
+    'passwordCheck',
+    'name',
+    'birthdate',
+    'email',
+    'nickname',
+  ]);
+  console.log(`${baseURL}/api/auth/signup/protector`);
+  console.log(JSON.stringify(params));
 
   const response = await fetch(`${baseURL}/api/auth/signup/protector`, {
     method: 'POST',

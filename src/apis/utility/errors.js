@@ -34,3 +34,10 @@ export class DuplicatedNicknameError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class UserNotFoundError extends Error {
+  constructor() {
+    super('유저 정보를 찾을 수 없음.');
+    this.name = this.constructor.name;
+  }
+}

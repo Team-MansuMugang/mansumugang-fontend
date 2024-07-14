@@ -5,6 +5,8 @@ import Input from '../../components/Input';
 import InputWrapper from '../../components/InputWrapper';
 import SubLink from '../../components/SubLink';
 import ToggleSwitch from '../../components/ToggleSwitch';
+import ProfileEditButton from '../../components/ProfileEditButton';
+import ContainerWrapper from '../../components/ContainerWrapper';
 
 const TestPage = () => {
   return (
@@ -29,6 +31,14 @@ const TestPage = () => {
       <BigButton disabled={false}>회원가입</BigButton>
       <SubLink to="/">회원가입</SubLink>
       <ToggleSwitch labels={['보호자', '케어 맴버']} active={0} />
+      <ProfileEditButton disabled={false}>프로필 수정하기</ProfileEditButton>
+      <ContainerWrapper description="내 계정">
+        <SubLink to="/">회원가입</SubLink>
+        <br></br>
+        <SubLink to="/">회원가입</SubLink>
+        <br></br>
+        <SubLink to="/">회원가입</SubLink>
+      </ContainerWrapper>
     </body>
   );
 };

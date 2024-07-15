@@ -7,6 +7,7 @@ import SubLink from '../../components/SubLink';
 import ToggleSwitch from '../../components/ToggleSwitch';
 import ProfileEditButton from '../../components/ProfileEditButton';
 import ContainerWrapper from '../../components/ContainerWrapper';
+import CancelButton from '../../components/CancelButton';
 
 const TestPage = () => {
   return (
@@ -39,6 +40,7 @@ const TestPage = () => {
         <br></br>
         <SubLink to="/">회원가입</SubLink>
       </ContainerWrapper>
+      <CancelButton disabled={false}>삭제</CancelButton>
     </body>
   );
 };

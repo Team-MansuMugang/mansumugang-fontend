@@ -1,6 +1,6 @@
 export class ParametersValidationError extends Error {
   constructor(missingFields) {
-    super(`Missing required fields: ${missingFields.join(', ')}`);
+    super(`필수 입력란 누락: ${missingFields.join(', ')}`);
     this.name = this.constructor.name;
     this.missingFields = missingFields;
   }
@@ -14,23 +14,31 @@ export class HttpResponseError extends Error {
   }
 }
 
+export class NotValidRequestError extends Error {
+  constructor(errorDescriptions) {
+    super('유효하지 않은 요청.');
+    this.name = this.constructor.name;
+    this.errorDescriptions = errorDescriptions;
+  }
+}
+
 export class PasswordMismatchError extends Error {
   constructor() {
-    super();
+    super('비밀번호와 비밀번호 확인 값이 일치하지 않음.');
     this.name = this.constructor.name;
   }
 }
 
 export class DuplicatedUsernameError extends Error {
   constructor() {
-    super('Duplicated username');
+    super('사용자 ID가 중복됨.');
     this.name = this.constructor.name;
   }
 }
 
 export class DuplicatedNicknameError extends Error {
   constructor() {
-    super('Duplicated username');
+    super('사용자 닉네임이 중복됨.');
     this.name = this.constructor.name;
   }
 }

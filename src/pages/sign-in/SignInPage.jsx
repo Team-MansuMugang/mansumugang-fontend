@@ -5,12 +5,15 @@ import SubLink from '../../components/SubLink';
 import { toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './SignInPage.css';
+import submitSignin from '../../apis/api/submitSignin';
+import { useNavigate } from 'react-router-dom';
 
 const SignInPage = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [idStatus, setIdStatus] = useState('default');
   const [passwordStatus, setPasswordStatus] = useState('default');
+  const navigate = useNavigate();
 
   const handleIdChange = (event) => {
     setId(event.target.value);
@@ -34,7 +37,7 @@ const SignInPage = () => {
     setPasswordStatus(event.target.value ? 'default' : 'warning');
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!id || !password) {
       setIdStatus(id ? 'default' : 'warning');
       setPasswordStatus(password ? 'default' : 'warning');
@@ -42,11 +45,14 @@ const SignInPage = () => {
       return;
     }
 
-    console.log('로그인 시도:', id, password);
-
-    setIdStatus('error');
-    setPasswordStatus('error');
-    toast.error('아이디 또는 비밀번호가 올바르지 않습니다', { position: 'bottom-center' });
+    try {
+      await submitSignin({ username: id, password });
+      navigate('/home');
+    } catch (error) {
+      setIdStatus('error');
+      setPasswordStatus('error');
+      toast.error('아이디 또는 비밀번호가 올바르지 않습니다', { position: 'bottom-center' });
+    }
   };
 
   return (

@@ -11,15 +11,15 @@ import PasswordChange from './pages/user-account/PasswordChange';
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <SignInPage />,
+  },
+  {
+    path: '/home',
     element: <p>homepage</p>,
   },
   {
     path: '/test',
     element: <TestPage />,
-  },
-  {
-    path: '/sign-in',
-    element: <SignInPage />,
   },
   {
     path: '/change-birthday',

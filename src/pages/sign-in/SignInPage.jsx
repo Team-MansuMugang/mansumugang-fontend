@@ -66,7 +66,7 @@ const SignInPage = () => {
         setPasswordStatus('error');
         toast.error('아이디 또는 비밀번호가 올바르지 않습니다', { position: 'bottom-center' });
       } else {
-        toast.error('알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요', {
+        toast.error('오류가 발생했습니다. 잠시 후 다시 시도해주세요', {
           position: 'bottom-center',
         });
       }

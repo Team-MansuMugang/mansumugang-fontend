@@ -7,6 +7,8 @@ import SignInPage from './pages/sign-in/SignInPage';
 import ChangeBirthday from './pages/user-account/ChangeBirthday';
 import ChangeEmail from './pages/user-account/ChangeEmail';
 import PasswordChange from './pages/user-account/PasswordChange';
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
   {
@@ -53,7 +55,25 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router}></RouterProvider>;
+  return (
+    <>
+      <RouterProvider router={router}></RouterProvider>;
+      <ToastContainer
+        position="top-center"
+        autoClose={2500}
+        limit={3}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Slide}
+      />
+    </>
+  );
 }
 
 export default App;

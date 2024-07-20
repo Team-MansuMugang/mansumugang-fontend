@@ -2,13 +2,20 @@ import './Input.css';
 import '../index.css';
 import PropTypes from 'prop-types';
 
-const Input = ({ placeholder, type = 'text', autoCapitalize = 'off', status = 'default' }) => {
+const Input = ({
+  placeholder,
+  type = 'text',
+  autoCapitalize = 'off',
+  status = 'default',
+  onChange,
+}) => {
   return (
     <input
       className={`input input-${status}`}
       type={type}
       placeholder={placeholder}
       autoCapitalize={autoCapitalize}
+      onChange={onChange}
     />
   );
 };

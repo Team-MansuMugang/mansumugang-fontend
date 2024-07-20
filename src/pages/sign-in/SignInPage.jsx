@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { PatientLoginNotAllowedError, UserNotFoundError } from '../../apis/utility/errors';
 import BigButton from '../../components/BigButton';
 import Input from '../../components/Input';
 import SubLink from '../../components/SubLink';
@@ -49,9 +50,26 @@ const SignInPage = () => {
       await submitSignin({ username: id, password });
       navigate('/home');
     } catch (error) {
-      setIdStatus('error');
-      setPasswordStatus('error');
-      toast.error('아이디 또는 비밀번호가 올바르지 않습니다', { position: 'bottom-center' });
+      if (error instanceof PatientLoginNotAllowedError) {
+        toast.info(
+          <div>
+            케이 맴버님은 앱을 통해서 로그인하실 수 있습니다
+            <br />
+            플레이스토어에서 '만수무강'을 검색해주세요
+          </div>,
+          {
+            position: 'bottom-center',
+          },
+        );
+      } else if (error instanceof UserNotFoundError) {
+        setIdStatus('error');
+        setPasswordStatus('error');
+        toast.error('아이디 또는 비밀번호가 올바르지 않습니다', { position: 'bottom-center' });
+      } else {
+        toast.error('알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요', {
+          position: 'bottom-center',
+        });
+      }
     }
   };
 

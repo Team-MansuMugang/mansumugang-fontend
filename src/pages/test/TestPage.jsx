@@ -8,6 +8,8 @@ import ToggleSwitch from '../../components/ToggleSwitch';
 import ProfileEditButton from '../../components/ProfileEditButton';
 import ContainerWrapper from '../../components/ContainerWrapper';
 import CancelButton from '../../components/CancelButton';
+import NavBar from '../../components/NavBar';
+import TabButton from '../../components/TabButton';
 
 const TestPage = () => {
   return (
@@ -41,6 +43,9 @@ const TestPage = () => {
         <SubLink to="/">회원가입</SubLink>
       </ContainerWrapper>
       <CancelButton disabled={false}>삭제</CancelButton>
+      <NavBar></NavBar>
+      <TabButton disabled={true}>전체</TabButton>
+      <TabButton disabled={false}>인기글</TabButton>
     </body>
   );
 };

@@ -1,0 +1,17 @@
+.tab-button {
+  font-size: var(--text-size-body-medium);
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: var(--round-size-large);
+  background-color: var(--color-neutral-95);
+  color: var(--color-neutral-0);
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.tab-button:disabled {
+  background-color: var(--color-primary);
+  color: var(--color-neutral-100);
+  cursor: not-allowed;
+}

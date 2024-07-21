@@ -21,6 +21,7 @@
 }
 .input-wrapper .description {
   font-weight: bold;
+  white-space: nowrap;
 }
 .input-wrapper-success .status-description {
   color: var(--color-semantic-success);

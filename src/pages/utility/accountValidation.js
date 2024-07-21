@@ -30,6 +30,11 @@ const validatePassword = (value) => {
 
 const validName = (value) => {
   if (value === '') return { status: 'default', description: '' };
+  if (/[^a-zA-Z가-힣 ]/.test(value))
+    return {
+      status: 'warning',
+      description: '이름은 영문자, 한글 음절, 공백만 포함할 수 있습니다.',
+    };
   if (value.length < 2 || value.length > 20)
     return { status: 'warning', description: '2자 이상 20자 이하로 입력해주세요' };
 
@@ -45,4 +50,35 @@ const validPhoneNumber = (value) => {
   return { status: 'success', description: '' };
 };
 
-export { validateId, validatePassword, validName, validPhoneNumber };
+const validBirthYear = (value) => {
+  if (value === '') return { status: 'default', description: '' };
+  if (value.length !== 4) return { status: 'warning', description: '년도를 정확히 입력해주세요' };
+
+  return { status: 'success', description: '' };
+};
+
+const validBirthMonth = (value) => {
+  if (value === '') return { status: 'default', description: '' };
+  if (value < 1 || value > 12)
+    return { status: 'warning', description: '월을 정확히 입력해주세요' };
+
+  return { status: 'success', description: '' };
+};
+
+const validBirthDay = (value) => {
+  if (value === '') return { status: 'default', description: '' };
+  if (value < 1 || value > 31)
+    return { status: 'warning', description: '일을 정확히 입력해주세요' };
+
+  return { status: 'success', description: '' };
+};
+
+export {
+  validateId,
+  validatePassword,
+  validName,
+  validPhoneNumber,
+  validBirthYear,
+  validBirthMonth,
+  validBirthDay,
+};

@@ -7,9 +7,11 @@ import {
   validateId,
   validatePassword,
   validName,
-  validPhoneNumber,
+  validBirthYear,
+  validBirthMonth,
+  validBirthDay,
 } from '../utility/accountValidation';
-import { formatPhoneNumber } from '../utility/inputFormatter';
+import { formatBirthYear, formatBirthMonth, formatBirthDay } from '../utility/inputFormatter';
 
 const PatientSignUpPage = () => {
   const [idStatus, setIdStatus] = useState('default');
@@ -21,13 +23,20 @@ const PatientSignUpPage = () => {
   const [passwordCheckStatusDescription, setPasswordCheckStatusDescription] = useState('');
   const [nameStatus, setNameStatus] = useState('default');
   const [nameStatusDescription, setNameStatusDescription] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [phoneNumberStatus, setPhoneNumberStatus] = useState('default');
-  const [phoneNumberStatusDescription, setPhoneNumberStatusDescription] = useState('');
+  const [birthStatus, setBirthStatus] = useState('default');
+  const [birthStatusDescription, setBirthStatusDescription] = useState('');
+  const [birthYear, setBirthYear] = useState('');
+  const [birthYearStatus, setBirthYearStatus] = useState('default');
+  const [birthMonth, setBirthMonth] = useState('');
+  const [birthMonthStatus, setBirthMonthStatus] = useState('default');
+  const [birthDay, setBirthDay] = useState('');
+  const [birthDayStatus, setBirthDayStatus] = useState('default');
+  const [guardianIdStatus, setGuardianIdStatus] = useState('default');
+  const [guardianIdStatusDescription, setGuardianIdStatusDescription] = useState('');
 
-  const handlePhoneInput = (event) => {
-    setPhoneNumber(formatPhoneNumber(event.target.value));
-  };
+  React.useEffect(() => {
+    setBirthDay(formatBirthDay(birthYear, birthMonth, birthDay));
+  }, [birthYear, birthMonth, birthDay]);
 
   const handleIdChange = (event) => {
     const { status, description } = validateId(event.target.value);
@@ -64,10 +73,42 @@ const PatientSignUpPage = () => {
     setNameStatusDescription(description);
   };
 
-  const handlePhoneNumberChange = (event) => {
-    const { status, description } = validPhoneNumber(event.target.value);
-    setPhoneNumberStatus(status);
-    setPhoneNumberStatusDescription(description);
+  const handleBirthYearChange = (event) => {
+    const { status, description } = validBirthYear(event.target.value);
+    setBirthStatus(status);
+    setBirthYearStatus(status);
+    setBirthStatusDescription(description);
+  };
+
+  const handleBirthYearInput = (event) => {
+    event.target.value = formatBirthYear(event.target.value);
+    setBirthYear(event.target.value);
+    setBirthDay(formatBirthDay(birthYear, birthMonth, birthDay));
+  };
+
+  const handleBirthMonthChange = (event) => {
+    const { status, description } = validBirthMonth(event.target.value);
+    setBirthStatus(status);
+    setBirthMonthStatus(status);
+    setBirthStatusDescription(description);
+  };
+
+  const handleBirthMonthInput = (event) => {
+    event.target.value = formatBirthMonth(event.target.value);
+    setBirthMonth(event.target.value);
+    setBirthDay(formatBirthDay(birthYear, birthMonth, birthDay));
+  };
+
+  const handleBirthDayChange = (event) => {
+    const { status, description } = validBirthDay(event.target.value);
+    setBirthStatus(status);
+    setBirthDayStatus(status);
+    setBirthStatusDescription(description);
+  };
+
+  const handleBirthDayInput = (event) => {
+    event.target.value = formatBirthDay(birthYear, birthMonth, event.target.value);
+    setBirthDay(event.target.value);
   };
 
   return (
@@ -117,18 +158,40 @@ const PatientSignUpPage = () => {
         </InputWrapper>
 
         <InputWrapper
-          description="휴대전화"
-          status={phoneNumberStatus}
-          statusDescription={phoneNumberStatusDescription}
+          description="생년월일"
+          status={birthStatus}
+          statusDescription={birthStatusDescription}
         >
           <Input
-            placeholder="010 1234 5678"
-            type="tel"
-            value={phoneNumber}
-            status={phoneNumberStatus}
-            onInput={handlePhoneInput}
-            onChange={handlePhoneNumberChange}
+            placeholder="2000"
+            status={birthYearStatus}
+            value={birthYear}
+            onChange={handleBirthYearChange}
+            onInput={handleBirthYearInput}
           />
+          <Input
+            placeholder="4"
+            status={birthMonthStatus}
+            value={birthMonth}
+            onChange={handleBirthMonthChange}
+            onInput={handleBirthMonthInput}
+          />
+          <Input
+            placeholder="27"
+            status={birthDayStatus}
+            value={birthDay}
+            onChange={handleBirthDayChange}
+            onInput={handleBirthDayInput}
+          />
+        </InputWrapper>
+
+        <InputWrapper
+          description="보호자 아이디"
+          status={guardianIdStatus}
+          statusDescription={guardianIdStatusDescription}
+        >
+          <Input placeholder="보호자 아이디" status={guardianIdStatus} />
+          <CheckButton>확인</CheckButton>
         </InputWrapper>
       </div>
 

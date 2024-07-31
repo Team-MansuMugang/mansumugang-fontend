@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { produce } from 'immer';
 import Input from '../../components/Input';
 import CheckButton from '../../components/CheckButton';
 import InputWrapper from '../../components/InputWrapper';
@@ -14,172 +15,216 @@ import {
 import { formatBirthYear, formatBirthMonth, formatBirthDay } from '../utility/inputFormatter';
 
 const PatientSignUpPage = () => {
-  const [idStatus, setIdStatus] = useState('default');
-  const [idStatusDescription, setIdStatusDescription] = useState('');
-  const [passwordValue, setPasswordValue] = useState('default');
-  const [passwordStatus, setPasswordStatus] = useState('default');
-  const [passwordStatusDescription, setPasswordStatusDescription] = useState('');
-  const [passwordCheckStatus, setPasswordCheckStatus] = useState('default');
-  const [passwordCheckStatusDescription, setPasswordCheckStatusDescription] = useState('');
-  const [nameStatus, setNameStatus] = useState('default');
-  const [nameStatusDescription, setNameStatusDescription] = useState('');
-  const [birthStatus, setBirthStatus] = useState('default');
-  const [birthStatusDescription, setBirthStatusDescription] = useState('');
-  const [birthYear, setBirthYear] = useState('');
-  const [birthYearStatus, setBirthYearStatus] = useState('default');
-  const [birthMonth, setBirthMonth] = useState('');
-  const [birthMonthStatus, setBirthMonthStatus] = useState('default');
-  const [birthDay, setBirthDay] = useState('');
-  const [birthDayStatus, setBirthDayStatus] = useState('default');
-  const [guardianIdStatus, setGuardianIdStatus] = useState('default');
-  const [guardianIdStatusDescription, setGuardianIdStatusDescription] = useState('');
+  const [id, setId] = useState({ value: '', status: 'default', description: '' });
+  const [password, setPassword] = useState({ value: '', status: 'default', description: '' });
+  const [passwordCheck, setPasswordCheck] = useState({
+    value: '',
+    status: 'default',
+    description: '',
+  });
+  const [name, setName] = useState({ value: '', status: 'default', description: '' });
+  const [birth, setBirth] = useState({
+    status: 'default',
+    description: '',
+    year: { value: '', status: 'default' },
+    month: { value: '', status: 'default' },
+    day: { value: '', status: 'default' },
+  });
+  const [guardianId, setGuardianId] = useState({ value: '', status: 'default', description: '' });
 
-  React.useEffect(() => {
-    setBirthDay(formatBirthDay(birthYear, birthMonth, birthDay));
-  }, [birthYear, birthMonth, birthDay]);
+  useEffect(() => {
+    const newDayValue = formatBirthDay(birth.year.value, birth.month.value, birth.day.value);
+
+    setBirth((currentBirth) =>
+      produce(currentBirth, (draft) => {
+        draft.day.value = newDayValue;
+      }),
+    );
+  }, [birth.year.value, birth.month.value, birth.day.value]);
 
   const handleIdChange = (event) => {
     const { status, description } = validateId(event.target.value);
-    setIdStatus(status);
-    setIdStatusDescription(description);
+
+    setId((currentId) =>
+      produce(currentId, (draft) => {
+        draft.status = status;
+        draft.description = description;
+      }),
+    );
   };
 
   const handlePasswordChange = (event) => {
     const { status, description } = validatePassword(event.target.value);
-    setPasswordValue(event.target.value);
-    setPasswordStatus(status);
-    setPasswordStatusDescription(description);
+
+    setPassword((currentPassword) =>
+      produce(currentPassword, (draft) => {
+        draft.value = event.target.value;
+        draft.status = status;
+        draft.description = description;
+      }),
+    );
   };
 
   const handlePasswordCheckChange = (event) => {
-    if (event.target.value === '') {
-      setPasswordCheckStatus('default');
-      setPasswordCheckStatusDescription('');
-      return;
-    }
-    if (passwordValue !== event.target.value) {
-      setPasswordCheckStatus('warning');
-      setPasswordCheckStatusDescription('비밀번호가 일치하지 않습니다');
-      return;
+    let status = 'success';
+    let description = '';
+
+    if (password.value === '') {
+      status = 'warning';
+      description = '비밀번호가 일치하지 않습니다';
+    } else if (password.value !== event.target.value) {
+      status = 'warning';
+      description = '비밀번호가 일치하지 않습니다';
     }
 
-    setPasswordCheckStatus('success');
-    setPasswordCheckStatusDescription('');
+    setPasswordCheck((currentPasswordCheck) =>
+      produce(currentPasswordCheck, (draft) => {
+        draft.status = status;
+        draft.description = description;
+      }),
+    );
   };
 
   const handleNameChange = (event) => {
     const { status, description } = validName(event.target.value);
-    setNameStatus(status);
-    setNameStatusDescription(description);
+
+    setName((currentName) =>
+      produce(currentName, (draft) => {
+        draft.status = status;
+        draft.description = description;
+      }),
+    );
   };
 
   const handleBirthYearChange = (event) => {
     const { status, description } = validBirthYear(event.target.value);
-    setBirthStatus(status);
-    setBirthYearStatus(status);
-    setBirthStatusDescription(description);
+
+    setBirth((currentBirth) =>
+      produce(currentBirth, (draft) => {
+        draft.year.status = status;
+        draft.status = status;
+        draft.description = description;
+      }),
+    );
   };
 
   const handleBirthYearInput = (event) => {
     event.target.value = formatBirthYear(event.target.value);
-    setBirthYear(event.target.value);
-    setBirthDay(formatBirthDay(birthYear, birthMonth, birthDay));
+
+    setBirth((currentBirth) =>
+      produce(currentBirth, (draft) => {
+        draft.year.value = event.target.value;
+        draft.day.value = formatBirthDay(birth.year.value, birth.month.value, birth.day.value);
+      }),
+    );
   };
 
   const handleBirthMonthChange = (event) => {
     const { status, description } = validBirthMonth(event.target.value);
-    setBirthStatus(status);
-    setBirthMonthStatus(status);
-    setBirthStatusDescription(description);
+
+    setBirth((currentBirth) =>
+      produce(currentBirth, (draft) => {
+        draft.month.status = status;
+        draft.status = status;
+        draft.description = description;
+      }),
+    );
   };
 
   const handleBirthMonthInput = (event) => {
     event.target.value = formatBirthMonth(event.target.value);
-    setBirthMonth(event.target.value);
-    setBirthDay(formatBirthDay(birthYear, birthMonth, birthDay));
+
+    setBirth((currentBirth) =>
+      produce(currentBirth, (draft) => {
+        draft.month.value = event.target.value;
+        draft.day.value = formatBirthDay(birth.year.value, birth.month.value, birth.day.value);
+      }),
+    );
   };
 
   const handleBirthDayChange = (event) => {
     const { status, description } = validBirthDay(event.target.value);
-    setBirthStatus(status);
-    setBirthDayStatus(status);
-    setBirthStatusDescription(description);
+
+    setBirth((currentBirth) =>
+      produce(currentBirth, (draft) => {
+        draft.day.status = status;
+        draft.status = status;
+        draft.description = description;
+      }),
+    );
   };
 
   const handleBirthDayInput = (event) => {
-    event.target.value = formatBirthDay(birthYear, birthMonth, event.target.value);
-    setBirthDay(event.target.value);
+    event.target.value = formatBirthDay(birth.year, birth.month, event.target.value);
+
+    setBirth((currentBirth) =>
+      produce(currentBirth, (draft) => {
+        draft.day.value = event.target.value;
+      }),
+    );
   };
 
   return (
     <>
       <div className="input-container">
-        <InputWrapper
-          description="아이디"
-          status={idStatus}
-          statusDescription={idStatusDescription}
-        >
-          <Input placeholder="아이디" onChange={handleIdChange} status={idStatus} />
+        <InputWrapper description="아이디" status={id.status} statusDescription={id.description}>
+          <Input placeholder="아이디" onChange={handleIdChange} status={id.status} />
           <CheckButton>중복 확인</CheckButton>
         </InputWrapper>
 
         <InputWrapper
           description="비밀번호"
-          status={passwordStatus}
-          statusDescription={passwordStatusDescription}
+          status={password.status}
+          statusDescription={password.description}
         >
           <Input
             placeholder="비밀번호"
             type="password"
             onChange={handlePasswordChange}
-            status={passwordStatus}
+            status={password.status}
           />
         </InputWrapper>
 
         <InputWrapper
           description="비밀번호 확인"
-          status={passwordCheckStatus}
-          statusDescription={passwordCheckStatusDescription}
+          status={passwordCheck.status}
+          statusDescription={passwordCheck.description}
         >
           <Input
             placeholder="비밀번호 확인"
             type="password"
-            status={passwordCheckStatus}
+            status={passwordCheck.status}
             onChange={handlePasswordCheckChange}
           />
         </InputWrapper>
 
-        <InputWrapper
-          description="이름"
-          status={nameStatus}
-          statusDescription={nameStatusDescription}
-        >
-          <Input placeholder="홍길동" status={nameStatus} onInput={handleNameChange} />
+        <InputWrapper description="이름" status={name.status} statusDescription={name.description}>
+          <Input placeholder="홍길동" status={name.status} onInput={handleNameChange} />
         </InputWrapper>
 
         <InputWrapper
           description="생년월일"
-          status={birthStatus}
-          statusDescription={birthStatusDescription}
+          status={birth.status}
+          statusDescription={birth.description}
         >
           <Input
             placeholder="2000"
-            status={birthYearStatus}
-            value={birthYear}
+            status={birth.year.status}
+            value={birth.year.value}
             onChange={handleBirthYearChange}
             onInput={handleBirthYearInput}
           />
           <Input
             placeholder="4"
-            status={birthMonthStatus}
-            value={birthMonth}
+            status={birth.month.status}
+            value={birth.month.value}
             onChange={handleBirthMonthChange}
             onInput={handleBirthMonthInput}
           />
           <Input
             placeholder="27"
-            status={birthDayStatus}
-            value={birthDay}
+            status={birth.day.status}
+            value={birth.day.value}
             onChange={handleBirthDayChange}
             onInput={handleBirthDayInput}
           />
@@ -187,10 +232,10 @@ const PatientSignUpPage = () => {
 
         <InputWrapper
           description="보호자 아이디"
-          status={guardianIdStatus}
-          statusDescription={guardianIdStatusDescription}
+          status={guardianId.status}
+          statusDescription={guardianId.description}
         >
-          <Input placeholder="보호자 아이디" status={guardianIdStatus} />
+          <Input placeholder="보호자 아이디" status={guardianId.status} />
           <CheckButton>확인</CheckButton>
         </InputWrapper>
       </div>

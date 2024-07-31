@@ -69,8 +69,8 @@ const PatientSignUpPage = () => {
     let checkDescription = '';
 
     if (passwordCheck.value === '') {
-      status = 'default';
-      description = '';
+      checkStatus = 'default';
+      checkDescription = '';
     } else if (passwordCheck.value !== event.target.value) {
       checkStatus = 'warning';
       checkDescription = '비밀번호가 일치하지 않습니다';

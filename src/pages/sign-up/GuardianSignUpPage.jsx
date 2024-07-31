@@ -71,8 +71,8 @@ const GuardianSignUpPage = () => {
     let checkDescription = '';
 
     if (passwordCheck.value === '') {
-      status = 'default';
-      description = '';
+      checkStatus = 'default';
+      checkDescription = '';
     } else if (passwordCheck.value !== event.target.value) {
       checkStatus = 'warning';
       checkDescription = '비밀번호가 일치하지 않습니다';
@@ -287,7 +287,7 @@ const GuardianSignUpPage = () => {
       </div>
 
       <div className="big-button-wrap">
-        <BigButton>회원가입</BigButton>
+        <BigButton onClick={handleSignUp}>회원가입</BigButton>
       </div>
     </>
   );

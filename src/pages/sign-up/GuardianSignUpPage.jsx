@@ -34,6 +34,7 @@ const GuardianSignUpPage = () => {
   });
   const [email, setEmail] = useState({ value: '', status: 'default', description: '' });
   const [nickname, setNickname] = useState({ value: '', status: 'default', description: '' });
+  const [isAllSuccess, setIsAllSuccess] = useState(false);
 
   useEffect(() => {
     const newDayValue = formatBirthDay(birth.year.value, birth.month.value, birth.day.value);
@@ -44,6 +45,34 @@ const GuardianSignUpPage = () => {
       }),
     );
   }, [birth.year.value, birth.month.value, birth.day.value]);
+
+  useEffect(() => {
+    if (
+      id.status === 'success' &&
+      password.status === 'success' &&
+      passwordCheck.status === 'success' &&
+      name.status === 'success' &&
+      birth.year.status === 'success' &&
+      birth.month.status === 'success' &&
+      birth.day.status === 'success' &&
+      email.status === 'success' &&
+      nickname.status === 'success'
+    ) {
+      setIsAllSuccess(true);
+    } else {
+      setIsAllSuccess(false);
+    }
+  }, [
+    id.status,
+    password.status,
+    passwordCheck.status,
+    name.status,
+    birth.year.status,
+    birth.month.status,
+    birth.day.status,
+    email.status,
+    nickname.status,
+  ]);
 
   const handleIdChange = (event) => {
     const { status, description } = validateId(event.target.value);
@@ -313,7 +342,9 @@ const GuardianSignUpPage = () => {
       </div>
 
       <div className="big-button-wrap">
-        <BigButton onClick={handleSignUp}>회원가입</BigButton>
+        <BigButton disabled={!isAllSuccess} onClick={handleSignUp}>
+          회원가입
+        </BigButton>
       </div>
     </>
   );

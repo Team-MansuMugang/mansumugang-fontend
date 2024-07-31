@@ -32,6 +32,7 @@ const PatientSignUpPage = () => {
     day: { value: '', status: 'default' },
   });
   const [guardianId, setGuardianId] = useState({ value: '', status: 'default', description: '' });
+  const [isAllSuccess, setIsAllSuccess] = useState(false);
 
   useEffect(() => {
     const newDayValue = formatBirthDay(birth.year.value, birth.month.value, birth.day.value);
@@ -42,6 +43,31 @@ const PatientSignUpPage = () => {
       }),
     );
   }, [birth.year.value, birth.month.value, birth.day.value]);
+  useEffect(() => {
+    if (
+      id.status === 'success' &&
+      password.status === 'success' &&
+      passwordCheck.status === 'success' &&
+      name.status === 'success' &&
+      birth.year.status === 'success' &&
+      birth.month.status === 'success' &&
+      birth.day.status === 'success' &&
+      guardianId.status === 'success'
+    ) {
+      setIsAllSuccess(true);
+    } else {
+      setIsAllSuccess(false);
+    }
+  }, [
+    id.status,
+    password.status,
+    passwordCheck.status,
+    name.status,
+    birth.year.status,
+    birth.month.status,
+    birth.day.status,
+    guardianId.status,
+  ]);
 
   const handleIdChange = (event) => {
     const { status, description } = validateId(event.target.value);
@@ -292,7 +318,9 @@ const PatientSignUpPage = () => {
       </div>
 
       <div className="big-button-wrap">
-        <BigButton onClick={handleSignUp}>회원가입</BigButton>
+        <BigButton disabled={!isAllSuccess} onClick={handleSignUp}>
+          회원가입
+        </BigButton>
       </div>
     </>
   );

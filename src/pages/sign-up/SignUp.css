@@ -32,6 +32,7 @@
   bottom: 19px;
   left: 35px;
   width: calc(100vw - 70px);
+  pointer-events: auto;
 }
 
 .big-button-wrap {

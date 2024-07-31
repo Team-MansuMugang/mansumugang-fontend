@@ -63,22 +63,42 @@ const PatientSignUpPage = () => {
         draft.description = description;
       }),
     );
+
+    // 2차 비밀번호 확인
+    let checkStatus = 'success';
+    let checkDescription = '';
+
+    if (passwordCheck.value === '') {
+      status = 'default';
+      description = '';
+    } else if (passwordCheck.value !== event.target.value) {
+      checkStatus = 'warning';
+      checkDescription = '비밀번호가 일치하지 않습니다';
+    }
+
+    setPasswordCheck((currentPasswordCheck) =>
+      produce(currentPasswordCheck, (draft) => {
+        draft.status = checkStatus;
+        draft.description = checkDescription;
+      }),
+    );
   };
 
   const handlePasswordCheckChange = (event) => {
     let status = 'success';
     let description = '';
 
-    if (password.value === '') {
-      status = 'warning';
-      description = '비밀번호가 일치하지 않습니다';
-    } else if (password.value !== event.target.value) {
+    if (event.target.value === '') {
+      status = 'default';
+      description = '';
+    } else if (event.target.value !== password.value) {
       status = 'warning';
       description = '비밀번호가 일치하지 않습니다';
     }
 
     setPasswordCheck((currentPasswordCheck) =>
       produce(currentPasswordCheck, (draft) => {
+        draft.value = event.target.value;
         draft.status = status;
         draft.description = description;
       }),

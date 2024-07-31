@@ -73,6 +73,19 @@ const validBirthDay = (value) => {
   return { status: 'success', description: '' };
 };
 
+const validateEmail = (value) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (value === '') return { status: 'default', description: '' };
+  if (!emailRegex.test(value))
+    return {
+      status: 'warning',
+      description: '유효한 이메일 주소를 입력해주세요',
+    };
+
+  return { status: 'success', description: '' };
+};
+
 export {
   validateId,
   validatePassword,
@@ -81,4 +94,5 @@ export {
   validBirthYear,
   validBirthMonth,
   validBirthDay,
+  validateEmail,
 };

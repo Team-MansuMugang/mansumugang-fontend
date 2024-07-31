@@ -8,6 +8,7 @@ import {
   validateId,
   validatePassword,
   validName,
+  validNickname,
   validBirthYear,
   validBirthMonth,
   validBirthDay,
@@ -49,6 +50,7 @@ const GuardianSignUpPage = () => {
 
     setId((currentId) =>
       produce(currentId, (draft) => {
+        draft.value = event.target.value;
         draft.status = status;
         draft.description = description;
       }),
@@ -112,6 +114,19 @@ const GuardianSignUpPage = () => {
 
     setName((currentName) =>
       produce(currentName, (draft) => {
+        draft.value = event.target.value;
+        draft.status = status;
+        draft.description = description;
+      }),
+    );
+  };
+
+  const handleNicknameChange = (event) => {
+    const { status, description } = validNickname(event.target.value);
+
+    setNickname((currentNickname) =>
+      produce(currentNickname, (draft) => {
+        draft.value = event.target.value;
         draft.status = status;
         draft.description = description;
       }),
@@ -198,6 +213,17 @@ const GuardianSignUpPage = () => {
     );
   };
 
+  const handleSignUp = async () => {
+    console.log(id);
+    console.log(password);
+    console.log(passwordCheck);
+    console.log(name);
+    console.log(nickname);
+    console.log(birth);
+    console.log(email);
+    console.log('회원가입 요청');
+  };
+
   return (
     <>
       <div className="input-container">
@@ -241,7 +267,7 @@ const GuardianSignUpPage = () => {
           status={nickname.status}
           statusDescription={nickname.description}
         >
-          <Input placeholder="닉네임" status={nickname.status} />
+          <Input placeholder="닉네임" status={nickname.status} onChange={handleNicknameChange} />
           <CheckButton>중복 확인</CheckButton>
         </InputWrapper>
 

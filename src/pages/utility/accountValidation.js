@@ -8,7 +8,7 @@ const validateId = (value) => {
   if (value.length < 4 || value.length > 16)
     return { status: 'warning', description: '4자 이상 16자 이하로 입력해주세요' };
 
-  return { status: 'default', description: '' };
+  return { status: 'info', description: '아이디가 중복인지 확인해주세요' };
 };
 
 const validatePassword = (value) => {
@@ -39,6 +39,12 @@ const validName = (value) => {
     return { status: 'warning', description: '2자 이상 20자 이하로 입력해주세요' };
 
   return { status: 'success', description: '' };
+};
+
+const validNickname = (value) => {
+  if (value === '') return { status: 'default', description: '' };
+  if (value.length > 20) return { status: 'warning', description: '20자 이하로 입력해주세요' };
+  return { status: 'info', description: '닉네임이 중복인지 확인해주세요' };
 };
 
 const validPhoneNumber = (value) => {
@@ -86,13 +92,20 @@ const validateEmail = (value) => {
   return { status: 'success', description: '' };
 };
 
+const validGuardianId = (value) => {
+  if (value === '') return { status: 'default', description: '' };
+  return { status: 'info', description: '아이디가 유효한지 확인해주세요' };
+};
+
 export {
   validateId,
   validatePassword,
   validName,
+  validNickname,
   validPhoneNumber,
   validBirthYear,
   validBirthMonth,
   validBirthDay,
   validateEmail,
+  validGuardianId,
 };

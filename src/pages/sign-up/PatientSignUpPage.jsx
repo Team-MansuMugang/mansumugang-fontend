@@ -11,6 +11,7 @@ import {
   validBirthYear,
   validBirthMonth,
   validBirthDay,
+  validGuardianId,
 } from '../utility/accountValidation';
 import { formatBirthYear, formatBirthMonth, formatBirthDay } from '../utility/inputFormatter';
 
@@ -47,6 +48,7 @@ const PatientSignUpPage = () => {
 
     setId((currentId) =>
       produce(currentId, (draft) => {
+        draft.value = event.target.value;
         draft.status = status;
         draft.description = description;
       }),
@@ -110,6 +112,7 @@ const PatientSignUpPage = () => {
 
     setName((currentName) =>
       produce(currentName, (draft) => {
+        draft.value = event.target.value;
         draft.status = status;
         draft.description = description;
       }),
@@ -121,6 +124,7 @@ const PatientSignUpPage = () => {
 
     setBirth((currentBirth) =>
       produce(currentBirth, (draft) => {
+        draft.value = event.target.value;
         draft.year.status = status;
         draft.status = status;
         draft.description = description;
@@ -133,6 +137,7 @@ const PatientSignUpPage = () => {
 
     setBirth((currentBirth) =>
       produce(currentBirth, (draft) => {
+        draft.value = event.target.value;
         draft.year.value = event.target.value;
         draft.day.value = formatBirthDay(birth.year.value, birth.month.value, birth.day.value);
       }),
@@ -182,6 +187,28 @@ const PatientSignUpPage = () => {
         draft.day.value = event.target.value;
       }),
     );
+  };
+
+  const handleGuardianIdChange = (event) => {
+    const { status, description } = validGuardianId(event.target.value);
+
+    setGuardianId((currentGuardianId) =>
+      produce(currentGuardianId, (draft) => {
+        draft.value = event.target.value;
+        draft.status = status;
+        draft.description = description;
+      }),
+    );
+  };
+
+  const handleSignUp = async () => {
+    console.log(id);
+    console.log(password);
+    console.log(passwordCheck);
+    console.log(name);
+    console.log(birth);
+    console.log(guardianId);
+    console.log('회원가입 요청');
   };
 
   return (
@@ -255,13 +282,17 @@ const PatientSignUpPage = () => {
           status={guardianId.status}
           statusDescription={guardianId.description}
         >
-          <Input placeholder="보호자 아이디" status={guardianId.status} />
+          <Input
+            placeholder="보호자 아이디"
+            status={guardianId.status}
+            onChange={handleGuardianIdChange}
+          />
           <CheckButton>확인</CheckButton>
         </InputWrapper>
       </div>
 
       <div className="big-button-wrap">
-        <BigButton>회원가입</BigButton>
+        <BigButton onClick={handleSignUp}>회원가입</BigButton>
       </div>
     </>
   );

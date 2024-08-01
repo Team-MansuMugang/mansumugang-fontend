@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { produce } from 'immer';
+import { toast, Slide } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Input';
 import CheckButton from '../../components/CheckButton';
 import InputWrapper from '../../components/InputWrapper';
@@ -18,6 +20,7 @@ import { formatBirthYear, formatBirthMonth, formatBirthDay } from '../utility/in
 import checkUsernameUnique from '../../apis/api/checkUsernameUnique';
 import checkNicknameUnique from '../../apis/api/checkNicknameUnique';
 import submitProtectorSignup from '../../apis/api/submitProtectorSignup';
+import submitSignin from '../../apis/api/submitSignin';
 import {
   HttpResponseError,
   NotValidRequestError,
@@ -27,6 +30,7 @@ import {
 } from '../../apis/utility/errors';
 
 const GuardianSignUpPage = () => {
+  const navigate = useNavigate();
   const [id, setId] = useState({ value: '', status: 'default', description: '' });
   const [password, setPassword] = useState({ value: '', status: 'default', description: '' });
   const [passwordCheck, setPasswordCheck] = useState({
@@ -335,7 +339,19 @@ const GuardianSignUpPage = () => {
         email: email.value,
         nickname: nickname.value,
       });
+
+      try {
+        await submitSignin({ username: id.value, password: password.value });
+        toast.info('회원가입이 완료되었습니다. 환영합니다!', { position: 'top-center' });
+        navigate('/home');
+      } catch (error) {
+        toast.error('오류가 발생했습니다. 잠시 후 다시 시도해주세요', {
+          position: 'bottom-center',
+        });
+      }
     } catch (error) {
+      toast.warn('입력된 정보들을 확인해주세요', { position: 'top-center' });
+
       if (error instanceof DuplicatedUsernameError) {
         setId((currentId) =>
           produce(currentId, (draft) => {

@@ -42,8 +42,40 @@ const submitPatientSignup = async (params) => {
     if (result.errorType === 'NotEqualPasswordAndPasswordCheck') throw new PasswordMismatchError();
     if (result.errorType === 'DuplicatedUsernameError') throw new DuplicatedUsernameError();
     if (result.errorType === 'UserNotFoundError') throw new UserNotFoundError();
-    if (result.errorType === 'NotValidRequestError')
+    if (result.errorType === 'NotValidRequestError') {
+      // errorDescriptions 배열을 순회하며 password 필드를 검사
+      const hasPasswordError = result.errorDescriptions.some(
+        (description) => description.field === 'password',
+      );
+      // errorDescriptions 배열을 순회하며 passwordCheck 필드를 검사
+      const hasPasswordCheckError = result.errorDescriptions.some(
+        (description) => description.field === 'passwordCheck',
+      );
+      // 'passwordCheck' 필드와 '비밀번호는 공백일 수 없습니다.' 메시지를 가진 항목이 있는지 확인
+      const hasPasswordCheckBlankError = result.errorDescriptions.some(
+        (description) =>
+          description.field === 'passwordCheck' &&
+          description.message === '비밀번호는 공백일 수 없습니다.',
+      );
+
+      // errorDescriptions 배열을 순회하며 passwordCheck 필드를 검사
+      const hasProtectorUsernameError = result.errorDescriptions.some(
+        (description) => description.field === 'protectorUsername',
+      );
+      // 'passwordCheck' 필드와 '비밀번호는 공백일 수 없습니다.' 메시지를 가진 항목이 있는지 확인
+      const hasProtectorUsernameBlankError = result.errorDescriptions.some(
+        (description) =>
+          description.field === 'protectorUsername' &&
+          description.message === '아이디는 공백일 수 없습니다.',
+      );
+
+      if (!hasPasswordError && hasPasswordCheckError && !hasPasswordCheckBlankError)
+        throw new PasswordMismatchError();
+      if (hasProtectorUsernameError && !hasProtectorUsernameBlankError)
+        throw new UserNotFoundError();
+
       throw new NotValidRequestError(result.errorDescriptions);
+    }
 
     throw new HttpResponseError(response.status, result.message);
   }

@@ -1,0 +1,30 @@
+.ContainerVoiceMessage-container {
+  background-color: var(--color-neutral-100);
+  padding: 18px;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+}
+
+.ContainerVoiceMessage-wrapper-children {
+  align-items: center;
+  gap: 19px;
+}
+
+.ContainerVoiceMessage-button {
+  font-size: 28px;
+  color: var(--color-neutral-0);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.ContainerVoiceMessage-container .description {
+  display: flex;
+  align-items: center;
+  font-size: var(--text-size-heading-small); /* 글자 크기 설정 */
+  color: var(--color--neutral-0);
+  font-weight: bold;
+}

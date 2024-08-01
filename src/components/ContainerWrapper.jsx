@@ -15,7 +15,7 @@ const ContainerWrapper = ({ children, description = 'description' }) => {
 
 ContainerWrapper.propTypes = {
   children: PropTypes.node.isRequired,
-  description: PropTypes.string,
+  description: PropTypes.object,
 };
 
 export default ContainerWrapper;

@@ -15,6 +15,16 @@ import {
   validateEmail,
 } from '../utility/accountValidation';
 import { formatBirthYear, formatBirthMonth, formatBirthDay } from '../utility/inputFormatter';
+import checkUsernameUnique from '../../apis/api/checkUsernameUnique';
+import checkNicknameUnique from '../../apis/api/checkNicknameUnique';
+import submitProtectorSignup from '../../apis/api/submitProtectorSignup';
+import {
+  HttpResponseError,
+  NotValidRequestError,
+  PasswordMismatchError,
+  DuplicatedUsernameError,
+  DuplicatedNicknameError,
+} from '../../apis/utility/errors';
 
 const GuardianSignUpPage = () => {
   const [id, setId] = useState({ value: '', status: 'default', description: '' });
@@ -242,15 +252,175 @@ const GuardianSignUpPage = () => {
     );
   };
 
+  const handleUsernameUniqueCheck = async () => {
+    try {
+      const result = await checkUsernameUnique(id.value);
+      let status = 'success';
+      let description = '사용 가능한 아이디입니다';
+
+      if (!result) {
+        status = 'warning';
+        description = '이미 사용 중인 아이디입니다';
+      }
+
+      setId((currentId) =>
+        produce(currentId, (draft) => {
+          draft.status = status;
+          draft.description = description;
+        }),
+      );
+    } catch (error) {
+      if (error instanceof NotValidRequestError) {
+        setId((currentId) =>
+          produce(currentId, (draft) => {
+            draft.status = 'warning';
+            draft.description = error.errorDescriptions[0].message;
+          }),
+        );
+      } else if (error instanceof HttpResponseError) {
+        setId((currentId) =>
+          produce(currentId, (draft) => {
+            draft.status = 'warning';
+            draft.description = error.message;
+          }),
+        );
+      }
+    }
+  };
+
+  const handleNicknameUniqueCheck = async () => {
+    try {
+      const result = await checkNicknameUnique(nickname.value);
+      let status = 'success';
+      let description = '사용 가능한 닉네임입니다';
+
+      if (!result) {
+        status = 'warning';
+        description = '이미 사용 중인 닉네임입니다';
+      }
+
+      setNickname((currentId) =>
+        produce(currentId, (draft) => {
+          draft.status = status;
+          draft.description = description;
+        }),
+      );
+    } catch (error) {
+      if (error instanceof NotValidRequestError) {
+        setNickname((currentId) =>
+          produce(currentId, (draft) => {
+            draft.status = 'warning';
+            draft.description = error.errorDescriptions[0].message;
+          }),
+        );
+      } else if (error instanceof HttpResponseError) {
+        setNickname((currentId) =>
+          produce(currentId, (draft) => {
+            draft.status = 'warning';
+            draft.description = error.message;
+          }),
+        );
+      }
+    }
+  };
+
   const handleSignUp = async () => {
-    console.log(id);
-    console.log(password);
-    console.log(passwordCheck);
-    console.log(name);
-    console.log(nickname);
-    console.log(birth);
-    console.log(email);
-    console.log('회원가입 요청');
+    try {
+      await submitProtectorSignup({
+        username: id.value,
+        password: password.value,
+        passwordCheck: passwordCheck.value,
+        name: name.value,
+        birthdate: `${birth.year.value}-${birth.month.value.toString().padStart(2, '0')}-${birth.day.value.toString().padStart(2, '0')}`,
+        email: email.value,
+        nickname: nickname.value,
+      });
+    } catch (error) {
+      if (error instanceof DuplicatedUsernameError) {
+        setId((currentId) =>
+          produce(currentId, (draft) => {
+            draft.status = 'warning';
+            draft.description = '이미 사용 중인 아이디입니다';
+          }),
+        );
+      }
+      if (error instanceof DuplicatedNicknameError) {
+        setNickname((currentId) =>
+          produce(currentId, (draft) => {
+            draft.status = 'warning';
+            draft.description = '이미 사용 중인 닉네임입니다';
+          }),
+        );
+      }
+      if (error instanceof PasswordMismatchError) {
+        setPasswordCheck((currentPasswordCheck) =>
+          produce(currentPasswordCheck, (draft) => {
+            draft.status = 'warning';
+            draft.description = '비밀번호가 일치하지 않습니다';
+          }),
+        );
+      }
+      if (error instanceof NotValidRequestError) {
+        error.errorDescriptions.forEach((description) => {
+          if (description.field === 'username') {
+            setId((currentId) =>
+              produce(currentId, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'password') {
+            setPassword((currentId) =>
+              produce(currentId, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'passwordCheck') {
+            setPasswordCheck((currentId) =>
+              produce(currentId, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'name') {
+            setName((currentId) =>
+              produce(currentId, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'birthdate') {
+            setBirth((currentId) =>
+              produce(currentId, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'email') {
+            setEmail((currentId) =>
+              produce(currentId, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'nickname') {
+            setNickname((currentId) =>
+              produce(currentId, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+        });
+      }
+    }
   };
 
   return (
@@ -258,7 +428,9 @@ const GuardianSignUpPage = () => {
       <div className="input-container">
         <InputWrapper description="아이디" status={id.status} statusDescription={id.description}>
           <Input placeholder="아이디" onChange={handleIdChange} status={id.status} />
-          <CheckButton>중복 확인</CheckButton>
+          <CheckButton disabled={id.status !== 'info'} onClick={handleUsernameUniqueCheck}>
+            중복 확인
+          </CheckButton>
         </InputWrapper>
 
         <InputWrapper
@@ -297,7 +469,9 @@ const GuardianSignUpPage = () => {
           statusDescription={nickname.description}
         >
           <Input placeholder="닉네임" status={nickname.status} onChange={handleNicknameChange} />
-          <CheckButton>중복 확인</CheckButton>
+          <CheckButton disabled={nickname.status !== 'info'} onClick={handleNicknameUniqueCheck}>
+            중복 확인
+          </CheckButton>
         </InputWrapper>
 
         <InputWrapper

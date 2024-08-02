@@ -1,8 +1,6 @@
 .more-container {
   background-color: var(--color-neutral-100);
   padding: 18px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  margin: 20px;
 }
 
 .header {
@@ -14,7 +12,6 @@
 
 .object-wrapper-children {
   display: flex;
-  gap: 19px;
 }
 
 .more-button {

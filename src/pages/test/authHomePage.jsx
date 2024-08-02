@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import submitSignout from '../../apis/api/submitSignout';
 
-const HomePage = () => {
+const authHomePage = () => {
   const navigate = useNavigate();
   const [temp, setTemp] = useState(0);
 
@@ -29,4 +29,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default authHomePage;

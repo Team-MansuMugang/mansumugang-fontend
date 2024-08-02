@@ -45,6 +45,13 @@
   --round-size-small: 5px;
   --round-size-medium: 10px;
   --round-size-large: 20px;
+
+  /* react-toastify style */
+  --toastify-color-dark: #000000;
+  --toastify-color-info: #52a2ff;
+  --toastify-color-success: #4bc361;
+  --toastify-color-warning: #ff5252;
+  --toastify-color-error: #ff5252;
 }
 
 body {

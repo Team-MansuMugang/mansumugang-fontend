@@ -1,8 +1,12 @@
 import './CheckButton.css';
 import '../index.css';
 
-const CheckButton = ({ children }) => {
-  return <button className="check-button">{children}</button>;
+const CheckButton = ({ children, disabled = false, onClick }) => {
+  return (
+    <button className="check-button" disabled={disabled} onClick={onClick}>
+      {children}
+    </button>
+  );
 };
 
 export default CheckButton;

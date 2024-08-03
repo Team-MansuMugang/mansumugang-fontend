@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const ContainerWrapper = ({ children, description = 'description' }) => {
   return (
-    <div>
+    <div className="wrapper-main">
       <p className="description">{description}</p>
       <div className="container-wrapper">
         <div className="container-wrapper-children">{children}</div>

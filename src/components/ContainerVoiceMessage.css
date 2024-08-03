@@ -1,4 +1,4 @@
-.ContainerVoiceMessage-container {
+.Voice-Message-container {
   background-color: var(--color-neutral-100);
 }
 
@@ -12,12 +12,12 @@
   box-sizing: border-box; /* 패딩을 포함하여 전체 너비를 계산 */
 }
 
-.ContainerVoiceMessage-wrapper-children {
+.Container-Voice-Message-wrapper-children {
   align-items: center;
   gap: 19px;
 }
 
-.ContainerVoiceMessage-button {
+.Container-Voice-Message-button {
   display: flex;
   align-items: center;
   font-size: 28px;

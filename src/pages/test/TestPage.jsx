@@ -5,6 +5,15 @@ import Input from '../../components/Input';
 import InputWrapper from '../../components/InputWrapper';
 import SubLink from '../../components/SubLink';
 import ToggleSwitch from '../../components/ToggleSwitch';
+import ProfileEditButton from '../../components/ProfileEditButton';
+import ContainerWrapper from '../../components/ContainerWrapper';
+import CancelButton from '../../components/CancelButton';
+import NavBar from '../../components/NavBar';
+import TabButton from '../../components/TabButton';
+import MainRecode from '../../components/MainRecode';
+import MoreContainer from '../../components/MoreContainer';
+import VoiceMessageList from '../../components/VoiceMessageList';
+import ContainerVoiceMessage from '../../components/ContainerVoiceMessage';
 
 const TestPage = () => {
   return (
@@ -29,6 +38,99 @@ const TestPage = () => {
       <BigButton disabled={false}>회원가입</BigButton>
       <SubLink to="/">회원가입</SubLink>
       <ToggleSwitch labels={['보호자', '케어 맴버']} active={0} />
+      <ProfileEditButton disabled={false}>프로필 수정하기</ProfileEditButton>
+      <ContainerWrapper description="내 계정">
+        <SubLink to="/">회원가입</SubLink>
+        <br></br>
+        <SubLink to="/">회원가입</SubLink>
+        <br></br>
+        <SubLink to="/">회원가입</SubLink>
+      </ContainerWrapper>
+      <CancelButton disabled={false}>삭제</CancelButton>
+      <NavBar></NavBar>
+      <TabButton disabled={true}>전체</TabButton>
+      <TabButton disabled={false}>인기글</TabButton>
+      <MainRecode
+        profileImage={'https://picsum.photos/200/300'}
+        name={'김정숙'}
+        responseTime={10}
+      ></MainRecode>
+
+      <MoreContainer description="음성 메세지">
+        <MainRecode
+          profileImage={'https://picsum.photos/200/300'}
+          name={'김정숙'}
+          responseTime={10}
+        ></MainRecode>
+
+        <MainRecode
+          profileImage={'https://picsum.photos/200/300'}
+          name={'김정숙'}
+          responseTime={10}
+        ></MainRecode>
+
+        <MainRecode
+          profileImage={'https://picsum.photos/200/300'}
+          name={'김정숙'}
+          responseTime={10}
+        ></MainRecode>
+
+        <MainRecode
+          profileImage={'https://picsum.photos/200/300'}
+          name={'김정숙'}
+          responseTime={10}
+        ></MainRecode>
+      </MoreContainer>
+      <VoiceMessageList
+        profileImage={'https://picsum.photos/200/300'}
+        name={'김정숙'}
+        date={'오늘 -'}
+        responseTime={10}
+      ></VoiceMessageList>
+      <ContainerVoiceMessage description="음성 메세지">
+        <VoiceMessageList
+          profileImage={'https://picsum.photos/200/300'}
+          name={'김정숙'}
+          date={'오늘 -'}
+          responseTime={10}
+        ></VoiceMessageList>
+        <VoiceMessageList
+          profileImage={'https://picsum.photos/200/300'}
+          name={'김정숙'}
+          date={'오늘 -'}
+          responseTime={10}
+        ></VoiceMessageList>
+        <VoiceMessageList
+          profileImage={'https://picsum.photos/200/300'}
+          name={'김정숙'}
+          date={'오늘 -'}
+          responseTime={10}
+        ></VoiceMessageList>
+        <VoiceMessageList
+          profileImage={'https://picsum.photos/200/300'}
+          name={'김정숙'}
+          date={'오늘 -'}
+          responseTime={10}
+        ></VoiceMessageList>
+        <VoiceMessageList
+          profileImage={'https://picsum.photos/200/300'}
+          name={'김정숙'}
+          date={'오늘 -'}
+          responseTime={10}
+        ></VoiceMessageList>
+        <VoiceMessageList
+          profileImage={'https://picsum.photos/200/300'}
+          name={'김정숙'}
+          date={'오늘 -'}
+          responseTime={10}
+        ></VoiceMessageList>
+        <VoiceMessageList
+          profileImage={'https://picsum.photos/200/300'}
+          name={'김정숙'}
+          date={'오늘 -'}
+          responseTime={10}
+        ></VoiceMessageList>
+      </ContainerVoiceMessage>
     </body>
   );
 };

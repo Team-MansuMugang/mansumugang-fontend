@@ -1,0 +1,31 @@
+.more-container {
+  background-color: var(--color-neutral-100);
+  padding: 18px;
+}
+
+.more-container .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.object-wrapper-children {
+  display: flex;
+}
+
+.more-button {
+  font-size: 14px;
+  color: var(--color-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.more-container .description {
+  font-size: var(--text-size-title); /* 글자 크기 설정 */
+  color: var(--color--neutral-0);
+  margin: 10px 0px 10px 3px;
+  padding-left: 6px;
+  font-weight: bold;
+}

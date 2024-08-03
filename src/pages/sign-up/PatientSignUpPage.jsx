@@ -17,6 +17,13 @@ import { formatBirthYear, formatBirthMonth, formatBirthDay } from '../utility/in
 import checkUsernameUnique from '../../apis/api/checkUsernameUnique';
 import checkProtectorUsername from '../../apis/api/checkProtectorUsername';
 import submitPatientSignup from '../../apis/api/submitPatientSignup';
+import {
+  HttpResponseError,
+  NotValidRequestError,
+  PasswordMismatchError,
+  DuplicatedUsernameError,
+  UserNotFoundError,
+} from '../../apis/utility/errors';
 import { UserNotFoundError } from '../../apis/utility/errors';
 
 const PatientSignUpPage = () => {
@@ -304,13 +311,97 @@ const PatientSignUpPage = () => {
   };
 
   const handleSignUp = async () => {
-    console.log(id);
-    console.log(password);
-    console.log(passwordCheck);
-    console.log(name);
-    console.log(birth);
-    console.log(guardianId);
-    console.log('회원가입 요청');
+    try {
+      await submitPatientSignup({
+        username: id.value,
+        password: password.value,
+        passwordCheck: passwordCheck.value,
+        name: name.value,
+        birthdate: `${birth.year.value}-${birth.month.value.toString().padStart(2, '0')}-${birth.day.value.toString().padStart(2, '0')}`,
+        protectorUsername: guardianId.value,
+      });
+      toast.info('회원가입이 완료되었습니다. 환영합니다!', { position: 'top-center' });
+      navigate('/home');
+    } catch (error) {
+      toast.warn('입력된 정보들을 확인해주세요', { position: 'top-center' });
+
+      if (error instanceof DuplicatedUsernameError) {
+        setId((currentId) =>
+          produce(currentId, (draft) => {
+            draft.status = 'warning';
+            draft.description = '이미 사용 중인 아이디입니다';
+          }),
+        );
+      }
+      if (error instanceof PasswordMismatchError) {
+        setPasswordCheck((currentPasswordCheck) =>
+          produce(currentPasswordCheck, (draft) => {
+            draft.status = 'warning';
+            draft.description = '비밀번호가 일치하지 않습니다';
+          }),
+        );
+      }
+      if (error instanceof UserNotFoundError) {
+        setGuardianId((currentGuardianId) =>
+          produce(currentGuardianId, (draft) => {
+            draft.status = 'warning';
+            draft.description = '해당 ID는 케어 맴버이거나 존재하지 않습니다.';
+          }),
+        );
+      }
+      if (error instanceof NotValidRequestError) {
+        error.errorDescriptions.forEach((description) => {
+          if (description.field === 'username') {
+            setId((currentId) =>
+              produce(currentId, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'password') {
+            setPassword((currentPassword) =>
+              produce(currentPassword, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'passwordCheck') {
+            setPasswordCheck((currentPasswordCheck) =>
+              produce(currentPasswordCheck, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'name') {
+            setName((currentName) =>
+              produce(currentName, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'birthdate') {
+            setBirth((currentBirth) =>
+              produce(currentBirth, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'protectorUsername') {
+            setGuardianId((currentGuardianId) =>
+              produce(currentGuardianId, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+        });
+      }
+    }
   };
 
   return (

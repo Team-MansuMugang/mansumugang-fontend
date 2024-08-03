@@ -1,4 +1,4 @@
-import { HttpResponseError } from '../utility/errors';
+import { HttpResponseError, UserNotFoundError } from '../utility/errors';
 
 const baseURL = 'http://minnnisu.iptime.org';
 
@@ -8,7 +8,8 @@ const baseURL = 'http://minnnisu.iptime.org';
  * @async
  * @function checkProtectorUsername
  * @param {string} username - 확인할 사용자 이름.
- * @returns {Promise<boolean>} - 사용자 이름이 고유하면 true, 그렇지 않으면 false를 반환합니다.
+ * @returns {Promise<boolean>} - 사용자 ID가 보호자이면 true, 환자 ID이면 false를 반환합니다.
+ * @throws {UserNotFoundError} - 존재하지 않는 사용자 이름일 경우 UserNotFoundError를 발생시킵니다.
  * @throws {HttpResponseError} - 서버로부터 예상치 못한 응답이나 에러 응답을 받았을 경우 HttpResponseError를 발생시킵니다.
  */
 const checkProtectorUsername = async (username) => {
@@ -22,8 +23,10 @@ const checkProtectorUsername = async (username) => {
 
   if (!response.ok) {
     const errorResult = await response.json();
-    if (errorResult.errorType === 'NotValidRequestError') return false;
     if (errorResult.errorType === 'UserTypeDismatchError') return false;
+
+    if (errorResult.errorType === 'NotValidRequestError') throw new UserNotFoundError();
+    if (errorResult.errorType === 'UserNotFoundError') throw new UserNotFoundError();
 
     throw new HttpResponseError(response.status, errorResult.message);
   }

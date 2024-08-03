@@ -49,10 +49,3 @@ export class UserNotFoundError extends Error {
     this.name = this.constructor.name;
   }
 }
-
-export class PatientLoginNotAllowedError extends Error {
-  constructor() {
-    super('환자는 로그인할 수 없음.');
-    this.name = this.constructor.name;
-  }
-}

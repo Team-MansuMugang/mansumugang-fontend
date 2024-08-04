@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { produce } from 'immer';
+import { toast, Slide } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Input';
 import CheckButton from '../../components/CheckButton';
 import InputWrapper from '../../components/InputWrapper';
@@ -24,9 +26,9 @@ import {
   DuplicatedUsernameError,
   UserNotFoundError,
 } from '../../apis/utility/errors';
-import { UserNotFoundError } from '../../apis/utility/errors';
 
 const PatientSignUpPage = () => {
+  const navigate = useNavigate();
   const [id, setId] = useState({ value: '', status: 'default', description: '' });
   const [password, setPassword] = useState({ value: '', status: 'default', description: '' });
   const [passwordCheck, setPasswordCheck] = useState({
@@ -276,7 +278,7 @@ const PatientSignUpPage = () => {
 
   const handleProtectorUsernameCheck = async () => {
     try {
-      const result = await checkProtectorUsername(id.value);
+      const result = await checkProtectorUsername(guardianId.value);
       let status = 'success';
       let description = '이 계정의 보호자가 될 수 있습니다';
 
@@ -295,8 +297,8 @@ const PatientSignUpPage = () => {
       if (error instanceof UserNotFoundError) {
         setGuardianId((currentGuardianId) =>
           produce(currentGuardianId, (draft) => {
-            draft.status = '존재하지 않는 아이디입니다.';
-            draft.description = description;
+            draft.status = 'warning';
+            draft.description = '존재하지 않는 아이디입니다.';
           }),
         );
       } else if (error instanceof HttpResponseError) {
@@ -320,8 +322,21 @@ const PatientSignUpPage = () => {
         birthdate: `${birth.year.value}-${birth.month.value.toString().padStart(2, '0')}-${birth.day.value.toString().padStart(2, '0')}`,
         protectorUsername: guardianId.value,
       });
-      toast.info('회원가입이 완료되었습니다. 환영합니다!', { position: 'top-center' });
-      navigate('/home');
+
+      toast.info(
+        <div>
+          회원가입이 완료되었습니다!
+          <br />
+          케이 맴버님은 앱을 통해서 로그인하실 수 있습니다
+          <br />
+          플레이스토어에서 '만수무강'을 검색해주세요
+        </div>,
+        {
+          position: 'top-center',
+          autoClose: false,
+        },
+      );
+      navigate('/');
     } catch (error) {
       toast.warn('입력된 정보들을 확인해주세요', { position: 'top-center' });
 

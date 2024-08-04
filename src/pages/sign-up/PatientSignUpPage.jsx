@@ -332,7 +332,7 @@ const PatientSignUpPage = () => {
           플레이스토어에서 '만수무강'을 검색해주세요
         </div>,
         {
-          position: 'top-center',
+          position: 'bottom-center',
           autoClose: false,
         },
       );

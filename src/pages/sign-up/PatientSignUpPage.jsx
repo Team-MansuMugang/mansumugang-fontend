@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { produce } from 'immer';
+import { toast, Slide } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Input';
 import CheckButton from '../../components/CheckButton';
 import InputWrapper from '../../components/InputWrapper';
@@ -14,8 +16,19 @@ import {
   validGuardianId,
 } from '../utility/accountValidation';
 import { formatBirthYear, formatBirthMonth, formatBirthDay } from '../utility/inputFormatter';
+import checkUsernameUnique from '../../apis/api/checkUsernameUnique';
+import checkProtectorUsername from '../../apis/api/checkProtectorUsername';
+import submitPatientSignup from '../../apis/api/submitPatientSignup';
+import {
+  HttpResponseError,
+  NotValidRequestError,
+  PasswordMismatchError,
+  DuplicatedUsernameError,
+  UserNotFoundError,
+} from '../../apis/utility/errors';
 
 const PatientSignUpPage = () => {
+  const navigate = useNavigate();
   const [id, setId] = useState({ value: '', status: 'default', description: '' });
   const [password, setPassword] = useState({ value: '', status: 'default', description: '' });
   const [passwordCheck, setPasswordCheck] = useState({
@@ -227,14 +240,183 @@ const PatientSignUpPage = () => {
     );
   };
 
+  const handleUsernameUniqueCheck = async () => {
+    try {
+      const result = await checkUsernameUnique(id.value);
+      let status = 'success';
+      let description = '사용 가능한 아이디입니다';
+
+      if (!result) {
+        status = 'warning';
+        description = '이미 사용 중인 아이디입니다';
+      }
+
+      setId((currentId) =>
+        produce(currentId, (draft) => {
+          draft.status = status;
+          draft.description = description;
+        }),
+      );
+    } catch (error) {
+      if (error instanceof NotValidRequestError) {
+        setId((currentId) =>
+          produce(currentId, (draft) => {
+            draft.status = 'warning';
+            draft.description = error.errorDescriptions[0].message;
+          }),
+        );
+      } else if (error instanceof HttpResponseError) {
+        setId((currentId) =>
+          produce(currentId, (draft) => {
+            draft.status = 'warning';
+            draft.description = error.message;
+          }),
+        );
+      }
+    }
+  };
+
+  const handleProtectorUsernameCheck = async () => {
+    try {
+      const result = await checkProtectorUsername(guardianId.value);
+      let status = 'success';
+      let description = '이 계정의 보호자가 될 수 있습니다';
+
+      if (!result) {
+        status = 'warning';
+        description = '해당 아이디는 케어 맴버의 아이디입니다';
+      }
+
+      setGuardianId((currentGuardianId) =>
+        produce(currentGuardianId, (draft) => {
+          draft.status = status;
+          draft.description = description;
+        }),
+      );
+    } catch (error) {
+      if (error instanceof UserNotFoundError) {
+        setGuardianId((currentGuardianId) =>
+          produce(currentGuardianId, (draft) => {
+            draft.status = 'warning';
+            draft.description = '존재하지 않는 아이디입니다.';
+          }),
+        );
+      } else if (error instanceof HttpResponseError) {
+        setId((currentGuardianId) =>
+          produce(currentGuardianId, (draft) => {
+            draft.status = 'warning';
+            draft.description = error.message;
+          }),
+        );
+      }
+    }
+  };
+
   const handleSignUp = async () => {
-    console.log(id);
-    console.log(password);
-    console.log(passwordCheck);
-    console.log(name);
-    console.log(birth);
-    console.log(guardianId);
-    console.log('회원가입 요청');
+    try {
+      await submitPatientSignup({
+        username: id.value,
+        password: password.value,
+        passwordCheck: passwordCheck.value,
+        name: name.value,
+        birthdate: `${birth.year.value}-${birth.month.value.toString().padStart(2, '0')}-${birth.day.value.toString().padStart(2, '0')}`,
+        protectorUsername: guardianId.value,
+      });
+
+      toast.info(
+        <div>
+          회원가입이 완료되었습니다!
+          <br />
+          케이 맴버님은 앱을 통해서 로그인하실 수 있습니다
+          <br />
+          플레이스토어에서 '만수무강'을 검색해주세요
+        </div>,
+        {
+          position: 'bottom-center',
+          autoClose: false,
+        },
+      );
+      navigate('/');
+    } catch (error) {
+      toast.warn('입력된 정보들을 확인해주세요', { position: 'top-center' });
+
+      if (error instanceof DuplicatedUsernameError) {
+        setId((currentId) =>
+          produce(currentId, (draft) => {
+            draft.status = 'warning';
+            draft.description = '이미 사용 중인 아이디입니다';
+          }),
+        );
+      }
+      if (error instanceof PasswordMismatchError) {
+        setPasswordCheck((currentPasswordCheck) =>
+          produce(currentPasswordCheck, (draft) => {
+            draft.status = 'warning';
+            draft.description = '비밀번호가 일치하지 않습니다';
+          }),
+        );
+      }
+      if (error instanceof UserNotFoundError) {
+        setGuardianId((currentGuardianId) =>
+          produce(currentGuardianId, (draft) => {
+            draft.status = 'warning';
+            draft.description = '해당 ID는 케어 맴버이거나 존재하지 않습니다.';
+          }),
+        );
+      }
+      if (error instanceof NotValidRequestError) {
+        error.errorDescriptions.forEach((description) => {
+          if (description.field === 'username') {
+            setId((currentId) =>
+              produce(currentId, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'password') {
+            setPassword((currentPassword) =>
+              produce(currentPassword, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'passwordCheck') {
+            setPasswordCheck((currentPasswordCheck) =>
+              produce(currentPasswordCheck, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'name') {
+            setName((currentName) =>
+              produce(currentName, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'birthdate') {
+            setBirth((currentBirth) =>
+              produce(currentBirth, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'protectorUsername') {
+            setGuardianId((currentGuardianId) =>
+              produce(currentGuardianId, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+        });
+      }
+    }
   };
 
   return (
@@ -242,7 +424,9 @@ const PatientSignUpPage = () => {
       <div className="input-container">
         <InputWrapper description="아이디" status={id.status} statusDescription={id.description}>
           <Input placeholder="아이디" onChange={handleIdChange} status={id.status} />
-          <CheckButton>중복 확인</CheckButton>
+          <CheckButton disabled={id.status !== 'info'} onClick={handleUsernameUniqueCheck}>
+            중복 확인
+          </CheckButton>
         </InputWrapper>
 
         <InputWrapper
@@ -313,7 +497,12 @@ const PatientSignUpPage = () => {
             status={guardianId.status}
             onChange={handleGuardianIdChange}
           />
-          <CheckButton>확인</CheckButton>
+          <CheckButton
+            disabled={guardianId.status !== 'info'}
+            onClick={handleProtectorUsernameCheck}
+          >
+            확인
+          </CheckButton>
         </InputWrapper>
       </div>
 

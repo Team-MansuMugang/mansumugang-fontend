@@ -1,9 +1,9 @@
-import './TabButton.css';
+import './TagButton.css';
 import '../index.css';
 
 const TabButton = ({ children, disabled = false }) => {
   return (
-    <button className="tab-button" disabled={disabled}>
+    <button className="tag-button" disabled={disabled}>
       {children}
     </button>
   );

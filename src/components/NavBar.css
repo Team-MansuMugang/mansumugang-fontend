@@ -2,35 +2,32 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: space-around;
-  background-color: #ffff;
+  background-color: var(--color-neutral-100);
   border-top: 1px solid #eaeaea;
-  z-index: 1000;
+  padding: 10px 0;
 }
 
 .nav-item {
   flex: 1;
   text-align: center;
-  padding: 10px 0;
   cursor: pointer;
-  transition: color 0.3s;
   color: var(--color-neutral-45);
 }
 
-.nav-item .icon {
-  display: block;
-  margin: 0 auto 5px;
-  fill: var(--color-neutral-45);
+.nav-bar svg {
+  width: 24px;
+  height: 24px;
 }
 
 .nav-item span {
   display: block;
   font-size: var(--text-size-detail);
-  color: var(--color-neutral-45);
+  margin-top: 5px;
 }
 
 .nav-item.active {
-  color: var(--color-neutral-45);
+  color: var(--color-neutral-0);
 }

@@ -15,6 +15,10 @@ import SubTitle from '../../components/SubTitle';
 import LargeVoiceMessageItem from '../../components/LargeVoiceMessageItem';
 import MainHeader from '../../components/MainHeader';
 import RowScrollContainer from '../../components/RowScrollContainer';
+import VoicePlayerBar from '../../components/VoicePlayerBar';
+import HospitalInput from '../../components/HospitalInput';
+import MemoInput from '../../components/MemoInput';
+import HealthDetail from '../../components/HealthDetail';
 
 const TestPage = () => {
   return (
@@ -145,6 +149,20 @@ const TestPage = () => {
         date={'오늘'}
         time={'10분전'}
       ></LargeVoiceMessageItem>
+      <VoicePlayerBar
+        profileImage={'https://picsum.photos/200/300'}
+        name={'유호진'}
+        date={'오늘'}
+        time={'10분전'}
+      ></VoicePlayerBar>
+      <HospitalInput></HospitalInput>
+      <MemoInput></MemoInput>
+      <HealthDetail
+        title={'고혈압약'}
+        data={
+          '고혈압약은 꼭 밥을 드시고  식후 30분에 드세요!! 가나다다 마나 사마낭 ㄴ아ㅏㄴㅇㄴ안아ㅏㅇ ㅏㅇㅇ나안안아'
+        }
+      ></HealthDetail>
     </>
   );
 };

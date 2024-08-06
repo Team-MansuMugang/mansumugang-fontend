@@ -15,6 +15,7 @@ import SubTitle from '../../components/SubTitle';
 import LargeVoiceMessageItem from '../../components/LargeVoiceMessageItem';
 import MainHeader from '../../components/MainHeader';
 import RowScrollContainer from '../../components/RowScrollContainer';
+import VoicePlayerBar from '../../components/VoicePlayerBar';
 
 const TestPage = () => {
   return (
@@ -145,6 +146,12 @@ const TestPage = () => {
         date={'오늘'}
         time={'10분전'}
       ></LargeVoiceMessageItem>
+      <VoicePlayerBar
+        profileImage={'https://picsum.photos/200/300'}
+        name={'유호진'}
+        date={'오늘'}
+        time={'10분전'}
+      ></VoicePlayerBar>
     </>
   );
 };

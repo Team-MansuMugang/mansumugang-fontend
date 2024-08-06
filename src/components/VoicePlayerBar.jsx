@@ -72,7 +72,7 @@ const VoicePlayerBar = ({ profileImage, name, date, time, audioSrc }) => {
         <img src={profileImage} alt={`${name} profile`} />
         <div className="item-details">
           <div className="item-name">{name}</div>
-          <div className="item-date-time">{`${date}`}</div>
+          <div className="item-date-time">{`${date} . ${time}`}</div>
         </div>
       </div>
 

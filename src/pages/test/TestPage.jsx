@@ -16,6 +16,8 @@ import LargeVoiceMessageItem from '../../components/LargeVoiceMessageItem';
 import MainHeader from '../../components/MainHeader';
 import RowScrollContainer from '../../components/RowScrollContainer';
 import VoicePlayerBar from '../../components/VoicePlayerBar';
+import HospitalInput from '../../components/HospitalInput';
+import MemoInput from '../../components/MemoInput';
 
 const TestPage = () => {
   return (
@@ -152,6 +154,8 @@ const TestPage = () => {
         date={'오늘'}
         time={'10분전'}
       ></VoicePlayerBar>
+      <HospitalInput></HospitalInput>
+      <MemoInput></MemoInput>
     </>
   );
 };

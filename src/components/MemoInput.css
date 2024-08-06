@@ -3,7 +3,7 @@
   flex-direction: column;
   background-color: var(--color-neutral-95);
   border-radius: var(--round-size-medium); /* 또는 직접 값을 사용 */
-  height: 150px;
+  height: 115px;
   gap: 9px;
   padding: 5px 19px;
 }
@@ -21,7 +21,7 @@
 
 .memo-textarea {
   padding: 8px;
-  height: 150px;
+  height: 50px;
   font-size: var(--text-size-body-medium);
   border: none;
   background-color: var(--color-neutral-95);

@@ -3,7 +3,7 @@
   flex-direction: column;
   background-color: var(--color-neutral-95);
   border-radius: var(--round-size-medium); /* 라운드 크기 */
-  height: 99px;
+  height: 100px;
   padding: 5px 19px;
   gap: 9px; /* 요소들 사이의 간격 설정 */
 }

@@ -1,0 +1,6 @@
+.main-page {
+  padding: 18px;
+}
+.main-page .h2 {
+  font-size: var(--text-size-heading-small);
+}

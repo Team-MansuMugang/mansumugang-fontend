@@ -19,6 +19,8 @@ import VoicePlayerBar from '../../components/VoicePlayerBar';
 import HospitalInput from '../../components/HospitalInput';
 import MemoInput from '../../components/MemoInput';
 import HealthDetail from '../../components/HealthDetail';
+import ScheduleListContainer from '../../components/ScheduleListContainer';
+import ScheduleItem from '../../components/ScheduleItem';
 
 const TestPage = () => {
   return (
@@ -163,6 +165,10 @@ const TestPage = () => {
           '고혈압약은 꼭 밥을 드시고  식후 30분에 드세요!! 가나다다 마나 사마낭 ㄴ아ㅏㄴㅇㄴ안아ㅏㅇ ㅏㅇㅇ나안안아'
         }
       ></HealthDetail>
+      <ScheduleListContainer time="오후 6시">
+        <ScheduleItem status="checked" title="당뇨약" data="동국대병원"></ScheduleItem>
+        <ScheduleItem status="unchecked" title="혈압약" data="동국대병원"></ScheduleItem>
+      </ScheduleListContainer>
     </>
   );
 };

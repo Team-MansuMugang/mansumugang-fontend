@@ -11,7 +11,8 @@ import authHomePage from './pages/test/authHomePage';
 import MainPage from './pages/home/MainPage';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import VoiceMessagePage from './pages/voice-message/VoiceMessagePage';
+import DetailVoiceMessagePage from './pages/voice-message/DetailVoiceMessagePage';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -24,6 +25,14 @@ const router = createBrowserRouter([
   {
     path: '/home',
     element: <authHomePage />,
+  },
+  {
+    path: '/voice-message-page',
+    element: <VoiceMessagePage />,
+  },
+  {
+    path: '/detail-voice-message-page',
+    element: <DetailVoiceMessagePage />,
   },
   {
     path: '/test',

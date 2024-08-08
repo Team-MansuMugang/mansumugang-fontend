@@ -11,7 +11,7 @@ const MainPage = () => {
       <NavBar></NavBar>
       <div className="main-page">
         <h2>홈</h2>
-        <SubTitle title="음성 메세지" onMoreClick={''} />
+        <SubTitle title="음성 메세지" onMoreClick={'/voice-message-page'} />
         <RowScrollContainer>
           <SmallVoiceMessageItem
             profileImage={'https://picsum.photos/200/300'}

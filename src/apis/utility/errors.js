@@ -56,3 +56,45 @@ export class PatientLoginNotAllowedError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class AccessDeniedError extends Error {
+  constructor() {
+    super('접근 권한이 없습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NoSuchMedicineError extends Error {
+  constructor() {
+    super('약 정보를 찾을 수 없습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class AlreadyExistMedicineIntakeTimeError extends Error {
+  constructor() {
+    super('이미 존재하는 약 복용 시간입니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NoSuchMedicineIntakeTimeError extends Error {
+  constructor() {
+    super('존재하지 않는 약 복용 시간입니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class AlreadyExistMedicineIntakeDayError extends Error {
+  constructor() {
+    super('이미 존재하는 약 복용 요일입니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NoSuchMedicineIntakeDayError extends Error {
+  constructor() {
+    super('존재하지 않는 약 복용 요일입니다.');
+    this.name = this.constructor.name;
+  }
+}

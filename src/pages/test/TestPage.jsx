@@ -15,10 +15,13 @@ import SubTitle from '../../components/SubTitle';
 import LargeVoiceMessageItem from '../../components/LargeVoiceMessageItem';
 import MainHeader from '../../components/MainHeader';
 import RowScrollContainer from '../../components/RowScrollContainer';
+import ItemSelector from '../../components/ItemSelector';
+import FloatingActionButton from '../../components/FloatingActionButton';
 
 const TestPage = () => {
   return (
     <>
+      <FloatingActionButton />
       <MainHeader title="테스트 페이지" rightText="hoho" />
       <InputWrapper
         description="아이디"
@@ -52,13 +55,13 @@ const TestPage = () => {
       <NavBar></NavBar>
       <TagButton disabled={true}>전체</TagButton>
       <TagButton disabled={false}>인기글</TagButton>
+      <ItemSelector />
       <SubTitle title="일정" />
       <SmallVoiceMessageItem
         profileImage={'https://picsum.photos/200/300'}
         name={'김정숙'}
         time={'10분전'}
       ></SmallVoiceMessageItem>
-
       <RowScrollContainer>
         <SmallVoiceMessageItem
           profileImage={'https://picsum.photos/200/300'}

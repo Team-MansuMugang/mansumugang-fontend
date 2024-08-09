@@ -18,6 +18,7 @@ import RowScrollContainer from '../../components/RowScrollContainer';
 import ItemSelector from '../../components/ItemSelector';
 import FloatingActionButton from '../../components/FloatingActionButton';
 import DaySelector from '../../components/DaySelector';
+import Calendar from '../../components/Calendar';
 
 const TestPage = () => {
   return (
@@ -57,6 +58,12 @@ const TestPage = () => {
       <TagButton disabled={true}>전체</TagButton>
       <TagButton disabled={false}>인기글</TagButton>
       <ItemSelector />
+      <Calendar
+        dateStatus={[
+          { date: '2024-08-26', status: 'NO_TAKEN' },
+          { date: '2024-08-27', status: 'TAKEN' },
+        ]}
+      />
       <DaySelector />
       <SubTitle title="일정" />
       <SmallVoiceMessageItem

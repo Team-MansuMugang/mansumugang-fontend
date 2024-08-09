@@ -4,3 +4,8 @@
 .main-page .h2 {
   font-size: var(--text-size-heading-small);
 }
+.schedule-container .border-schedule-container > .border-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}

@@ -1,6 +1,5 @@
 .cancel-button {
   font-size: var(--text-size-button);
-  font-weight: 500;
   height: 32px;
   width: 68px;
   border-radius: var(--round-size-medium);

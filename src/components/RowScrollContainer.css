@@ -1,0 +1,10 @@
+.row-scroll-container {
+  display: flex;
+  gap: 19px;
+  overflow-x: auto;
+  width: calc(100% + (100vw - 100%) / 2);
+}
+
+.row-scroll-container > * {
+  flex-shrink: 0;
+}

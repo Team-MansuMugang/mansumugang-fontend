@@ -1,0 +1,107 @@
+.calendar-header {
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  place-items: center;
+  height: 52px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--color-neutral-100);
+}
+.calendar-header h1 {
+  font-size: var(--text-size-heading-small);
+  color: var(--color--neutral-0);
+  font-weight: bold;
+}
+.calendar-header button.svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-size-heading-small);
+  color: var(--color--neutral-0);
+  background-color: var(--color-neutral-100);
+  border: none;
+}
+.calendar-header button.svg {
+  font-size: 14px;
+}
+.calendar-header button.svg.back {
+  font-size: 28px;
+  justify-self: start;
+  margin-left: 18px;
+  padding: 0px;
+}
+.calendar-header button.sub-button {
+  justify-self: end;
+  margin-right: 18px;
+}
+
+.calendar-header .month-controller {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.calendar-body {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  font-size: var(--text-size-body-medium);
+  margin: 15px 0;
+}
+
+.calendar-body .calendar-days {
+  display: flex;
+  justify-content: space-between;
+}
+.calendar-body .calendar-week {
+  display: flex;
+  justify-content: space-between;
+}
+.calendar-body .calendar-week > :first-child,
+.calendar-body .calendar-week > :last-child,
+.calendar-body .calendar-days > :first-child,
+.calendar-body .calendar-days > :last-child {
+  color: var(--color-neutral-45);
+}
+
+.calendar-body .calendar-day,
+.calendar-body .calendar-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+.calendar-body .calendar-day {
+  width: 40px;
+  font-weight: bold;
+}
+.calendar-body .calendar-date {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.calendar-body .calendar-date.not-date {
+  opacity: 0;
+  pointer-events: none;
+}
+.calendar-body .calendar-date.status-TAKEN {
+  border: 2px solid var(--color-semantic-success);
+}
+.calendar-body .calendar-date.status-NO_TAKEN {
+  border: 2px solid var(--color-semantic-error);
+}
+.calendar-body .calendar-date.today {
+  background-color: var(--color-secondary-green-2);
+  color: var(--color-neutral-100);
+  border: none;
+}
+.calendar-body .calendar-date.selected {
+  background-color: var(--color-primary);
+  color: var(--color-neutral-100);
+  border: none;
+}

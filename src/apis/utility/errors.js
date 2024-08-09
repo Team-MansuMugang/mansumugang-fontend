@@ -56,3 +56,38 @@ export class PatientLoginNotAllowedError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class NotValidAccessTokenError extends Error {
+  constructor() {
+    super('유효하지 않은 엑세스 토큰.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class ExpiredAccessTokenError extends Error {
+  constructor() {
+    super('만료된 엑세스 토큰.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class AccessDeniedError extends Error {
+  constructor() {
+    super('접근 권한 없음.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class UserLocationInfoNotFoundError extends Error {
+  constructor() {
+    super('해당 유저에 대한 위치 정보가 없음.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class UserLocationInfoWithinRangeNotFoundError extends Error {
+  constructor() {
+    super('조회하려는 시간 범위 내 해당 유저의 위치 정보가 없음.');
+    this.name = this.constructor.name;
+  }
+}

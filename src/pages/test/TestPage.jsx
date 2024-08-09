@@ -19,6 +19,7 @@ import ItemSelector from '../../components/ItemSelector';
 import FloatingActionButton from '../../components/FloatingActionButton';
 import DaySelector from '../../components/DaySelector';
 import Calendar from '../../components/Calendar';
+import ImageUploader from '../../components/ImageUploader';
 
 const TestPage = () => {
   return (
@@ -54,6 +55,7 @@ const TestPage = () => {
         <SubLink to="/">회원가입</SubLink>
       </BorderContainer>
       <CancelButton>삭제</CancelButton>
+      <ImageUploader />
       <NavBar></NavBar>
       <TagButton disabled={true}>전체</TagButton>
       <TagButton disabled={false}>인기글</TagButton>

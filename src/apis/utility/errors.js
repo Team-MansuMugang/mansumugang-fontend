@@ -56,3 +56,24 @@ export class PatientLoginNotAllowedError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class NotValidAccessTokenError extends Error {
+  constructor() {
+    super('유효하지 않은 엑세스 토큰.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class ExpiredAccessTokenError extends Error {
+  constructor() {
+    super('만료된 엑세스 토큰.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class AccessDeniedError extends Error {
+  constructor() {
+    super('접근 권한 없음.');
+    this.name = this.constructor.name;
+  }
+}

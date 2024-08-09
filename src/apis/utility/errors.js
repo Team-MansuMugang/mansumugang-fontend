@@ -84,3 +84,10 @@ export class UserLocationInfoNotFoundError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class UserLocationInfoWithinRangeNotFoundError extends Error {
+  constructor() {
+    super('조회하려는 시간 범위 내 해당 유저의 위치 정보가 없음.');
+    this.name = this.constructor.name;
+  }
+}

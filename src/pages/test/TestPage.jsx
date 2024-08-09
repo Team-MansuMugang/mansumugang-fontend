@@ -17,6 +17,7 @@ import MainHeader from '../../components/MainHeader';
 import RowScrollContainer from '../../components/RowScrollContainer';
 import ItemSelector from '../../components/ItemSelector';
 import FloatingActionButton from '../../components/FloatingActionButton';
+import DaySelector from '../../components/DaySelector';
 
 const TestPage = () => {
   return (
@@ -56,6 +57,7 @@ const TestPage = () => {
       <TagButton disabled={true}>전체</TagButton>
       <TagButton disabled={false}>인기글</TagButton>
       <ItemSelector />
+      <DaySelector />
       <SubTitle title="일정" />
       <SmallVoiceMessageItem
         profileImage={'https://picsum.photos/200/300'}

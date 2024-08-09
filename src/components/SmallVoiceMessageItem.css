@@ -1,0 +1,35 @@
+.small-voice-message-item {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 71px;
+  padding: 10px 0;
+  gap: 10px;
+  background-color: var(--color-neutral-95);
+  border-radius: var(--round-size-medium);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.small-voice-message-item:hover {
+  background-color: var(--color-neutral-90); /* 호버 효과 추가 */
+}
+
+.small-voice-message-item img {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+}
+
+.small-voice-message-item .item-name {
+  font-size: var(--text-size-body-medium);
+  text-align: center;
+  width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.small-voice-message-item .item-time {
+  font-size: var(--text-size-detail);
+  color: var(--color-neutral-45);
+}

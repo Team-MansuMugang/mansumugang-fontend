@@ -57,6 +57,7 @@ export class PatientLoginNotAllowedError extends Error {
   }
 }
 
+
 export class AccessDeniedError extends Error {
   constructor() {
     super('접근 권한이 없습니다.');
@@ -64,9 +65,23 @@ export class AccessDeniedError extends Error {
   }
 }
 
+export class NotValidAccessTokenError extends Error {
+  constructor() {
+    super('유효하지 않은 엑세스 토큰.');
+    this.name = this.constructor.name;
+  }
+}
+
 export class NoSuchMedicineError extends Error {
   constructor() {
     super('약 정보를 찾을 수 없습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class ExpiredAccessTokenError extends Error {
+  constructor() {
+    super('만료된 엑세스 토큰.');
     this.name = this.constructor.name;
   }
 }
@@ -85,6 +100,13 @@ export class NoSuchMedicineIntakeTimeError extends Error {
   }
 }
 
+export class AccessDeniedError extends Error {
+  constructor() {
+    super('접근 권한 없음.');
+    this.name = this.constructor.name;
+  }
+}
+
 export class AlreadyExistMedicineIntakeDayError extends Error {
   constructor() {
     super('이미 존재하는 약 복용 요일입니다.');
@@ -92,9 +114,23 @@ export class AlreadyExistMedicineIntakeDayError extends Error {
   }
 }
 
+export class UserLocationInfoNotFoundError extends Error {
+  constructor() {
+    super('해당 유저에 대한 위치 정보가 없음.');
+    this.name = this.constructor.name;
+  }
+}
+
 export class NoSuchMedicineIntakeDayError extends Error {
   constructor() {
     super('존재하지 않는 약 복용 요일입니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class UserLocationInfoWithinRangeNotFoundError extends Error {
+  constructor() {
+    super('조회하려는 시간 범위 내 해당 유저의 위치 정보가 없음.');
     this.name = this.constructor.name;
   }
 }

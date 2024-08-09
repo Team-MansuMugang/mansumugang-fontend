@@ -1,4 +1,4 @@
-.tab-button {
+.tag-button {
   font-size: var(--text-size-body-medium);
   font-weight: 500;
   padding: 6px 16px;
@@ -10,7 +10,7 @@
   box-sizing: border-box;
 }
 
-.tab-button:disabled {
+.tag-button:disabled {
   background-color: var(--color-primary);
   color: var(--color-neutral-100);
   cursor: not-allowed;

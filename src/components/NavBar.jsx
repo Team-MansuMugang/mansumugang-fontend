@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './NavBar.css';
-import '../index.css';
 import HomeIcon from '../assets/svg/home.svg?react';
 import HomeOutlineIcon from '../assets/svg/home-outline.svg?react';
 import ArticleIcon from '../assets/svg/article.svg?react';

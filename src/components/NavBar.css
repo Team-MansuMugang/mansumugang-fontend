@@ -1,13 +1,16 @@
 .nav-bar {
   position: fixed;
   bottom: 0;
+  height: 60px;
   left: 0;
-  width: 100vw;
+  width: 100%;
   display: flex;
+  align-items: center;
   justify-content: space-around;
   background-color: var(--color-neutral-100);
   border-top: 1px solid #eaeaea;
   padding: 10px 0;
+  z-index: 1000; /* Ensures the nav-bar is above other content */
 }
 
 .nav-item {
@@ -25,9 +28,13 @@
 .nav-item span {
   display: block;
   font-size: var(--text-size-detail);
-  margin-top: 5px;
 }
 
 .nav-item.active {
   color: var(--color-neutral-0);
+}
+
+/* Ensure the content above the nav-bar doesn't get hidden behind it */
+body {
+  margin-bottom: 81px; /* Adjust this value according to the height of your nav-bar */
 }

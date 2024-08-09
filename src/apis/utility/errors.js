@@ -77,3 +77,10 @@ export class AccessDeniedError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class UserLocationInfoNotFoundError extends Error {
+  constructor() {
+    super('해당 유저에 대한 위치 정보가 없음.');
+    this.name = this.constructor.name;
+  }
+}

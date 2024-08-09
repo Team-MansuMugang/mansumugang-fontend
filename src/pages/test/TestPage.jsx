@@ -15,6 +15,11 @@ import SubTitle from '../../components/SubTitle';
 import LargeVoiceMessageItem from '../../components/LargeVoiceMessageItem';
 import MainHeader from '../../components/MainHeader';
 import RowScrollContainer from '../../components/RowScrollContainer';
+import ItemSelector from '../../components/ItemSelector';
+import FloatingActionButton from '../../components/FloatingActionButton';
+import DaySelector from '../../components/DaySelector';
+import Calendar from '../../components/Calendar';
+import ImageUploader from '../../components/ImageUploader';
 import VoicePlayerBar from '../../components/VoicePlayerBar';
 import HospitalInput from '../../components/HospitalInput';
 import MemoInput from '../../components/MemoInput';
@@ -25,6 +30,7 @@ import ScheduleItem from '../../components/ScheduleItem';
 const TestPage = () => {
   return (
     <>
+      <FloatingActionButton />
       <MainHeader title="테스트 페이지" rightText="hoho" />
       <InputWrapper
         description="아이디"
@@ -55,16 +61,24 @@ const TestPage = () => {
         <SubLink to="/">회원가입</SubLink>
       </BorderContainer>
       <CancelButton>삭제</CancelButton>
+      <ImageUploader />
       <NavBar></NavBar>
       <TagButton disabled={true}>전체</TagButton>
       <TagButton disabled={false}>인기글</TagButton>
+      <ItemSelector />
+      <Calendar
+        dateStatus={[
+          { date: '2024-08-26', status: 'NO_TAKEN' },
+          { date: '2024-08-27', status: 'TAKEN' },
+        ]}
+      />
+      <DaySelector />
       <SubTitle title="일정" />
       <SmallVoiceMessageItem
         profileImage={'https://picsum.photos/200/300'}
         name={'김정숙'}
         time={'10분전'}
       ></SmallVoiceMessageItem>
-
       <RowScrollContainer>
         <SmallVoiceMessageItem
           profileImage={'https://picsum.photos/200/300'}

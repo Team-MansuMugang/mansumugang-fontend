@@ -4,6 +4,9 @@ import SubTitle from '../../components/SubTitle';
 import SmallVoiceMessageItem from '../../components/SmallVoiceMessageItem';
 import RowScrollContainer from '../../components/RowScrollContainer';
 import NavBar from '../../components/NavBar';
+import BorderContainer from '../../components/BorderContainer';
+import ScheduleListContainer from '../../components/ScheduleListContainer';
+import ScheduleItem from '../../components/ScheduleItem';
 
 const MainPage = () => {
   return (
@@ -41,6 +44,30 @@ const MainPage = () => {
             time={'5일전'}
           ></SmallVoiceMessageItem>
         </RowScrollContainer>
+        <div className="schedule-container">
+          <SubTitle title="일정" onMoreClick={''} />
+          <div className="border-schedule-container">
+            <BorderContainer>
+              <ScheduleListContainer time="오전 6:00">
+                <ScheduleItem status="checked" title="당뇨약" data="동국대병원"></ScheduleItem>
+                <ScheduleItem status="checked" title="혈압약" data="동국대병원"></ScheduleItem>
+              </ScheduleListContainer>
+              <ScheduleListContainer time="오후 12:00">
+                <ScheduleItem status="unchecked" title="감기약" data="동국대병원"></ScheduleItem>
+              </ScheduleListContainer>
+              <ScheduleListContainer time="오후 3:00시">
+                <ScheduleItem
+                  status="unchecked"
+                  title="동국대병원"
+                  data="경기 고양시 일산동구 동국로 27..."
+                ></ScheduleItem>
+              </ScheduleListContainer>
+              <ScheduleListContainer time="오후 6:00">
+                <ScheduleItem status="unchecked" title="감기약" data="동국대병원"></ScheduleItem>
+              </ScheduleListContainer>
+            </BorderContainer>
+          </div>
+        </div>
       </div>
     </>
   );

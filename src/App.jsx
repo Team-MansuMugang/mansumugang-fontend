@@ -19,16 +19,16 @@ const router = createBrowserRouter([
     element: <SignInPage />,
   },
   {
-    path: '/main-page',
-    element: <MainPage />,
-  },
-  {
     path: '/home',
-    element: <AuthHomePage />,
+    element: <MainPage />,
   },
   {
     path: '/test',
     element: <TestPage />,
+  },
+  {
+    path: '/test-auth',
+    element: <AuthHomePage />,
   },
   {
     path: '/testml',

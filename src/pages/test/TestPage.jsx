@@ -21,8 +21,8 @@ import DaySelector from '../../components/DaySelector';
 import Calendar from '../../components/Calendar';
 import ImageUploader from '../../components/ImageUploader';
 import VoicePlayerBar from '../../components/VoicePlayerBar';
-import HospitalInput from '../../components/HospitalInput';
-import MemoInput from '../../components/MemoInput';
+import FilledDualInput from '../../components/FilledDualInput';
+import FilledTextArea from '../../components/FilledTextArea';
 import HealthDetail from '../../components/HealthDetail';
 import ScheduleListContainer from '../../components/ScheduleListContainer';
 import ScheduleItem from '../../components/ScheduleItem';
@@ -171,8 +171,8 @@ const TestPage = () => {
         date={'오늘'}
         time={'10분전'}
       ></VoicePlayerBar>
-      <HospitalInput></HospitalInput>
-      <MemoInput></MemoInput>
+      <FilledDualInput></FilledDualInput>
+      <FilledTextArea></FilledTextArea>
       <HealthDetail
         title={'고혈압약'}
         data={

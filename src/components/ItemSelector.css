@@ -6,8 +6,8 @@
   justify-content: center;
 }
 
-.item-selector h2 {
-  font-size: var(--text-size-title); /* 글자 크기 설정 */
+.item-selector h1 {
+  font-size: var(--text-size-heading-small);
   color: var(--color--neutral-0);
   font-weight: bold;
   margin: 0;
@@ -18,7 +18,7 @@
   max-width: fit-content;
 }
 
-.item-selector h2 svg {
+.item-selector h1 svg {
   margin-left: 2px;
 }
 

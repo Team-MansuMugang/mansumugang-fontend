@@ -7,7 +7,8 @@ import SignInPage from './pages/sign-in/SignInPage';
 import ChangeBirthday from './pages/user-account/ChangeBirthday';
 import ChangeEmail from './pages/user-account/ChangeEmail';
 import PasswordChange from './pages/user-account/PasswordChange';
-import authHomePage from './pages/test/authHomePage';
+import AuthHomePage from './pages/test/AuthHomePage';
+import MedicineListPage from './pages/test/MedicineListPage';
 import MainPage from './pages/home/MainPage';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,12 +20,8 @@ const router = createBrowserRouter([
     element: <SignInPage />,
   },
   {
-    path: '/main-page',
-    element: <MainPage />,
-  },
-  {
     path: '/home',
-    element: <authHomePage />,
+    element: <MainPage />,
   },
   {
     path: '/voice-message-page',
@@ -37,6 +34,14 @@ const router = createBrowserRouter([
   {
     path: '/test',
     element: <TestPage />,
+  },
+  {
+    path: '/test-auth',
+    element: <AuthHomePage />,
+  },
+  {
+    path: '/testml',
+    element: <MedicineListPage />,
   },
   {
     path: '/change-birthday',

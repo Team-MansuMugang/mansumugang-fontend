@@ -13,15 +13,10 @@ const MainPage = () => {
   return (
     <>
       <div className="main-page">
-<<<<<<< HEAD
-        <h2>홈</h2>
-        <SubTitle title="음성 메세지" onMoreClick={'/voice-message-page'} />
-=======
         <h1>홈</h1>
 
         <SubTitle title="음성 메세지" />
 
->>>>>>> 3139c9d25225f89d489671cca5bcdf7566e90188
         <RowScrollContainer>
           <SmallVoiceMessageItem
             profileImage={'https://picsum.photos/200/300'}

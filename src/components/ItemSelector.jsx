@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ItemSelector.css';
 import '../index.css';
 import KeyboardArrowDown from '../assets/svg/keyboard-arrow-down.svg?react';
@@ -6,6 +6,10 @@ import KeyboardArrowDown from '../assets/svg/keyboard-arrow-down.svg?react';
 const ItemSelector = ({ items = ['테스트1', '테스트2', '테스트3'], onSelect }) => {
   const [selectedItem, setSelectedItem] = useState(items[0] || ''); // 초기 상태는 첫 번째 아이템
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setSelectedItem(items[0] || '');
+  }, [items]);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);

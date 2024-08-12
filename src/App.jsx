@@ -10,6 +10,7 @@ import PasswordChange from './pages/user-account/PasswordChange';
 import AuthHomePage from './pages/test/AuthHomePage';
 import MedicineListPage from './pages/test/MedicineListPage';
 import MainPage from './pages/home/MainPage';
+import ChangeProfile from './pages/user-account/ChangeProfile';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: '/test',
     element: <TestPage />,
+  },
+  {
+    path: '/change-profile',
+    element: <ChangeProfile />,
   },
   {
     path: '/testml',

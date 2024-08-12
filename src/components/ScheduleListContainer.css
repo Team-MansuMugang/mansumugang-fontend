@@ -3,14 +3,14 @@
   background-color: var(--color-neutral-100);
 }
 
-.schedule-time {
+.schedule-list-container .schedule-time {
   font-size: var(text-size-body-medium);
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
-.schedule-items {
+.schedule-list-container .schedule-items {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
   gap: 15px;
 }

@@ -1,0 +1,17 @@
+.filled-text-area {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-neutral-95);
+  border-radius: var(--round-size-medium);
+  padding: 5px 19px;
+}
+
+.filled-text-area textarea {
+  padding: 8px;
+  min-height: 88px;
+  font-size: var(--text-size-body-medium);
+  border: none;
+  background-color: var(--color-neutral-95);
+  color: var(--color-neutral-45);
+  outline: none;
+}

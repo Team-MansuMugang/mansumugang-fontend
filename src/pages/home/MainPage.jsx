@@ -40,7 +40,7 @@ const MainPage = () => {
             <ScheduleItem status="unchecked" title="감기약" data="동국대병원" />
           </ScheduleListContainer>
 
-          <ScheduleListContainer time="오후 3:00시">
+          <ScheduleListContainer time="오후 3:00">
             <ScheduleItem
               status="unchecked"
               title="동국대병원"
@@ -52,6 +52,8 @@ const MainPage = () => {
             <ScheduleItem status="unchecked" title="감기약" data="동국대병원" />
           </ScheduleListContainer>
         </BorderContainer>
+
+        <SubTitle title="현재 위치" showButton={false} />
       </div>
       <NavBar />
     </>

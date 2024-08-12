@@ -20,9 +20,9 @@ const ItemSelector = ({ items = ['테스트1', '테스트2', '테스트3'], onSe
 
   return (
     <div className="item-selector">
-      <h2 onClick={handleToggle}>
+      <h1 onClick={handleToggle}>
         {selectedItem} <KeyboardArrowDown />
-      </h2>
+      </h1>
       {isOpen && (
         <ul>
           {items.map((item, index) => (

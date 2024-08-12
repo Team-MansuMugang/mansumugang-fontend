@@ -1,10 +1,34 @@
 .main-page {
-  padding: 18px;
+  padding: 0 18px;
 }
-.main-page .h2 {
+
+.main-page h1 {
+  position: sticky;
+  top: 0px;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-neutral-100);
   font-size: var(--text-size-heading-small);
+  height: 52px;
+  padding: 0;
+  margin: 0;
 }
-.schedule-container .border-schedule-container > .border-container {
+
+hr {
+  margin: 0;
+  border: 0;
+  width: 100vw;
+  margin-top: 16px;
+  margin-left: calc((100vw - 100%) / 2 * -1);
+  border-top: 9px solid var(--color-neutral-95);
+}
+
+.item-selector {
+  position: sticky;
+  top: 0px;
+}
+
+.border-container {
   display: flex;
   flex-direction: column;
   gap: 25px;

@@ -1,4 +1,4 @@
-.hospital-input-container {
+.dual-input {
   display: flex;
   flex-direction: column;
   background-color: var(--color-neutral-95);
@@ -8,7 +8,7 @@
   gap: 9px; /* 요소들 사이의 간격 설정 */
 }
 
-.hospital-input {
+.dual-input input {
   padding: 8px;
   height: 45px;
   font-size: var(--text-size-body-medium); /* 텍스트 크기 */

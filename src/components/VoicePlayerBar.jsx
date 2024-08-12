@@ -13,40 +13,44 @@ const VoicePlayerBar = ({ profileImage, name, date, time, audioSrc }) => {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    const handleLoadedMetadata = () => {
+    const onLoadedMetadata = () => {
       setDuration(audioRef.current.duration);
     };
-    const handleEnded = () => {
+
+    const onAudioEnd = () => {
       setIsPlaying(false);
       setIsPaused(false);
       setCurrentTime(0);
     };
+
     const audioElement = audioRef.current;
-    audioElement.addEventListener('loadedmetadata', handleLoadedMetadata);
-    audioElement.addEventListener('ended', handleEnded);
+    audioElement.addEventListener('loadedmetadata', onLoadedMetadata);
+    audioElement.addEventListener('ended', onAudioEnd);
+
     return () => {
-      audioElement.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      audioElement.removeEventListener('ended', handleEnded);
+      audioElement.removeEventListener('loadedmetadata', onLoadedMetadata);
+      audioElement.removeEventListener('ended', onAudioEnd);
     };
   }, [audioSrc]);
 
-  const togglePlayPause = () => {
-    if (isPlaying) {
-      if (isPaused) {
-        audioRef.current.play();
-        setIsPaused(false);
-      } else {
-        audioRef.current.pause();
-        setIsPaused(true);
-      }
-    } else {
+  const handlePlayPauseToggle = () => {
+    if (!isPlaying) {
       audioRef.current.play();
       setIsPlaying(true);
       setIsPaused(false);
+      return;
+    }
+
+    if (isPaused) {
+      audioRef.current.play();
+      setIsPaused(false);
+    } else {
+      audioRef.current.pause();
+      setIsPaused(true);
     }
   };
 
-  const stopAudio = () => {
+  const handleStopAudio = () => {
     audioRef.current.pause();
     audioRef.current.currentTime = 0;
     setIsPlaying(false);
@@ -54,7 +58,7 @@ const VoicePlayerBar = ({ profileImage, name, date, time, audioSrc }) => {
     setCurrentTime(0);
   };
 
-  const handleTimeUpdate = () => {
+  const onTimeUpdate = () => {
     setCurrentTime(audioRef.current.currentTime);
   };
 
@@ -80,7 +84,7 @@ const VoicePlayerBar = ({ profileImage, name, date, time, audioSrc }) => {
         {!isPlaying && (
           <>
             <span className="play-label">재생하기</span>
-            <button className="play-pause-btn" onClick={togglePlayPause} aria-label="Play">
+            <button className="play-pause-btn" onClick={handlePlayPauseToggle} aria-label="Play">
               <PlayIcon />
             </button>
           </>
@@ -94,18 +98,18 @@ const VoicePlayerBar = ({ profileImage, name, date, time, audioSrc }) => {
             </div>
             <button
               className="play-pause-btn"
-              onClick={togglePlayPause}
+              onClick={handlePlayPauseToggle}
               aria-label={isPaused ? 'Play' : 'Pause'}
             >
               {isPaused ? <PlayIcon /> : <PauseIcon />}
             </button>
-            <button className="stop-btn" onClick={stopAudio} aria-label="Stop">
+            <button className="stop-btn" onClick={handleStopAudio} aria-label="Stop">
               <StopIcon />
             </button>
           </>
         )}
       </div>
-      <audio ref={audioRef} src={audioSrc} onTimeUpdate={handleTimeUpdate}></audio>
+      <audio ref={audioRef} src={audioSrc} onTimeUpdate={onTimeUpdate}></audio>
     </div>
   );
 };

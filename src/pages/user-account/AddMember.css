@@ -1,0 +1,15 @@
+.add-member {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 42px;
+  padding: 0 35px;
+  gap: 9px;
+}
+.add-member .big-button-fixed {
+  position: fixed;
+  left: 35px;
+  right: 35px;
+  bottom: 0;
+  margin-bottom: 38px;
+}

@@ -1,0 +1,19 @@
+.subtext-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.subtext {
+  font-size: var(--text-size-body-medium);
+  color: var(--color-neutral-0);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+.subtext-icon {
+  font-size: 18px;
+  color: var(--color-neutral-0);
+}

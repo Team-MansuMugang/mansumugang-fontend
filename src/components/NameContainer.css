@@ -1,0 +1,17 @@
+.name-container {
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.name-container__name {
+  font-size: var(--text-size-heading-large);
+  font-weight: bold;
+  margin: 0;
+}
+
+.name-container__nickname {
+  font-size: var(--text-size-title);
+  color: var(--color-neutral-45);
+  margin: 0;
+}

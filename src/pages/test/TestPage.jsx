@@ -26,12 +26,16 @@ import FilledTextArea from '../../components/FilledTextArea';
 import HealthDetail from '../../components/HealthDetail';
 import ScheduleListContainer from '../../components/ScheduleListContainer';
 import ScheduleItem from '../../components/ScheduleItem';
+import MemberList from '../../components/MemberList';
+import SubText from '../../components/SubText';
+import NameContainer from '../../components/NameContainer';
 
 const TestPage = () => {
   return (
     <>
       <FloatingActionButton />
       <MainHeader title="테스트 페이지" rightText="hoho" />
+      <NameContainer name={'이병헌'} nickname={'귀여미'}></NameContainer>
       <InputWrapper
         description="아이디"
         status="warning"
@@ -54,13 +58,11 @@ const TestPage = () => {
       <SubButton disabled={false}>프로필 수정하기</SubButton>
       <SubTitle title="회원가입" showButton={false} />
       <BorderContainer description="내 계정">
-        <SubLink to="/">회원가입</SubLink>
-        <br></br>
-        <SubLink to="/">회원가입</SubLink>
-        <br></br>
-        <SubLink to="/">회원가입</SubLink>
+        <SubText text={'생년월일 수정하기'} navigateTo={'/change-birthday'}></SubText>
+        <SubText text={'이메일 수정하기'} navigateTo={'/change-email'}></SubText>
+        <SubText text={'비밀번호 수정하기'} navigateTo={'/password-change'}></SubText>
       </BorderContainer>
-      <CancelButton>삭제</CancelButton>
+      <CancelButton></CancelButton>
       <ImageUploader />
       <NavBar></NavBar>
       <TagButton disabled={true}>전체</TagButton>
@@ -116,6 +118,19 @@ const TestPage = () => {
           time={''}
         ></SmallVoiceMessageItem>
       </RowScrollContainer>
+      <BorderContainer>
+        <MemberList
+          profileImage={'https://picsum.photos/200/300'}
+          name={'김정숙'}
+          showCancelButton={true}
+        ></MemberList>
+        <MemberList
+          profileImage={'https://picsum.photos/200/300'}
+          name={'김정숙'}
+          showCancelButton={false}
+        ></MemberList>
+      </BorderContainer>
+
       <SubTitle />
       <LargeVoiceMessageItem
         profileImage={'https://picsum.photos/200/300'}

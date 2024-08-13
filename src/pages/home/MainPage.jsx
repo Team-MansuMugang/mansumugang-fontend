@@ -10,6 +10,7 @@ import ScheduleItem from '../../components/ScheduleItem';
 import ItemSelector from '../../components/ItemSelector';
 import fetchPatientList from '../../apis/api/fetchPatientList';
 import medicineInfoRetrieval from '../../apis/api/medicineInfoRetrieval';
+import FloatingActionButton from '../../components/FloatingActionButton';
 
 const MainPage = () => {
   const [patients, setPatients] = useState([]);
@@ -101,8 +102,15 @@ const MainPage = () => {
       </BorderContainer>
 
       <SubTitle title="현재 위치" showButton={false} />
+      <div style={{ backgroundColor: 'red', width: '100%', height: '100px' }}>구현중</div>
 
       <NavBar />
+      <FloatingActionButton
+        items={[
+          { title: '약 일정 추가하기', url: '/' },
+          { title: '병원 일정 추가하기', url: '/' },
+        ]}
+      />
     </div>
   );
 };

@@ -17,13 +17,6 @@
   border-radius: 50%;
 }
 
-.member-list-item .item-details {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  max-width: 180px;
-}
-
 .member-list-item .item-name {
   font-size: var(--text-size-body-medium);
   font-weight: bold;

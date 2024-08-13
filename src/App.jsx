@@ -7,7 +7,7 @@ import SignInPage from './pages/sign-in/SignInPage';
 import ChangeBirthday from './pages/user-account/ChangeBirthday';
 import ChangeEmail from './pages/user-account/ChangeEmail';
 import PasswordChange from './pages/user-account/PasswordChange';
-import authHomePage from './pages/test/AuthHomePage';
+import AuthHomePage from './pages/test/AuthHomePage';
 import MedicineListPage from './pages/test/MedicineListPage';
 import MainPage from './pages/home/MainPage';
 import { ToastContainer, toast, Slide } from 'react-toastify';
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <authHomePage />,
+    element: <AuthHomePage />,
   },
   {
     path: '/test',

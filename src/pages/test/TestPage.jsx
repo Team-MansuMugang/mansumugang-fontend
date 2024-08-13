@@ -27,7 +27,7 @@ import HealthDetail from '../../components/HealthDetail';
 import ScheduleListContainer from '../../components/ScheduleListContainer';
 import ScheduleItem from '../../components/ScheduleItem';
 import MemberList from '../../components/MemberList';
-import SubText from '../../components/SubText';
+import LinkItem from '../../components/LinkItem';
 import NameContainer from '../../components/NameContainer';
 
 const TestPage = () => {
@@ -58,9 +58,9 @@ const TestPage = () => {
       <SubButton disabled={false}>프로필 수정하기</SubButton>
       <SubTitle title="회원가입" showButton={false} />
       <BorderContainer description="내 계정">
-        <SubText text={'생년월일 수정하기'} navigateTo={'/change-birthday'}></SubText>
-        <SubText text={'이메일 수정하기'} navigateTo={'/change-email'}></SubText>
-        <SubText text={'비밀번호 수정하기'} navigateTo={'/password-change'}></SubText>
+        <LinkItem text={'생년월일 수정하기'} navigateTo={'/change-birthday'}></LinkItem>
+        <LinkItem text={'이메일 수정하기'} navigateTo={'/change-email'}></LinkItem>
+        <LinkItem text={'비밀번호 수정하기'} navigateTo={'/password-change'}></LinkItem>
       </BorderContainer>
       <CancelButton></CancelButton>
       <ImageUploader />

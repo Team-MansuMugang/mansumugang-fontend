@@ -7,11 +7,9 @@ const MemberList = ({ profileImage, name, showCancelButton, onCancel }) => {
     <div className="member-list-item">
       <div className="item-info-container">
         <img src={profileImage} alt={`${name} profile`} />
-        <div className="item-details">
-          <div className="item-name">{name}</div>
-        </div>
+        <div className="item-name">{name}</div>
       </div>
-      {showCancelButton && <CancelButton onClick={onCancel} />}
+      {showCancelButton && <CancelButton children={'삭제'} onClick={onCancel} />}
     </div>
   );
 };

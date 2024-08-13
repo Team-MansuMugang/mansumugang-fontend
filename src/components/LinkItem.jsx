@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import './SubText.css';
+import './LinkItem.css';
 import '../index.css';
 import ChevronRightIcon from '../assets/svg/chevron-right.svg?react';
 
-const SubText = ({ text, navigateTo }) => {
+const LinkItem = ({ text, navigateTo }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -11,11 +11,11 @@ const SubText = ({ text, navigateTo }) => {
   };
 
   return (
-    <div className="subtext-container" onClick={handleClick}>
+    <div className="link-item" onClick={handleClick}>
       <div className="subtext">{text}</div>
       <ChevronRightIcon className="subtext-icon" />
     </div>
   );
 };
 
-export default SubText;
+export default LinkItem;

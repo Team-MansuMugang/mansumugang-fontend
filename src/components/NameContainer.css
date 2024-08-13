@@ -4,13 +4,13 @@
   text-align: center;
 }
 
-.name-container__name {
+.name-container-name {
   font-size: var(--text-size-heading-large);
   font-weight: bold;
   margin: 0;
 }
 
-.name-container__nickname {
+.name-container-nickname {
   font-size: var(--text-size-title);
   color: var(--color-neutral-45);
   margin: 0;

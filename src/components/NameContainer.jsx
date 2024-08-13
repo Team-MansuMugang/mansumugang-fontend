@@ -4,8 +4,8 @@ import '../index.css';
 const NameContainer = ({ name, nickname }) => {
   return (
     <div className="name-container">
-      <p className="name-container__name">{name}</p>
-      <p className="name-container__nickname">{nickname}</p>
+      <p className="name-container-name">{name}</p>
+      <p className="name-container-nickname">{nickname}</p>
     </div>
   );
 };

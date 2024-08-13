@@ -20,9 +20,13 @@
 
 .schedule-item .schedule-title {
   font-size: var(--text-size-body-medium);
+  white-space: nowrap;
 }
 
 .schedule-item .schedule-data {
   font-size: var(--text-size-detail);
   color: var(--color-neutral-45);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

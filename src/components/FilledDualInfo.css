@@ -1,4 +1,4 @@
-.health-detail-container {
+.filled-dual-info {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -9,14 +9,14 @@
   background-color: var(--color-neutral-95);
 }
 
-.health-detail-container span {
+.filled-dual-info span {
   font-size: var(--text-size-body);
   color: var(--color-neutral-30);
   overflow-wrap: break-word;
   word-break: break-word;
 }
 
-.health-detail-container hr {
+.filled-dual-info hr {
   border: none;
   height: 1px;
   background-color: var(--color-neutral-100);

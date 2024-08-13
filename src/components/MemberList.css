@@ -1,0 +1,30 @@
+.member-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: default;
+}
+
+.item-info-container {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.member-list-item img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.member-list-item .item-name {
+  font-size: var(--text-size-body-medium);
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.member-list-item .cancel-button {
+  margin-left: 14px;
+}

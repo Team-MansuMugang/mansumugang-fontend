@@ -1,25 +1,22 @@
 .health-detail-container {
   display: flex;
   flex-direction: column;
-  gap: 8;
-  padding: 0px 15px;
+  gap: 8px;
+  padding: 9px 15px;
   min-height: 130px;
   border-radius: var(--round-size-medium);
   color: var(--color-neutral-30);
   background-color: var(--color-neutral-95);
 }
 
-.health-detail-container .health-detail-title {
-  font-size: var(--text-size-body-small);
-}
-
-.health-detail-container .health-detail-data {
-  font-size: var(--text-size-body-small);
+.health-detail-container span {
+  font-size: var(--text-size-body);
+  color: var(--color-neutral-30);
   overflow-wrap: break-word;
   word-break: break-word;
 }
 
-.health-detail-container .separator {
+.health-detail-container hr {
   border: none;
   height: 1px;
   background-color: var(--color-neutral-100);

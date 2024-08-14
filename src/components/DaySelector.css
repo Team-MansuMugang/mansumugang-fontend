@@ -14,9 +14,14 @@
   background-color: var(--color-neutral-95);
   cursor: pointer;
   transition: background-color 0.3s ease;
+  color: black;
 }
 
 .day-selector button.selected {
   background-color: var(--color-primary);
   color: var(--color-neutral-100);
+}
+
+.day-selector button:disabled {
+  cursor: default;
 }

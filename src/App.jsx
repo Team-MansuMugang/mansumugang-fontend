@@ -12,6 +12,8 @@ import MedicineListPage from './pages/test/MedicineListPage';
 import MainPage from './pages/home/MainPage';
 import ChangeProfile from './pages/user-account/ChangeProfile';
 import AddMember from './pages/user-account/AddMember';
+import AccountPage from './pages/user-account/AccountPage';
+import MemberEdit from './pages/user-account/MemberEdit';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
   {
     path: '/testml',
     element: <MedicineListPage />,
+  },
+  {
+    path: '/account-page',
+    element: <AccountPage />,
+  },
+  {
+    path: '/member-edit',
+    element: <MemberEdit />,
   },
   {
     path: '/change-birthday',

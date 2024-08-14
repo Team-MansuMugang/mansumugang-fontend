@@ -29,6 +29,7 @@ import ScheduleItem from '../../components/ScheduleItem';
 import MedicineDetailCard from '../../components/MedicineDetailCard';
 import HospitalDetailCard from '../../components/HospitalDetailCard';
 import FilledTimeInput from '../../components/FilledTimeInput';
+import AddedTimeItem from '../../components/AddedTimeItem';
 
 const TestPage = () => {
   return (
@@ -144,38 +145,14 @@ const TestPage = () => {
         date={'오늘'}
         time={'10분전'}
       ></LargeVoiceMessageItem>
-      <LargeVoiceMessageItem
-        profileImage={'https://picsum.photos/200/300'}
-        name={'김정숙'}
-        date={'오늘'}
-        time={'10분전'}
-      ></LargeVoiceMessageItem>
-      <LargeVoiceMessageItem
-        profileImage={'https://picsum.photos/200/300'}
-        name={'김정숙'}
-        date={'오늘'}
-        time={'10분전'}
-      ></LargeVoiceMessageItem>
-      <LargeVoiceMessageItem
-        profileImage={'https://picsum.photos/200/300'}
-        name={'김정숙'}
-        date={'오늘'}
-        time={'10분전'}
-      ></LargeVoiceMessageItem>
-      <LargeVoiceMessageItem
-        profileImage={'https://picsum.photos/200/300'}
-        name={'김정숙'}
-        date={'오늘'}
-        time={'10분전'}
-      ></LargeVoiceMessageItem>
       <VoicePlayerBar
         profileImage={'https://picsum.photos/200/300'}
         name={'유호진'}
         date={'오늘'}
         time={'10분전'}
       ></VoicePlayerBar>
-      <FilledDualInput></FilledDualInput>
-      <FilledTextArea></FilledTextArea>
+      <FilledDualInput />
+      <FilledTextArea />
       <FilledDualInfo
         title={'고혈압약'}
         data={`고혈압약은 꼭 밥을 드시고  식후 30분에 드세요!! 가나다다 마나 사마낭 ㄴ아ㅏㄴㅇㄴ안아ㅏㅇ ㅏㅇㅇ나안안아
@@ -184,6 +161,7 @@ const TestPage = () => {
           고혈압약은 꼭 밥을 드시고  식후 30분에 드세요!! 가나다다 마나 사마낭 ㄴ아ㅏㄴㅇㄴ안아ㅏㅇ ㅏㅇㅇ나안안아`}
       ></FilledDualInfo>
       <FilledTimeInput />
+      <AddedTimeItem meridiem="오후" hour="5" minutes="36" />
       <MedicineDetailCard
         medicineName="hihi"
         hospitalName="hihi"

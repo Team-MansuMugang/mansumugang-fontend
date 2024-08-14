@@ -27,6 +27,7 @@ import FilledDualInfo from '../../components/FilledDualInfo';
 import ScheduleListContainer from '../../components/ScheduleListContainer';
 import ScheduleItem from '../../components/ScheduleItem';
 import MedicineDetailCard from '../../components/MedicineDetailCard';
+import HospitalDetailCard from '../../components/HospitalDetailCard';
 
 const TestPage = () => {
   return (
@@ -188,6 +189,13 @@ const TestPage = () => {
         medicineIntakeTime="1:20"
         medicineIntakeDays={['Monday', 'Wednesday', 'Thursday']}
         status="checked"
+      />
+      <HospitalDetailCard
+        hospitalName="동국대병원"
+        hospitalAddress="경기 고양시 일산동구 동국로 27"
+        hospitalDescription="65번 버스 타고 6정거장 이동하면 돼요! 알죠???"
+        hospitalVisitingTime="오전 6:00"
+        hospitalVisitingDate="9월 27일"
       />
       <ScheduleListContainer time="오후 6시">
         <ScheduleItem status="checked" title="당뇨약" data="동국대병원"></ScheduleItem>

@@ -181,6 +181,14 @@ const TestPage = () => {
           고혈압약은 꼭 밥을 드시고  식후 30분에 드세요!! 가나다다 마나 사마낭 ㄴ아ㅏㄴㅇㄴ안아ㅏㅇ ㅏㅇㅇ나안안아
           고혈압약은 꼭 밥을 드시고  식후 30분에 드세요!! 가나다다 마나 사마낭 ㄴ아ㅏㄴㅇㄴ안아ㅏㅇ ㅏㅇㅇ나안안아`}
       ></FilledDualInfo>
+      <MedicineDetailCard
+        medicineName="hihi"
+        hospitalName="hihi"
+        medicineDescription="test"
+        medicineIntakeTime="1:20"
+        medicineIntakeDays={['Monday', 'Wednesday', 'Thursday']}
+        status="checked"
+      />
       <ScheduleListContainer time="오후 6시">
         <ScheduleItem status="checked" title="당뇨약" data="동국대병원"></ScheduleItem>
         <ScheduleItem status="unchecked" title="혈압약" data="동국대병원"></ScheduleItem>

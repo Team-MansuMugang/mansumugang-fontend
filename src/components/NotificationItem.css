@@ -1,6 +1,6 @@
 .notification-item {
   display: flex;
-  align-items: center;
+  align-items: start;
   background-color: var(--color-neutral-100);
   cursor: pointer;
   gap: 18px;
@@ -9,6 +9,10 @@
 .notification-item .profile-image {
   width: 48px;
   height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  max-width: 48px;
+  max-height: 48px;
   border-radius: 50%;
 }
 

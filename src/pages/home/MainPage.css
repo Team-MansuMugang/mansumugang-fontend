@@ -15,7 +15,7 @@
   margin: 0;
 }
 
-hr {
+.main-page hr {
   margin: 0;
   border: 0;
   width: 100vw;
@@ -24,12 +24,12 @@ hr {
   border-top: 9px solid var(--color-neutral-95);
 }
 
-.item-selector {
+.main-page .item-selector {
   position: sticky;
   top: 0px;
 }
 
-.border-container {
+.main-page .border-container {
   display: flex;
   flex-direction: column;
   gap: 25px;

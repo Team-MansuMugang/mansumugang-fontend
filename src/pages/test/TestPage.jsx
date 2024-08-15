@@ -30,6 +30,7 @@ import MedicineDetailCard from '../../components/MedicineDetailCard';
 import HospitalDetailCard from '../../components/HospitalDetailCard';
 import FilledTimeInput from '../../components/FilledTimeInput';
 import AddedTimeItem from '../../components/AddedTimeItem';
+import FillMeridiemToggle from '../../components/FillMeridiemToggle';
 
 const TestPage = () => {
   return (
@@ -161,6 +162,7 @@ const TestPage = () => {
           고혈압약은 꼭 밥을 드시고  식후 30분에 드세요!! 가나다다 마나 사마낭 ㄴ아ㅏㄴㅇㄴ안아ㅏㅇ ㅏㅇㅇ나안안아`}
       ></FilledDualInfo>
       <FilledTimeInput />
+      <FillMeridiemToggle />
       <AddedTimeItem meridiem="오후" hour="5" minutes="36" />
       <MedicineDetailCard
         medicineName="hihi"

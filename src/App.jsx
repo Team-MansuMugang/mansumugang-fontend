@@ -12,23 +12,32 @@ import MedicineListPage from './pages/test/MedicineListPage';
 import MainPage from './pages/home/MainPage';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import VoiceMessagePage from './pages/voice-message/VoiceMessagePage';
+import DetailVoiceMessagePage from './pages/voice-message/DetailVoiceMessagePage';
 const router = createBrowserRouter([
   {
     path: '/',
     element: <SignInPage />,
   },
   {
-    path: '/main-page',
+    path: '/home',
     element: <MainPage />,
   },
   {
-    path: '/home',
-    element: <AuthHomePage />,
+    path: '/voice-message-page',
+    element: <VoiceMessagePage />,
+  },
+  {
+    path: '/detail-voice-message-page',
+    element: <DetailVoiceMessagePage />,
   },
   {
     path: '/test',
     element: <TestPage />,
+  },
+  {
+    path: '/test-auth',
+    element: <AuthHomePage />,
   },
   {
     path: '/testml',

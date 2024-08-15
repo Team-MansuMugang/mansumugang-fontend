@@ -1,0 +1,13 @@
+.voice-message-control {
+  padding: 15px;
+}
+
+.voice-message-control .Large-voice-Message {
+  display: grid;
+  gap: 19px;
+  margin-top: 10px;
+}
+.voice-message-control .tag-item {
+  display: flex;
+  gap: 5px;
+}

@@ -1,0 +1,19 @@
+.added-time-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  font-size: var(--text-size-body-small);
+}
+
+.added-time-item button {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  border: none;
+  padding-right: 0;
+  font-size: 13px;
+  background-color: var(--color-neutral-100);
+  color: var(--color-neutral-15);
+  cursor: pointer;
+}

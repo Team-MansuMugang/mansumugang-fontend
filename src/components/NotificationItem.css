@@ -2,7 +2,6 @@
   display: flex;
   align-items: start;
   background-color: var(--color-neutral-100);
-  cursor: pointer;
   gap: 18px;
 }
 

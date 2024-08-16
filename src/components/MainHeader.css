@@ -8,6 +8,7 @@
   width: 100%;
   box-sizing: border-box;
   background-color: var(--color-neutral-100);
+  z-index: 998;
 }
 
 .main-header .button {

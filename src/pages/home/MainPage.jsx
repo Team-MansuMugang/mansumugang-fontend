@@ -104,7 +104,7 @@ const MainPage = () => {
       <SubTitle title="현재 위치" showButton={false} />
       <div style={{ backgroundColor: 'red', width: '100%', height: '100px' }}>구현중</div>
 
-      <NavBar />
+      <NavBar activeTab="홈" />
       <FloatingActionButton
         items={[
           { title: '약 일정 추가하기', url: '/' },

@@ -38,8 +38,8 @@ const router = createBrowserRouter([
     path: '/home',
     children: [
       { path: '', element: <MainPage /> },
-      { path: 'notification', element: <></> },
-      { path: 'community', element: <AccountPage /> },
+      { path: 'notifications', element: <></> },
+      { path: 'community', element: <></> },
       { path: 'account', element: <AccountPage /> },
     ],
   },

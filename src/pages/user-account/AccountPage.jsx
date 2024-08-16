@@ -11,7 +11,7 @@ const AccountPage = () => {
   const nickname = '귀여미';
   return (
     <>
-      <NavBar></NavBar>
+      <NavBar activeTab="계정"></NavBar>
       <div className="account-page">
         <img id="change-img" src="https://picsum.photos/200/300" />
         <p className="name-container-name">{name}</p>

@@ -9,7 +9,7 @@
   border: none;
   color: var(--color-neutral-45);
   font-size: var(--text-size-body-medium);
-  padding: 0 25px;
+  padding: 0 12px;
   box-sizing: border-box;
   cursor: pointer;
   user-select: none;

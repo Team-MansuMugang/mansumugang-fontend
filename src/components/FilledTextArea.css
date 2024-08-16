@@ -7,8 +7,8 @@
 }
 
 .filled-text-area textarea {
-  padding: 8px;
-  min-height: 88px;
+  padding: 14px 8px;
+  min-height: 82px;
   font-size: var(--text-size-body-medium);
   border: none;
   background-color: var(--color-neutral-95);

@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import './HospitalDetailCard.css';
 import '../index.css';
-import ScheduleItem from './ScheduleItem';
-import DaySelector from './DaySelector';
 import FilledDualInfo from './FilledDualInfo';
 
 const HospitalDetailCard = ({

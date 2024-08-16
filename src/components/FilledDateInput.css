@@ -1,4 +1,4 @@
-.filled-time-input {
+.filled-date-input {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@
   box-sizing: border-box;
 }
 
-.filled-time-input input {
+.filled-date-input input {
   background-color: unset;
   border: none;
   outline: none;
@@ -23,11 +23,11 @@
   text-align: right;
 }
 
-.filled-time-input input::placeholder {
+.filled-date-input input::placeholder {
   color: var(--color-neutral-75);
 }
 
-.filled-time-input span {
+.filled-date-input span {
   width: 20px;
 }
 
@@ -37,4 +37,11 @@ input[type='number']::-webkit-outer-spin-button {
   -moz-appearance: none;
   appearance: none;
   margin: 0;
+}
+
+.filled-date-input.years input {
+  width: 40px;
+}
+.filled-date-input.years span {
+  width: 25px;
 }

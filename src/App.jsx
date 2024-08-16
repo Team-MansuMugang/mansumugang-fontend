@@ -12,55 +12,36 @@ import MedicineListPage from './pages/test/MedicineListPage';
 import MainPage from './pages/home/MainPage';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import VoiceMessagePage from './pages/voice-message/VoiceMessagePage';
+import DetailVoiceMessagePage from './pages/voice-message/DetailVoiceMessagePage';
+import SchedulePage from './pages/schedule/SchedulePage';
+import MedicineEditPage from './pages/schedule/MedicineEditPage';
+import MedicineAddPage from './pages/schedule/MedicineAddPage';
+import HospitalEditPage from './pages/schedule/HospitalEditPage';
+import HospitalAddPage from './pages/schedule/HospitalAddPage';
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <SignInPage />,
-  },
-  {
-    path: '/main-page',
-    element: <MainPage />,
-  },
-  {
-    path: '/home',
-    element: <AuthHomePage />,
-  },
-  {
-    path: '/test',
-    element: <TestPage />,
-  },
-  {
-    path: '/testml',
-    element: <MedicineListPage />,
-  },
-  {
-    path: '/change-birthday',
-    element: <ChangeBirthday />,
-  },
-  {
-    path: '/change-email',
-    element: <ChangeEmail />,
-  },
-  {
-    path: '/password-change',
-    element: <PasswordChange />,
-  },
+  { path: '/', element: <SignInPage /> },
+  { path: '/home', element: <MainPage /> },
+  { path: '/voice-message-page', element: <VoiceMessagePage /> },
+  { path: '/detail-voice-message-page', element: <DetailVoiceMessagePage /> },
+  { path: '/test', element: <TestPage /> },
+  { path: '/test-auth', element: <AuthHomePage /> },
+  { path: '/testml', element: <MedicineListPage /> },
+  { path: '/change-birthday', element: <ChangeBirthday /> },
+  { path: '/change-email', element: <ChangeEmail /> },
+  { path: '/password-change', element: <PasswordChange /> },
+  { path: '/schedule', element: <SchedulePage /> },
+  { path: '/medicine-edit', element: <MedicineEditPage /> },
+  { path: '/medicine-add', element: <MedicineAddPage /> },
+  { path: '/hospital-edit', element: <HospitalEditPage /> },
+  { path: '/hospital-add', element: <HospitalAddPage /> },
   {
     element: <SignUpHeader />,
     children: [
-      {
-        path: '/sign-up',
-        element: <PatientSignUpPage />,
-      },
-      {
-        path: '/sign-up/patient',
-        element: <PatientSignUpPage />,
-      },
-      {
-        path: '/sign-up/Guardian',
-        element: <GuardianSignUpPage />,
-      },
+      { path: '/sign-up', element: <PatientSignUpPage /> },
+      { path: '/sign-up/patient', element: <PatientSignUpPage /> },
+      { path: '/sign-up/Guardian', element: <GuardianSignUpPage /> },
     ],
   },
 ]);

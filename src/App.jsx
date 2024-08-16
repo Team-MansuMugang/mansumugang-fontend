@@ -38,6 +38,8 @@ const router = createBrowserRouter([
     path: '/home',
     children: [
       { path: '', element: <MainPage /> },
+      { path: 'notification', element: <></> },
+      { path: 'community', element: <AccountPage /> },
       { path: 'account', element: <AccountPage /> },
     ],
   },
@@ -67,6 +69,16 @@ const router = createBrowserRouter([
       { path: 'edit-password', element: <PasswordChange /> },
       { path: 'add-member', element: <AddMember /> },
       { path: 'edit-member', element: <MemberEdit /> },
+    ],
+  },
+  {
+    path: '/community',
+    children: [
+      { path: 'search', element: <></> },
+      { path: 'search-results', element: <></> },
+      { path: 'post', element: <></> },
+      { path: 'new-post', element: <></> },
+      { path: 'edit-post', element: <></> },
     ],
   },
   {

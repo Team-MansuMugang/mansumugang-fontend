@@ -26,33 +26,55 @@ import HospitalAddPage from './pages/schedule/HospitalAddPage';
 
 const router = createBrowserRouter([
   { path: '/', element: <SignInPage /> },
-  { path: '/home', element: <MainPage /> },
-  { path: '/voice-message-page', element: <VoiceMessagePage /> },
-  { path: '/detail-voice-message-page', element: <DetailVoiceMessagePage /> },
-  { path: '/test', element: <TestPage /> },
-  { path: '/test-auth', element: <AuthHomePage /> },
-  { path: '/testml', element: <MedicineListPage /> },
-  { path: '/change-birthday', element: <ChangeBirthday /> },
-  { path: '/change-email', element: <ChangeEmail /> },
-  { path: '/password-change', element: <PasswordChange /> },
-  { path: '/schedule', element: <SchedulePage /> },
-  { path: '/medicine-edit', element: <MedicineEditPage /> },
-  { path: '/medicine-add', element: <MedicineAddPage /> },
-  { path: '/hospital-edit', element: <HospitalEditPage /> },
-  { path: '/hospital-add', element: <HospitalAddPage /> },
-  { path: '/account-page', element: <AccountPage /> },
-  { path: '/member-edit', element: <MemberEdit /> },
-  { path: '/change-birthday', element: <ChangeBirthday /> },
-  { path: '/change-email', element: <ChangeEmail /> },
-  { path: '/password-change', element: <PasswordChange /> },
-  { path: '/change-profile', element: <ChangeProfile /> },
-  { path: '/add-member', element: <AddMember /> },
   {
     element: <SignUpHeader />,
     children: [
       { path: '/sign-up', element: <PatientSignUpPage /> },
       { path: '/sign-up/patient', element: <PatientSignUpPage /> },
-      { path: '/sign-up/Guardian', element: <GuardianSignUpPage /> },
+      { path: '/sign-up/guardian', element: <GuardianSignUpPage /> },
+    ],
+  },
+  {
+    path: '/home',
+    children: [
+      { path: '', element: <MainPage /> },
+      { path: 'account', element: <AccountPage /> },
+    ],
+  },
+  {
+    path: '/schedule',
+    children: [
+      { path: '', element: <SchedulePage /> },
+      { path: 'medicine-edit', element: <MedicineEditPage /> },
+      { path: 'medicine-add', element: <MedicineAddPage /> },
+      { path: 'hospital-edit', element: <HospitalEditPage /> },
+      { path: 'hospital-add', element: <HospitalAddPage /> },
+    ],
+  },
+  {
+    path: '/voice-message',
+    children: [
+      { path: '', element: <VoiceMessagePage /> },
+      { path: 'detail', element: <DetailVoiceMessagePage /> },
+    ],
+  },
+  {
+    path: '/account',
+    children: [
+      { path: 'edit-profile', element: <ChangeProfile /> },
+      { path: 'edit-birthday', element: <ChangeBirthday /> },
+      { path: 'edit-email', element: <ChangeEmail /> },
+      { path: 'edit-password', element: <PasswordChange /> },
+      { path: 'add-member', element: <AddMember /> },
+      { path: 'edit-member', element: <MemberEdit /> },
+    ],
+  },
+  {
+    path: '/test',
+    element: <TestPage />,
+    children: [
+      { path: 'auth', element: <AuthHomePage /> },
+      { path: 'ml', element: <MedicineListPage /> },
     ],
   },
 ]);

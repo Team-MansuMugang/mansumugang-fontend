@@ -1,0 +1,40 @@
+.schedule-page {
+  padding: 0 18px;
+}
+
+.schedule-page hr {
+  margin: 0;
+  border: 0;
+  width: 100vw;
+  margin-top: 16px;
+  margin-left: calc((100vw - 100%) / 2 * -1);
+  border-top: 9px solid var(--color-neutral-95);
+}
+
+.schedule-page .schedule-item {
+  cursor: pointer;
+  user-select: none;
+}
+
+.schedule-page-overlay {
+  display: flex;
+  flex-direction: column-reverse;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 18px;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.1s ease-in-out,
+    visibility 0.1s ease-in-out;
+}
+
+.schedule-page-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}

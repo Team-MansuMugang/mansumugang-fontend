@@ -1,0 +1,30 @@
+.account-page {
+  display: flex;
+  flex-direction: column;
+  margin-top: 71px;
+  padding: 0 12px;
+  gap: 9px;
+}
+.account-page p {
+  text-align: center;
+}
+.account-page #change-img {
+  align-self: center;
+  width: 143px;
+  height: 143px;
+  border-radius: 50%;
+}
+.account-page .sub-button {
+  align-self: center;
+  margin: 5px 0;
+}
+.account-page .fixed-page .border-container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.account-page .my-member .border-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

@@ -1,11 +1,12 @@
-.change-email {
+.add-member {
   display: flex;
   flex-direction: column;
   text-align: center;
   margin-top: 42px;
   padding: 0 35px;
+  gap: 9px;
 }
-.change-email .big-button {
+.add-member .big-button {
   position: fixed;
   bottom: 19px;
   left: 35px;

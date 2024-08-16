@@ -1,0 +1,51 @@
+.medicine-edit-page .main-header .button > span {
+  margin: 0 9px;
+  color: var(--color-semantic-important);
+}
+
+.medicine-edit-page .contents {
+  padding: 0 18px;
+  margin-top: 6px;
+  margin-bottom: 155px;
+}
+
+.medicine-edit-page .top-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 30px;
+}
+.medicine-edit-page .top-container .dual-input {
+  flex-grow: 1;
+}
+
+.medicine-edit-page h2 {
+  padding: 0;
+  margin: 25px 0 10px 0;
+  font-size: var(--text-size-title);
+  font-weight: bold;
+}
+
+.medicine-edit-page .time-input-container,
+.medicine-edit-page .date-input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.medicine-edit-page .date-input-container > * {
+  padding: 0 15px;
+}
+.medicine-edit-page .time-input-container > * {
+  padding: 0 20px;
+}
+
+.medicine-edit-page .big-button {
+  position: fixed;
+  bottom: 19px;
+  left: 18px;
+  width: calc(100vw - 18px * 2);
+  pointer-events: auto;
+}

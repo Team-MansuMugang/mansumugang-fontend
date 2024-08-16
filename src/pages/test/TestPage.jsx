@@ -34,6 +34,7 @@ import HospitalDetailCard from '../../components/HospitalDetailCard';
 import FilledTimeInput from '../../components/FilledTimeInput';
 import AddedTimeItem from '../../components/AddedTimeItem';
 import FillMeridiemToggle from '../../components/FillMeridiemToggle';
+import NotificationItem from '../../components/NotifcationItem';
 
 const TestPage = () => {
   return (
@@ -41,6 +42,11 @@ const TestPage = () => {
       <FloatingActionButton />
       <MainHeader title="테스트 페이지" rightText="hoho" />
       <NameContainer name={'이병헌'} nickname={'귀여미'}></NameContainer>
+      <NotificationItem
+        profileImage={'https://picsum.photos/200/300'}
+        notificationMessage={'김정숙님이 오후 3시에 병원을 방문하지 않았습니다. 확인해보세요'}
+        timeAgo={'15분 전'}
+      ></NotificationItem>
       <InputWrapper
         description="아이디"
         status="warning"

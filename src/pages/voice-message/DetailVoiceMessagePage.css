@@ -1,0 +1,20 @@
+.voice-message-detail {
+  display: grid;
+  gap: 27px;
+  padding: 15px;
+}
+.voice-message-detail .text-head {
+  font-size: var(--text-size-body-medium);
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+.voice-message-detail .text-area {
+  font-size: var(--text-size-body-medium);
+  line-height: 2;
+  white-space: pre-wrap; /* 줄바꿈 및 공백을 유지하며 텍스트를 자동 줄바꿈 */
+  word-wrap: break-word; /* 긴 단어가 줄바꿈되도록 설정 */
+  overflow-wrap: break-word; /* 긴 단어가 줄바꿈되도록 설정 */
+  margin: 0;
+  padding: 0;
+}

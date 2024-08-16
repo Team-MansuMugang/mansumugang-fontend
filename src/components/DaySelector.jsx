@@ -2,26 +2,40 @@ import React, { useState } from 'react';
 import './DaySelector.css';
 import '../index.css';
 
-const DaySelector = ({ onSelect }) => {
-  const [selectedDays, setSelectedDays] = useState([]);
+const dayMapping = {
+  일: 'Sunday',
+  월: 'Monday',
+  화: 'Tuesday',
+  수: 'Wednesday',
+  목: 'Thursday',
+  금: 'Friday',
+  토: 'Saturday',
+};
 
-  const toggleDay = (day) => {
-    if (selectedDays.includes(day)) {
-      setSelectedDays(selectedDays.filter((selectedDay) => selectedDay !== day));
+const DaySelector = ({ onSelect, initSelectedDays = [], viewOnly = false }) => {
+  const [selectedDays, setSelectedDays] = useState(initSelectedDays);
+
+  const toggleDay = (englishDay) => {
+    if (selectedDays.includes(englishDay)) {
+      setSelectedDays(selectedDays.filter((selectedDay) => selectedDay !== englishDay));
     } else {
-      setSelectedDays([...selectedDays, day]);
+      setSelectedDays([...selectedDays, englishDay]);
     }
 
     if (onSelect) onSelect(selectedDays);
   };
 
-  const isSelected = (day) => selectedDays.includes(day);
+  const isSelected = (englishDay) => selectedDays.includes(englishDay);
 
   return (
     <ul className="day-selector">
-      {['일', '월', '화', '수', '목', '금', '토'].map((day) => (
+      {Object.entries(dayMapping).map(([day, englishDay]) => (
         <li key={day}>
-          <button className={isSelected(day) ? 'selected' : ''} onClick={() => toggleDay(day)}>
+          <button
+            className={isSelected(englishDay) ? 'selected' : ''}
+            onClick={() => toggleDay(englishDay)}
+            disabled={viewOnly}
+          >
             {day}
           </button>
         </li>

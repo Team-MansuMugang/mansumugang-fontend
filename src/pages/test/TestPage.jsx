@@ -23,12 +23,17 @@ import ImageUploader from '../../components/ImageUploader';
 import VoicePlayerBar from '../../components/VoicePlayerBar';
 import FilledDualInput from '../../components/FilledDualInput';
 import FilledTextArea from '../../components/FilledTextArea';
-import HealthDetail from '../../components/HealthDetail';
+import FilledDualInfo from '../../components/FilledDualInfo';
 import ScheduleListContainer from '../../components/ScheduleListContainer';
 import ScheduleItem from '../../components/ScheduleItem';
 import MemberList from '../../components/MemberList';
 import LinkItem from '../../components/LinkItem';
 import NameContainer from '../../components/NameContainer';
+import MedicineDetailCard from '../../components/MedicineDetailCard';
+import HospitalDetailCard from '../../components/HospitalDetailCard';
+import FilledTimeInput from '../../components/FilledTimeInput';
+import AddedTimeItem from '../../components/AddedTimeItem';
+import FillMeridiemToggle from '../../components/FillMeridiemToggle';
 
 const TestPage = () => {
   return (
@@ -156,44 +161,39 @@ const TestPage = () => {
         date={'오늘'}
         time={'10분전'}
       ></LargeVoiceMessageItem>
-      <LargeVoiceMessageItem
-        profileImage={'https://picsum.photos/200/300'}
-        name={'김정숙'}
-        date={'오늘'}
-        time={'10분전'}
-      ></LargeVoiceMessageItem>
-      <LargeVoiceMessageItem
-        profileImage={'https://picsum.photos/200/300'}
-        name={'김정숙'}
-        date={'오늘'}
-        time={'10분전'}
-      ></LargeVoiceMessageItem>
-      <LargeVoiceMessageItem
-        profileImage={'https://picsum.photos/200/300'}
-        name={'김정숙'}
-        date={'오늘'}
-        time={'10분전'}
-      ></LargeVoiceMessageItem>
-      <LargeVoiceMessageItem
-        profileImage={'https://picsum.photos/200/300'}
-        name={'김정숙'}
-        date={'오늘'}
-        time={'10분전'}
-      ></LargeVoiceMessageItem>
       <VoicePlayerBar
         profileImage={'https://picsum.photos/200/300'}
         name={'유호진'}
         date={'오늘'}
         time={'10분전'}
       ></VoicePlayerBar>
-      <FilledDualInput></FilledDualInput>
-      <FilledTextArea></FilledTextArea>
-      <HealthDetail
+      <FilledDualInput />
+      <FilledTextArea />
+      <FilledDualInfo
         title={'고혈압약'}
-        data={
-          '고혈압약은 꼭 밥을 드시고  식후 30분에 드세요!! 가나다다 마나 사마낭 ㄴ아ㅏㄴㅇㄴ안아ㅏㅇ ㅏㅇㅇ나안안아'
-        }
-      ></HealthDetail>
+        data={`고혈압약은 꼭 밥을 드시고  식후 30분에 드세요!! 가나다다 마나 사마낭 ㄴ아ㅏㄴㅇㄴ안아ㅏㅇ ㅏㅇㅇ나안안아
+          고혈압약은 꼭 밥을 드시고  식후 30분에 드세요!! 가나다다 마나 사마낭 ㄴ아ㅏㄴㅇㄴ안아ㅏㅇ ㅏㅇㅇ나안안아
+          고혈압약은 꼭 밥을 드시고  식후 30분에 드세요!! 가나다다 마나 사마낭 ㄴ아ㅏㄴㅇㄴ안아ㅏㅇ ㅏㅇㅇ나안안아
+          고혈압약은 꼭 밥을 드시고  식후 30분에 드세요!! 가나다다 마나 사마낭 ㄴ아ㅏㄴㅇㄴ안아ㅏㅇ ㅏㅇㅇ나안안아`}
+      ></FilledDualInfo>
+      <FilledTimeInput />
+      <FillMeridiemToggle />
+      <AddedTimeItem meridiem="오후" hour="5" minutes="36" />
+      <MedicineDetailCard
+        medicineName="hihi"
+        hospitalName="hihi"
+        medicineDescription="test"
+        medicineIntakeTime="1:20"
+        medicineIntakeDays={['Monday', 'Wednesday', 'Thursday']}
+        status="checked"
+      />
+      <HospitalDetailCard
+        hospitalName="동국대병원"
+        hospitalAddress="경기 고양시 일산동구 동국로 27"
+        hospitalDescription="65번 버스 타고 6정거장 이동하면 돼요! 알죠???"
+        hospitalVisitingTime="오전 6:00"
+        hospitalVisitingDate="9월 27일"
+      />
       <ScheduleListContainer time="오후 6시">
         <ScheduleItem status="checked" title="당뇨약" data="동국대병원"></ScheduleItem>
         <ScheduleItem status="unchecked" title="혈압약" data="동국대병원"></ScheduleItem>

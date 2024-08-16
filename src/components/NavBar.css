@@ -9,6 +9,7 @@
   background-color: var(--color-neutral-100);
   border-top: 1px solid #eaeaea;
   padding: 10px 0;
+  z-index: 998;
 }
 
 .nav-item {

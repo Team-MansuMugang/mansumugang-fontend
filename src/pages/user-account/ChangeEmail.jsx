@@ -12,7 +12,7 @@ const ChangeEmail = () => {
         <InputWrapper description="이메일 변경">
           <Input placeholder="example@gmail.com" />
         </InputWrapper>
-        <div className="big-button-fixed">
+        <div className="big-button-wrap">
           <BigButton>수정하기</BigButton>
         </div>
       </div>

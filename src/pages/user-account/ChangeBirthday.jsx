@@ -14,7 +14,7 @@ const ChangeBirthday = () => {
           <Input placeholder="4" />
           <Input placeholder="27" />
         </InputWrapper>
-        <div className="big-button-fixed">
+        <div className="big-button-wrap">
           <BigButton>수정하기</BigButton>
         </div>
       </div>

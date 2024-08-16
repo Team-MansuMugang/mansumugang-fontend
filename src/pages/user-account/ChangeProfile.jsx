@@ -18,7 +18,7 @@ const ChangeProfile = () => {
         <InputWrapper description="닉네임">
           <Input placeholder="귀여미" />
         </InputWrapper>
-        <div className="big-button-fixed">
+        <div className="big-button-wrap">
           <BigButton>수정하기</BigButton>
         </div>
       </div>

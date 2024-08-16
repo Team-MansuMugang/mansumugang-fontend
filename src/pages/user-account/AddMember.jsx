@@ -15,8 +15,8 @@ const AddMember = () => {
         <InputWrapper description="환자 비밀번호">
           <Input placeholder="환자 비밀번호" />
         </InputWrapper>
-        <div className="big-button-fixed">
-          <BigButton>수정하기</BigButton>
+        <div className="big-button-wrap">
+          <BigButton>추가하기</BigButton>
         </div>
       </div>
     </>

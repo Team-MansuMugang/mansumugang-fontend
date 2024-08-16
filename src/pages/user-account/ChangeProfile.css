@@ -6,20 +6,23 @@
   gap: 9px;
   text-align: center;
 }
+
 .profile-change #change-img {
   align-self: center;
   width: 143px;
   height: 143px;
   border-radius: 50%;
 }
+
 .profile-change .sub-button {
   align-self: center;
   margin: 25px 0;
 }
-.profile-change .big-button-fixed {
+
+.profile-change .big-button {
   position: fixed;
+  bottom: 19px;
   left: 35px;
-  right: 35px;
-  bottom: 0;
-  margin-bottom: 38px;
+  width: calc(100vw - 70px);
+  pointer-events: auto;
 }

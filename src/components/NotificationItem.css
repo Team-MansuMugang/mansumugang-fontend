@@ -1,0 +1,32 @@
+.notification-item {
+  display: flex;
+  align-items: start;
+  background-color: var(--color-neutral-100);
+  gap: 18px;
+}
+
+.notification-item .profile-image {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  max-width: 48px;
+  max-height: 48px;
+  border-radius: 50%;
+}
+
+.notification-item .notification-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.notification-item .notification-content .notification-message {
+  font-size: var(--text-size-body-small);
+  color: var(--color-neutral-0);
+}
+
+.notification-item .notification-content .notification-time {
+  font-size: var(--text-size-detail);
+  color: var(--color-neutral-45);
+}

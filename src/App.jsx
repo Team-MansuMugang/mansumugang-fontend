@@ -40,6 +40,13 @@ const router = createBrowserRouter([
   { path: '/medicine-add', element: <MedicineAddPage /> },
   { path: '/hospital-edit', element: <HospitalEditPage /> },
   { path: '/hospital-add', element: <HospitalAddPage /> },
+  { path: '/account-page', element: <AccountPage /> },
+  { path: '/member-edit', element: <MemberEdit /> },
+  { path: '/change-birthday', element: <ChangeBirthday /> },
+  { path: '/change-email', element: <ChangeEmail /> },
+  { path: '/password-change', element: <PasswordChange /> },
+  { path: '/change-profile', element: <ChangeProfile /> },
+  { path: '/add-member', element: <AddMember /> },
   {
     element: <SignUpHeader />,
     children: [

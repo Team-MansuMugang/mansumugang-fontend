@@ -4,12 +4,11 @@
   align-items: center;
   gap: 5px;
   height: 45px;
-  width: 90px;
   background-color: var(--color-neutral-95);
   border-radius: var(--round-size-medium);
   color: var(--color-neutral-45);
   font-size: var(--text-size-body-medium);
-  padding: 0 25px;
+  padding: 0 12px;
   box-sizing: border-box;
 }
 
@@ -17,14 +16,19 @@
   background-color: unset;
   border: none;
   outline: none;
-  width: 100%;
+  width: 20px;
   height: 100%;
   color: var(--color-neutral-45);
   font-size: var(--text-size-body-medium);
+  text-align: right;
 }
 
 .filled-time-input input::placeholder {
   color: var(--color-neutral-75);
+}
+
+.filled-time-input span {
+  width: 20px;
 }
 
 input[type='number']::-webkit-inner-spin-button,

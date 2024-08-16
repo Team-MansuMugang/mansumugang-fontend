@@ -19,10 +19,10 @@ const FilledTimeInput = ({ onInput, type = 'hours' }) => {
   };
 
   return (
-    <div className="filled-time-input">
+    <label className="filled-time-input">
       <input type="number" placeholder="0" onChange={handleInput} />
       <span>{typeText(type)}</span>
-    </div>
+    </label>
   );
 };
 

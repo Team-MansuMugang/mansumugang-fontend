@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './MainPage.css';
 import SubTitle from '../../components/SubTitle';
 import SmallVoiceMessageItem from '../../components/SmallVoiceMessageItem';
@@ -16,6 +17,7 @@ const MainPage = () => {
   const [patients, setPatients] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState('');
   const [medicineSchedules, setMedicineSchedules] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadPatients = async () => {
@@ -75,13 +77,14 @@ const MainPage = () => {
     <div className="main-page">
       <h1>홈</h1>
 
-      <SubTitle title="음성 메세지" />
+      <SubTitle title="음성 메세지" linkTo="/voice-message" />
 
       <RowScrollContainer>
         <SmallVoiceMessageItem
           profileImage={'https://picsum.photos/200/300'}
           name={'가나다라마바사아자차카타파하'}
           time={'30분 전'}
+          onClick={() => navigate('/voice-message/detail')}
         />
       </RowScrollContainer>
 
@@ -92,7 +95,7 @@ const MainPage = () => {
         onSelect={handleSelectPatient}
       />
 
-      <SubTitle title="일정" />
+      <SubTitle title="일정" linkTo="/schedule" />
       <BorderContainer>
         {medicineSchedules.map((schedule) => (
           <ScheduleListContainer key={schedule.time} time={schedule.time}>
@@ -104,11 +107,11 @@ const MainPage = () => {
       <SubTitle title="현재 위치" showButton={false} />
       <div style={{ backgroundColor: 'red', width: '100%', height: '100px' }}>구현중</div>
 
-      <NavBar />
+      <NavBar activeTab="홈" />
       <FloatingActionButton
         items={[
-          { title: '약 일정 추가하기', url: '/' },
-          { title: '병원 일정 추가하기', url: '/' },
+          { title: '약 일정 추가하기', url: '/schedule/medicine-add' },
+          { title: '병원 일정 추가하기', url: '/schedule/hospital-add' },
         ]}
       />
     </div>

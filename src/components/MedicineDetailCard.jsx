@@ -12,10 +12,11 @@ const MedicineDetailCard = ({
   medicineIntakeTime,
   medicineIntakeDays,
   status,
+  editLink,
 }) => {
   return (
     <div className="medicine-detail-card">
-      <Link to="/">편집</Link>
+      <Link to={editLink}>편집</Link>
       <div className="top-container">
         {
           // TODO: 이미지 반영하기

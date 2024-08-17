@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import './MedicineEditPage.css';
 import '../../index.css';
 import MainHeader from '../../components/MainHeader';
@@ -12,9 +13,16 @@ import BigButton from '../../components/BigButton';
 import CheckButton from '../../components/CheckButton';
 
 const MedicineEditPage = () => {
+  const navigate = useNavigate();
   return (
     <div className="medicine-edit-page">
-      <MainHeader title="약 수정 페이지" rightText="삭제" />
+      <MainHeader
+        title="약 수정 페이지"
+        rightText="삭제"
+        onClickLeft={() => {
+          navigate(-1);
+        }}
+      />
       <div className="contents">
         <div className="top-container">
           <ImageUploader type="drugs" />

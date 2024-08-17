@@ -8,6 +8,8 @@ import {
   NoSuchMedicineIntakeTimeError,
   AlreadyExistMedicineIntakeDayError,
   NoSuchMedicineIntakeDayError,
+  NotValidAccessTokenError,
+  ExpiredAccessTokenError,
 } from '../utility/errors.js';
 import { validateParameters } from '../utility/validate.js';
 
@@ -57,6 +59,8 @@ const updateMedicine = async (params) => {
   const result = await response.json();
 
   if (!response.ok) {
+    if (result.errorType === 'NotValidAccessTokenError') throw new NotValidAccessTokenError();
+    if (result.errorType === 'ExpiredAccessTokenError') throw new ExpiredAccessTokenError();
     if (result.errorType === 'NotValidRequestError')
       throw new NotValidRequestError(result.errorDescriptions);
     if (result.errorType === 'UserNotFoundError') throw new UserNotFoundError();

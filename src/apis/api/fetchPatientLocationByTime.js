@@ -1,9 +1,10 @@
 import {
   HttpResponseError,
-  NotValidAccessTokenError,
   AccessDeniedError,
   UserLocationInfoWithinRangeNotFoundError,
   UserNotFoundError,
+  NotValidAccessTokenError,
+  ExpiredAccessTokenError,
 } from '../utility/errors';
 
 const baseURL = 'http://minnnisu.iptime.org';
@@ -22,6 +23,7 @@ const fetchPatientList = async (patientId, time) => {
 
   if (!response.ok) {
     if (result.errorType === 'NotValidAccessTokenError') throw new NotValidAccessTokenError();
+    if (result.errorType === 'ExpiredAccessTokenError') throw new ExpiredAccessTokenError();
     if (result.errorType === 'AccessDeniedError') throw new AccessDeniedError();
     if (result.errorType === 'UserLocationInfoWithinRangeNotFoundError')
       throw new UserLocationInfoWithinRangeNotFoundError();

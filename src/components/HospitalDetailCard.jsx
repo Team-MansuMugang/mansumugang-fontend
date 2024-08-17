@@ -9,10 +9,11 @@ const HospitalDetailCard = ({
   hospitalDescription,
   hospitalVisitingTime,
   hospitalVisitingDate,
+  editLink,
 }) => {
   return (
     <div className="hospital-detail-card">
-      <Link to="/">편집</Link>
+      <Link to={editLink}>편집</Link>
       <div className="top-container">
         <span>{hospitalName}</span>
         <span>

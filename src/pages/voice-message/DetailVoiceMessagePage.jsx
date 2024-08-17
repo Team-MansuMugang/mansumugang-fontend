@@ -1,14 +1,21 @@
 // import { BigButton, CheckButton, Input, InputWrapper } from '../../components/components';
+import { useNavigate } from 'react-router-dom';
 import './DetailVoiceMessagePage.css';
 import MainHeader from '../../components/MainHeader';
 import NavBar from '../../components/NavBar';
 import VoicePlayerBar from '../../components/VoicePlayerBar';
 
 const DetailVoiceMessagePage = ({ textData }) => {
+  const navigate = useNavigate();
   return (
     <>
       <NavBar></NavBar>
-      <MainHeader title="음성 메세지"></MainHeader>
+      <MainHeader
+        title="음성 메세지"
+        onClickLeft={() => {
+          navigate(-1);
+        }}
+      ></MainHeader>
       <div className="voice-message-detail">
         <VoicePlayerBar
           profileImage={'https://picsum.photos/200/300'}

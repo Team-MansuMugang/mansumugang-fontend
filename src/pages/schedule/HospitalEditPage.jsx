@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import './HospitalEditPage.css';
 import './MedicineEditPage.css';
 import '../../index.css';
@@ -10,9 +11,10 @@ import BigButton from '../../components/BigButton';
 import FilledDateInput from '../../components/FilledDateInput';
 
 const HospitalEditPage = () => {
+  const navigate = useNavigate();
   return (
     <div className="medicine-edit-page">
-      <MainHeader title="병원 일정 수정 페이지" rightText="삭제" />
+      <MainHeader title="병원 일정 수정 페이지" rightText="삭제" onClickLeft={() => navigate(-1)} />
       <div className="contents">
         <div className="top-container">
           <FilledDualInput placeholder={['병원 이름', '병원 주소']} />

@@ -26,7 +26,7 @@ const SchedulePage = () => {
 
   return (
     <>
-      <Calendar />
+      <Calendar backUrl="/home" />
       <div className="schedule-page">
         <hr />
         <SubTitle showButton={false} title="8월 2일" />
@@ -51,8 +51,8 @@ const SchedulePage = () => {
         className={`schedule-page-overlay ${isOverlayVisible ? 'show' : ''}`}
         onClick={hideOverlay}
       >
-        {detailType === 'medicine' && <MedicineDetailCard />}
-        {detailType === 'hospital' && <HospitalDetailCard />}
+        {detailType === 'medicine' && <MedicineDetailCard editLink="/schedule/medicine-edit" />}
+        {detailType === 'hospital' && <HospitalDetailCard editLink="/schedule/hospital-edit" />}
       </div>
     </>
   );

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import BigButton from '../../components/BigButton';
 import Input from '../../components/Input';
 import InputWrapper from '../../components/InputWrapper';
@@ -6,9 +7,11 @@ import SubButton from '../../components/SubButton';
 import './ChangeProfile.css';
 
 const ChangeProfile = () => {
+  const navigate = useNavigate();
+
   return (
     <>
-      <MainHeader title="프로필 수정하기"></MainHeader>
+      <MainHeader title="프로필 수정하기" onClickLeft={() => navigate(-1)}></MainHeader>
       <div className="profile-change">
         <img id="change-img" src="https://picsum.photos/200/300" />
         <SubButton className="sub-button">사진 수정하기</SubButton>

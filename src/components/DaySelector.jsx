@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './DaySelector.css';
 import '../index.css';
 
 const dayMapping = {
-  일: 'Sunday',
-  월: 'Monday',
-  화: 'Tuesday',
-  수: 'Wednesday',
-  목: 'Thursday',
-  금: 'Friday',
-  토: 'Saturday',
+  일: 'SUNDAY',
+  월: 'MONDAY',
+  화: 'TUESDAY',
+  수: 'WEDNESDAY',
+  목: 'THURSDAY',
+  금: 'FRIDAY',
+  토: 'SATURDAY',
 };
 
 const DaySelector = ({ onSelect, initSelectedDays = [], viewOnly = false }) => {
   const [selectedDays, setSelectedDays] = useState(initSelectedDays);
+  useEffect(() => {
+    setSelectedDays(initSelectedDays);
+  }, [initSelectedDays]);
 
   const toggleDay = (englishDay) => {
     if (selectedDays.includes(englishDay)) {

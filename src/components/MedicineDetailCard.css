@@ -18,6 +18,20 @@
   border-radius: 50%;
 }
 
+.medicine-detail-card .no-image-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background-color: var(--color-secondary-green-1);
+}
+.medicine-detail-card .no-image-placeholder svg {
+  color: var(--color-secondary-green-2);
+  font-size: 40px;
+}
+
 .medicine-detail-card a,
 .medicine-detail-card a:hover,
 .medicine-detail-card a:active {

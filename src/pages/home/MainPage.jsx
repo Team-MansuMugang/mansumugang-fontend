@@ -187,6 +187,7 @@ const MainPage = () => {
             medicineDescription={detailData.medicineDescription}
             medicineIntakeTime={detailData.thisTime}
             medicineIntakeDays={detailData.medicineIntakeDays}
+            medicineImage={detailData.medicineImage}
             status={detailData.thisStatus === 'TAKEN' ? 'checked' : 'unchecked'}
           />
         )}

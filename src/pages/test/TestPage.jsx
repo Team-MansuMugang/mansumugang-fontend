@@ -36,14 +36,32 @@ import AddedTimeItem from '../../components/AddedTimeItem';
 import FillMeridiemToggle from '../../components/FillMeridiemToggle';
 import NotificationItem from '../../components/NotifcationItem';
 import SmallButton from '../../components/SmallButton';
+import CommentCount from '../../components/CommentCount';
+import CommunityLargeItem from '../../components/CommunityLargeItem';
 
 const TestPage = () => {
   return (
     <>
       <FloatingActionButton />
+      <MainHeader title="테스트 페이지" rightText="hoho" />
+      <CommunityLargeItem
+        title={'치매 어떻게 케어하시나요?'}
+        summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
+        time={'25분'}
+      ></CommunityLargeItem>
+      <CommunityLargeItem
+        title={'치매 어떻게 케어하시나요?'}
+        summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
+        time={'25분'}
+      ></CommunityLargeItem>
+      <CommunityLargeItem
+        title={'치매 어떻게 케어하시나요?'}
+        summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
+        time={'25분'}
+      ></CommunityLargeItem>
       <SmallButton children={'질문'}></SmallButton>
       <SmallButton children={'정보'}></SmallButton>
-      <MainHeader title="테스트 페이지" rightText="hoho" />
+      <CommentCount children={'7'}></CommentCount>
       <NameContainer name={'이병헌'} nickname={'귀여미'}></NameContainer>
       <NotificationItem
         profileImage={'https://picsum.photos/200/300'}

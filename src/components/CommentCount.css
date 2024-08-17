@@ -1,0 +1,21 @@
+.comment-count {
+  display: flex;
+  align-items: center;
+  color: var(--color-neutral-30);
+  font-size: var(--text-size-detail);
+  gap: 6px;
+}
+.comment-count .mode-comment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-neutral-30);
+  width: 13px;
+  height: 13px;
+  margin: 0;
+}
+.comment-count p {
+  margin: 0;
+  position: relative;
+  top: -1px;
+}

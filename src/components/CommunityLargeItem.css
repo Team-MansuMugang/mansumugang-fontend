@@ -1,0 +1,37 @@
+.community-large-item {
+  display: grid;
+  border: 1px solid var(--color-neutral-90);
+  background-color: var(--color-neutral-100);
+  cursor: pointer;
+  gap: 5px;
+}
+
+.community-large-item h2 {
+  font-size: var(--text-size-body-medium);
+  color: var(--color-neutral-0);
+  margin: 14px 0 0;
+}
+
+.community-summary {
+  font-size: var(--text-size-body-small);
+  color: var(--color-neutral-0);
+  margin: 0;
+}
+
+.community-item-footer {
+  display: flex;
+  align-items: center;
+  margin: 3px 0 14px;
+  gap: 7px;
+}
+
+.community-item-footer .divider {
+  color: var(--color-neutral-90);
+  font-size: var(--text-size-detail);
+}
+
+.community-item-footer span {
+  font-size: var(--text-size-detail);
+  color: var(--color-neutral-30);
+  margin-top: -2px;
+}

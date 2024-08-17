@@ -13,7 +13,7 @@ import FilledDateInput from '../../components/FilledDateInput';
 const HospitalAddPage = () => {
   const navigate = useNavigate();
   return (
-    <div className="medicine-edit-page">
+    <div className="hospital-edit-page">
       <MainHeader title="병원 일정 추가 페이지" onClickLeft={() => navigate(-1)} />
       <div className="contents">
         <div className="top-container">

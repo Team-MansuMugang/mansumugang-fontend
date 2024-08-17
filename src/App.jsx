@@ -46,11 +46,11 @@ const router = createBrowserRouter([
   {
     path: '/schedule',
     children: [
-      { path: '', element: <SchedulePage /> },
-      { path: 'medicine-edit', element: <MedicineEditPage /> },
-      { path: 'medicine-add', element: <MedicineAddPage /> },
-      { path: 'hospital-edit', element: <HospitalEditPage /> },
-      { path: 'hospital-add', element: <HospitalAddPage /> },
+      { path: ':patientId', element: <SchedulePage /> },
+      { path: 'medicine-edit/:patientId/:medicineId', element: <MedicineEditPage /> },
+      { path: 'medicine-add/:patientId/', element: <MedicineAddPage /> },
+      { path: 'hospital-edit/:patientId/:hospitalId', element: <HospitalEditPage /> },
+      { path: 'hospital-add/:patientId/', element: <HospitalAddPage /> },
     ],
   },
   {

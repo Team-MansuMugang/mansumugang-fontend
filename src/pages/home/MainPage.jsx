@@ -9,14 +9,23 @@ import BorderContainer from '../../components/BorderContainer';
 import ScheduleListContainer from '../../components/ScheduleListContainer';
 import ScheduleItem from '../../components/ScheduleItem';
 import ItemSelector from '../../components/ItemSelector';
+import MedicineDetailCard from '../../components/MedicineDetailCard';
+import HospitalDetailCard from '../../components/HospitalDetailCard';
 import fetchPatientList from '../../apis/api/fetchPatientList';
 import medicineInfoRetrieval from '../../apis/api/medicineInfoRetrieval';
+import renewRefreshToken from '../../apis/api/renewRefreshToken';
+import medicineDetailRetrieval from '../../apis/api/medicineDetailRetrieval';
+import hospitalDetailRetrieval from '../../apis/api/hospitalDetailRetrieval';
 import FloatingActionButton from '../../components/FloatingActionButton';
+import { NotValidAccessTokenError, ExpiredAccessTokenError } from '../../apis/utility/errors';
 
 const MainPage = () => {
   const [patients, setPatients] = useState([]);
-  const [selectedPatient, setSelectedPatient] = useState('');
+  const [selectedPatient, setSelectedPatient] = useState(0);
   const [medicineSchedules, setMedicineSchedules] = useState([]);
+  const [isOverlayVisible, setOverlayVisible] = useState(false);
+  const [detailData, setDetailData] = useState({});
+  const [detailType, setDetailType] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +34,11 @@ const MainPage = () => {
         const patientList = await fetchPatientList();
         setPatients(patientList);
       } catch (error) {
-        console.error('Failed to load patients:', error);
+        if (error instanceof ExpiredAccessTokenError) {
+          await renewRefreshToken();
+          loadPatients();
+        } else if (error instanceof NotValidAccessTokenError) navigate('/');
+        else console.error(error);
       }
     };
 
@@ -33,9 +46,7 @@ const MainPage = () => {
   }, []);
 
   useEffect(() => {
-    if (patients.length > 0) {
-      handleSelectPatient(0);
-    }
+    if (patients.length > 0) handleSelectPatient(0);
   }, [patients]);
 
   const handleSelectPatient = async (patientIndex) => {
@@ -53,24 +64,74 @@ const MainPage = () => {
   };
 
   const renderScheduleItems = (schedule) => {
+    const items = [];
+
     if (schedule.medicines.length > 0) {
-      return schedule.medicines.map((medicine) => (
-        <ScheduleItem
-          key={medicine.medicineId}
-          status={medicine.status === 'TAKEN' ? 'checked' : 'unchecked'}
-          title={medicine.medicineName}
-          data={medicine.hospitalName || ''}
-        />
-      ));
+      schedule.medicines.forEach((medicine) => {
+        items.push(
+          <ScheduleItem
+            key={medicine.medicineId}
+            status={medicine.status === 'TAKEN' ? 'checked' : 'unchecked'}
+            title={medicine.medicineName}
+            data={medicine.hospitalName || ''}
+            onClick={() =>
+              showOverlay('medicine', medicine.medicineId, schedule.time, medicine.status)
+            }
+          />,
+        );
+      });
     }
 
-    return (
-      <ScheduleItem
-        status={schedule.hospital?.status ? 'checked' : 'unchecked'}
-        title={schedule.hospital?.hospitalName || '병원'}
-        data={schedule.hospital?.hospitalAddress || ''}
-      />
-    );
+    if (schedule.hospital) {
+      items.push(
+        <ScheduleItem
+          key={schedule.hospital.hospitalId}
+          status={schedule.hospital.status ? 'checked' : 'unchecked'}
+          title={schedule.hospital.hospitalName || '병원'}
+          data={schedule.hospital.hospitalAddress || ''}
+          onClick={() =>
+            showOverlay(
+              'hospital',
+              schedule.hospital.hospitalId,
+              schedule.time,
+              schedule.hospital.status,
+            )
+          }
+        />,
+      );
+    }
+
+    return items;
+  };
+
+  const medicineDetail = async (type, id, thisTime, thisStatus) => {
+    try {
+      console.log('id:', id);
+      let result;
+      if (type === 'medicine') result = await medicineDetailRetrieval(id);
+      if (type === 'hospital') result = await hospitalDetailRetrieval(id);
+      console.log('result:', result);
+      setDetailData({ ...result, thisTime, thisStatus });
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        await renewRefreshToken();
+        medicineDetail(type, id, thisTime, thisStatus);
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
+  };
+
+  const showOverlay = (type, Id, thisTime, thisStatus) => {
+    setDetailType(type);
+    setOverlayVisible(true);
+    medicineDetail(type, Id, thisTime, thisStatus);
+  };
+
+  const hideOverlay = (event) => {
+    if (event.target.className.includes('schedule-page-overlay')) {
+      setOverlayVisible(false);
+      setDetailType('');
+    }
   };
 
   return (
@@ -95,7 +156,7 @@ const MainPage = () => {
         onSelect={handleSelectPatient}
       />
 
-      <SubTitle title="일정" linkTo="/schedule" />
+      <SubTitle title="일정" linkTo={`/schedule/${patients[selectedPatient]?.patientId}`} />
       <BorderContainer>
         {medicineSchedules.map((schedule) => (
           <ScheduleListContainer key={schedule.time} time={schedule.time}>
@@ -114,6 +175,35 @@ const MainPage = () => {
           { title: '병원 일정 추가하기', url: '/schedule/hospital-add' },
         ]}
       />
+      <div
+        className={`schedule-page-overlay ${isOverlayVisible ? 'show' : ''}`}
+        onClick={hideOverlay}
+      >
+        {detailType === 'medicine' && (
+          <MedicineDetailCard
+            editLink={`/schedule/medicine-edit/${detailData.patientId}/${detailData.medicineId}`}
+            medicineName={detailData.medicineName}
+            hospitalName={detailData.hospitalName}
+            medicineDescription={detailData.medicineDescription}
+            medicineIntakeTime={detailData.thisTime}
+            medicineIntakeDays={detailData.medicineIntakeDays}
+            status={detailData.thisStatus === 'TAKEN' ? 'checked' : 'unchecked'}
+          />
+        )}
+        {detailType === 'hospital' && (
+          <HospitalDetailCard
+            editLink={`/schedule/hospital-edit/${detailData.patientId}/${detailData.hospitalId}`}
+            hospitalName={detailData.hospitalName}
+            hospitalAddress={detailData.hospitalAddress}
+            hospitalDescription={detailData.medicineDescription}
+            hospitalVisitingDate={new Date(detailData.hospitalVisitingTime).toLocaleDateString(
+              'ko-KR',
+              { month: 'long', day: 'numeric' },
+            )}
+            hospitalVisitingTime={detailData.thisTime}
+          />
+        )}
+      </div>
     </div>
   );
 };

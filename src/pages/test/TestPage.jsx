@@ -35,11 +35,14 @@ import FilledTimeInput from '../../components/FilledTimeInput';
 import AddedTimeItem from '../../components/AddedTimeItem';
 import FillMeridiemToggle from '../../components/FillMeridiemToggle';
 import NotificationItem from '../../components/NotifcationItem';
+import SmallButton from '../../components/SmallButton';
 
 const TestPage = () => {
   return (
     <>
       <FloatingActionButton />
+      <SmallButton children={'질문'}></SmallButton>
+      <SmallButton children={'정보'}></SmallButton>
       <MainHeader title="테스트 페이지" rightText="hoho" />
       <NameContainer name={'이병헌'} nickname={'귀여미'}></NameContainer>
       <NotificationItem

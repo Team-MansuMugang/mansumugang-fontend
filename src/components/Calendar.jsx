@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Calendar.css';
 import ChevronLeft from '../assets/svg/chevron-left.svg?react';
 import ArrowBack2 from '../assets/svg/arrow-back-2.svg?react';
@@ -104,7 +105,8 @@ const CalendarDate = ({ date, isToday, isSelected, status, onClick }) => (
  * @param {Array<{date: string, status: ('TAKEN' | 'NO_TAKEN')}>} [props.dateStatus] - 날짜와 상태 정보를 담고 있는 배열 (기본값: [])
  * @returns {JSX.Element} - 달력 컴포넌트의 JSX 요소
  */
-const Calendar = ({ onSelect, dateStatus = [] }) => {
+const Calendar = ({ onSelect, dateStatus = [], backUrl }) => {
+  const navigate = useNavigate();
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(today);
   const [selectedDate, setSelectedDate] = useState(today);
@@ -144,7 +146,7 @@ const Calendar = ({ onSelect, dateStatus = [] }) => {
   return (
     <>
       <div className="calendar-header">
-        <button className="svg back">
+        <button className="svg back" onClick={() => navigate(backUrl)}>
           <ChevronLeft />
         </button>
         <div className="month-controller">

@@ -40,6 +40,7 @@ import CommentCount from '../../components/CommentCount';
 import CommunityLargeItem from '../../components/CommunityLargeItem';
 import CommunityTag from '../../components/CommunityTag';
 import PostLargeItem from '../../components/PostLargeItem';
+import PostPictureUpload from '../../components/PostPictureUpload';
 
 const TestPage = () => {
   return (
@@ -66,6 +67,7 @@ const TestPage = () => {
       <SmallButton children={'질문'}></SmallButton>
       <SmallButton children={'정보'}></SmallButton>
       <CommentCount children={'7'}></CommentCount>
+      <PostPictureUpload></PostPictureUpload>
       <PostLargeItem
         profileImage={'https://picsum.photos/200/300'}
         name={'김정숙'}

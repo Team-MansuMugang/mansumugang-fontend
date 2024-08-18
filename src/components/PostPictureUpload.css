@@ -1,0 +1,93 @@
+.post-picture-upload {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+}
+
+.post-picture-upload .image-container {
+  display: flex;
+  align-items: center;
+}
+
+.post-picture-upload .image-container .image-box {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border-radius: var(--round-size-medium);
+  overflow: hidden;
+  margin-right: 10px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.post-picture-upload .image-container .image-box .image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.post-picture-upload .image-container .add-image .add-photo-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  background-color: var(--color-secondary-green-1);
+  border: 1px solid var(--color-secondary-green-2);
+  border-radius: var(--round-size-medium);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.post-picture-upload .image-container .add-image .add-photo-button .add-icon {
+  color: var(--color-secondary-green-1);
+  background-color: var(--color-secondary-green-2);
+  width: 20px;
+  height: 20px;
+  border-radius: var(--round-size-small);
+  margin-bottom: 9px;
+}
+
+.post-picture-upload .image-container .add-image .add-photo-button .add-text {
+  font-size: var(--text-size-detail);
+  color: var(--color-secondary-green-2);
+}
+
+.post-picture-upload .image-container .image-box .delete-button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  color: var(--color-neutral-100);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: var(--round-size-small);
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 17px;
+}
+
+.post-picture-upload .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.post-picture-upload .modal .modal-image {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}

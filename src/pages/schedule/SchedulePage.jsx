@@ -46,8 +46,12 @@ const SchedulePage = () => {
         setSelectedPatient(patientIndex);
       } catch (error) {
         if (error instanceof ExpiredAccessTokenError) {
-          await renewRefreshToken();
-          fetchAndSetPatientList();
+          try {
+            await renewRefreshToken();
+            fetchAndSetPatientList();
+          } catch (error) {
+            navigate('/');
+          }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
         else console.error(error);
       }
@@ -74,8 +78,12 @@ const SchedulePage = () => {
       setMedicineSchedules(result.medicineSchedules);
     } catch (error) {
       if (error instanceof ExpiredAccessTokenError) {
-        await renewRefreshToken();
-        medicineInfoRetrieval();
+        try {
+          await renewRefreshToken();
+          medicineInfoRetrieval();
+        } catch (error) {
+          navigate('/');
+        }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
       else console.error(error);
     }
@@ -130,8 +138,12 @@ const SchedulePage = () => {
       setDetailData({ ...result, thisTime, thisStatus });
     } catch (error) {
       if (error instanceof ExpiredAccessTokenError) {
-        await renewRefreshToken();
-        fetchAndSetDetailData(type, id, thisTime, thisStatus);
+        try {
+          await renewRefreshToken();
+          fetchAndSetDetailData(type, id, thisTime, thisStatus);
+        } catch (error) {
+          navigate('/');
+        }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
       else console.error(error);
     }

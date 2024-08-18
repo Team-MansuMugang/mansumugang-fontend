@@ -171,11 +171,15 @@ const MainPage = () => {
 
       <SubTitle title="일정" linkTo={`/schedule/${patients[selectedPatient]?.patientId}`} />
       <BorderContainer>
-        {medicineSchedules.map((schedule) => (
-          <ScheduleListContainer key={schedule.time} time={schedule.time}>
-            {generateScheduleItems(schedule)}
-          </ScheduleListContainer>
-        ))}
+        {medicineSchedules.length > 0 ? (
+          medicineSchedules.map((schedule) => (
+            <ScheduleListContainer key={schedule.time} time={schedule.time}>
+              {generateScheduleItems(schedule)}
+            </ScheduleListContainer>
+          ))
+        ) : (
+          <p>오늘 일정이 없습니다.</p>
+        )}
       </BorderContainer>
 
       <SubTitle title="현재 위치" showButton={false} />

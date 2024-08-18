@@ -23,12 +23,14 @@ function ImageUploader({ type = 'profile', onImageUpload }) {
    */
   const handleFileChange = (event) => {
     if (event.target.files && event.target.files[0]) {
-      const newImageUrl = URL.createObjectURL(event.target.files[0]);
+      const file = event.target.files[0];
+      const newImageUrl = URL.createObjectURL(file);
       setImageUrl(newImageUrl);
-      if (onImageUpload) onImageUpload(newImageUrl);
+
+      // 이미지 파일을 콜백 함수로 전달
+      if (onImageUpload) onImageUpload(file);
 
       // 파일 선택 후 입력 값을 초기화
-      // 이렇게 하지 않으면 이전에 같은 파일을 선택했을 때 onChange 이벤트가 발생하지 않음
       event.target.value = '';
     }
   };

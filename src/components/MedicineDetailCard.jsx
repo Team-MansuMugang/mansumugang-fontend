@@ -20,7 +20,7 @@ const MedicineDetailCard = ({
     <div className="medicine-detail-card">
       <Link to={editLink}>편집</Link>
       <div className="top-container">
-        {medicineImage === 'http://minnnisu.iptime.org/mm/images/null' ? (
+        {medicineImage === 'http://minnnisu.iptime.org/mm/images/null' || medicineImage == null ? (
           <div className="no-image-placeholder">
             <DrugsIcon />
           </div>

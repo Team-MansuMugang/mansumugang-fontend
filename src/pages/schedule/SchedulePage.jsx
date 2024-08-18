@@ -165,7 +165,10 @@ const SchedulePage = () => {
         <BorderContainer>
           {medicineSchedules.length > 0 ? (
             medicineSchedules.map((schedule) => (
-              <ScheduleListContainer key={schedule.time} time={schedule.time}>
+              <ScheduleListContainer
+                key={schedule.time}
+                time={`${schedule.time.split(':')[0] < 12 ? '오전' : '오후'} ${schedule.time.split(':')[0] % 12 || 12}시 ${schedule.time.split(':')[1]}분`}
+              >
                 {generateScheduleItems(schedule)}
               </ScheduleListContainer>
             ))

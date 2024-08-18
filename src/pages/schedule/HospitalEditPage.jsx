@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import './HospitalEditPage.css';
-import './MedicineEditPage.css';
 import '../../index.css';
 import MainHeader from '../../components/MainHeader';
 import FilledDualInput from '../../components/FilledDualInput';

@@ -19,12 +19,14 @@ const DaySelector = ({ onSelect, initSelectedDays = [], viewOnly = false }) => {
     setSelectedDays(initSelectedDays);
   }, [JSON.stringify(initSelectedDays)]);
 
+  useEffect(() => {
+    if (onSelect) onSelect(selectedDays);
+  }, [selectedDays]);
+
   const toggleDay = (englishDay) => {
     if (selectedDays.includes(englishDay))
       setSelectedDays(selectedDays.filter((selectedDay) => selectedDay !== englishDay));
     else setSelectedDays([...selectedDays, englishDay]);
-
-    if (onSelect) onSelect(selectedDays);
   };
 
   const isSelected = (englishDay) => selectedDays.includes(englishDay);

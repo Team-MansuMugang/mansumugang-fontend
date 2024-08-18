@@ -12,7 +12,7 @@ const baseURL = 'http://minnnisu.iptime.org';
 
 // TODO: 이미지 파일 추가 기능 구현
 
-const addMedicine = async (params) => {
+const addMedicine = async (params, imageFile) => {
   validateParameters(params, [
     'patientId',
     'medicineName',
@@ -24,8 +24,8 @@ const addMedicine = async (params) => {
   ]);
 
   const formData = new FormData();
-  formData.append('medicine', JSON.stringify(params)); // JSON 데이터를 문자열로 변환하여 추가
-  // formData.append('image', imageFile); // 이미지 파일 추가
+  formData.append('medicine', new Blob(JSON.stringify(params), { type: 'application/json' }));
+  if (imageFile) formData.append('image', imageFile);
 
   const response = await fetch(`${baseURL}/api/medicine`, {
     method: 'POST',

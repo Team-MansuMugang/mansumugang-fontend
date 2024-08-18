@@ -38,15 +38,15 @@ const baseURL = 'http://minnnisu.iptime.org';
  * @throws {NoSuchMedicineIntakeDayError} 존재하지 않는 약 복용 요일인 경우.
  * @throws {HttpResponseError} HTTP 응답 오류가 발생한 경우.
  */
-const updateMedicine = async (params) => {
+const updateMedicine = async (params, imageFile) => {
   validateParameters(params, ['medicineId']);
 
   const { medicineId } = params;
   delete params.medicineId; // medicineId는 JSON에 추가하지 않음
 
   const formData = new FormData();
-  formData.append('medicine', JSON.stringify(params)); // JSON 데이터를 문자열로 변환하여 추가
-  // formData.append('image', imageFile); // 이미지 파일 추가
+  formData.append('medicine', new Blob(JSON.stringify(params), { type: 'application/json' }));
+  if (imageFile) formData.append('image', imageFile);
 
   const response = await fetch(`${baseURL}/api/medicine/${medicineId}`, {
     method: 'PATCH',

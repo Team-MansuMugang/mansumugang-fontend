@@ -31,27 +31,27 @@ const MainPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const loadPatients = async () => {
+    const fetchAndSetPatientList = async () => {
       try {
         const patientList = await fetchPatientList();
         setPatients(patientList);
       } catch (error) {
         if (error instanceof ExpiredAccessTokenError) {
           await renewRefreshToken();
-          loadPatients();
+          fetchAndSetPatientList();
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
         else console.error(error);
       }
     };
 
-    loadPatients();
+    fetchAndSetPatientList();
   }, []);
 
   useEffect(() => {
-    if (patients.length > 0) handleSelectPatient(0);
+    if (patients.length > 0) handlePatientSelection(0);
   }, [patients]);
 
-  const handleSelectPatient = async (patientIndex) => {
+  const handlePatientSelection = async (patientIndex) => {
     if (patientIndex < 0 || patientIndex >= patients.length) return;
 
     const selectedPatientId = patients[patientIndex].patientId;
@@ -65,7 +65,7 @@ const MainPage = () => {
     }
   };
 
-  const renderScheduleItems = (schedule) => {
+  const generateScheduleItems = (schedule) => {
     const items = [];
 
     if (schedule.medicines.length > 0) {
@@ -77,7 +77,7 @@ const MainPage = () => {
             title={medicine.medicineName}
             data={medicine.hospitalName || ''}
             onClick={() =>
-              showOverlay('medicine', medicine.medicineId, schedule.time, medicine.status)
+              displayDetailOverlay('medicine', medicine.medicineId, schedule.time, medicine.status)
             }
           />,
         );
@@ -92,7 +92,7 @@ const MainPage = () => {
           title={schedule.hospital.hospitalName || '병원'}
           data={schedule.hospital.hospitalAddress || ''}
           onClick={() =>
-            showOverlay(
+            displayDetailOverlay(
               'hospital',
               schedule.hospital.hospitalId,
               schedule.time,
@@ -106,7 +106,7 @@ const MainPage = () => {
     return items;
   };
 
-  const medicineDetail = async (type, id, thisTime, thisStatus) => {
+  const fetchAndSetDetailData = async (type, id, thisTime, thisStatus) => {
     try {
       console.log('id:', id);
       let result;
@@ -117,19 +117,19 @@ const MainPage = () => {
     } catch (error) {
       if (error instanceof ExpiredAccessTokenError) {
         await renewRefreshToken();
-        medicineDetail(type, id, thisTime, thisStatus);
+        fetchAndSetDetailData(type, id, thisTime, thisStatus);
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
       else console.error(error);
     }
   };
 
-  const showOverlay = (type, Id, thisTime, thisStatus) => {
+  const displayDetailOverlay = (type, Id, thisTime, thisStatus) => {
     setDetailType(type);
     setOverlayVisible(true);
-    medicineDetail(type, Id, thisTime, thisStatus);
+    fetchAndSetDetailData(type, Id, thisTime, thisStatus);
   };
 
-  const hideOverlay = (event) => {
+  const hideDetailOverlay = (event) => {
     if (event.target.className.includes('schedule-page-overlay')) {
       setOverlayVisible(false);
       setDetailType('');
@@ -155,14 +155,14 @@ const MainPage = () => {
 
       <ItemSelector
         items={patients.map((patient) => patient.patientName)}
-        onSelect={handleSelectPatient}
+        onSelect={handlePatientSelection}
       />
 
       <SubTitle title="일정" linkTo={`/schedule/${patients[selectedPatient]?.patientId}`} />
       <BorderContainer>
         {medicineSchedules.map((schedule) => (
           <ScheduleListContainer key={schedule.time} time={schedule.time}>
-            {renderScheduleItems(schedule)}
+            {generateScheduleItems(schedule)}
           </ScheduleListContainer>
         ))}
       </BorderContainer>
@@ -188,7 +188,7 @@ const MainPage = () => {
       />
       <div
         className={`schedule-page-overlay ${isOverlayVisible ? 'show' : ''}`}
-        onClick={hideOverlay}
+        onClick={hideDetailOverlay}
       >
         {detailType === 'medicine' && (
           <MedicineDetailCard

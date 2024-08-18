@@ -38,6 +38,8 @@ import NotificationItem from '../../components/NotifcationItem';
 import SmallButton from '../../components/SmallButton';
 import CommentCount from '../../components/CommentCount';
 import CommunityLargeItem from '../../components/CommunityLargeItem';
+import CommunityTag from '../../components/CommunityTag';
+import PostLargeItem from '../../components/PostLargeItem';
 
 const TestPage = () => {
   return (
@@ -59,9 +61,17 @@ const TestPage = () => {
         summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
         time={'25분'}
       ></CommunityLargeItem>
+      <CommunityTag disabled={true} children={'인기글'}></CommunityTag>
+      <CommunityTag disabled={false} children={'정보·치매'}></CommunityTag>
       <SmallButton children={'질문'}></SmallButton>
       <SmallButton children={'정보'}></SmallButton>
       <CommentCount children={'7'}></CommentCount>
+      <PostLargeItem
+        profileImage={'https://picsum.photos/200/300'}
+        name={'김정숙'}
+        date={'2024. 04. 27 '}
+        views={'100'}
+      ></PostLargeItem>
       <NameContainer name={'이병헌'} nickname={'귀여미'}></NameContainer>
       <NotificationItem
         profileImage={'https://picsum.photos/200/300'}

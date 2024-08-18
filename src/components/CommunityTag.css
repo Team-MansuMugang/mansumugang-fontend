@@ -1,0 +1,15 @@
+.community-tag {
+  font-size: var(--text-size-detail);
+  font-weight: 500;
+  padding: 0px 8px;
+  border-radius: var(--round-size-large);
+  background-color: var(--color-neutral-95);
+  color: var(--color-neutral-45);
+  border: none;
+  box-sizing: border-box;
+}
+
+.community-tag:disabled {
+  background-color: var(--color-neutral-95);
+  color: var(--color-semantic-important);
+}

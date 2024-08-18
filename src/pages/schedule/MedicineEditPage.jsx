@@ -11,6 +11,7 @@ import FilledTimeInput from '../../components/FilledTimeInput';
 import AddedTimeItem from '../../components/AddedTimeItem';
 import BigButton from '../../components/BigButton';
 import CheckButton from '../../components/CheckButton';
+import FilledDateInput from '../../components/FilledDateInput';
 
 const MedicineEditPage = () => {
   const navigate = useNavigate();
@@ -32,6 +33,13 @@ const MedicineEditPage = () => {
 
         <h2>요일 반복</h2>
         <DaySelector />
+
+        <h2>반복 종료 날짜</h2>
+        <div className="date-input-container">
+          <FilledDateInput type="years" />
+          <FilledDateInput type="months" />
+          <FilledDateInput type="days" />
+        </div>
 
         <h2>시간</h2>
         <div className="time-input-container">

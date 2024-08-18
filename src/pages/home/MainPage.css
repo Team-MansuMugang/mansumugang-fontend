@@ -40,6 +40,11 @@
   user-select: none;
 }
 
+.main-page .item-selector ul {
+  transform: translate(0, 0);
+  top: 55%;
+}
+
 .schedule-page-overlay {
   z-index: 1000;
 }

@@ -24,7 +24,7 @@
 
 .item-selector ul {
   position: absolute;
-  top: 55%;
+  transform: translate(0, 20%);
   display: flex;
   flex-direction: column;
   list-style: none;

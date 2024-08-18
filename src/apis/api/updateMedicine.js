@@ -45,7 +45,7 @@ const updateMedicine = async (params, imageFile) => {
   delete params.medicineId; // medicineId는 JSON에 추가하지 않음
 
   const formData = new FormData();
-  formData.append('medicine', new Blob(JSON.stringify(params), { type: 'application/json' }));
+  formData.append('medicine', new Blob([JSON.stringify(params)], { type: 'application/json' }));
   if (imageFile) formData.append('image', imageFile);
 
   const response = await fetch(`${baseURL}/api/medicine/${medicineId}`, {

@@ -10,8 +10,6 @@ import { validateParameters } from '../utility/validate.js';
 
 const baseURL = 'http://minnnisu.iptime.org';
 
-// TODO: 이미지 파일 추가 기능 구현
-
 const addMedicine = async (params, imageFile) => {
   validateParameters(params, [
     'patientId',
@@ -24,7 +22,7 @@ const addMedicine = async (params, imageFile) => {
   ]);
 
   const formData = new FormData();
-  formData.append('medicine', new Blob(JSON.stringify(params), { type: 'application/json' }));
+  formData.append('medicine', new Blob([JSON.stringify(params)], { type: 'application/json' }));
   if (imageFile) formData.append('image', imageFile);
 
   const response = await fetch(`${baseURL}/api/medicine`, {

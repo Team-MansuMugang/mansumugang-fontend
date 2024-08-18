@@ -3,11 +3,12 @@ import './FillMeridiemToggle.css';
 import '../index.css';
 import ArrowBack2Icon from '../assets/svg/arrow-back-2.svg?react';
 
-const FillMeridiemToggle = () => {
+const FillMeridiemToggle = ({ onChange }) => {
   const [isPM, setIsPM] = useState(false);
 
   const toggleMeridiem = () => {
-    setIsPM((prev) => !prev);
+    if (onChange) onChange(!isPM ? 'PM' : 'AM');
+    setIsPM(!isPM);
   };
 
   return (

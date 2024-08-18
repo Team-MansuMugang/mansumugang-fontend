@@ -9,7 +9,7 @@ const FilledTimeInput = ({ onInput, type = 'hours' }) => {
   };
 
   const handleInput = (e) => {
-    let value = parseInt(e.target.value, 10);
+    let value = e.target.value === '' ? 0 : parseInt(e.target.value, 10);
 
     if (type === 'hours') value = Math.max(0, Math.min(value, 12));
     if (type === 'minutes') value = Math.max(0, Math.min(value, 59));

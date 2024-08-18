@@ -70,7 +70,11 @@ const SchedulePage = () => {
       });
       setMedicineSchedules(result.medicineSchedules);
     } catch (error) {
-      console.error('Failed to retrieve medicine schedule:', error);
+      if (error instanceof ExpiredAccessTokenError) {
+        await renewRefreshToken();
+        medicineInfoRetrieval();
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
     }
   };
 

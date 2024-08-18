@@ -26,10 +26,9 @@ import { NotValidAccessTokenError, ExpiredAccessTokenError } from '../../apis/ut
 
 const SchedulePage = () => {
   const navigate = useNavigate();
-  // TODO: params를 사용하여 patientId를 가져오기.
   const params = useParams();
   const [patients, setPatients] = useState([]);
-  const [selectedPatient, setSelectedPatient] = useState(0);
+  const [selectedPatient, setSelectedPatient] = useState(null);
   const [medicineSchedules, setMedicineSchedules] = useState([]);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
   const [detailData, setDetailData] = useState({});
@@ -41,6 +40,10 @@ const SchedulePage = () => {
       try {
         const patientList = await fetchPatientList();
         setPatients(patientList);
+        const patientIndex = patientList.findIndex(
+          (patient) => patient.patientId === Number(params.patientId),
+        );
+        setSelectedPatient(patientIndex);
       } catch (error) {
         if (error instanceof ExpiredAccessTokenError) {
           await renewRefreshToken();
@@ -54,7 +57,7 @@ const SchedulePage = () => {
   }, []);
 
   useEffect(() => {
-    if (patients.length > 0) selectPatientAndFetchMedicineInfo(0);
+    if (patients.length > 0) selectPatientAndFetchMedicineInfo(selectedPatient);
   }, [patients, selectedDate]);
 
   const selectPatientAndFetchMedicineInfo = async (patientIndex) => {

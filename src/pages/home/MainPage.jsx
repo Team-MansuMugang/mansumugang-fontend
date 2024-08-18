@@ -1,6 +1,11 @@
+// React 및 Router 관련
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+// CSS 스타일링
 import './MainPage.css';
+
+// 사용자 정의 컴포넌트
 import SubTitle from '../../components/SubTitle';
 import SmallVoiceMessageItem from '../../components/SmallVoiceMessageItem';
 import RowScrollContainer from '../../components/RowScrollContainer';
@@ -11,13 +16,19 @@ import ScheduleItem from '../../components/ScheduleItem';
 import ItemSelector from '../../components/ItemSelector';
 import MedicineDetailCard from '../../components/MedicineDetailCard';
 import HospitalDetailCard from '../../components/HospitalDetailCard';
+import FloatingActionButton from '../../components/FloatingActionButton';
+
+// API 호출
 import fetchPatientList from '../../apis/api/fetchPatientList';
 import medicineInfoRetrieval from '../../apis/api/medicineInfoRetrieval';
 import renewRefreshToken from '../../apis/api/renewRefreshToken';
 import medicineDetailRetrieval from '../../apis/api/medicineDetailRetrieval';
 import hospitalDetailRetrieval from '../../apis/api/hospitalDetailRetrieval';
-import FloatingActionButton from '../../components/FloatingActionButton';
+
+// 에러 처리
 import { NotValidAccessTokenError, ExpiredAccessTokenError } from '../../apis/utility/errors';
+
+// 아이콘
 import DrugsIcon from '../../assets/svg/drugs.svg?react';
 import AddIcon from '../../assets/svg/add.svg?react';
 

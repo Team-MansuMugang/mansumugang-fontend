@@ -18,6 +18,8 @@ import medicineDetailRetrieval from '../../apis/api/medicineDetailRetrieval';
 import hospitalDetailRetrieval from '../../apis/api/hospitalDetailRetrieval';
 import FloatingActionButton from '../../components/FloatingActionButton';
 import { NotValidAccessTokenError, ExpiredAccessTokenError } from '../../apis/utility/errors';
+import DrugsIcon from '../../assets/svg/drugs.svg?react';
+import AddIcon from '../../assets/svg/add.svg?react';
 
 const MainPage = () => {
   const [patients, setPatients] = useState([]);
@@ -170,9 +172,18 @@ const MainPage = () => {
 
       <NavBar activeTab="홈" />
       <FloatingActionButton
+        title={`${patients[selectedPatient]?.patientName}님의 일정에`}
         items={[
-          { title: '약 일정 추가하기', url: '/schedule/medicine-add' },
-          { title: '병원 일정 추가하기', url: '/schedule/hospital-add' },
+          {
+            title: '약 일정 추가하기',
+            icon: <DrugsIcon />,
+            url: `/schedule/medicine-add/${patients[selectedPatient]?.patientId}`,
+          },
+          {
+            title: '병원 일정 추가하기',
+            icon: <AddIcon />,
+            url: `/schedule/hospital-add/${patients[selectedPatient]?.patientId}`,
+          },
         ]}
       />
       <div

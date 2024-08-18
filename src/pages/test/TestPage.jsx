@@ -41,12 +41,13 @@ import CommunityLargeItem from '../../components/CommunityLargeItem';
 import CommunityTag from '../../components/CommunityTag';
 import PostLargeItem from '../../components/PostLargeItem';
 import PostPictureUpload from '../../components/PostPictureUpload';
+import CategoryHeader from '../../components/CategoryHeader';
 
 const TestPage = () => {
   return (
     <>
       <FloatingActionButton />
-      <MainHeader title="테스트 페이지" rightText="hoho" />
+      <CategoryHeader rightText="작성" title="카테고리"></CategoryHeader>
       <CommunityLargeItem
         title={'치매 어떻게 케어하시나요?'}
         summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}

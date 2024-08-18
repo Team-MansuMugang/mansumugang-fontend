@@ -30,7 +30,7 @@ import { NotValidAccessTokenError, ExpiredAccessTokenError } from '../../apis/ut
 
 // 아이콘
 import DrugsIcon from '../../assets/svg/drugs.svg?react';
-import AddIcon from '../../assets/svg/add.svg?react';
+import LocalHospitalIcon from '../../assets/svg/local-hospital.svg?react';
 
 const MainPage = () => {
   const [patients, setPatients] = useState([]);
@@ -196,7 +196,7 @@ const MainPage = () => {
           },
           {
             title: '병원 일정 추가하기',
-            icon: <AddIcon />,
+            icon: <LocalHospitalIcon />,
             url: `/schedule/hospital-add/${patients[selectedPatient]?.patientId}`,
           },
         ]}

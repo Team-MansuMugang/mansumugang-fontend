@@ -14,16 +14,17 @@ const dayMapping = {
 
 const DaySelector = ({ onSelect, initSelectedDays = [], viewOnly = false }) => {
   const [selectedDays, setSelectedDays] = useState(initSelectedDays);
+  const [isEdit, setIsEdit] = useState(false);
+
   useEffect(() => {
-    setSelectedDays(initSelectedDays);
+    if (!isEdit) setSelectedDays(initSelectedDays);
   }, [initSelectedDays]);
 
   const toggleDay = (englishDay) => {
-    if (selectedDays.includes(englishDay)) {
+    setIsEdit(true);
+    if (selectedDays.includes(englishDay))
       setSelectedDays(selectedDays.filter((selectedDay) => selectedDay !== englishDay));
-    } else {
-      setSelectedDays([...selectedDays, englishDay]);
-    }
+    else setSelectedDays([...selectedDays, englishDay]);
 
     if (onSelect) onSelect(selectedDays);
   };

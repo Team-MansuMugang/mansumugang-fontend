@@ -10,9 +10,17 @@ function PostPictureUpload() {
 
   const handleAddImage = (event) => {
     if (event.target.files && event.target.files[0]) {
-      const newImageUrl = URL.createObjectURL(event.target.files[0]);
-      setImages([...images, newImageUrl]);
-      event.target.value = '';
+      const file = event.target.files[0];
+      const fileType = file.type;
+
+      if (fileType.startsWith('image/')) {
+        const newImageUrl = URL.createObjectURL(file);
+        setImages([...images, newImageUrl]);
+        event.target.value = '';
+      } else {
+        alert('사진 파일을 넣어주세요!!');
+        event.target.value = '';
+      }
     }
   };
 

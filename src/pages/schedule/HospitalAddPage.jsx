@@ -71,7 +71,6 @@ const HospitalAddPage = () => {
     }
 
     if (hospitalAddress == '') {
-      console.log(hospitalAddress);
       toast.warn('병원 주소를 입력해주세요', { position: 'bottom-center' });
       return;
     }
@@ -89,15 +88,11 @@ const HospitalAddPage = () => {
       !inputHospitalVisitDate.month ||
       !inputHospitalVisitDate.day
     ) {
-      console.log(inputHospitalVisitDate);
-      console.log('----');
       toast.warn('방문 날짜를 입력해주세요', { position: 'bottom-center' });
       return;
     }
 
     if (isNaN(inputHospitalVisitTime.hours) || isNaN(inputHospitalVisitTime.minutes)) {
-      console.log(inputHospitalVisitTime);
-      console.log('----');
       toast.warn('방문 시간을 입력해주세요', { position: 'bottom-center' });
       return;
     }

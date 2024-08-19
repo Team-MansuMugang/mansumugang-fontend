@@ -20,8 +20,6 @@ const addMedicine = async (params) => {
     'hospitalVisitingTime',
   ]);
 
-  console.log(params);
-
   const response = await fetch(`${baseURL}/api/hospital`, {
     method: 'POST',
     headers: {

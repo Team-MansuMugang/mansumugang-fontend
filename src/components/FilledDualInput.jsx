@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import './FilledDualInput.css';
 import '../index.css';
 
@@ -17,8 +18,19 @@ const FilledDualInput = ({
   init = ['', ''],
   onInputChange,
 }) => {
+  const [input1, setInput1] = useState(init[0]);
+  const [input2, setInput2] = useState(init[1]);
+
+  useEffect(() => {
+    setInput1(init[0]);
+    setInput2(init[1]);
+  }, [init[0], init[1]]);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
+    if (name === 'input1') setInput1(value);
+    if (name === 'input2') setInput2(value);
+
     if (onInputChange) onInputChange(name, value);
   };
 
@@ -28,14 +40,14 @@ const FilledDualInput = ({
         type="text"
         name="input1"
         placeholder={placeholder[0]}
-        value={init[0] || ''}
+        value={input1}
         onChange={handleChange}
       />
       <input
         type="text"
         name="input2"
         placeholder={placeholder[1]}
-        value={init[1] || ''}
+        value={input2}
         onChange={handleChange}
       />
     </div>

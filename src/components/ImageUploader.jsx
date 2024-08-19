@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ImageUploader.css';
 import DrugsIcon from '../assets/svg/drugs.svg?react';
 import AccountCircleIcon from '../assets/svg/account-circle.svg?react';
@@ -10,10 +10,16 @@ import AccountCircleIcon from '../assets/svg/account-circle.svg?react';
  * @param {Object} props - 컴포넌트의 props
  * @param {string} [props.type='profile'] - 표시할 기본 아이콘의 타입 ('profile', 'drugs' 등)
  * @param {function} [props.onImageUpload] - 이미지 업로드 후 호출되는 콜백 함수
+ * @param {Object} [props.init] - 초기 이미지 객체
  * @returns {JSX.Element} 이미지 업로드 컴포넌트
  */
-function ImageUploader({ type = 'profile', onImageUpload }) {
+function ImageUploader({ type = 'profile', onImageUpload, init }) {
   const [imageUrl, setImageUrl] = useState(null);
+
+  useEffect(() => {
+    console.log(init);
+    setImageUrl(init);
+  }, [init]);
 
   /**
    * 파일이 선택될 때 호출되는 함수입니다.

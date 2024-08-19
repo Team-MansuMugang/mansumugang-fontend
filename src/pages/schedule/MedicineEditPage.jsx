@@ -48,6 +48,7 @@ const MedicineEditPage = () => {
     month: '',
     day: '',
   });
+  const [initImageUrl, setInitImageUrl] = useState(null);
 
   useEffect(() => {
     const fetchMedicineDetails = async () => {
@@ -62,6 +63,8 @@ const MedicineEditPage = () => {
 
         const [year, month, day] = data.medicineIntakeStopDay.split('-');
         setInputMedicineIntakeStopDay({ year, month, day });
+
+        setInitImageUrl(data.medicineImage);
 
         // 이미지 URL을 파일로 변환
         if (
@@ -208,7 +211,11 @@ const MedicineEditPage = () => {
       <MainHeader title="약 편집 페이지" onClickLeft={() => navigate(-1)} />
       <div className="contents">
         <div className="top-container">
-          <ImageUploader type="drugs" onImageUpload={(image) => setMedicineImage(image)} />
+          <ImageUploader
+            type="drugs"
+            onImageUpload={(image) => setMedicineImage(image)}
+            init={initImageUrl}
+          />
           <FilledDualInput
             placeholder={['약 이름', '병원 이름']}
             init={[medicineName, hospitalName]}

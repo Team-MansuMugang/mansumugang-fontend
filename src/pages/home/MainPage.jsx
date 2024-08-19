@@ -233,7 +233,7 @@ const MainPage = () => {
             editLink={`/schedule/hospital-edit/${detailData.patientId}/${detailData.hospitalId}`}
             hospitalName={detailData.hospitalName}
             hospitalAddress={detailData.hospitalAddress}
-            hospitalDescription={detailData.medicineDescription}
+            hospitalDescription={detailData.hospitalDescription}
             hospitalVisitingDate={new Date(detailData.hospitalVisitingTime).toLocaleDateString(
               'ko-KR',
               { month: 'long', day: 'numeric' },

@@ -23,6 +23,15 @@
 .main-header .right-button {
   justify-self: end;
 }
+
+.main-header .right-button > .red-color {
+  color: red;
+}
+
+.main-header .right-button > .black-color {
+  color: black;
+}
+
 .main-header .left-button {
   justify-self: start;
 }

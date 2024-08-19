@@ -33,7 +33,9 @@ const SchedulePage = () => {
   const [isOverlayVisible, setOverlayVisible] = useState(false);
   const [detailData, setDetailData] = useState({});
   const [detailType, setDetailType] = useState('');
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [selectedDate, setSelectedDate] = useState(
+    new Date(new Date().getTime() + 9 * 60 * 60 * 1000).toISOString().split('T')[0],
+  );
 
   useEffect(() => {
     const fetchAndSetPatientList = async () => {

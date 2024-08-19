@@ -14,8 +14,6 @@ const addMedicine = async (params, imageFile) => {
   validateParameters(params, [
     'patientId',
     'medicineName',
-    'hospitalName',
-    'medicineDescription',
     'medicineIntakeTimes',
     'medicineIntakeDays',
     'medicineIntakeStopDay',

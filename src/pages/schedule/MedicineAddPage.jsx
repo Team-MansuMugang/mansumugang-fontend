@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast, Slide } from 'react-toastify';
 import { NotValidRequestError } from '../../apis/utility/errors';
 
 // Stylesheets
@@ -43,9 +44,51 @@ const MedicineAddPage = () => {
   });
 
   const handleDrugFormSubmit = async () => {
+    if (medicineName.length < 2 || medicineName.length > 20) {
+      toast.warn('약 이름의 길이는 2에서 20자 사이여야 합니다', { position: 'bottom-center' });
+      return;
+    }
+
+    if (hospitalName !== '' && (hospitalName.length < 2 || hospitalName.length > 20)) {
+      toast.warn('병원 이름의 길이는 2에서 20자 사이여야 합니다', { position: 'bottom-center' });
+      return;
+    }
+
+    if (
+      medicineDescription !== '' &&
+      (medicineDescription.length < 2 || medicineDescription.length > 200)
+    ) {
+      toast.warn('약에 대한 설명은 2에서 200자 사이여야 합니다', { position: 'bottom-center' });
+      return;
+    }
+
+    if (medicineIntakeTimes.size === 0) {
+      toast.warn('복용 시간을 추가해주세요', { position: 'bottom-center' });
+      return;
+    }
+
+    if (medicineIntakeDays.length === 0) {
+      toast.warn('복용 요일을 선택해주세요', { position: 'bottom-center' });
+      return;
+    }
+
+    const { year, month, day } = inputMedicineIntakeStopDay;
+    const isValidDate = (year, month, day) => {
+      const date = new Date(`${year}-${month}-${day}`);
+      return (
+        date.getFullYear() === parseInt(year) &&
+        date.getMonth() + 1 === parseInt(month) &&
+        date.getDate() === parseInt(day)
+      );
+    };
+    if (isNaN(year) || isNaN(month) || isNaN(day) || !isValidDate(year, month, day)) {
+      toast.warn('유효하지 않은 날짜 형식입니다.', { position: 'bottom-center' });
+      return;
+    }
+
     try {
-      console.log({
-        medicineImage,
+      // 전송할 객체 생성
+      const medicineData = {
         patientId: params.patientId,
         medicineName,
         hospitalName,
@@ -53,20 +96,23 @@ const MedicineAddPage = () => {
         medicineIntakeTimes: [...medicineIntakeTimes],
         medicineIntakeDays,
         medicineIntakeStopDay: `${String(inputMedicineIntakeStopDay.year).padStart(2, '0')}-${String(inputMedicineIntakeStopDay.month).padStart(2, '0')}-${String(inputMedicineIntakeStopDay.day).padStart(2, '0')}`,
+      };
+
+      // 빈 문자열인 키를 가진 항목 제거
+      Object.keys(medicineData).forEach((key) => {
+        if (medicineData[key] === '') {
+          delete medicineData[key];
+        }
       });
-      // await addMedicine({
-      //   patientId: params.patientId,
-      //   medicineName: '',
-      //   hospitalName: '',
-      //   medicineDescription: '',
-      //   medicineIntakeTimes: [],
-      //   medicineIntakeDays: medicineIntakeDays,
-      //   medicineIntakeStopDay: '',
-      // });
-      // navigate(-1);
+
+      console.log(medicineData);
+
+      // 약 추가 API 호출
+      await addMedicine(medicineData, medicineImage);
+      navigate(-1);
     } catch (error) {
       if (error instanceof NotValidRequestError) {
-        console.log(error.errorDescriptions);
+        console.error(error.errorDescriptions);
       }
     }
   };

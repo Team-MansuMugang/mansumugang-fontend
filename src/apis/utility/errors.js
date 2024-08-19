@@ -126,3 +126,17 @@ export class UserLocationInfoWithinRangeNotFoundError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class OutOfBoundaryError extends Error {
+  constructor() {
+    super('경위도가 범위(대한민국 내)를 벗어남.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class DuplicatedHospitalVisitingTimeError extends Error {
+  constructor() {
+    super('이미 존재하는 병원 방문 일정의 시간과 중복됩니다.');
+    this.name = this.constructor.name;
+  }
+}

@@ -15,7 +15,9 @@
 
 .medicine-detail-card img {
   width: 65px;
+  height: 65px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .medicine-detail-card .no-image-placeholder {

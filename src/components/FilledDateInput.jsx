@@ -1,7 +1,7 @@
 import './FilledDateInput.css';
 import '../index.css';
 
-const FilledDateInput = ({ onInput, type = 'years', year = 2024, month = 4 }) => {
+const FilledDateInput = ({ init = '', onInput, type = 'years', year = 2024, month = 4 }) => {
   const typeText = (type) => {
     if (type === 'years') return '년';
     if (type === 'months') return '월';
@@ -39,6 +39,7 @@ const FilledDateInput = ({ onInput, type = 'years', year = 2024, month = 4 }) =>
     <label className={`filled-date-input ${type}`}>
       <input
         type="number"
+        value={init}
         placeholder="0"
         onChange={handleInput}
         maxLength={type === 'years' ? 4 : undefined}

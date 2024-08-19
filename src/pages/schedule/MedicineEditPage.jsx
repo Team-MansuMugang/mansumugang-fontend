@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast, Slide } from 'react-toastify';
-import { NotValidRequestError } from '../../apis/utility/errors';
+import {
+  NotValidRequestError,
+  ExpiredAccessTokenError,
+  NotValidAccessTokenError,
+} from '../../apis/utility/errors';
 
 // Stylesheets
 import './MedicineEditPage.css';
@@ -23,6 +27,7 @@ import FilledDateInput from '../../components/FilledDateInput';
 // API
 import updateMedicine from '../../apis/api/updateMedicine';
 import medicineDetailRetrieval from '../../apis/api/medicineDetailRetrieval';
+import renewRefreshToken from '../../apis/api/renewRefreshToken';
 
 const MedicineEditPage = () => {
   const navigate = useNavigate();
@@ -69,7 +74,15 @@ const MedicineEditPage = () => {
           setMedicineImage(file);
         }
       } catch (error) {
-        console.log(error);
+        if (error instanceof ExpiredAccessTokenError) {
+          try {
+            await renewRefreshToken();
+            fetchMedicineDetails();
+          } catch (error) {
+            navigate('/');
+          }
+        } else if (error instanceof NotValidAccessTokenError) navigate('/');
+        else console.error(error);
       }
     };
 
@@ -144,9 +157,15 @@ const MedicineEditPage = () => {
       await updateMedicine(medicineData, medicineImage);
       navigate(-1);
     } catch (error) {
-      if (error instanceof NotValidRequestError) {
-        console.error(error.errorDescriptions);
-      }
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          handleDrugFormSubmit();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
     }
   };
 

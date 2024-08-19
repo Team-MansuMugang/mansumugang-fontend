@@ -140,3 +140,17 @@ export class DuplicatedHospitalVisitingTimeError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class NeedLatitudeAndLongitudeError extends Error {
+  constructor() {
+    super('경위도 정보가 필요합니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NoSuchHospitalError extends Error {
+  constructor() {
+    super('존재하지 않은 병원 아이디로 접근했습니다.');
+    this.name = this.constructor.name;
+  }
+}

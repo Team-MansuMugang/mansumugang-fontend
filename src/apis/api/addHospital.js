@@ -5,6 +5,8 @@ import {
   AccessDeniedError,
   NotValidAccessTokenError,
   ExpiredAccessTokenError,
+  OutOfBoundaryError,
+  DuplicatedHospitalVisitingTimeError,
 } from '../utility/errors.js';
 import { validateParameters } from '../utility/validate.js';
 
@@ -38,6 +40,9 @@ const addMedicine = async (params) => {
       throw new NotValidRequestError(result.errorDescriptions);
     if (result.errorType === 'UserNotFoundError') throw new UserNotFoundError();
     if (result.errorType === 'AccessDeniedError') throw new AccessDeniedError();
+    if (result.errorType === 'OutOfBoundaryError') throw new OutOfBoundaryError();
+    if (result.errorType === 'DuplicatedHospitalVisitingTimeError')
+      throw new DuplicatedHospitalVisitingTimeError();
 
     throw new HttpResponseError(response.status, result.message);
   }

@@ -13,6 +13,11 @@ import fetchPatientList from '../../apis/api/fetchPatientList';
 import medicineInfoRetrieval from '../../apis/api/medicineInfoRetrieval';
 import FloatingActionButton from '../../components/FloatingActionButton';
 import fetchAllPatientVocieMessageList from '../../apis/api/fetchAllPatientVocieMessageList';
+import { initializeApp } from 'firebase/app';
+import { getMessaging, getToken } from 'firebase/messaging';
+import { firebaseConfig, vapidKey } from '../../../config';
+import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/utility/errors';
+import submitFcmToken from '../../apis/api/submitFcmToken';
 
 const MainPage = () => {
   const [patients, setPatients] = useState([]);
@@ -22,6 +27,39 @@ const MainPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const assignFcmToken = async () => {
+      initializeApp(firebaseConfig);
+
+      const messaging = getMessaging();
+
+      const permission = await Notification.requestPermission();
+
+      if (isTokenSentToServer() === false) {
+        if (permission === 'granted') {
+          console.log('알림 요청 권한을 얻었습니다.');
+
+          try {
+            const currentToken = await getToken(messaging, { vapidKey });
+            if (currentToken) {
+              console.log(currentToken);
+              sendTokenToServer(currentToken);
+            } else {
+              console.log('토큰을 발급 받을 수 없습니다.');
+              setTokenSentToServer(false);
+            }
+          } catch (error) {
+            console.log('토큰을 발급받는 동안 에러가 발생하였습니다.');
+            console.error(error);
+            setTokenSentToServer(false);
+          }
+        } else {
+          console.log('알림 요청 권한을 얻는데 실패하였습니다.');
+        }
+      }
+    };
+
+    assignFcmToken();
+
     const loadPatients = async () => {
       try {
         const patientList = await fetchPatientList();
@@ -66,6 +104,34 @@ const MainPage = () => {
       setMedicineSchedules(result.medicineSchedules);
     } catch (error) {
       console.error('Failed to retrieve medicine schedule:', error);
+    }
+  };
+
+  const isTokenSentToServer = () => {
+    return window.localStorage.getItem('sentToServer') === '1';
+  };
+
+  const setTokenSentToServer = (sent) => {
+    window.localStorage.setItem('sentToServer', sent ? '1' : '0');
+  };
+
+  const sendTokenToServer = async (fcmToken) => {
+    try {
+      await submitFcmToken({ fcmToken });
+      setTokenSentToServer(true);
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        // 엑세스토큰 만료되었을때
+        setTokenSentToServer(false);
+        try {
+          await renewRefreshToken();
+          sendTokenToServer(); // API 함수 재실행 (재귀함수)
+        } catch (error) {
+          navigate('/'); // 엑세스토큰 재발급 실패했을때
+        }
+      } else if (error instanceof NotValidAccessTokenError)
+        navigate('/'); // 아예 존재하지 않던 엑세스토큰일때
+      else console.error(error);
     }
   };
 

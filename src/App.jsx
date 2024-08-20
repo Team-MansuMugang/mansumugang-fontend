@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
 import TestPage from './pages/test/TestPage';
 import SignUpHeader from './pages/sign-up/SignUpHeader';
 import GuardianSignUpPage from './pages/sign-up/GuardianSignUpPage';
@@ -23,6 +23,7 @@ import MedicineEditPage from './pages/schedule/MedicineEditPage';
 import MedicineAddPage from './pages/schedule/MedicineAddPage';
 import HospitalEditPage from './pages/schedule/HospitalEditPage';
 import HospitalAddPage from './pages/schedule/HospitalAddPage';
+import NotificationPage from './pages/notification/NotificationPage';
 
 const router = createBrowserRouter([
   { path: '/', element: <SignInPage /> },
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
     path: '/home',
     children: [
       { path: '', element: <MainPage /> },
-      { path: 'notifications', element: <></> },
+      { path: 'notifications', element: <NotificationPage /> },
       { path: 'community', element: <></> },
       { path: 'account', element: <AccountPage /> },
     ],

@@ -1,9 +1,12 @@
 // React 및 Router 관련
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import useInterval from '../../hooks/useInterval';
 
-// CSS 스타일링
+// CSS 스타일링 및 아이콘
 import './MainPage.css';
+import LocationOnIcon from '../../assets/svg/location-on.svg?react';
 
 // 사용자 정의 컴포넌트
 import SubTitle from '../../components/SubTitle';
@@ -25,9 +28,14 @@ import fetchAllPatientVocieMessageList from '../../apis/api/fetchAllPatientVocie
 import renewRefreshToken from '../../apis/api/renewRefreshToken';
 import medicineDetailRetrieval from '../../apis/api/medicineDetailRetrieval';
 import hospitalDetailRetrieval from '../../apis/api/hospitalDetailRetrieval';
+import fetchPatientLatestLocation from '../../apis/api/fetchPatientLatestLocation';
 
 // 에러 처리
-import { NotValidAccessTokenError, ExpiredAccessTokenError } from '../../apis/utility/errors';
+import {
+  NotValidAccessTokenError,
+  ExpiredAccessTokenError,
+  UserRecordInfoNotFoundError,
+} from '../../apis/utility/errors';
 
 // 아이콘
 import DrugsIcon from '../../assets/svg/drugs.svg?react';
@@ -41,7 +49,41 @@ const MainPage = () => {
   const [isOverlayVisible, setOverlayVisible] = useState(false);
   const [detailData, setDetailData] = useState({});
   const [detailType, setDetailType] = useState('');
+  const [latLng, setLatLng] = useState({ lat: 35.8585036441744, lng: 129.192877172776 });
+  const [address, setAddress] = useState('');
   const navigate = useNavigate();
+
+  const loadPatientLatestLocation = async () => {
+    try {
+      const patientLocation = await fetchPatientLatestLocation(patients[selectedPatient].patientId);
+      console.log('Patient location:', patientLocation);
+      setLatLng({ lat: patientLocation.latitude, lng: patientLocation.longitude });
+
+      let geocoder = new kakao.maps.services.Geocoder();
+      let coord = new kakao.maps.LatLng(patientLocation.latitude, patientLocation.longitude);
+
+      geocoder.coord2Address(coord.getLng(), coord.getLat(), (result, status) => {
+        if (status === kakao.maps.services.Status.OK) {
+          console.log(result[0].address.address_name);
+          setAddress(result[0].address.address_name);
+        }
+      });
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          loadPatientLatestLocation();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
+  };
+
+  useInterval(() => {
+    loadPatientLatestLocation();
+  }, 30 * 1000);
 
   useEffect(() => {
     const fetchAndSetPatientList = async () => {
@@ -49,7 +91,15 @@ const MainPage = () => {
         const patientList = await fetchPatientList();
         setPatients(patientList);
       } catch (error) {
-        console.error('Failed to load patients:', error);
+        if (error instanceof ExpiredAccessTokenError) {
+          try {
+            await renewRefreshToken();
+            fetchAndSetPatientList();
+          } catch (error) {
+            navigate('/');
+          }
+        } else if (error instanceof NotValidAccessTokenError) navigate('/');
+        else console.error(error);
       }
     };
 
@@ -60,19 +110,25 @@ const MainPage = () => {
       } catch (error) {
         if (error instanceof UserRecordInfoNotFoundError) {
           setVoiceMessages([]);
-        } else {
-          console.error('Failed to load all patient voice messages:', error);
-        }
+        } else if (error instanceof ExpiredAccessTokenError) {
+          try {
+            await renewRefreshToken();
+            loadAllPatientVocieMessages();
+          } catch (error) {
+            navigate('/');
+          }
+        } else if (error instanceof NotValidAccessTokenError) navigate('/');
+        else console.error(error);
       }
     };
 
     fetchAndSetPatientList();
-
     loadAllPatientVocieMessages();
   }, []);
 
   useEffect(() => {
     if (patients.length > 0) handlePatientSelection(0);
+    if (patients[selectedPatient]) loadPatientLatestLocation();
   }, [patients]);
 
   const handlePatientSelection = async (patientIndex) => {
@@ -206,7 +262,41 @@ const MainPage = () => {
       </BorderContainer>
 
       <SubTitle title="현재 위치" showButton={false} />
-      <div style={{ backgroundColor: 'red', width: '100%', height: '100px' }}>구현중</div>
+      <div className="address-info">
+        <div className="left-wrap">
+          <LocationOnIcon />
+          <span>{address}</span>
+        </div>
+        <span
+          className="copy-button"
+          onClick={() => {
+            navigator.clipboard.writeText(address);
+            alert('주소가 복사되었습니다.');
+          }}
+        >
+          복사
+        </span>
+      </div>
+      <div id="map-wrap">
+        <Map
+          id="map"
+          center={{
+            lat: latLng.lat,
+            lng: latLng.lng,
+          }}
+          level={5} // 지도의 확대 레벨
+          draggable={false}
+          zoomable={false}
+        >
+          <MapMarker
+            position={{
+              lat: latLng.lat,
+              lng: latLng.lng,
+            }}
+          />
+        </Map>
+        <div id="map-cover" />
+      </div>
 
       <NavBar activeTab="홈" />
       <FloatingActionButton

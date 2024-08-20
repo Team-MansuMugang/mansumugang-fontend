@@ -40,15 +40,40 @@ import CommunityTag from '../../components/CommunityTag';
 import PostLargeItem from '../../components/PostLargeItem';
 import PostPictureUpload from '../../components/PostPictureUpload';
 import CategoryHeader from '../../components/CategoryHeader';
+import PostItemContainer from '../../components/PostItemContainer';
+import PostCommentItem from '../../components/PostCommentItem';
+import PostReCommentItem from '../../components/PostReCommentItem';
 
 const TestPage = () => {
   return (
     <>
       <FloatingActionButton />
       <CategoryHeader rightText="작성" title="카테고리"></CategoryHeader>
+      <PostItemContainer commentCount={'3'} heartCount={'3'}></PostItemContainer>
+      <PostCommentItem
+        profileImage={'https://picsum.photos/200/300'}
+        name={'김정숙'}
+        data={
+          '안녕하세요!! 저는 이러한 저러한 병이 있습니다 이런한 저런한 병을 고치기 위해 많은 약을 먹었습니다 하지만 제 이러한 저러한 병은 났지 않았습니다. 여러분이 이러한 것들을 알려주세요!!'
+        }
+      ></PostCommentItem>
+      <PostCommentItem
+        profileImage={'https://picsum.photos/200/300'}
+        name={'김정숙'}
+        data={'안녕하세요!! '}
+      ></PostCommentItem>
+      <PostReCommentItem
+        profileImage={'https://picsum.photos/200/300'}
+        name={'김정숙'}
+        data={
+          '안녕하세요!! 저는 이러한 저러한 병이 있습니다 이런한 저런한 병을 고치기 위해 많은 약을 먹었습니다 하지만 제 이러한 저러한 병은 났지 않았습니다. 여러분이 이러한 것들을 알려주세요!!'
+        }
+      ></PostReCommentItem>
       <CommunityLargeItem
         title={'치매 어떻게 케어하시나요?'}
-        summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
+        summary={
+          '다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ'
+        }
         time={'25분'}
         children={'치매'}
         count={'7'}
@@ -110,7 +135,6 @@ const TestPage = () => {
       </BorderContainer>
       <CancelButton></CancelButton>
       <ImageUploader />
-      <NavBar></NavBar>
       <TagButton disabled={true}>전체</TagButton>
       <TagButton disabled={false}>인기글</TagButton>
       <ItemSelector />

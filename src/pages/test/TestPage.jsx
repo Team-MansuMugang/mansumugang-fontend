@@ -43,12 +43,17 @@ import CategoryHeader from '../../components/CategoryHeader';
 import PostItemContainer from '../../components/PostItemContainer';
 import PostCommentItem from '../../components/PostCommentItem';
 import PostReCommentItem from '../../components/PostReCommentItem';
+import AddedSearchItem from '../../components/AddedSearchItem';
 
 const TestPage = () => {
   return (
     <>
       <FloatingActionButton />
       <CategoryHeader rightText="작성" title="카테고리"></CategoryHeader>
+      <AddedTimeItem></AddedTimeItem>
+      <AddedSearchItem search={'치매'}></AddedSearchItem>
+      <AddedSearchItem search={'당뇨'}></AddedSearchItem>
+      <AddedSearchItem search={'고혈압'}></AddedSearchItem>
       <PostItemContainer commentCount={'3'} heartCount={'3'}></PostItemContainer>
       <PostCommentItem
         profileImage={'https://picsum.photos/200/300'}

@@ -5,6 +5,7 @@
   gap: 20px;
   padding: 22px;
   border-radius: var(--round-size-medium);
+  background-color: var(--color-neutral-100);
 }
 
 .medicine-detail-card .top-container {
@@ -14,7 +15,23 @@
 
 .medicine-detail-card img {
   width: 65px;
+  height: 65px;
   border-radius: 50%;
+  object-fit: cover;
+}
+
+.medicine-detail-card .no-image-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background-color: var(--color-secondary-green-1);
+}
+.medicine-detail-card .no-image-placeholder svg {
+  color: var(--color-secondary-green-2);
+  font-size: 40px;
 }
 
 .medicine-detail-card a,

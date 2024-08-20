@@ -5,10 +5,10 @@
   margin-top: 42px;
   padding: 0 35px;
 }
-.change-email .big-button-fixed {
+.change-email .big-button {
   position: fixed;
+  bottom: 19px;
   left: 35px;
-  right: 35px;
-  bottom: 0;
-  margin-bottom: 38px;
+  width: calc(100vw - 70px);
+  pointer-events: auto;
 }

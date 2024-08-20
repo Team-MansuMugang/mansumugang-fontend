@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  font-size: var(--text-size-body-small);
+  font-size: var(--text-size-body-medium);
 }
 
 .added-time-item button {

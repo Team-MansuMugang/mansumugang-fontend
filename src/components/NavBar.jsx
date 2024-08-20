@@ -14,16 +14,16 @@ const NavBar = ({ activeTab = '홈' }) => {
   const navigate = useNavigate();
   const tabs = [
     { name: '홈', url: '/home', Icon: HomeOutlineIcon, ActiveIcon: HomeIcon },
-    { name: '커뮤니티', url: '/community', Icon: ArticleOutlineIcon, ActiveIcon: ArticleIcon },
+    { name: '커뮤니티', url: '/home/community', Icon: ArticleOutlineIcon, ActiveIcon: ArticleIcon },
     {
       name: '알람',
-      url: '/notifications',
+      url: '/home/notifications',
       Icon: NotificationsOutlineIcon,
       ActiveIcon: NotificationsIcon,
     },
     {
       name: '계정',
-      url: '/profile',
+      url: '/home/account',
       Icon: AccountCircleOutlineIcon,
       ActiveIcon: AccountCircleIcon,
     },

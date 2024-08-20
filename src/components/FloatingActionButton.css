@@ -18,8 +18,8 @@
 
 .floating-action-button {
   position: fixed;
-  bottom: calc(67.5px + 15px);
-  right: 15px;
+  bottom: calc(62.5px + 18px);
+  right: 18px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -27,7 +27,7 @@
   z-index: 1000; /* 오버레이 위에 표시되도록 설정 */
 }
 
-.floating-action-button svg {
+.floating-action-button > svg {
   transition: transform 0.3s ease;
   display: flex;
   padding: 13px;
@@ -41,7 +41,7 @@
   font-size: 24px;
 }
 
-.floating-action-button.open svg {
+.floating-action-button.open > svg {
   font-size: 24px;
   transform: rotate(-45deg);
 }
@@ -49,9 +49,8 @@
 .floating-action-button ul {
   display: flex;
   flex-direction: column;
-  align-items: start;
-  gap: 12px;
-  padding: 13px;
+  gap: 15px;
+  padding: 15px 20px;
   margin: 0;
   list-style-type: none;
   border-radius: var(--round-size-medium);
@@ -72,5 +71,17 @@
 }
 
 .floating-action-button li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   cursor: pointer;
+  width: 100%;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+.floating-action-button .title {
+  font-size: var(--text-size-body-small);
+  color: var(--color-neutral-30);
+  font-weight: unset;
 }

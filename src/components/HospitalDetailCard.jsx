@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import './HospitalDetailCard.css';
 import '../index.css';
-import ScheduleItem from './ScheduleItem';
-import DaySelector from './DaySelector';
 import FilledDualInfo from './FilledDualInfo';
 
 const HospitalDetailCard = ({
@@ -11,10 +9,11 @@ const HospitalDetailCard = ({
   hospitalDescription,
   hospitalVisitingTime,
   hospitalVisitingDate,
+  editLink,
 }) => {
   return (
     <div className="hospital-detail-card">
-      <Link to="/">편집</Link>
+      <Link to={editLink}>편집</Link>
       <div className="top-container">
         <span>{hospitalName}</span>
         <span>

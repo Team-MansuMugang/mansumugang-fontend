@@ -126,3 +126,52 @@ export class UserLocationInfoWithinRangeNotFoundError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class UserRecordInfoNotFoundError extends Error {
+  constructor() {
+    super('유저는 존재하지만, 유저의 음성녹음 정보가 존재하지 않습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class RecordInfoNotFound extends Error {
+  constructor() {
+    super('해당 고유번호를 가진 음성녹음 파일이 존재하지 않습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class RecordDeleteError extends Error {
+  constructor() {
+    super('녹음파일 삭제에 실패하였습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class OutOfBoundaryError extends Error {
+  constructor() {
+    super('경위도가 범위(대한민국 내)를 벗어남.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class DuplicatedHospitalVisitingTimeError extends Error {
+  constructor() {
+    super('이미 존재하는 병원 방문 일정의 시간과 중복됩니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NeedLatitudeAndLongitudeError extends Error {
+  constructor() {
+    super('경위도 정보가 필요합니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NoSuchHospitalError extends Error {
+  constructor() {
+    super('존재하지 않은 병원 아이디로 접근했습니다.');
+    this.name = this.constructor.name;
+  }
+}

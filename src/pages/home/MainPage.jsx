@@ -21,6 +21,7 @@ import FloatingActionButton from '../../components/FloatingActionButton';
 // API 호출
 import fetchPatientList from '../../apis/api/fetchPatientList';
 import medicineInfoRetrieval from '../../apis/api/medicineInfoRetrieval';
+import fetchAllPatientVocieMessageList from '../../apis/api/fetchAllPatientVocieMessageList';
 import renewRefreshToken from '../../apis/api/renewRefreshToken';
 import medicineDetailRetrieval from '../../apis/api/medicineDetailRetrieval';
 import hospitalDetailRetrieval from '../../apis/api/hospitalDetailRetrieval';
@@ -35,6 +36,7 @@ import LocalHospitalIcon from '../../assets/svg/local-hospital.svg?react';
 const MainPage = () => {
   const [patients, setPatients] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState(0);
+  const [voiceMessages, setVoiceMessages] = useState([]);
   const [medicineSchedules, setMedicineSchedules] = useState([]);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
   const [detailData, setDetailData] = useState({});
@@ -47,19 +49,26 @@ const MainPage = () => {
         const patientList = await fetchPatientList();
         setPatients(patientList);
       } catch (error) {
-        if (error instanceof ExpiredAccessTokenError) {
-          try {
-            await renewRefreshToken();
-            fetchAndSetPatientList();
-          } catch (error) {
-            navigate('/');
-          }
-        } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else console.error(error);
+        console.error('Failed to load patients:', error);
+      }
+    };
+
+    const loadAllPatientVocieMessages = async () => {
+      try {
+        const voiceMessages = await fetchAllPatientVocieMessageList();
+        setVoiceMessages(voiceMessages);
+      } catch (error) {
+        if (error instanceof UserRecordInfoNotFoundError) {
+          setVoiceMessages([]);
+        } else {
+          console.error('Failed to load all patient voice messages:', error);
+        }
       }
     };
 
     fetchAndSetPatientList();
+
+    loadAllPatientVocieMessages();
   }, []);
 
   useEffect(() => {
@@ -162,12 +171,15 @@ const MainPage = () => {
       <SubTitle title="음성 메세지" linkTo="/voice-message" />
 
       <RowScrollContainer>
-        <SmallVoiceMessageItem
-          profileImage={'https://picsum.photos/200/300'}
-          name={'가나다라마바사아자차카타파하'}
-          time={'30분 전'}
-          onClick={() => navigate('/voice-message/detail')}
-        />
+        {voiceMessages.map((voiceMessage, index) => (
+          <SmallVoiceMessageItem
+            key={index}
+            profileImage={'https://picsum.photos/200/300'}
+            name={voiceMessage.name}
+            time={voiceMessage.uploadedTime}
+            onClick={() => navigate('/voice-message/detail', { state: voiceMessage })}
+          />
+        ))}
       </RowScrollContainer>
 
       <hr />

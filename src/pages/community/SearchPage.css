@@ -1,0 +1,41 @@
+.search-page {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.search-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.search-header button {
+  display: flex;
+  padding: 0;
+  color: var(--color-neutral-0);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 28px;
+}
+
+.search-header input {
+  flex: 1;
+}
+
+.tag-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.search-page .section-recommendation h2,
+.search-page .section-recent h2 {
+  font-size: var(--text-size-body-medium); /* --text-size-body-medium 사용 */
+  font-weight: bold; /* 굵은 폰트 */
+
+  margin: 0 0 15px 0; /* 기본 마진 제거 */
+}

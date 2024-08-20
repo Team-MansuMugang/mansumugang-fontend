@@ -4,6 +4,7 @@ import ChevronLeft from '../assets/svg/chevron-left.svg?react';
 import MainHeaderColor from '../const/MainHeaderColor';
 
 const MainHeader = ({
+  isLeftButtonEnable = true,
   rightText = '',
   onClickLeft,
   onClickRight,
@@ -12,9 +13,13 @@ const MainHeader = ({
 }) => {
   return (
     <div className="main-header">
-      <button className="button left-button" onClick={onClickLeft}>
-        <ChevronLeft />
-      </button>
+      {isLeftButtonEnable ? (
+        <button className="button left-button" onClick={onClickLeft}>
+          <ChevronLeft />
+        </button>
+      ) : (
+        <button className="button left-button" disabled></button>
+      )}
       <h1>{title}</h1>
       <button className="button right-button" onClick={onClickRight}>
         <span className={rightTextColor}>{rightText}</span>

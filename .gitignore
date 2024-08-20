@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 *storybook.log
+config.ts
+public/firebase-messaging-sw.js

@@ -34,7 +34,7 @@ import HospitalDetailCard from '../../components/HospitalDetailCard';
 import FilledTimeInput from '../../components/FilledTimeInput';
 import AddedTimeItem from '../../components/AddedTimeItem';
 import FillMeridiemToggle from '../../components/FillMeridiemToggle';
-import NotificationItem from '../../components/NotifcationItem';
+import NotificationItem from '../../components/NotificationItem';
 
 const TestPage = () => {
   return (

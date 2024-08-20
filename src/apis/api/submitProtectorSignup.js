@@ -30,8 +30,6 @@ const submitProtectorSignup = async (params) => {
     'email',
     'nickname',
   ]);
-  console.log(`${baseURL}/api/auth/signup/protector`);
-  console.log(JSON.stringify(params));
 
   const response = await fetch(`${baseURL}/api/auth/signup/protector`, {
     method: 'POST',

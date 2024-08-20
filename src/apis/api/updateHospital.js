@@ -5,30 +5,35 @@ import {
   AccessDeniedError,
   NotValidAccessTokenError,
   ExpiredAccessTokenError,
+  NoSuchHospitalError,
+  NeedLatitudeAndLongitudeError,
+  OutOfBoundaryError,
+  DuplicatedHospitalVisitingTimeError,
 } from '../utility/errors.js';
 import { validateParameters } from '../utility/validate.js';
 
 const baseURL = 'http://minnnisu.iptime.org';
 
-const addMedicine = async (params, imageFile) => {
+const addMedicine = async (params) => {
   validateParameters(params, [
-    'patientId',
-    'medicineName',
-    'medicineIntakeTimes',
-    'medicineIntakeDays',
-    'medicineIntakeStopDay',
+    'hospitalId',
+    'hospitalName',
+    'hospitalAddress',
+    'latitude',
+    'longitude',
+    'hospitalVisitingTime',
   ]);
 
-  const formData = new FormData();
-  formData.append('medicine', new Blob([JSON.stringify(params)], { type: 'application/json' }));
-  if (imageFile) formData.append('image', imageFile);
+  const { hospitalId } = params;
+  delete params.hospitalId; // hospitalId JSON에 추가하지 않음
 
-  const response = await fetch(`${baseURL}/api/medicine`, {
-    method: 'POST',
+  const response = await fetch(`${baseURL}/api/hospital/${hospitalId}`, {
+    method: 'PATCH',
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
-    body: formData,
+    body: JSON.stringify(params),
   });
 
   const result = await response.json();
@@ -40,6 +45,12 @@ const addMedicine = async (params, imageFile) => {
       throw new NotValidRequestError(result.errorDescriptions);
     if (result.errorType === 'UserNotFoundError') throw new UserNotFoundError();
     if (result.errorType === 'AccessDeniedError') throw new AccessDeniedError();
+    if (result.errorType === 'NoSuchHospitalError') throw new NoSuchHospitalError();
+    if (result.errorType === 'NeedLatitudeAndLongitudeError')
+      throw new NeedLatitudeAndLongitudeError();
+    if (result.errorType === 'OutOfBoundaryError') throw new OutOfBoundaryError();
+    if (result.errorType === 'DuplicatedHospitalVisitingTimeError')
+      throw new DuplicatedHospitalVisitingTimeError();
 
     throw new HttpResponseError(response.status, result.message);
   }

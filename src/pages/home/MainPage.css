@@ -15,7 +15,7 @@
   margin: 0;
 }
 
-.main-page hr {
+.main-page > hr {
   margin: 0;
   border: 0;
   width: 100vw;
@@ -33,4 +33,18 @@
   display: flex;
   flex-direction: column;
   gap: 25px;
+}
+
+.main-page .schedule-items > .schedule-item {
+  cursor: pointer;
+  user-select: none;
+}
+
+.main-page .item-selector ul {
+  transform: translate(0, 0);
+  top: 55%;
+}
+
+.schedule-page-overlay {
+  z-index: 1000;
 }

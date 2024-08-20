@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ImageUploader.css';
 import DrugsIcon from '../assets/svg/drugs.svg?react';
 import AccountCircleIcon from '../assets/svg/account-circle.svg?react';
@@ -10,10 +10,16 @@ import AccountCircleIcon from '../assets/svg/account-circle.svg?react';
  * @param {Object} props - 컴포넌트의 props
  * @param {string} [props.type='profile'] - 표시할 기본 아이콘의 타입 ('profile', 'drugs' 등)
  * @param {function} [props.onImageUpload] - 이미지 업로드 후 호출되는 콜백 함수
+ * @param {Object} [props.init] - 초기 이미지 객체
  * @returns {JSX.Element} 이미지 업로드 컴포넌트
  */
-function ImageUploader({ type = 'profile', onImageUpload }) {
+function ImageUploader({ type = 'profile', onImageUpload, init }) {
   const [imageUrl, setImageUrl] = useState(null);
+
+  useEffect(() => {
+    console.log(init);
+    setImageUrl(init);
+  }, [init]);
 
   /**
    * 파일이 선택될 때 호출되는 함수입니다.
@@ -23,12 +29,14 @@ function ImageUploader({ type = 'profile', onImageUpload }) {
    */
   const handleFileChange = (event) => {
     if (event.target.files && event.target.files[0]) {
-      const newImageUrl = URL.createObjectURL(event.target.files[0]);
+      const file = event.target.files[0];
+      const newImageUrl = URL.createObjectURL(file);
       setImageUrl(newImageUrl);
-      if (onImageUpload) onImageUpload(newImageUrl);
+
+      // 이미지 파일을 콜백 함수로 전달
+      if (onImageUpload) onImageUpload(file);
 
       // 파일 선택 후 입력 값을 초기화
-      // 이렇게 하지 않으면 이전에 같은 파일을 선택했을 때 onChange 이벤트가 발생하지 않음
       event.target.value = '';
     }
   };

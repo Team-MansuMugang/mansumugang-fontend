@@ -48,3 +48,14 @@
   width: calc(100vw - 18px * 2);
   pointer-events: auto;
 }
+
+.medicine-edit-page .date-input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.medicine-edit-page .date-input-container > * {
+  padding: 0 15px;
+}

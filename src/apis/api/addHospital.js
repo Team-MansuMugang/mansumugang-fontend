@@ -3,25 +3,32 @@ import {
   NotValidRequestError,
   UserNotFoundError,
   AccessDeniedError,
-  NoSuchMedicineError,
   NotValidAccessTokenError,
   ExpiredAccessTokenError,
+  OutOfBoundaryError,
+  DuplicatedHospitalVisitingTimeError,
 } from '../utility/errors.js';
 import { validateParameters } from '../utility/validate.js';
 
 const baseURL = 'http://minnnisu.iptime.org';
 
-const deleteMedicine = async (params) => {
-  validateParameters(params, ['patientId', 'medicineId']);
+const addMedicine = async (params) => {
+  validateParameters(params, [
+    'patientId',
+    'hospitalName',
+    'hospitalAddress',
+    'latitude',
+    'longitude',
+    'hospitalVisitingTime',
+  ]);
 
-  const response = await fetch(`${baseURL}/api/medicine/${params.medicineId}`, {
-    method: 'DELETE',
+  const response = await fetch(`${baseURL}/api/hospital`, {
+    method: 'POST',
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
-    body: JSON.stringify({
-      patientId: params.patientId,
-    }),
+    body: JSON.stringify(params),
   });
 
   const result = await response.json();
@@ -33,10 +40,12 @@ const deleteMedicine = async (params) => {
       throw new NotValidRequestError(result.errorDescriptions);
     if (result.errorType === 'UserNotFoundError') throw new UserNotFoundError();
     if (result.errorType === 'AccessDeniedError') throw new AccessDeniedError();
-    if (result.errorType === 'NoSuchMedicineError') throw new NoSuchMedicineError();
+    if (result.errorType === 'OutOfBoundaryError') throw new OutOfBoundaryError();
+    if (result.errorType === 'DuplicatedHospitalVisitingTimeError')
+      throw new DuplicatedHospitalVisitingTimeError();
 
     throw new HttpResponseError(response.status, result.message);
   }
 };
 
-export default deleteMedicine;
+export default addMedicine;

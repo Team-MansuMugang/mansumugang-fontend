@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './FillMeridiemToggle.css';
 import '../index.css';
 import ArrowBack2Icon from '../assets/svg/arrow-back-2.svg?react';
 
-const FillMeridiemToggle = () => {
+const FillMeridiemToggle = ({ init = '', onChange }) => {
   const [isPM, setIsPM] = useState(false);
 
+  const checkMeridiemPM = (meridiem) => {
+    if (meridiem.toUpperCase() === 'PM') return true;
+    if (meridiem.toUpperCase() === 'AM') return false;
+    return meridiem;
+  };
+
+  useEffect(() => {
+    setIsPM(checkMeridiemPM(init));
+  }, [init]);
+
   const toggleMeridiem = () => {
-    setIsPM((prev) => !prev);
+    if (onChange) onChange(!isPM ? 'PM' : 'AM');
+    setIsPM(!isPM);
   };
 
   return (

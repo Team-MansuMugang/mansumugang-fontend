@@ -16,25 +16,9 @@
   user-select: none;
 }
 
-.schedule-page-overlay {
+.schedule-page .border-container {
   display: flex;
-  flex-direction: column-reverse;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  padding: 18px;
-  box-sizing: border-box;
-  background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 0.1s ease-in-out,
-    visibility 0.1s ease-in-out;
-}
-
-.schedule-page-overlay.show {
-  opacity: 1;
-  visibility: visible;
+  flex-direction: column;
+  gap: 25px;
+  margin-bottom: 20px;
 }

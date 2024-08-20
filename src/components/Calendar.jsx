@@ -107,7 +107,7 @@ const CalendarDate = ({ date, isToday, isSelected, status, onClick }) => (
  */
 const Calendar = ({ onSelect, dateStatus = [], backUrl }) => {
   const navigate = useNavigate();
-  const today = new Date();
+  const today = new Date(new Date().getTime() + 9 * 60 * 60 * 1000);
   const [currentDate, setCurrentDate] = useState(today);
   const [selectedDate, setSelectedDate] = useState(today);
 
@@ -129,7 +129,7 @@ const Calendar = ({ onSelect, dateStatus = [], backUrl }) => {
    * @param {number} date - 클릭한 날짜
    */
   const handleDateClick = (date) => {
-    const selected = new Date(year, month, date);
+    const selected = new Date(Date.UTC(year, month, date)); // UTC 기준으로 날짜 생성
     setSelectedDate(selected);
     if (onSelect) onSelect(selected.toISOString().split('T')[0]);
   };

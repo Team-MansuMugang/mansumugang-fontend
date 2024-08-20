@@ -11,17 +11,14 @@ import { validateParameters } from '../utility/validate.js';
 
 const baseURL = 'http://minnnisu.iptime.org';
 
-const deleteMedicine = async (params) => {
-  validateParameters(params, ['patientId', 'medicineId']);
+const deleteHospital = async (params) => {
+  validateParameters(params, ['hospitalId']);
 
-  const response = await fetch(`${baseURL}/api/medicine/${params.medicineId}`, {
+  const response = await fetch(`${baseURL}/api/hospital/${params.hospitalId}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
-    body: JSON.stringify({
-      patientId: params.patientId,
-    }),
   });
 
   const result = await response.json();
@@ -39,4 +36,4 @@ const deleteMedicine = async (params) => {
   }
 };
 
-export default deleteMedicine;
+export default deleteHospital;

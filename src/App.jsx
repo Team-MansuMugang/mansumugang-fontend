@@ -23,6 +23,7 @@ import MedicineEditPage from './pages/schedule/MedicineEditPage';
 import MedicineAddPage from './pages/schedule/MedicineAddPage';
 import HospitalEditPage from './pages/schedule/HospitalEditPage';
 import HospitalAddPage from './pages/schedule/HospitalAddPage';
+import NotificationPage from './pages/notification/NotificationPage';
 
 const router = createBrowserRouter([
   { path: '/', element: <SignInPage /> },
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
     path: '/home',
     children: [
       { path: '', element: <MainPage /> },
-      { path: 'notifications', element: <></> },
+      { path: 'notifications', element: <NotificationPage /> },
       { path: 'community', element: <></> },
       { path: 'account', element: <AccountPage /> },
     ],

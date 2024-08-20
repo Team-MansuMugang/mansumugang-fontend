@@ -37,6 +37,11 @@ import {
   UserRecordInfoNotFoundError,
 } from '../../apis/utility/errors';
 
+import { initializeApp } from 'firebase/app';
+import { getMessaging, getToken } from 'firebase/messaging';
+import { firebaseConfig, vapidKey } from '../../../config';
+import submitFcmToken from '../../apis/api/submitFcmToken';
+
 // 아이콘
 import DrugsIcon from '../../assets/svg/drugs.svg?react';
 import LocalHospitalIcon from '../../assets/svg/local-hospital.svg?react';
@@ -125,6 +130,42 @@ const MainPage = () => {
     fetchAndSetPatientList();
     loadAllPatientVocieMessages();
   }, []);
+
+  // FCM 토큰 등록
+  useEffect(() => {
+    const assignFcmToken = async () => {
+      initializeApp(firebaseConfig);
+
+      const messaging = getMessaging();
+
+      const permission = await Notification.requestPermission();
+
+      if (isTokenSentToServer() === false) {
+        if (permission === 'granted') {
+          console.log('알림 요청 권한을 얻었습니다.');
+
+          try {
+            const currentToken = await getToken(messaging, { vapidKey });
+            if (currentToken) {
+              console.log(currentToken);
+              sendTokenToServer(currentToken);
+            } else {
+              console.log('토큰을 발급 받을 수 없습니다.');
+              setTokenSentToServer(false);
+            }
+          } catch (error) {
+            console.log('토큰을 발급받는 동안 에러가 발생하였습니다.');
+            console.error(error);
+            setTokenSentToServer(false);
+          }
+        } else {
+          console.log('알림 요청 권한을 얻는데 실패하였습니다.');
+        }
+      }
+    };
+
+    assignFcmToken();
+  },[])
 
   useEffect(() => {
     if (patients.length > 0) handlePatientSelection(0);
@@ -217,6 +258,34 @@ const MainPage = () => {
     if (event.target.className.includes('schedule-page-overlay')) {
       setOverlayVisible(false);
       setDetailType('');
+    }
+  };
+
+  const isTokenSentToServer = () => {
+    return window.localStorage.getItem('sentToServer') === '1';
+  };
+
+  const setTokenSentToServer = (sent) => {
+    window.localStorage.setItem('sentToServer', sent ? '1' : '0');
+  };
+
+  const sendTokenToServer = async (fcmToken) => {
+    try {
+      await submitFcmToken({ fcmToken });
+      setTokenSentToServer(true);
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        // 엑세스토큰 만료되었을때
+        setTokenSentToServer(false);
+        try {
+          await renewRefreshToken();
+          sendTokenToServer(); // API 함수 재실행 (재귀함수)
+        } catch (error) {
+          navigate('/'); // 엑세스토큰 재발급 실패했을때
+        }
+      } else if (error instanceof NotValidAccessTokenError)
+        navigate('/'); // 아예 존재하지 않던 엑세스토큰일때
+      else console.error(error);
     }
   };
 

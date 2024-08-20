@@ -68,8 +68,8 @@ const router = createBrowserRouter([
       { path: 'edit-birthday', element: <ChangeBirthday /> },
       { path: 'edit-email', element: <ChangeEmail /> },
       { path: 'edit-password', element: <PasswordChange /> },
-      { path: 'add-member', element: <AddMember /> },
-      { path: 'edit-member', element: <MemberEdit /> },
+      // { path: 'add-member', element: <AddMember /> },
+      // { path: 'edit-member', element: <MemberEdit /> },
     ],
   },
   {

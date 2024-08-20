@@ -35,8 +35,6 @@ import FilledTimeInput from '../../components/FilledTimeInput';
 import AddedTimeItem from '../../components/AddedTimeItem';
 import FillMeridiemToggle from '../../components/FillMeridiemToggle';
 import NotificationItem from '../../components/NotifcationItem';
-import SmallButton from '../../components/SmallButton';
-import CommentCount from '../../components/CommentCount';
 import CommunityLargeItem from '../../components/CommunityLargeItem';
 import CommunityTag from '../../components/CommunityTag';
 import PostLargeItem from '../../components/PostLargeItem';
@@ -52,22 +50,25 @@ const TestPage = () => {
         title={'치매 어떻게 케어하시나요?'}
         summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
         time={'25분'}
+        children={'치매'}
+        count={'7'}
       ></CommunityLargeItem>
       <CommunityLargeItem
         title={'치매 어떻게 케어하시나요?'}
         summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
         time={'25분'}
+        children={'기타 질병'}
+        count={'7'}
       ></CommunityLargeItem>
       <CommunityLargeItem
         title={'치매 어떻게 케어하시나요?'}
         summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
         time={'25분'}
+        children={'고혈압'}
+        count={'7'}
       ></CommunityLargeItem>
       <CommunityTag disabled={true} children={'인기글'}></CommunityTag>
-      <CommunityTag disabled={false} children={'정보·치매'}></CommunityTag>
-      <SmallButton children={'질문'}></SmallButton>
-      <SmallButton children={'정보'}></SmallButton>
-      <CommentCount children={'7'}></CommentCount>
+      <CommunityTag disabled={false} children={'정보'}></CommunityTag>
       <PostPictureUpload></PostPictureUpload>
       <PostLargeItem
         profileImage={'https://picsum.photos/200/300'}

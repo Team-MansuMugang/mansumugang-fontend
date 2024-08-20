@@ -12,10 +12,12 @@ import ItemSelector from '../../components/ItemSelector';
 import fetchPatientList from '../../apis/api/fetchPatientList';
 import medicineInfoRetrieval from '../../apis/api/medicineInfoRetrieval';
 import FloatingActionButton from '../../components/FloatingActionButton';
+import fetchAllPatientVocieMessageList from '../../apis/api/fetchAllPatientVocieMessageList';
 
 const MainPage = () => {
   const [patients, setPatients] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState('');
+  const [voiceMessages, setVoiceMessages] = useState([]);
   const [medicineSchedules, setMedicineSchedules] = useState([]);
   const navigate = useNavigate();
 
@@ -29,7 +31,22 @@ const MainPage = () => {
       }
     };
 
+    const loadAllPatientVocieMessages = async () => {
+      try {
+        const voiceMessages = await fetchAllPatientVocieMessageList();
+        setVoiceMessages(voiceMessages);
+      } catch (error) {
+        if (error instanceof UserRecordInfoNotFoundError) {
+          setVoiceMessages([]);
+        } else {
+          console.error('Failed to load all patient voice messages:', error);
+        }
+      }
+    };
+
     loadPatients();
+
+    loadAllPatientVocieMessages();
   }, []);
 
   useEffect(() => {
@@ -80,12 +97,15 @@ const MainPage = () => {
       <SubTitle title="음성 메세지" linkTo="/voice-message" />
 
       <RowScrollContainer>
-        <SmallVoiceMessageItem
-          profileImage={'https://picsum.photos/200/300'}
-          name={'가나다라마바사아자차카타파하'}
-          time={'30분 전'}
-          onClick={() => navigate('/voice-message/detail')}
-        />
+        {voiceMessages.map((voiceMessage, index) => (
+          <SmallVoiceMessageItem
+            key={index}
+            profileImage={'https://picsum.photos/200/300'}
+            name={voiceMessage.name}
+            time={voiceMessage.uploadedTime}
+            onClick={() => navigate('/voice-message/detail', { state: voiceMessage })}
+          />
+        ))}
       </RowScrollContainer>
 
       <hr />

@@ -23,6 +23,7 @@ import FilledDateInput from '../../components/FilledDateInput';
 import updateHospital from '../../apis/api/updateHospital';
 import renewRefreshToken from '../../apis/api/renewRefreshToken';
 import hospitalDetailRetrieval from '../../apis/api/hospitalDetailRetrieval';
+import deleteHospital from '../../apis/api/deleteHospital';
 
 // 오류 처리 유틸리티
 import {
@@ -201,6 +202,23 @@ const HospitalEditPage = () => {
     }
   };
 
+  const handleDeleteHospital = async () => {
+    try {
+      await deleteHospital({ hospitalId: params.hospitalId, patientId: params.patientId });
+      navigate(-1);
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          handleDeleteHospital();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
+  };
+
   const handleAddressSelection = (data) => {
     let fullAddress = data.address;
     setHospitalAddress(fullAddress);
@@ -219,7 +237,12 @@ const HospitalEditPage = () => {
 
   return (
     <div className="hospital-edit-page">
-      <MainHeader title="병원 일정 추가 페이지" onClickLeft={() => navigate('/home')} />
+      <MainHeader
+        title="병원 일정 추가 페이지"
+        rightText="삭제"
+        onClickLeft={() => navigate('/home')}
+        onClickRight={handleDeleteHospital}
+      />
       <div className="contents">
         <div className="top-container">
           <FilledDualInput

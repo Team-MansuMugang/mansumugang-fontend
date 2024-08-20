@@ -28,6 +28,7 @@ import FilledDateInput from '../../components/FilledDateInput';
 import updateMedicine from '../../apis/api/updateMedicine';
 import medicineDetailRetrieval from '../../apis/api/medicineDetailRetrieval';
 import renewRefreshToken from '../../apis/api/renewRefreshToken';
+import deleteMedicine from '../../apis/api/deleteMedicine';
 
 const MedicineEditPage = () => {
   const navigate = useNavigate();
@@ -206,9 +207,31 @@ const MedicineEditPage = () => {
     setMedicineIntakeTimes((prevTimes) => new Set(prevTimes).add(timeString));
   };
 
+  const handleDeleteMedicine = async () => {
+    try {
+      await deleteMedicine({ medicineId: params.medicineId, patientId: params.patientId });
+      navigate(-1);
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          handleDeleteMedicine();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
+  };
+
   return (
     <div className="medicine-edit-page">
-      <MainHeader title="약 편집 페이지" onClickLeft={() => navigate(-1)} />
+      <MainHeader
+        title="약 편집 페이지"
+        onClickLeft={() => navigate(-1)}
+        rightText="삭제"
+        onClickRight={handleDeleteMedicine}
+      />
       <div className="contents">
         <div className="top-container">
           <ImageUploader

@@ -35,17 +35,82 @@ import FilledTimeInput from '../../components/FilledTimeInput';
 import AddedTimeItem from '../../components/AddedTimeItem';
 import FillMeridiemToggle from '../../components/FillMeridiemToggle';
 import NotificationItem from '../../components/NotificationItem';
+import CategoryHeader from '../../components/CategoryHeader';
+import AddedSearchItem from '../../components/AddedSearchItem';
+import PostItemContainer from '../../components/PostItemContainer';
+import PostCommentItem from '../../components/PostCommentItem';
+import PostReCommentItem from '../../components/PostReCommentItem';
+import CommunityLargeItem from '../../components/CommunityLargeItem';
+import CommunityTag from '../../components/CommunityTag';
+import PostPictureUpload from '../../components/PostPictureUpload';
+import PostLargeItem from '../../components/PostLargeItem';
 
 const TestPage = () => {
   return (
     <>
       <FloatingActionButton />
+      <CategoryHeader rightText="작성" title="카테고리"></CategoryHeader>
+      <AddedSearchItem search={'치매'}></AddedSearchItem>
+      <AddedSearchItem search={'당뇨'}></AddedSearchItem>
+      <AddedSearchItem search={'고혈압'}></AddedSearchItem>
+      <PostItemContainer commentCount={'3'} heartCount={'3'}></PostItemContainer>
+      <PostCommentItem
+        profileImage={'https://picsum.photos/200/300'}
+        name={'김정숙'}
+        data={
+          '안녕하세요!! 저는 이러한 저러한 병이 있습니다 이런한 저런한 병을 고치기 위해 많은 약을 먹었습니다 하지만 제 이러한 저러한 병은 났지 않았습니다. 여러분이 이러한 것들을 알려주세요!!'
+        }
+      ></PostCommentItem>
+      <PostCommentItem
+        profileImage={'https://picsum.photos/200/300'}
+        name={'김정숙'}
+        data={'안녕하세요!! '}
+      ></PostCommentItem>
+      <PostReCommentItem
+        profileImage={'https://picsum.photos/200/300'}
+        name={'김정숙'}
+        data={
+          '안녕하세요!! 저는 이러한 저러한 병이 있습니다 이런한 저런한 병을 고치기 위해 많은 약을 먹었습니다 하지만 제 이러한 저러한 병은 났지 않았습니다. 여러분이 이러한 것들을 알려주세요!!'
+        }
+      ></PostReCommentItem>
+      <CommunityLargeItem
+        title={'치매 어떻게 케어하시나요?'}
+        summary={
+          '다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ'
+        }
+        time={'25분'}
+        children={'치매'}
+        count={'7'}
+      ></CommunityLargeItem>
+      <CommunityLargeItem
+        title={'치매 어떻게 케어하시나요?'}
+        summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
+        time={'25분'}
+        children={'기타 질병'}
+        count={'7'}
+      ></CommunityLargeItem>
+      <CommunityLargeItem
+        title={'치매 어떻게 케어하시나요?'}
+        summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
+        time={'25분'}
+        children={'고혈압'}
+        count={'7'}
+      ></CommunityLargeItem>
+      <CommunityTag disabled={true} children={'인기글'}></CommunityTag>
+      <CommunityTag disabled={false} children={'정보'}></CommunityTag>
+      <PostPictureUpload></PostPictureUpload>
+      <PostLargeItem
+        profileImage={'https://picsum.photos/200/300'}
+        name={'김정숙'}
+        date={'2024. 04. 27 '}
+        views={'100'}
+      ></PostLargeItem>
       <MainHeader title="테스트 페이지" rightText="hoho" />
       <NameContainer name={'이병헌'} nickname={'귀여미'}></NameContainer>
       <NotificationItem
         profileImage={'https://picsum.photos/200/300'}
         notificationMessage={'김정숙님이 오후 3시에 병원을 방문하지 않았습니다. 확인해보세요'}
-        timeAgo={'15분 전'}
+        timeAgo={new Date()}
       ></NotificationItem>
       <InputWrapper
         description="아이디"
@@ -90,43 +155,25 @@ const TestPage = () => {
       <SmallVoiceMessageItem
         profileImage={'https://picsum.photos/200/300'}
         name={'김정숙'}
-        time={'10분전'}
+        time={'2024-08-04T13:49:27.459797'}
       ></SmallVoiceMessageItem>
       <RowScrollContainer>
         <SmallVoiceMessageItem
           profileImage={'https://picsum.photos/200/300'}
           name={'가나다라마바사아자차카타파하'}
-          time={'30분 전'}
+          time={'2024-08-04T13:49:27.459797'}
         ></SmallVoiceMessageItem>
 
         <SmallVoiceMessageItem
           profileImage={'https://picsum.photos/200/300'}
           name={'abcdefghijk'}
-          time={'1일 전'}
+          time={'2024-08-04T13:49:27.459797'}
         ></SmallVoiceMessageItem>
 
         <SmallVoiceMessageItem
           profileImage={'https://picsum.photos/200/300'}
           name={'abcdefghijk'}
-          time={'1일 전'}
-        ></SmallVoiceMessageItem>
-
-        <SmallVoiceMessageItem
-          profileImage={'https://picsum.photos/200/300'}
-          name={'abcdefghijk'}
-          time={'1일 전'}
-        ></SmallVoiceMessageItem>
-
-        <SmallVoiceMessageItem
-          profileImage={'https://picsum.photos/200/300'}
-          name={'김정숙'}
-          time={'1일 전'}
-        ></SmallVoiceMessageItem>
-
-        <SmallVoiceMessageItem
-          profileImage={'https://picsum.photos/200/300'}
-          name={'김정숙'}
-          time={''}
+          time={'2024-08-04T13:49:27.459797'}
         ></SmallVoiceMessageItem>
       </RowScrollContainer>
       <BorderContainer>
@@ -146,32 +193,22 @@ const TestPage = () => {
       <LargeVoiceMessageItem
         profileImage={'https://picsum.photos/200/300'}
         name={'김정숙'}
-        date={'오늘'}
-        time={'10분전'}
+        dateTime={'2024-08-04T13:49:27.459797'}
       ></LargeVoiceMessageItem>
       <LargeVoiceMessageItem
         profileImage={'https://picsum.photos/200/300'}
         name={'김정숙lkasdjflkadsjlkfajs;sdflkj;sadlkfj;asldkjfsdklfajlkdsjflk'}
-        date={'오늘'}
-        time={'10분전'}
+        dateTime={'2024-08-04T13:49:27.459797'}
       ></LargeVoiceMessageItem>
       <LargeVoiceMessageItem
         profileImage={'https://picsum.photos/200/300'}
         name={'김정숙'}
-        date={'오늘'}
-        time={'오전 9시 19분'}
-      ></LargeVoiceMessageItem>
-      <LargeVoiceMessageItem
-        profileImage={'https://picsum.photos/200/300'}
-        name={'김정숙'}
-        date={'오늘'}
-        time={'10분전'}
+        dateTime={'2024-08-04T13:49:27.459797'}
       ></LargeVoiceMessageItem>
       <VoicePlayerBar
         profileImage={'https://picsum.photos/200/300'}
         name={'유호진'}
-        date={'오늘'}
-        time={'10분전'}
+        dateTime={'2024-08-04T13:49:27.459797'}
       ></VoicePlayerBar>
       <FilledDualInput />
       <FilledTextArea />

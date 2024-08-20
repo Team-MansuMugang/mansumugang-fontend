@@ -1,0 +1,69 @@
+.community-large-item {
+  display: grid;
+  border: 1px solid var(--color-neutral-90);
+  background-color: var(--color-neutral-100);
+  cursor: pointer;
+  gap: 5px;
+}
+
+.community-large-item h2 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--text-size-body-medium);
+  color: var(--color-neutral-0);
+  margin-top: 14px;
+  margin-bottom: 0;
+}
+
+.community-large-item .community-summary {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--text-size-body-small);
+  color: var(--color-neutral-0);
+  margin: 0;
+}
+
+.community-large-item .community-item-footer {
+  display: flex;
+  align-items: center;
+  margin: 3px 0 14px;
+  gap: 7px;
+  color: var(--color-neutral-30);
+  font-size: var(--text-size-detail);
+}
+
+.community-large-item .small-button {
+  text-align: center;
+  font-size: var(--text-size-detail);
+  height: 17px;
+  border-radius: var(--round-size-small);
+  background-color: var(--color-neutral-30);
+  color: var(--color-neutral-95);
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.community-large-item .mode-comment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 13px;
+  height: 13px;
+}
+
+.community-large-item .community-item-footer p {
+  margin: 0;
+  position: relative;
+  top: -1px;
+}
+
+.community-large-item .divider {
+  color: var(--color-neutral-90);
+}
+
+.community-large-item .community-item-footer span {
+  margin-top: -2px;
+}

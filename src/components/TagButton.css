@@ -3,15 +3,15 @@
   font-weight: 500;
   padding: 6px 16px;
   border-radius: var(--round-size-large);
-  background-color: var(--color-neutral-95);
-  color: var(--color-neutral-0);
   border: none;
-  cursor: pointer;
   box-sizing: border-box;
-}
-
-.tag-button:disabled {
   background-color: var(--color-primary);
   color: var(--color-neutral-100);
   cursor: not-allowed;
+}
+
+.tag-button:disabled {
+  background-color: var(--color-neutral-95);
+  color: var(--color-neutral-0);
+  cursor: pointer;
 }

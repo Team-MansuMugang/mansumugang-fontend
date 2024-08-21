@@ -24,6 +24,8 @@ import MedicineAddPage from './pages/schedule/MedicineAddPage';
 import HospitalEditPage from './pages/schedule/HospitalEditPage';
 import HospitalAddPage from './pages/schedule/HospitalAddPage';
 import NotificationPage from './pages/notification/NotificationPage';
+import CommunityPage from './pages/community/CommunityPage';
+import PostDetailPage from './pages/community/PostDetailPage';
 
 const router = createBrowserRouter([
   { path: '/', element: <SignInPage /> },
@@ -40,7 +42,7 @@ const router = createBrowserRouter([
     children: [
       { path: '', element: <MainPage /> },
       { path: 'notifications', element: <NotificationPage /> },
-      { path: 'community', element: <></> },
+      { path: 'community', element: <CommunityPage /> },
       { path: 'account', element: <AccountPage /> },
     ],
   },
@@ -77,7 +79,7 @@ const router = createBrowserRouter([
     children: [
       { path: 'search', element: <></> },
       { path: 'search-results', element: <></> },
-      { path: 'post', element: <></> },
+      { path: 'post/:postId', element: <PostDetailPage /> },
       { path: 'new-post', element: <></> },
       { path: 'edit-post', element: <></> },
     ],

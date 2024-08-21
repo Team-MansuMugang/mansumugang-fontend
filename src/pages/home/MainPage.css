@@ -96,7 +96,7 @@
 }
 
 .main-page #map-cover.blur {
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(2px) brightness(0.95) contrast(1.2) saturate(0.9);
   border-radius: var(--round-size-medium);
   opacity: 1;
 }

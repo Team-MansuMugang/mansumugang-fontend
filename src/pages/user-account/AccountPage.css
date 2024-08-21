@@ -1,7 +1,8 @@
 .account-page {
   display: flex;
   flex-direction: column;
-  margin-top: 71px;
+  margin-top: 25px;
+  margin-bottom: calc(62.5px + 20px);
   padding: 0 12px;
   gap: 9px;
 }

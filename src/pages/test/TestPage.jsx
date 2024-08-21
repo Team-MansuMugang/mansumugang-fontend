@@ -108,8 +108,19 @@ const TestPage = () => {
       <MainHeader title="테스트 페이지" rightText="hoho" />
       <NameContainer name={'이병헌'} nickname={'귀여미'}></NameContainer>
       <NotificationItem
-        profileImage={'https://picsum.photos/200/300'}
-        notificationMessage={'김정숙님이 오후 3시에 병원을 방문하지 않았습니다. 확인해보세요'}
+        title={'김정숙님의 병원 방문'}
+        body={'김정숙님이 오후 3시alsdkflkdsafjklasdjfalkflkjfdsakljfadskfa;l에 '}
+        timeAgo={new Date()}
+      ></NotificationItem>
+      <NotificationItem
+        title={'김정숙님의 병원 방문'}
+        body={`김정숙님이 as;ldfkjasd;lfja;sdlkjf;dlsakjf;lkjas;jf;kljasdlkjf
+          오후 3시alsdkflkdsafjklasdjfalkflkjfdsakljfadskfa;l에 `}
+        timeAgo={new Date()}
+      ></NotificationItem>
+      <NotificationItem
+        title={'김정숙님의 병원 방문'}
+        body={'김정숙님이 오후 3시alsdkflkdsafjklasdjfalkflkjfdsakljfadskfa;l에 '}
         timeAgo={new Date()}
       ></NotificationItem>
       <InputWrapper

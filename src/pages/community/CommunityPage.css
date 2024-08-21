@@ -1,0 +1,35 @@
+/* CommunityPage.css */
+
+.community-page {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0px 15px;
+  box-sizing: border-box;
+  position: relative; /* 버튼을 정확히 배치하기 위해 부모 요소를 상대 위치로 설정 */
+}
+.community-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0; /* 패딩 제거 */
+}
+.community-tag-button {
+  display: flex; /* 버튼들을 수평으로 배치 */
+  flex-wrap: nowrap; /* 버튼들이 한 줄에 배치되도록 설정 */
+  gap: 8px; /* 버튼 간의 간격 조정 */
+  overflow-x: auto; /* 수평 스크롤 가능 */
+  scroll-behavior: smooth; /* 부드러운 스크롤 효과 */
+  -webkit-overflow-scrolling: touch; /* 모바일에서 부드러운 스크롤 */
+  position: relative; /* 자식 요소를 절대 위치로 배치하기 위해 필요 */
+  margin-bottom: 10px;
+}
+
+/* WebKit 브라우저에서 스크롤바 숨기기 */
+.community-tag-button::-webkit-scrollbar {
+  display: none;
+}
+
+.community-tag-button button {
+  min-width: 60px; /* 버튼의 최소 너비 설정 */
+  flex: 0 0 auto; /* 버튼이 줄어들지 않도록 설정 */
+}

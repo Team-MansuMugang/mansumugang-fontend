@@ -25,6 +25,7 @@ import HospitalEditPage from './pages/schedule/HospitalEditPage';
 import HospitalAddPage from './pages/schedule/HospitalAddPage';
 import NotificationPage from './pages/notification/NotificationPage';
 import SearchPage from './pages/community/SearchPage';
+import CommunityPage from './pages/community/CommunityPage';
 
 const router = createBrowserRouter([
   { path: '/', element: <SignInPage /> },
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
     children: [
       { path: '', element: <MainPage /> },
       { path: 'notifications', element: <NotificationPage /> },
-      { path: 'community', element: <></> },
+      { path: 'community', element: <CommunityPage /> },
       { path: 'account', element: <AccountPage /> },
     ],
   },

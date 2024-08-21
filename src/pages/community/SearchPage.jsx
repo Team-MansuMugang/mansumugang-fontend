@@ -8,7 +8,7 @@ import NavBar from '../../components/NavBar';
 const SearchPage = () => {
   return (
     <>
-      <NavBar />
+      <NavBar></NavBar>
       <div className="search-page">
         <div className="search-header">
           <button>

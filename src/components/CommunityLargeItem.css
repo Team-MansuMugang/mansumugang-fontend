@@ -4,6 +4,7 @@
   background-color: var(--color-neutral-100);
   cursor: pointer;
   gap: 5px;
+  padding: 0px 20px;
 }
 
 .community-large-item h2 {

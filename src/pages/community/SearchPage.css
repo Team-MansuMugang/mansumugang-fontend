@@ -29,7 +29,6 @@
 .tag-buttons {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
 }
 
 .search-page .section-recommendation h2,

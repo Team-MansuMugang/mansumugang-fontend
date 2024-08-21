@@ -14,15 +14,8 @@ import { validateParameters } from '../utility/validate.js';
 
 const baseURL = 'http://minnnisu.iptime.org';
 
-const addMedicine = async (params) => {
-  validateParameters(params, [
-    'hospitalId',
-    'hospitalName',
-    'hospitalAddress',
-    'latitude',
-    'longitude',
-    'hospitalVisitingTime',
-  ]);
+const updateMedicine = async (params) => {
+  validateParameters(params, ['hospitalId']);
 
   const { hospitalId } = params;
   delete params.hospitalId; // hospitalId JSON에 추가하지 않음
@@ -56,4 +49,4 @@ const addMedicine = async (params) => {
   }
 };
 
-export default addMedicine;
+export default updateMedicine;

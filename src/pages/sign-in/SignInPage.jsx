@@ -53,7 +53,7 @@ const SignInPage = () => {
       if (error instanceof PatientLoginNotAllowedError) {
         toast.info(
           <div>
-            케이 맴버님은 앱을 통해서 로그인하실 수 있습니다
+            케이 멤버님은 앱을 통해서 로그인하실 수 있습니다
             <br />
             플레이스토어에서 '만수무강'을 검색해주세요
           </div>,

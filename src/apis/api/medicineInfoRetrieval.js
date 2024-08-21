@@ -13,13 +13,7 @@ const baseURL = 'http://minnnisu.iptime.org';
 const medicineInfoRetrieval = async (params) => {
   if (!('date' in params)) {
     const today = new Date();
-
-    // KST 시간으로 변환
-    const offset = today.getTimezoneOffset();
-    const kstTime = new Date(today.getTime() - offset * 60 * 1000 + 9 * 60 * 60 * 1000); // UTC +9시간 추가
-
-    // KST 기준으로 yyyy-mm-dd 포맷의 날짜 문자열 생성
-    params['date'] = kstTime.toISOString().split('T')[0];
+    params['date'] = today.toISOString().split('T')[0];
   }
   validateParameters(params, ['date', 'patientId']);
 

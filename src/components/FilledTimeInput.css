@@ -24,7 +24,7 @@
 }
 
 .filled-time-input input::placeholder {
-  color: var(--color-neutral-75);
+  color: var(--color-neutral-80);
 }
 
 .filled-time-input span {

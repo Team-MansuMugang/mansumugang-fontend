@@ -1,7 +1,7 @@
 import './TagButton.css';
 import '../index.css';
 
-const TabButton = ({ children, disabled = false, onclick }) => {
+const TagButton = ({ children, disabled = false, onclick }) => {
   return (
     <button className="tag-button" disabled={disabled} onClick={onclick}>
       {children}
@@ -9,4 +9,4 @@ const TabButton = ({ children, disabled = false, onclick }) => {
   );
 };
 
-export default TabButton;
+export default TagButton;

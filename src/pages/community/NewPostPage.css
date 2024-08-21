@@ -1,0 +1,43 @@
+.new-post-page {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 33px;
+  position: relative;
+}
+
+.title-input,
+.content-textarea {
+  font-size: var(--text-size-body-medium);
+  color: var(--color-neutral-0);
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;
+  overflow: hidden;
+  outline: none;
+  font-family: 'Arial', sans-serif;
+}
+
+.title-input {
+  font-size: var(--text-size-title);
+  font-weight: bold;
+  min-height: 1.2em;
+  line-height: 1.2em;
+}
+
+.content-textarea {
+  min-height: 580px;
+}
+
+.title-input::placeholder {
+  color: var(--color-neutral-30);
+}
+
+.content-textarea::placeholder {
+  color: var(--color-neutral-45);
+}
+
+.new-post-page > :last-child {
+  margin-top: 40px;
+}

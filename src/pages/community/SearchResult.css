@@ -1,0 +1,33 @@
+.search-result {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0px 15px;
+  box-sizing: border-box;
+  position: relative;
+}
+.search-result-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+.search-result .search-result-tag-button {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  margin: 5px 0 10px 0;
+}
+
+/* WebKit 브라우저에서 스크롤바 숨기기 */
+.search-result .search-result-tag-button::-webkit-scrollbar {
+  display: none;
+}
+
+.search-result .search-result-tag-button button {
+  min-width: 60px;
+  flex: 0 0 auto;
+}

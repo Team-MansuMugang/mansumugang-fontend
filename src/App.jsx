@@ -24,6 +24,11 @@ import MedicineAddPage from './pages/schedule/MedicineAddPage';
 import HospitalEditPage from './pages/schedule/HospitalEditPage';
 import HospitalAddPage from './pages/schedule/HospitalAddPage';
 import NotificationPage from './pages/notification/NotificationPage';
+import SearchPage from './pages/community/SearchPage';
+import CommunityPage from './pages/community/CommunityPage';
+import SearchResult from './pages/community/SearchResult';
+import PostPage from './pages/community/PostPage';
+import NewPostPage from './pages/community/NewPostPage';
 
 const router = createBrowserRouter([
   { path: '/', element: <SignInPage /> },
@@ -40,7 +45,7 @@ const router = createBrowserRouter([
     children: [
       { path: '', element: <MainPage /> },
       { path: 'notifications', element: <NotificationPage /> },
-      { path: 'community', element: <></> },
+      { path: 'community', element: <CommunityPage /> },
       { path: 'account', element: <AccountPage /> },
     ],
   },
@@ -75,10 +80,10 @@ const router = createBrowserRouter([
   {
     path: '/community',
     children: [
-      { path: 'search', element: <></> },
-      { path: 'search-results', element: <></> },
-      { path: 'post', element: <></> },
-      { path: 'new-post', element: <></> },
+      { path: 'search', element: <SearchPage /> },
+      { path: 'search-results', element: <SearchResult /> },
+      { path: 'post', element: <PostPage /> },
+      { path: 'new-post', element: <NewPostPage /> },
       { path: 'edit-post', element: <></> },
     ],
   },

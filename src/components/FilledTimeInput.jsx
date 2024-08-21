@@ -15,8 +15,8 @@ const FilledTimeInput = ({ init = '', onInput, type = 'hours' }) => {
   const handleInput = (e) => {
     let value = e.target.value === '' ? '' : parseInt(e.target.value, 10);
 
-    if (type === 'hours') value = Math.max(0, Math.min(value, 12));
-    if (type === 'minutes') value = Math.max(0, Math.min(value, 59));
+    if (type === 'hours' && value !== '') value = Math.max(0, Math.min(value, 12));
+    if (type === 'minutes' && value !== '') value = Math.max(0, Math.min(value, 59));
 
     setInput(value);
     if (onInput) onInput(value);
@@ -24,7 +24,7 @@ const FilledTimeInput = ({ init = '', onInput, type = 'hours' }) => {
 
   return (
     <label className="filled-time-input">
-      <input type="number" value={input} placeholder="0" onChange={handleInput} />
+      <input type="number" pattern="\d*" value={input} placeholder="0" onChange={handleInput} />
       <span>{typeText(type)}</span>
     </label>
   );

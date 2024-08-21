@@ -14,14 +14,18 @@ import checkNicknameUnique from '../../apis/api/checkNicknameUnique';
 const ChangeProfile = () => {
   const [name, setName] = useState({ value: '', status: 'default', description: '' });
   const [nickname, setNickname] = useState({ value: '', status: 'default', description: '' });
-  const [isAllSuccess, setIsAllSuccess] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (name.status === 'success' && nickname.status === 'success') {
-      setIsAllSuccess(true);
+    if (
+      (name.status === 'success' && nickname.status === 'success') ||
+      (name.status === 'success' && nickname.status === 'default') ||
+      (name.status === 'default' && nickname.status === 'success')
+    ) {
+      setIsSuccess(true);
     } else {
-      setIsAllSuccess(false);
+      setIsSuccess(false);
     }
   }, [name.status, nickname.status]);
 
@@ -158,7 +162,7 @@ const ChangeProfile = () => {
           </CheckButton>
         </InputWrapper>
         <div className="big-button-wrap">
-          <BigButton disabled={!isAllSuccess} onClick={handleUpload}>
+          <BigButton disabled={!isSuccess} onClick={handleUpload}>
             수정하기
           </BigButton>
         </div>

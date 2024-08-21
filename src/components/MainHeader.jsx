@@ -9,7 +9,7 @@ const MainHeader = ({
   onClickLeft,
   onClickRight,
   title = '제목',
-  rightTextColor = MainHeaderColor.BLACK,
+  rightTextColor = MainHeaderColor.DEFAULT,
 }) => {
   return (
     <div className="main-header">

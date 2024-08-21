@@ -8,12 +8,7 @@ import SearchButton from '../../components/SearchButton';
 const CommunityPage = () => {
   return (
     <>
-      <MainHeader
-        title="커뮤니티"
-        isLeftButtonEnable={false}
-        rightText="작성"
-        rightTextColor
-      ></MainHeader>
+      <MainHeader title="커뮤니티" isLeftButtonEnable={false} rightText="작성"></MainHeader>
       <NavBar activeTab="커뮤니티"></NavBar>
       <div className="community-page">
         <div className="community-tag-button">

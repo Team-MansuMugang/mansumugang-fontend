@@ -18,6 +18,7 @@
   width: 33px;
   height: 33px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .small-voice-message-item .item-name {

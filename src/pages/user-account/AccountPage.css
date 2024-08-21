@@ -13,6 +13,7 @@
   width: 143px;
   height: 143px;
   border-radius: 50%;
+  object-fit: cover;
 }
 .account-page .sub-button {
   align-self: center;

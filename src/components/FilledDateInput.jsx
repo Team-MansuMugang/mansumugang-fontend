@@ -20,6 +20,8 @@ const FilledDateInput = ({ init = '', onInput, type = 'years', year = 2024, mont
   const handleInput = (e) => {
     let value = e.target.value;
 
+    value = value.replace(/^0+/, '');
+
     if (type === 'years') {
       value = value.slice(0, 4); // 최대 4자리로 제한
       value = value.replace(/\D/g, ''); // 숫자 이외의 문자 제거

@@ -23,7 +23,6 @@ const FilledDateInput = ({ init = '', onInput, type = 'years', year = 2024, mont
     if (type === 'years') {
       value = value.slice(0, 4); // 최대 4자리로 제한
       value = value.replace(/\D/g, ''); // 숫자 이외의 문자 제거
-      value = Number(value);
     }
 
     if (type === 'months') {
@@ -43,6 +42,7 @@ const FilledDateInput = ({ init = '', onInput, type = 'years', year = 2024, mont
     <label className={`filled-date-input ${type}`}>
       <input
         type="number"
+        pattern="\d*"
         value={input}
         placeholder="0"
         onChange={handleInput}

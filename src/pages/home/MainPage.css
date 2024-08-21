@@ -1,5 +1,9 @@
 .main-page {
   padding: 0 18px;
+  min-height: 100vh;
+}
+
+.main-page .patient-content {
   margin-bottom: calc(62.5px + 90px);
 }
 
@@ -89,6 +93,43 @@
   width: 100%;
   height: 100%;
   opacity: 0;
+}
+
+.main-page #map-cover.blur {
+  backdrop-filter: blur(3px);
+  border-radius: var(--round-size-medium);
+  opacity: 1;
+}
+
+.main-page .sign-up-patient-suggestion {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  height: calc(100vh - 62.5px);
+  text-align: center;
+  word-wrap: break-word;
+  word-break: keep-all;
+}
+
+.main-page .sign-up-patient-suggestion > * {
+  margin: 0;
+  padding: 0;
+}
+
+.main-page .sign-up-patient-suggestion h3 {
+  font-size: var(--text-size-heading-large);
+}
+
+.main-page .sign-up-patient-suggestion p {
+  font-size: var(--text-size-body-medium);
+  line-height: 23px;
+  color: var(--color-neutral-30);
+}
+
+.main-page .sign-up-patient-suggestion .big-button {
+  margin-top: 35px;
 }
 
 .schedule-page-overlay {

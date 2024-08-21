@@ -20,6 +20,7 @@ import ItemSelector from '../../components/ItemSelector';
 import MedicineDetailCard from '../../components/MedicineDetailCard';
 import HospitalDetailCard from '../../components/HospitalDetailCard';
 import FloatingActionButton from '../../components/FloatingActionButton';
+import BigButton from '../../components/BigButton';
 
 // API 호출
 import fetchPatientList from '../../apis/api/fetchPatientList';
@@ -35,6 +36,7 @@ import {
   NotValidAccessTokenError,
   ExpiredAccessTokenError,
   UserRecordInfoNotFoundError,
+  AccessDeniedError,
 } from '../../apis/utility/errors';
 
 import { initializeApp } from 'firebase/app';
@@ -49,12 +51,13 @@ import LocalHospitalIcon from '../../assets/svg/local-hospital.svg?react';
 const MainPage = () => {
   const [patients, setPatients] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState(0);
+  const [isPatientNull, setIsPatientNull] = useState(undefined);
   const [voiceMessages, setVoiceMessages] = useState([]);
   const [medicineSchedules, setMedicineSchedules] = useState([]);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
   const [detailData, setDetailData] = useState({});
   const [detailType, setDetailType] = useState('');
-  const [latLng, setLatLng] = useState({ lat: 35.8585036441744, lng: 129.192877172776 });
+  const [latLng, setLatLng] = useState({ lat: 35.86224780000001, lng: 129.195123 });
   const [address, setAddress] = useState('');
   const navigate = useNavigate();
 
@@ -95,6 +98,8 @@ const MainPage = () => {
       try {
         const patientList = await fetchPatientList();
         setPatients(patientList);
+        if (patientList.length === 0) setIsPatientNull(true);
+        else setIsPatientNull(false);
       } catch (error) {
         if (error instanceof ExpiredAccessTokenError) {
           try {
@@ -104,6 +109,7 @@ const MainPage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
+        else if (error instanceof AccessDeniedError) setIsPatientNull(true);
         else console.error(error);
       }
     };
@@ -165,7 +171,7 @@ const MainPage = () => {
     };
 
     assignFcmToken();
-  },[])
+  }, []);
 
   useEffect(() => {
     if (patients.length > 0) handlePatientSelection(0);
@@ -289,22 +295,26 @@ const MainPage = () => {
     }
   };
 
-  return (
-    <div className="main-page">
+  const renderPatientContent = () => (
+    <div className="patient-content">
       <h1>홈</h1>
-
-      <SubTitle title="음성 메세지" linkTo="/voice-message" />
-
+      <SubTitle
+        title="음성 메세지"
+        showButton={voiceMessages.length !== 0}
+        linkTo="/voice-message"
+      />
       <RowScrollContainer>
-        {voiceMessages.map((voiceMessage, index) => (
-          <SmallVoiceMessageItem
-            key={index}
-            profileImage={'https://picsum.photos/200/300'}
-            name={voiceMessage.name}
-            time={voiceMessage.uploadedTime}
-            onClick={() => navigate('/voice-message/detail', { state: voiceMessage })}
-          />
-        ))}
+        {voiceMessages &&
+          voiceMessages.map((voiceMessage, index) => (
+            <SmallVoiceMessageItem
+              key={index}
+              profileImage={'https://picsum.photos/200/300'}
+              name={voiceMessage.name}
+              time={voiceMessage.uploadedTime}
+              onClick={() => navigate('/voice-message/detail', { state: voiceMessage })}
+            />
+          ))}
+        {voiceMessages.length === 0 && <p>아직 받으신 음성 메시지가 없습니다</p>}
       </RowScrollContainer>
 
       <hr />
@@ -326,7 +336,7 @@ const MainPage = () => {
             </ScheduleListContainer>
           ))
         ) : (
-          <p>오늘 일정이 없습니다.</p>
+          <p>오늘은 일정이 없습니다</p>
         )}
       </BorderContainer>
 
@@ -334,17 +344,19 @@ const MainPage = () => {
       <div className="address-info">
         <div className="left-wrap">
           <LocationOnIcon />
-          <span>{address}</span>
+          <span>{address ? address : '아직 최근 위치정보가 존재하지 않습니다'}</span>
         </div>
-        <span
-          className="copy-button"
-          onClick={() => {
-            navigator.clipboard.writeText(address);
-            alert('주소가 복사되었습니다.');
-          }}
-        >
-          복사
-        </span>
+        {address && (
+          <span
+            className="copy-button"
+            onClick={() => {
+              navigator.clipboard.writeText(address);
+              alert('주소가 복사되었습니다.');
+            }}
+          >
+            복사
+          </span>
+        )}
       </div>
       <div id="map-wrap">
         <Map
@@ -364,10 +376,9 @@ const MainPage = () => {
             }}
           />
         </Map>
-        <div id="map-cover" />
+        <div id="map-cover" className={address ? '' : 'blur'} />
       </div>
 
-      <NavBar activeTab="홈" />
       <FloatingActionButton
         title={`${patients[selectedPatient]?.patientName}님의 일정에`}
         items={[
@@ -413,6 +424,25 @@ const MainPage = () => {
           />
         )}
       </div>
+    </div>
+  );
+
+  const renderSignUpPatientSuggestion = () => (
+    <div className="sign-up-patient-suggestion">
+      <h3>케어 멤버를 추가해주세요</h3>
+      <p>
+        케어 멤버를 추가하면 약 일정 관리, 병원 일정 관리뿐만 아니라 실시간 위치 확인도 가능합니다.
+      </p>
+
+      <BigButton onClick={() => navigate('/sign-up/patient')}>케어 맴버 추가하기</BigButton>
+    </div>
+  );
+
+  return (
+    <div className="main-page">
+      {isPatientNull !== undefined &&
+        (isPatientNull ? renderSignUpPatientSuggestion() : renderPatientContent())}
+      <NavBar activeTab="홈" />
     </div>
   );
 };

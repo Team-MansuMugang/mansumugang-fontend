@@ -41,6 +41,7 @@ const HospitalEditPage = () => {
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
   const [hospitalDescription, setHospitalDescription] = useState('');
+  const [initHospitalVisitingTime, setInitHospitalVisitingTime] = useState('');
   const [inputHospitalVisitDate, setInputHospitalVisitDate] = useState({
     year: '',
     month: '',
@@ -64,6 +65,8 @@ const HospitalEditPage = () => {
         let [hours, minutes] = timePart.split(':'); // AM/PM 설정
         const meridiem = hours >= 12 ? 'PM' : 'AM'; // 12시간 형식으로 변환
         hours = hours % 12 || 12;
+
+        setInitHospitalVisitingTime(hospitalVisitingTime);
 
         const dateObject = { year: Number(year), month: Number(month), day: Number(day) };
         const timeObject = { hours: Number(hours), minutes: Number(minutes), meridiem };
@@ -158,8 +161,6 @@ const HospitalEditPage = () => {
       return `${year}-${formattedMonth}-${formattedDay}T${formattedHoursStr}:${formattedMinutes}:00`;
     };
 
-    formatDateTime();
-
     try {
       // 전송할 객체 생성
       const medicineData = {
@@ -173,6 +174,8 @@ const HospitalEditPage = () => {
         patientId: Number(params.patientId),
       };
 
+      if (formatDateTime() === initHospitalVisitingTime) delete medicineData.hospitalVisitingTime;
+
       // 빈 문자열인 키를 가진 항목 제거
       Object.keys(medicineData).forEach((key) => {
         if (medicineData[key] === '') {
@@ -182,7 +185,7 @@ const HospitalEditPage = () => {
 
       console.log(medicineData);
 
-      // 약 추가 API 호출
+      // 병원 수정 API 호출
       await updateHospital(medicineData);
       navigate('/home');
     } catch (error) {
@@ -238,7 +241,7 @@ const HospitalEditPage = () => {
   return (
     <div className="hospital-edit-page">
       <MainHeader
-        title="병원 일정 추가 페이지"
+        title="병원 일정 수정 페이지"
         rightText="삭제"
         onClickLeft={() => navigate('/home')}
         onClickRight={handleDeleteHospital}
@@ -310,7 +313,7 @@ const HospitalEditPage = () => {
         </div>
       </div>
       <div className="big-button-wrap">
-        <BigButton onClick={handleHospitalFormSubmit}>병원 일정 추가하기</BigButton>
+        <BigButton onClick={handleHospitalFormSubmit}>병원 일정 수정하기</BigButton>
       </div>
       {isPostcodeOpen && (
         <div className="daum-postcode-wrap" onClick={handlePostcodeWrapClick}>

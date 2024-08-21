@@ -107,7 +107,7 @@ const CalendarDate = ({ date, isToday, isSelected, status, onClick }) => (
  */
 const Calendar = ({ onSelect, dateStatus = [], backUrl }) => {
   const navigate = useNavigate();
-  const today = new Date(new Date().getTime() + 9 * 60 * 60 * 1000);
+  const today = new Date();
   const [currentDate, setCurrentDate] = useState(today);
   const [selectedDate, setSelectedDate] = useState(today);
 

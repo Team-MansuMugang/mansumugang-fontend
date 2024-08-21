@@ -22,6 +22,7 @@
   width: 47px;
   height: 47px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .voice-player-bar .item-details {

@@ -434,7 +434,7 @@ const MainPage = () => {
         케어 멤버를 추가하면 약 일정 관리, 병원 일정 관리뿐만 아니라 실시간 위치 확인도 가능합니다.
       </p>
 
-      <BigButton onClick={() => navigate('/sign-up/patient')}>케어 맴버 추가하기</BigButton>
+      <BigButton onClick={() => navigate('/sign-up/patient')}>케어 멤버 추가하기</BigButton>
     </div>
   );
 

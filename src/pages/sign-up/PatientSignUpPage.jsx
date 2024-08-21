@@ -284,7 +284,7 @@ const PatientSignUpPage = () => {
 
       if (!result) {
         status = 'warning';
-        description = '해당 아이디는 케어 맴버의 아이디입니다';
+        description = '해당 아이디는 케어 멤버의 아이디입니다';
       }
 
       setGuardianId((currentGuardianId) =>
@@ -327,7 +327,7 @@ const PatientSignUpPage = () => {
         <div>
           회원가입이 완료되었습니다!
           <br />
-          케이 맴버님은 앱을 통해서 로그인하실 수 있습니다
+          케이 멤버님은 앱을 통해서 로그인하실 수 있습니다
           <br />
           플레이스토어에서 '만수무강'을 검색해주세요
         </div>,
@@ -360,7 +360,7 @@ const PatientSignUpPage = () => {
         setGuardianId((currentGuardianId) =>
           produce(currentGuardianId, (draft) => {
             draft.status = 'warning';
-            draft.description = '해당 ID는 케어 맴버이거나 존재하지 않습니다.';
+            draft.description = '해당 ID는 케어 멤버이거나 존재하지 않습니다.';
           }),
         );
       }

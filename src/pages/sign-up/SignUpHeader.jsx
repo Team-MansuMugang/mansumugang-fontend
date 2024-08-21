@@ -27,7 +27,7 @@ const SignUpHeader = () => {
         <h1>만수무강</h1>
       </div>
       <ToggleSwitch
-        labels={['케어 맴버', '보호자']}
+        labels={['케어 멤버', '보호자']}
         active={activeIndex}
         onClicks={[handlePatientClick, handleGuardianClick]}
       />

@@ -130,7 +130,7 @@ const TestPage = () => {
       </InputWrapper>
       <BigButton disabled={false}>회원가입</BigButton>
       <SubLink to="/">회원가입</SubLink>
-      <ToggleSwitch labels={['보호자', '케어 맴버']} active={0} />
+      <ToggleSwitch labels={['보호자', '케어 멤버']} active={0} />
       <SubButton disabled={false}>프로필 수정하기</SubButton>
       <SubTitle title="회원가입" showButton={false} />
       <BorderContainer description="내 계정">

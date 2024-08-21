@@ -5,4 +5,4 @@ export default {
   title: 'ToggleSwitch',
 };
 
-export const Default = () => <ToggleSwitch labels={['보호자', '케어 맴버']} active={0} />;
+export const Default = () => <ToggleSwitch labels={['보호자', '케어 멤버']} active={0} />;

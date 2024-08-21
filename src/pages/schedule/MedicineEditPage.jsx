@@ -43,6 +43,7 @@ const MedicineEditPage = () => {
     meridiem: 'AM',
   });
   const [medicineIntakeTimes, setMedicineIntakeTimes] = useState(new Set());
+  const [initMedicineIntakeDays, setInitMedicineIntakeDays] = useState([]);
   const [medicineIntakeDays, setMedicineIntakeDays] = useState([]);
   const [inputMedicineIntakeStopDay, setInputMedicineIntakeStopDay] = useState({
     year: '',
@@ -60,6 +61,7 @@ const MedicineEditPage = () => {
         setHospitalName(data.hospitalName || '');
         setMedicineDescription(data.medicineDescription || '');
         setMedicineIntakeTimes(new Set(data.medicineIntakeTimes || []));
+        setInitMedicineIntakeDays(data.medicineIntakeDays || []);
         setMedicineIntakeDays(data.medicineIntakeDays || []);
 
         const [year, month, day] = data.medicineIntakeStopDay.split('-');
@@ -144,7 +146,12 @@ const MedicineEditPage = () => {
         medicineName,
         hospitalName,
         medicineDescription,
-        medicineIntakeTimes: [...medicineIntakeTimes],
+        medicineIntakeDayToAdd: medicineIntakeDays.filter(
+          (day) => !initMedicineIntakeDays.includes(day),
+        ),
+        medicineIntakeDayToDelete: initMedicineIntakeDays.filter(
+          (day) => !medicineIntakeDays.includes(day),
+        ),
         medicineIntakeDays,
         medicineIntakeStopDay: `${String(inputMedicineIntakeStopDay.year).padStart(2, '0')}-${String(inputMedicineIntakeStopDay.month).padStart(2, '0')}-${String(inputMedicineIntakeStopDay.day).padStart(2, '0')}`,
       };

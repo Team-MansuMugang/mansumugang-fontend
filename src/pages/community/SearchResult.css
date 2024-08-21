@@ -19,7 +19,7 @@
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   position: relative;
-  margin-bottom: 10px;
+  margin: 5px 0 10px 0;
 }
 
 /* WebKit 브라우저에서 스크롤바 숨기기 */

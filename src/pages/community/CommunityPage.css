@@ -21,6 +21,7 @@
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   position: relative;
+  margin-top: 5px;
   margin-bottom: 10px;
 }
 

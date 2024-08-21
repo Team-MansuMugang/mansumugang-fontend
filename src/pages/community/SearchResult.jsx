@@ -8,9 +8,9 @@ import SearchButton from '../../components/SearchButton';
 const SearchResult = () => {
   return (
     <>
+      <MainHeader title="'치매 예방법' 검색 결과" isLeftButtonEnable={true}></MainHeader>
       <NavBar activeTab="커뮤니티"></NavBar>
       <div className="search-result">
-        <MainHeader title="'치매 예방법' 검색 결과" isLeftButtonEnable={true}></MainHeader>
         <div className="search-result-tag-button">
           <SearchButton></SearchButton>
           <TagButton disabled={true}>전체</TagButton>

@@ -27,6 +27,7 @@ import NotificationPage from './pages/notification/NotificationPage';
 import SearchPage from './pages/community/SearchPage';
 import CommunityPage from './pages/community/CommunityPage';
 import SearchResult from './pages/community/SearchResult';
+import PostPage from './pages/community/PostPage';
 
 const router = createBrowserRouter([
   { path: '/', element: <SignInPage /> },
@@ -80,7 +81,7 @@ const router = createBrowserRouter([
     children: [
       { path: 'search', element: <SearchPage /> },
       { path: 'search-results', element: <SearchResult /> },
-      { path: 'post', element: <></> },
+      { path: 'post', element: <PostPage /> },
       { path: 'new-post', element: <></> },
       { path: 'edit-post', element: <></> },
     ],

@@ -35,6 +35,11 @@ const NewPostPage = () => {
           className="title-input"
           ref={titleRef}
           rows="1"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault(); // 줄바꿈 막음
+            }
+          }}
         />
         <textarea
           placeholder="내용을 입력하세요"
@@ -43,9 +48,8 @@ const NewPostPage = () => {
           className="content-textarea"
           ref={contentRef}
         />
-        <div className="post-picture-upload-container">
-          <PostPictureUpload />
-        </div>
+
+        <PostPictureUpload />
       </div>
     </>
   );

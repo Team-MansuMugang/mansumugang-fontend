@@ -1,4 +1,5 @@
 import './CommunityPage.css';
+import '../../index.css';
 import MainHeader from '../../components/MainHeader';
 import TagButton from '../../components/TagButton';
 import NavBar from '../../components/NavBar';
@@ -7,12 +8,10 @@ import SearchButton from '../../components/SearchButton';
 
 const CommunityPage = () => {
   return (
-    <>
-      <MainHeader title="커뮤니티" isLeftButtonEnable={false} rightText="작성"></MainHeader>
-      <NavBar activeTab="커뮤니티"></NavBar>
-      <div className="community-page">
-        <div className="community-tag-button">
-          <SearchButton></SearchButton>
+    <div className="community-page">
+      <MainHeader title="커뮤니티" isLeftButtonEnable={false} rightText="작성" />
+      <div className="sub-header">
+        <div className="community-tags">
           <TagButton disabled={true}>전체</TagButton>
           <TagButton>인기글</TagButton>
           <TagButton>자유</TagButton>
@@ -24,52 +23,57 @@ const CommunityPage = () => {
           <TagButton>기타 질병</TagButton>
           <TagButton>홍보</TagButton>
         </div>
+        <div className="gradation" />
+        <SearchButton />
       </div>
-      <div className="community-item">
+      <div className="community-items">
         <CommunityLargeItem
           title={'치매 어떻게 케어하시나요?'}
           summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
           time={'25분'}
-          children={'기타 질병'}
+          category={'기타 질병'}
           count={'7'}
-        ></CommunityLargeItem>
+        />
         <CommunityLargeItem
           title={'치매 어떻게 케어하시나요?'}
           summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
           time={'25분'}
-          children={'기타 질병'}
+          category={'기타 질병'}
           count={'7'}
-        ></CommunityLargeItem>
+        />
         <CommunityLargeItem
           title={'치매 어떻게 케어하시나요?'}
           summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
           time={'25분'}
-          children={'기타 질병'}
+          category={'기타 질병'}
           count={'7'}
-        ></CommunityLargeItem>
+        />
+        <CommunityLargeItem
+          title={'치매 어떻게 케어하시나요?'}
+          summary={
+            '다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+          }
+          time={'25분'}
+          category={'기타 질병'}
+          count={'7'}
+        />
         <CommunityLargeItem
           title={'치매 어떻게 케어하시나요?'}
           summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
           time={'25분'}
-          children={'기타 질병'}
-          count={'7'}
-        ></CommunityLargeItem>
+          category={'기타 질병'}
+          count={'7234'}
+        />
         <CommunityLargeItem
           title={'치매 어떻게 케어하시나요?'}
           summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
           time={'25분'}
-          children={'기타 질병'}
+          category={'기타 질병'}
           count={'7'}
-        ></CommunityLargeItem>
-        <CommunityLargeItem
-          title={'치매 어떻게 케어하시나요?'}
-          summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
-          time={'25분'}
-          children={'기타 질병'}
-          count={'7'}
-        ></CommunityLargeItem>
+        />
       </div>
-    </>
+      <NavBar activeTab="커뮤니티" />
+    </div>
   );
 };
 

@@ -37,7 +37,7 @@ import FillMeridiemToggle from '../../components/FillMeridiemToggle';
 import NotificationItem from '../../components/NotificationItem';
 import CategoryHeader from '../../components/CategoryHeader';
 import SearchedItem from '../../components/SearchedItem';
-import PostItemContainer from '../../components/PostItemContainer';
+import InteractionBar from '../../components/InteractionBar';
 import PostCommentItem from '../../components/PostCommentItem';
 import PostReCommentItem from '../../components/PostReCommentItem';
 import CommunityLargeItem from '../../components/CommunityLargeItem';
@@ -53,7 +53,7 @@ const TestPage = () => {
       <SearchedItem search={'치매'}></SearchedItem>
       <SearchedItem search={'당뇨'}></SearchedItem>
       <SearchedItem search={'고혈압'}></SearchedItem>
-      <PostItemContainer commentCount={'3'} heartCount={'3'}></PostItemContainer>
+      <InteractionBar commentCount={'3'} heartCount={'3'}></InteractionBar>
       <PostCommentItem
         profileImage={'https://picsum.photos/200/300'}
         name={'김정숙'}

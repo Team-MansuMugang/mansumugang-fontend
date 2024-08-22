@@ -14,7 +14,6 @@ const PostReCommentItem = ({ profileImage, name, data, onClick }) => {
           <div className="item-name">{name}</div>
           <div className="item-data">{data}</div>
         </div>
-        <button onClick={onClick}>답글</button>
       </div>
     </div>
   );

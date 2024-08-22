@@ -1,6 +1,7 @@
 .post-image img {
-  width: 151px;
-  height: 151px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
   border: none;
   border-radius: var(--round-size-small);
   margin-right: 5px;

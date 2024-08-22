@@ -11,8 +11,8 @@ const PostCommentItem = ({ profileImage, name, data, onClick }) => {
         <div className="item-details">
           <div className="item-name">{name}</div>
           <div className="item-data">{data}</div>
+          <button onClick={onClick}>답글 달기</button>
         </div>
-        <button onClick={onClick}>답글</button>
       </div>
     </div>
   );

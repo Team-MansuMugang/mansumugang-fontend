@@ -1,0 +1,61 @@
+.comment-input-container {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  background-color: var(--color-neutral-100);
+  padding: 8px 18px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  box-sizing: border-box;
+}
+
+.comment-input-container textarea {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: 8px 37px 9px 15px;
+  border: 1px solid var(--color-neutral-90);
+  border-radius: var(--round-size-medium);
+  background-color: white;
+  font-size: var(--text-size-body-medium);
+  font-family: unset;
+  line-height: 1.5;
+  color: var(--color-neutral-0);
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+}
+
+.comment-input-container textarea:focus {
+  outline: none;
+}
+
+.comment-input-container textarea::placeholder {
+  color: var(--color-neutral-75);
+}
+
+.comment-input-container button {
+  background: none;
+  border: none;
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.comment-input-container button svg {
+  width: 30px;
+  height: 30px;
+  color: var(--color-neutral-75);
+}

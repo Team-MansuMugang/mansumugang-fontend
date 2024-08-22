@@ -1,14 +1,15 @@
 import './PostLargeItem.css';
 import '../index.css';
 
-const PostLargeItem = ({ profileImage, name, date, views, onClick }) => {
+const PostLargeItem = ({ profileImage, name, date, views }) => {
   return (
-    <div className="post-large-item" onClick={onClick}>
-      <div className="item-info-container">
-        <img src={profileImage} alt={`${name} profile`} />
-        <div className="item-details">
-          <div className="item-name">{name}</div>
-          <div className="item-date-views">{`${date} 조회수  ${views}`}</div>
+    <div className="post-large-item">
+      <img src={profileImage} alt={`${name} profile`} />
+      <div className="infos">
+        <span>{name}</span>
+        <div className="details">
+          <span>{date}</span>
+          <span>{`조회수 ${views}`}</span>
         </div>
       </div>
     </div>

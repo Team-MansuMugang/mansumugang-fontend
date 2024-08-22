@@ -36,7 +36,7 @@ import AddedTimeItem from '../../components/AddedTimeItem';
 import FillMeridiemToggle from '../../components/FillMeridiemToggle';
 import NotificationItem from '../../components/NotificationItem';
 import CategoryHeader from '../../components/CategoryHeader';
-import AddedSearchItem from '../../components/AddedSearchItem';
+import SearchedItem from '../../components/SearchedItem';
 import PostItemContainer from '../../components/PostItemContainer';
 import PostCommentItem from '../../components/PostCommentItem';
 import PostReCommentItem from '../../components/PostReCommentItem';
@@ -50,9 +50,9 @@ const TestPage = () => {
     <>
       <FloatingActionButton />
       <CategoryHeader rightText="작성" title="카테고리"></CategoryHeader>
-      <AddedSearchItem search={'치매'}></AddedSearchItem>
-      <AddedSearchItem search={'당뇨'}></AddedSearchItem>
-      <AddedSearchItem search={'고혈압'}></AddedSearchItem>
+      <SearchedItem search={'치매'}></SearchedItem>
+      <SearchedItem search={'당뇨'}></SearchedItem>
+      <SearchedItem search={'고혈압'}></SearchedItem>
       <PostItemContainer commentCount={'3'} heartCount={'3'}></PostItemContainer>
       <PostCommentItem
         profileImage={'https://picsum.photos/200/300'}

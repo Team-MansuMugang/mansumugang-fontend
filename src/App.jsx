@@ -4,16 +4,16 @@ import SignUpHeader from './pages/sign-up/SignUpHeader';
 import GuardianSignUpPage from './pages/sign-up/GuardianSignUpPage';
 import PatientSignUpPage from './pages/sign-up/PatientSignUpPage';
 import SignInPage from './pages/sign-in/SignInPage';
-import ChangeBirthday from './pages/user-account/ChangeBirthday';
-import ChangeEmail from './pages/user-account/ChangeEmail';
-import PasswordChange from './pages/user-account/PasswordChange';
+import ChangeBirthdayPage from './pages/user-account/ChangeBirthdayPage';
+import ChangeEmailPage from './pages/user-account/ChangeEmailPage';
+import PasswordChangePage from './pages/user-account/PasswordChangePage';
 import AuthHomePage from './pages/test/AuthHomePage';
 import MedicineListPage from './pages/test/MedicineListPage';
 import MainPage from './pages/home/MainPage';
-import ChangeProfile from './pages/user-account/ChangeProfile';
-import AddMember from './pages/user-account/AddMember';
+import ChangeProfilePage from './pages/user-account/ChangeProfilePage';
+import AddMemberPage from './pages/user-account/AddMemberPage';
 import AccountPage from './pages/user-account/AccountPage';
-import MemberEdit from './pages/user-account/MemberEdit';
+import MemberEditPage from './pages/user-account/MemberEditPage';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import VoiceMessagePage from './pages/voice-message/VoiceMessagePage';
@@ -26,7 +26,7 @@ import HospitalAddPage from './pages/schedule/HospitalAddPage';
 import NotificationPage from './pages/notification/NotificationPage';
 import SearchPage from './pages/community/SearchPage';
 import CommunityPage from './pages/community/CommunityPage';
-import SearchResult from './pages/community/SearchResult';
+import SearchResultPage from './pages/community/SearchResultPage';
 import PostPage from './pages/community/PostPage';
 import NewPostPage from './pages/community/NewPostPage';
 
@@ -69,19 +69,19 @@ const router = createBrowserRouter([
   {
     path: '/account',
     children: [
-      { path: 'edit-profile', element: <ChangeProfile /> },
-      { path: 'edit-birthday', element: <ChangeBirthday /> },
-      { path: 'edit-email', element: <ChangeEmail /> },
-      { path: 'edit-password', element: <PasswordChange /> },
-      // { path: 'add-member', element: <AddMember /> },
-      // { path: 'edit-member', element: <MemberEdit /> },
+      { path: 'edit-profile', element: <ChangeProfilePage /> },
+      { path: 'edit-birthday', element: <ChangeBirthdayPage /> },
+      { path: 'edit-email', element: <ChangeEmailPage /> },
+      { path: 'edit-password', element: <PasswordChangePage /> },
+      // { path: 'add-member', element: <AddMemberPage /> },
+      // { path: 'edit-member', element: <MemberEditPage /> },
     ],
   },
   {
     path: '/community',
     children: [
       { path: 'search', element: <SearchPage /> },
-      { path: 'search-results', element: <SearchResult /> },
+      { path: 'search-results', element: <SearchResultPage /> },
       { path: 'post', element: <PostPage /> },
       { path: 'new-post', element: <NewPostPage /> },
       { path: 'edit-post', element: <></> },

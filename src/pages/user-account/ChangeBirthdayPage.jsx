@@ -7,9 +7,9 @@ import InputWrapper from '../../components/InputWrapper';
 import MainHeader from '../../components/MainHeader';
 import { formatBirthYear, formatBirthMonth, formatBirthDay } from '../utility/inputFormatter';
 import { validBirthYear, validBirthMonth, validBirthDay } from '../utility/accountValidation';
-import './ChangeBirthday.css';
+import './ChangeBirthdayPage.css';
 
-const ChangeBirthday = () => {
+const ChangeBirthdayPage = () => {
   const [birth, setBirth] = useState({
     status: 'default',
     description: '',
@@ -173,4 +173,4 @@ const ChangeBirthday = () => {
   );
 };
 
-export default ChangeBirthday;
+export default ChangeBirthdayPage;

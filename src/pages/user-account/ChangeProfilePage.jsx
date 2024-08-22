@@ -7,11 +7,11 @@ import MainHeader from '../../components/MainHeader';
 import SubButton from '../../components/SubButton';
 import CheckButton from '../../components/CheckButton';
 import { produce } from 'immer';
-import './ChangeProfile.css';
+import './ChangeProfilePage.css';
 import { validName, validNickname } from '../utility/accountValidation';
 import checkNicknameUnique from '../../apis/api/checkNicknameUnique';
 
-const ChangeProfile = () => {
+const ChangeProfilePage = () => {
   const [name, setName] = useState({ value: '', status: 'default', description: '' });
   const [nickname, setNickname] = useState({ value: '', status: 'default', description: '' });
   const [isSuccess, setIsSuccess] = useState(false);
@@ -171,4 +171,4 @@ const ChangeProfile = () => {
   );
 };
 
-export default ChangeProfile;
+export default ChangeProfilePage;

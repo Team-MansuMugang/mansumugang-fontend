@@ -1,11 +1,11 @@
-import './SearchResult.css';
+import './SearchResultPage.css';
 import MainHeader from '../../components/MainHeader';
 import TagButton from '../../components/TagButton';
 import NavBar from '../../components/NavBar';
 import CommunityLargeItem from '../../components/CommunityLargeItem';
 import SearchButton from '../../components/SearchButton';
 
-const SearchResult = () => {
+const SearchResultPage = () => {
   return (
     <>
       <MainHeader title="'치매 예방법' 검색 결과" isLeftButtonEnable={true}></MainHeader>
@@ -73,4 +73,4 @@ const SearchResult = () => {
   );
 };
 
-export default SearchResult;
+export default SearchResultPage;

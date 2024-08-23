@@ -22,8 +22,6 @@ const ChangeProfile = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
 
-  console.log(name);
-
   useEffect(() => {
     if (
       (name.status === 'success' && nickname.status === 'success') ||
@@ -111,8 +109,7 @@ const ChangeProfile = () => {
 
     try {
       try {
-        const myInfo = await updateMyInfo(requestBody);
-        setOriginalUserInfo(myInfo);
+        await updateMyInfo(requestBody);
       } catch (error) {
         if (error instanceof ExpiredAccessTokenError) {
           try {
@@ -126,7 +123,6 @@ const ChangeProfile = () => {
       }
 
       try {
-        // toast.info('회원가입이 완료되었습니다. 환영합니다!', { position: 'top-center' });
         navigate(-1);
       } catch (error) {
         toast.error('오류가 발생했습니다. 잠시 후 다시 시도해주세요', {

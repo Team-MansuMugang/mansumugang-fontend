@@ -19,7 +19,7 @@ const CommunityPage = () => {
   const [totalPage, setTotalPage] = useState();
 
   useEffect(() => {
-    loadFirstPostSummary();
+    if (postSummary.length === 0) loadFirstPostSummary();
   }, []);
 
   useEffect(() => {
@@ -98,6 +98,9 @@ const CommunityPage = () => {
             category={postCategory[post.categoryCode]}
             author={post.nickname}
             time={`${timeAgoByStr(post.createdAt)}`}
+            onClick={() => {
+              navigate(`/community/post/${post.id}`);
+            }}
           />
         ))}
       </div>

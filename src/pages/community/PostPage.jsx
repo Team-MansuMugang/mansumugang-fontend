@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import CommunityTag from '../../components/CommunityTag';
 import MainHeader from '../../components/MainHeader';
 import InteractionBar from '../../components/InteractionBar';
@@ -8,39 +10,58 @@ import './PostPage.css';
 import PostCommentItem from '../../components/PostCommentItem';
 import PostReCommentItem from '../../components/PostReCommentItem';
 import '../../index.css';
+import fetchPostDetails from '../../apis/api/fetchPostDetails';
+import { timeAgoByStr } from '../../utility/dates';
+import postCategory from '../../const/postCategory';
+import togglePostLike from '../../apis/api/togglePostLike';
 
 const PostPage = () => {
+  const navigate = useNavigate();
+  const params = useParams();
+  const [postContents, setPostContents] = useState({});
+  const [isHearted, setIsHearted] = useState(false);
+
+  useEffect(() => {
+    fetchPostDetails(params.id).then((data) => {
+      console.log(data);
+      setPostContents(data);
+    });
+  }, [params.id, isHearted]);
+
   return (
     <>
-      <MainHeader title="게시글" />
+      <MainHeader title="게시글" onClickLeft={() => navigate(-1)} />
       <div className="post-page">
-        <h2>나 자신을 돌보는 것이 중요합니다</h2>
+        <h2>{postContents.title}</h2>
         <div className="post-tag">
-          <CommunityTag isHighlight={true}>인기글</CommunityTag>
-          <CommunityTag>치매</CommunityTag>
+          <CommunityTag>{postCategory[postContents.categoryCode]}</CommunityTag>
         </div>
         <PostLargeItem
           profileImage={'https://picsum.photos/200/300'}
-          name={'김정숙'}
-          date={'2024.04.27 '}
-          views={'100'}
+          name={postContents.nickname}
+          date={timeAgoByStr(postContents.updatedAt)}
         />
-        <pre>
-          {`안녕하세요, 사랑하는 가족을 돌보는 보호자 여러분. 저는 (닉네임)라고 합니다.
-저 역시 2년째 어머니를 돌보고 있는 보호자입니다. 보호자의 역할을 하면서 많은 어려움과 도전을 마주했지만, 그 속에서 소중한 배움과 깨달음을 얻기도 했습니다.
-
-먼저, 우리 모두가 가장 중요한 점은 자신을 돌보는 일이라는 것을 말씀드리고 싶어요.
-사랑하는 사람을 돌보는 일은 많은 에너지와 시간을 필요로 하지만, 그만큼 나 자신을 돌보는 것도 중요합니다.
-충분한 휴식과 자기 관리는 우리의 건강을 유지하고, 더 나은 돌봄을 제공할 수 있게 해줍니다.`}
-        </pre>
+        <pre>{postContents.content}</pre>
         <div className="post-images">
-          <PostImage postImage={'https://picsum.photos/200/300'} />
-          <PostImage postImage={'https://picsum.photos/200/300'} />
-          <PostImage postImage={'https://picsum.photos/200/300'} />
-          <PostImage postImage={'https://picsum.photos/200/300'} />
-          <PostImage postImage={'https://picsum.photos/200/300'} />
+          {postContents.image &&
+            postContents.image.length > 0 &&
+            postContents.image[0].images.map((image, index) => (
+              <PostImage
+                key={index}
+                src={`${postContents.image[0].postImageApiUrlPrefix}${image.postImageName}`}
+              />
+            ))}
         </div>
-        <InteractionBar commentCount={'3'} heartCount={'3'} />
+        <InteractionBar
+          commentCount={postContents.commentCount}
+          heartCount={postContents.likeCount}
+          onHeartToggle={(isHearted) => {
+            console.log(isHearted);
+            setIsHearted(isHearted);
+            togglePostLike(params.id);
+            //TODO: 좋아요 API 호출
+          }}
+        />
         <div className="post-comment-items">
           <div className="comment-thread">
             <PostCommentItem

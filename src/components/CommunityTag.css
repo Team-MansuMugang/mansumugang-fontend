@@ -1,8 +1,8 @@
 .community-tag {
   font-size: var(--text-size-detail);
   height: 16px;
-  padding: 0px 8px;
-  border-radius: var(--round-size-large);
+  padding: 2px 4px;
+  border-radius: var(--round-size-small);
   background-color: var(--color-neutral-95);
   color: var(--color-neutral-45);
 }

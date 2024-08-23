@@ -9,7 +9,7 @@ const PostLargeItem = ({ profileImage, name, date, views }) => {
         <span>{name}</span>
         <div className="details">
           <span>{date}</span>
-          <span>{`조회수 ${views}`}</span>
+          {/* <span>{`조회수 ${views}`}</span> */}
         </div>
       </div>
     </div>

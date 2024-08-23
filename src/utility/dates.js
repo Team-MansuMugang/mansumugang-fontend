@@ -91,3 +91,9 @@ export const timeAgoByDate = (givenTime) => {
     return `${year}/${month}/${day}`;
   }
 };
+
+export const getLocalDate = (localDateTime) => {
+  // 날짜와 시간을 'T'를 기준으로 분리
+  const [date, time] = localDateTime.split('T');
+  return date;
+};

@@ -27,7 +27,7 @@ import FilledDualInfo from '../../components/FilledDualInfo';
 import ScheduleListContainer from '../../components/ScheduleListContainer';
 import ScheduleItem from '../../components/ScheduleItem';
 import MemberList from '../../components/MemberList';
-import LinkItem from '../../components/LinkItem';
+import LinkItem from '../../components/UserInfoItem';
 import NameContainer from '../../components/NameContainer';
 import MedicineDetailCard from '../../components/MedicineDetailCard';
 import HospitalDetailCard from '../../components/HospitalDetailCard';

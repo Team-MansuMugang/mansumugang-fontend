@@ -1,9 +1,6 @@
 .main-page {
   padding: 0 18px;
   min-height: 100vh;
-}
-
-.main-page .patient-content {
   margin-bottom: calc(62.5px + 90px);
 }
 

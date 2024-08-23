@@ -10,8 +10,13 @@ import { produce } from 'immer';
 import './ChangeProfile.css';
 import { validName, validNickname } from '../utility/accountValidation';
 import checkNicknameUnique from '../../apis/api/checkNicknameUnique';
+import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/utility/errors';
+import fetchMyInfo from '../../apis/api/fetchMyInfo';
+import { toast } from 'react-toastify';
+import updateMyInfo from '../../apis/api/updateMyInfo';
 
 const ChangeProfile = () => {
+  const [originalUserInfo, setOriginalUserInfo] = useState(null);
   const [name, setName] = useState({ value: '', status: 'default', description: '' });
   const [nickname, setNickname] = useState({ value: '', status: 'default', description: '' });
   const [isSuccess, setIsSuccess] = useState(false);
@@ -41,6 +46,38 @@ const ChangeProfile = () => {
     );
   };
 
+  useEffect(() => {
+    const fetchAndSetMyInfo = async () => {
+      try {
+        const myInfo = await fetchMyInfo();
+        setOriginalUserInfo(myInfo);
+        setName((currentName) => ({
+          ...currentName,
+          value: myInfo.name,
+        }));
+
+        setNickname((currentNickname) => ({
+          ...currentNickname,
+          value: myInfo.nickname,
+        }));
+      } catch (error) {
+        if (error instanceof ExpiredAccessTokenError) {
+          try {
+            await renewRefreshToken();
+            fetchAndSetMyInfo();
+          } catch (error) {
+            navigate('/');
+          }
+        } else if (error instanceof NotValidAccessTokenError) navigate('/');
+        else console.error(error);
+      }
+    };
+
+    fetchAndSetMyInfo();
+  }, []);
+
+  useEffect;
+
   const handleNicknameChange = (event) => {
     const { status, description } = validNickname(event.target.value);
 
@@ -54,14 +91,38 @@ const ChangeProfile = () => {
   };
 
   const handleUpload = async () => {
+    if (originalUserInfo === null) {
+      toast.error('오류가 발생했습니다. 잠시 후 다시 시도해주세요', {
+        position: 'bottom-center',
+      });
+      return;
+    }
+
+    const requestBody = {
+      userId: originalUserInfo.protectorId,
+      name: name.value,
+      birthdate: originalUserInfo.birthdate,
+      telephone: originalUserInfo.telephone,
+      email: originalUserInfo.email,
+      nickname: nickname.value,
+    };
+
     try {
-      // await submitProtectorSignup({
-      //   name: name.value,
-      //   nickname: nickname.value,
-      // });
+      try {
+        await updateMyInfo(requestBody);
+      } catch (error) {
+        if (error instanceof ExpiredAccessTokenError) {
+          try {
+            await renewRefreshToken();
+            fetchAndSetMyInfo();
+          } catch (error) {
+            navigate('/');
+          }
+        } else if (error instanceof NotValidAccessTokenError) navigate('/');
+        else console.error(error);
+      }
 
       try {
-        // toast.info('회원가입이 완료되었습니다. 환영합니다!', { position: 'top-center' });
         navigate(-1);
       } catch (error) {
         toast.error('오류가 발생했습니다. 잠시 후 다시 시도해주세요', {
@@ -70,35 +131,6 @@ const ChangeProfile = () => {
       }
     } catch (error) {
       toast.warn('입력된 정보들을 확인해주세요', { position: 'top-center' });
-
-      if (error instanceof DuplicatedNicknameError) {
-        setNickname((currentId) =>
-          produce(currentId, (draft) => {
-            draft.status = 'warning';
-            draft.description = '이미 사용 중인 닉네임입니다';
-          }),
-        );
-      }
-      if (error instanceof NotValidRequestError) {
-        error.errorDescriptions.forEach((description) => {
-          if (description.field === 'name') {
-            setName((currentId) =>
-              produce(currentId, (draft) => {
-                draft.status = 'warning';
-                draft.description = description.message;
-              }),
-            );
-          }
-          if (description.field === 'nickname') {
-            setNickname((currentId) =>
-              produce(currentId, (draft) => {
-                draft.status = 'warning';
-                draft.description = description.message;
-              }),
-            );
-          }
-        });
-      }
     }
   };
 
@@ -149,14 +181,24 @@ const ChangeProfile = () => {
           status={name.status}
           statusDescription={name.description}
         >
-          <Input placeholder="홍길동" status={name.status} onInput={handleNameChange} />
+          <Input
+            placeholder="홍길동"
+            status={name.status}
+            onInput={handleNameChange}
+            value={name.value}
+          />
         </InputWrapper>
         <InputWrapper
           description="닉네임 (커뮤니티) 수정"
           status={nickname.status}
           statusDescription={nickname.description}
         >
-          <Input placeholder="닉네임" status={nickname.status} onChange={handleNicknameChange} />
+          <Input
+            placeholder="닉네임"
+            status={nickname.status}
+            onChange={handleNicknameChange}
+            value={nickname.value}
+          />
           <CheckButton disabled={nickname.status !== 'info'} onClick={handleNicknameUniqueCheck}>
             중복 확인
           </CheckButton>

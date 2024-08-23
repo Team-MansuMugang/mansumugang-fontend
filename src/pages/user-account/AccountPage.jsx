@@ -50,7 +50,6 @@ const AccountPage = () => {
           <BorderContainer className="border-container">
             <LinkItem text={'생년월일 수정하기'} navigateTo={'/account/edit-birthday'}></LinkItem>
             <LinkItem text={'이메일 수정하기'} navigateTo={'/account/edit-email'}></LinkItem>
-            <LinkItem text={'비밀번호 수정하기'} navigateTo={'/account/edit-password'}></LinkItem>
           </BorderContainer>
         </div>
         <div className="my-member">

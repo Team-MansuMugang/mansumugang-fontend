@@ -1,4 +1,4 @@
-// import { BigButton, CheckButton, Input, InputWrapper } from '../../components/components';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './DetailVoiceMessagePage.css';
 import MainHeader from '../../components/MainHeader';
@@ -7,6 +7,7 @@ import VoicePlayerBar from '../../components/VoicePlayerBar';
 import { useLocation } from 'react-router-dom';
 import { parseLocalDateTime } from '../../utility/dates';
 import deleteVoiceMessage from '../../apis/api/deleteVoiceMessage';
+import { transcribeVoiceMessage } from '../../apis/api/clovaSpeech';
 import MainHeaderColor from '../../const/MainHeaderColor';
 
 const handleVoiceMessageDelete = async (recordId, navigate) => {
@@ -14,7 +15,7 @@ const handleVoiceMessageDelete = async (recordId, navigate) => {
     await deleteVoiceMessage({ recordId });
     navigate(-1);
   } catch (error) {
-    console.error('Failed to delete voice messsage:', error);
+    console.error('음성 메시지 삭제 실패:', error);
   }
 };
 
@@ -22,14 +23,32 @@ const DetailVoiceMessagePage = () => {
   const location = useLocation();
   const voiceMessage = location.state; // navigate로 전달된 데이터
   const { formattedDate, formattedTime } = parseLocalDateTime(voiceMessage.uploadedTime);
-
   const navigate = useNavigate();
+
+  const [transcription, setTranscription] = useState('텍스트 변환 중...');
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTranscription = async () => {
+      try {
+        const result = await transcribeVoiceMessage(
+          voiceMessage.audioApiUrlPrefix + voiceMessage.recordFileName,
+        );
+        setTranscription(result.text); // 변환된 텍스트를 transcription 상태로 저장
+      } catch (error) {
+        setError('텍스트 변환 실패');
+        console.error(error);
+      }
+    };
+
+    fetchTranscription();
+  }, [voiceMessage]);
 
   return (
     <>
       <NavBar></NavBar>
       <MainHeader
-        title="음성 메세지"
+        title="음성 메시지"
         onClickLeft={() => {
           navigate(-1);
         }}
@@ -45,8 +64,8 @@ const DetailVoiceMessagePage = () => {
           time={formattedTime}
           audioSrc={voiceMessage.audioApiUrlPrefix + voiceMessage.recordFileName}
         ></VoicePlayerBar>
-        <p className="text-head">음성 메세지 내용</p>
-        <pre className="text-area">추후 출시할 기능입니다.</pre>
+        <p className="text-head">음성 메시지 내용</p>
+        <pre className="text-area">{error ? error : transcription}</pre>
       </div>
     </>
   );

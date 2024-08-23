@@ -43,9 +43,20 @@ const TestPage = () => {
       <MainHeader title="테스트 페이지" rightText="hoho" />
       <NameContainer name={'이병헌'} nickname={'귀여미'}></NameContainer>
       <NotificationItem
-        profileImage={'https://picsum.photos/200/300'}
-        notificationMessage={'김정숙님이 오후 3시에 병원을 방문하지 않았습니다. 확인해보세요'}
-        timeAgo={'15분 전'}
+        title={'김정숙님의 병원 방문'}
+        body={'김정숙님이 오후 3시alsdkflkdsafjklasdjfalkflkjfdsakljfadskfa;l에 '}
+        timeAgo={new Date()}
+      ></NotificationItem>
+      <NotificationItem
+        title={'김정숙님의 병원 방문'}
+        body={`김정숙님이 as;ldfkjasd;lfja;sdlkjf;dlsakjf;lkjas;jf;kljasdlkjf
+          오후 3시alsdkflkdsafjklasdjfalkflkjfdsakljfadskfa;l에 `}
+        timeAgo={new Date()}
+      ></NotificationItem>
+      <NotificationItem
+        title={'김정숙님의 병원 방문'}
+        body={'김정숙님이 오후 3시alsdkflkdsafjklasdjfalkflkjfdsakljfadskfa;l에 '}
+        timeAgo={new Date()}
       ></NotificationItem>
       <InputWrapper
         description="아이디"
@@ -65,7 +76,7 @@ const TestPage = () => {
       </InputWrapper>
       <BigButton disabled={false}>회원가입</BigButton>
       <SubLink to="/">회원가입</SubLink>
-      <ToggleSwitch labels={['보호자', '케어 맴버']} active={0} />
+      <ToggleSwitch labels={['보호자', '케어 멤버']} active={0} />
       <SubButton disabled={false}>프로필 수정하기</SubButton>
       <SubTitle title="회원가입" showButton={false} />
       <BorderContainer description="내 계정">
@@ -90,43 +101,25 @@ const TestPage = () => {
       <SmallVoiceMessageItem
         profileImage={'https://picsum.photos/200/300'}
         name={'김정숙'}
-        time={'10분전'}
+        time={'2024-08-04T13:49:27.459797'}
       ></SmallVoiceMessageItem>
       <RowScrollContainer>
         <SmallVoiceMessageItem
           profileImage={'https://picsum.photos/200/300'}
           name={'가나다라마바사아자차카타파하'}
-          time={'30분 전'}
+          time={'2024-08-04T13:49:27.459797'}
         ></SmallVoiceMessageItem>
 
         <SmallVoiceMessageItem
           profileImage={'https://picsum.photos/200/300'}
           name={'abcdefghijk'}
-          time={'1일 전'}
+          time={'2024-08-04T13:49:27.459797'}
         ></SmallVoiceMessageItem>
 
         <SmallVoiceMessageItem
           profileImage={'https://picsum.photos/200/300'}
           name={'abcdefghijk'}
-          time={'1일 전'}
-        ></SmallVoiceMessageItem>
-
-        <SmallVoiceMessageItem
-          profileImage={'https://picsum.photos/200/300'}
-          name={'abcdefghijk'}
-          time={'1일 전'}
-        ></SmallVoiceMessageItem>
-
-        <SmallVoiceMessageItem
-          profileImage={'https://picsum.photos/200/300'}
-          name={'김정숙'}
-          time={'1일 전'}
-        ></SmallVoiceMessageItem>
-
-        <SmallVoiceMessageItem
-          profileImage={'https://picsum.photos/200/300'}
-          name={'김정숙'}
-          time={''}
+          time={'2024-08-04T13:49:27.459797'}
         ></SmallVoiceMessageItem>
       </RowScrollContainer>
       <BorderContainer>
@@ -146,32 +139,22 @@ const TestPage = () => {
       <LargeVoiceMessageItem
         profileImage={'https://picsum.photos/200/300'}
         name={'김정숙'}
-        date={'오늘'}
-        time={'10분전'}
+        dateTime={'2024-08-04T13:49:27.459797'}
       ></LargeVoiceMessageItem>
       <LargeVoiceMessageItem
         profileImage={'https://picsum.photos/200/300'}
         name={'김정숙lkasdjflkadsjlkfajs;sdflkj;sadlkfj;asldkjfsdklfajlkdsjflk'}
-        date={'오늘'}
-        time={'10분전'}
+        dateTime={'2024-08-04T13:49:27.459797'}
       ></LargeVoiceMessageItem>
       <LargeVoiceMessageItem
         profileImage={'https://picsum.photos/200/300'}
         name={'김정숙'}
-        date={'오늘'}
-        time={'오전 9시 19분'}
-      ></LargeVoiceMessageItem>
-      <LargeVoiceMessageItem
-        profileImage={'https://picsum.photos/200/300'}
-        name={'김정숙'}
-        date={'오늘'}
-        time={'10분전'}
+        dateTime={'2024-08-04T13:49:27.459797'}
       ></LargeVoiceMessageItem>
       <VoicePlayerBar
         profileImage={'https://picsum.photos/200/300'}
         name={'유호진'}
-        date={'오늘'}
-        time={'10분전'}
+        dateTime={'2024-08-04T13:49:27.459797'}
       ></VoicePlayerBar>
       <FilledDualInput />
       <FilledTextArea />

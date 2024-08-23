@@ -7,8 +7,13 @@ import InputWrapper from '../../components/InputWrapper';
 import MainHeader from '../../components/MainHeader';
 import { validateEmail } from '../utility/accountValidation';
 import './ChangeEmail.css';
+import fetchMyInfo from '../../apis/api/fetchMyInfo';
+import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/utility/errors';
+import { toast } from 'react-toastify';
+import updateMyInfo from '../../apis/api/updateMyInfo';
 
 const ChangeEmail = () => {
+  const [originalUserInfo, setOriginalUserInfo] = useState(null);
   const [email, setEmail] = useState({ value: '', status: 'default', description: '' });
   const [isAllSuccess, setIsAllSuccess] = useState(false);
   const navigate = useNavigate();
@@ -20,6 +25,27 @@ const ChangeEmail = () => {
       setIsAllSuccess(false);
     }
   }, [email.status]);
+
+  useEffect(() => {
+    const fetchAndSetMyInfo = async () => {
+      try {
+        const myInfo = await fetchMyInfo();
+        setOriginalUserInfo(myInfo);
+      } catch (error) {
+        if (error instanceof ExpiredAccessTokenError) {
+          try {
+            await renewRefreshToken();
+            fetchAndSetMyInfo();
+          } catch (error) {
+            navigate('/');
+          }
+        } else if (error instanceof NotValidAccessTokenError) navigate('/');
+        else console.error(error);
+      }
+    };
+
+    fetchAndSetMyInfo();
+  }, []);
 
   const handleEmailChange = (event) => {
     const { status, description } = validateEmail(event.target.value);
@@ -34,14 +60,26 @@ const ChangeEmail = () => {
   };
 
   const handleUpload = async () => {
-    try {
-      // await submitProtectorSignup({
-      //   email: email.value,
-      // });
+    if (originalUserInfo === null) {
+      toast.error('오류가 발생했습니다. 잠시 후 다시 시도해주세요', {
+        position: 'bottom-center',
+      });
+      return;
+    }
 
+    const requestBody = {
+      userId: originalUserInfo.protectorId,
+      name: originalUserInfo.name,
+      birthdate: originalUserInfo.birthdate,
+      telephone: originalUserInfo.telephone,
+      email: email.value,
+      nickname: originalUserInfo.nickname,
+    };
+
+    try {
+      await updateMyInfo(requestBody);
       try {
-        // toast.info('회원가입이 완료되었습니다. 환영합니다!', { position: 'top-center' });
-        // navigate('/home');
+        navigate(-1);
       } catch (error) {
         toast.error('오류가 발생했습니다. 잠시 후 다시 시도해주세요', {
           position: 'bottom-center',
@@ -49,19 +87,6 @@ const ChangeEmail = () => {
       }
     } catch (error) {
       toast.warn('입력된 정보들을 확인해주세요', { position: 'top-center' });
-
-      if (error instanceof NotValidRequestError) {
-        error.errorDescriptions.forEach((description) => {
-          if (description.field === 'email') {
-            setEmail((currentId) =>
-              produce(currentId, (draft) => {
-                draft.status = 'warning';
-                draft.description = description.message;
-              }),
-            );
-          }
-        });
-      }
     }
   };
 

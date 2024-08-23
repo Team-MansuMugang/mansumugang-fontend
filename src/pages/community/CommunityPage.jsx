@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CommunityPage.css';
 import '../../index.css';
 import MainHeader from '../../components/MainHeader';
@@ -5,72 +7,99 @@ import TagButton from '../../components/TagButton';
 import NavBar from '../../components/NavBar';
 import CommunityLargeItem from '../../components/CommunityLargeItem';
 import SearchButton from '../../components/SearchButton';
+import postCategory from '../../const/postCategory';
+import fetchPostSummary from '../../apis/api/fetchPostSummary';
+import { timeAgoByStr } from '../../utility/dates';
 
 const CommunityPage = () => {
+  const navigate = useNavigate();
+  const [postSummary, setPostSummary] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [currentPage, setCurrentPage] = useState();
+  const [totalPage, setTotalPage] = useState();
+
+  useEffect(() => {
+    loadFirstPostSummary();
+  }, []);
+
+  useEffect(() => {
+    loadFirstPostSummary(selectedCategory);
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        loadMorePosts();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [currentPage, selectedCategory]);
+
+  const loadFirstPostSummary = async (selectedCategory = '') => {
+    const fetchedPostSummary = await fetchPostSummary({ category: selectedCategory, page: 1 });
+    console.log(fetchedPostSummary);
+    setPostSummary(fetchedPostSummary.posts);
+    setCurrentPage(1);
+    setTotalPage(fetchedPostSummary.totalPage);
+  };
+
+  const loadMorePosts = async () => {
+    if (currentPage >= totalPage) return;
+
+    const fetchedPostSummary = await fetchPostSummary({
+      category: selectedCategory,
+      page: currentPage + 1,
+    });
+    console.log(fetchedPostSummary);
+    setPostSummary((prevPosts) => [...prevPosts, ...fetchedPostSummary.posts]);
+    setCurrentPage(currentPage + 1);
+  };
+
   return (
     <div className="community-page">
-      <MainHeader title="커뮤니티" isLeftButtonEnable={false} rightText="작성" />
+      <MainHeader
+        title="커뮤니티"
+        isLeftButtonEnable={false}
+        rightText="작성"
+        onClickRight={() => {
+          navigate('/community/new-post');
+        }}
+      />
       <div className="sub-header">
         <div className="community-tags">
-          <TagButton disabled={true}>전체</TagButton>
-          <TagButton>인기글</TagButton>
-          <TagButton>자유</TagButton>
-          <TagButton>당뇨</TagButton>
-          <TagButton>고혈압</TagButton>
-          <TagButton>저혈압</TagButton>
-          <TagButton>치매</TagButton>
-          <TagButton>암</TagButton>
-          <TagButton>기타 질병</TagButton>
-          <TagButton>홍보</TagButton>
+          <TagButton selected={!selectedCategory} onClick={() => setSelectedCategory('')}>
+            전체
+          </TagButton>
+          {Object.entries(postCategory).map(([key, value]) => (
+            <TagButton
+              key={key}
+              selected={key === selectedCategory}
+              onClick={() => setSelectedCategory(key)}
+            >
+              {value}
+            </TagButton>
+          ))}
         </div>
         <div className="gradation" />
-        <SearchButton />
+        <SearchButton
+          onClick={() => {
+            navigate('/community/search');
+          }}
+        />
       </div>
       <div className="community-items">
-        <CommunityLargeItem
-          title={'치매 어떻게 케어하시나요?'}
-          summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
-          time={'25분'}
-          category={'기타 질병'}
-          count={'7'}
-        />
-        <CommunityLargeItem
-          title={'치매 어떻게 케어하시나요?'}
-          summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
-          time={'25분'}
-          category={'기타 질병'}
-          count={'7'}
-        />
-        <CommunityLargeItem
-          title={'치매 어떻게 케어하시나요?'}
-          summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
-          time={'25분'}
-          category={'기타 질병'}
-          count={'7'}
-        />
-        <CommunityLargeItem
-          title={'치매 어떻게 케어하시나요?'}
-          summary={
-            '다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-          }
-          time={'25분'}
-          category={'기타 질병'}
-          count={'7'}
-        />
-        <CommunityLargeItem
-          title={'치매 어떻게 케어하시나요?'}
-          summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
-          time={'25분'}
-          category={'기타 질병'}
-          count={'7234'}
-        />
-        <CommunityLargeItem
-          title={'치매 어떻게 케어하시나요?'}
-          summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
-          time={'25분'}
-          category={'기타 질병'}
-          count={'7'}
-        />
+        {postSummary.map((post) => (
+          <CommunityLargeItem
+            key={post.id}
+            title={post.title}
+            summary={post.content}
+            category={postCategory[post.categoryCode]}
+            author={post.nickname}
+            time={`${timeAgoByStr(post.createdAt)}`}
+          />
+        ))}
       </div>
       <NavBar activeTab="커뮤니티" />
     </div>

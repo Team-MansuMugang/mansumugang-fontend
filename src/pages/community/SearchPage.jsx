@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import './SearchPage.css';
 import ChevronLeftIcon from '../../assets/svg/chevron-left.svg?react';
 import Input from '../../components/Input';
@@ -7,10 +8,16 @@ import SearchedItem from '../../components/SearchedItem';
 import NavBar from '../../components/NavBar';
 
 const SearchPage = () => {
+  const navigate = useNavigate();
   return (
     <div className="search-page">
       <div className="search-header">
-        <button className="back-button">
+        <button
+          className="back-button"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
           <ChevronLeftIcon />
         </button>
         <Input placeholder="검색" />

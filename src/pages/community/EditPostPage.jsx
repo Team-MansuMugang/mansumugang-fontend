@@ -1,11 +1,13 @@
-import React, { useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CategoryHeader from '../../components/CategoryHeader';
 import './EditPostPage.css';
 import PostPictureUpload from '../../components/PostPictureUpload';
 
 const EditPostPage = () => {
-  const [title, setTitle] = React.useState('');
-  const [content, setContent] = React.useState('');
+  const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
@@ -26,7 +28,7 @@ const EditPostPage = () => {
 
   return (
     <>
-      <CategoryHeader rightText="수정" />
+      <CategoryHeader rightText="수정" onClickLeft={() => navigate(-1)} />
       <div className="edit-post-page">
         <textarea
           placeholder="제목을 입력하세요"

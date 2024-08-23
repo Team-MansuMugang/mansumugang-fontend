@@ -65,6 +65,7 @@
   position: relative;
   width: 13px;
   height: 13px;
+  color: var(--color-neutral-50);
 }
 
 .community-large-item .community-item-footer .comment-count p {

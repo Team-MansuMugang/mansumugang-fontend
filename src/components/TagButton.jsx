@@ -1,9 +1,9 @@
 import './TagButton.css';
 import '../index.css';
 
-const TagButton = ({ children, disabled = false, onclick }) => {
+const TagButton = ({ children, selected = false, onClick }) => {
   return (
-    <button className="tag-button" disabled={disabled} onClick={onclick}>
+    <button className="tag-button" disabled={selected} onClick={onClick}>
       {children}
     </button>
   );

@@ -175,3 +175,10 @@ export class NoSuchHospitalError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class NoSuchCategoryError extends Error {
+  constructor() {
+    super('존재하지 않는 카테고리입니다.');
+    this.name = this.constructor.name;
+  }
+}

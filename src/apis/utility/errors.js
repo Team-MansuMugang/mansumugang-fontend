@@ -182,3 +182,52 @@ export class NoSuchCategoryError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class NoSuchPostError extends Error {
+  constructor() {
+    super('존재하지 않는 게시글입니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NoSuchCommentError extends Error {
+  constructor() {
+    super('존재하지 않은 댓글로 접근했습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class DeletedCommentError extends Error {
+  constructor() {
+    super('삭제된 댓글입니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NotTheAuthorOfTheComment extends Error {
+  constructor() {
+    super('댓글의 작성자가 아닙니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NoSuchReplyError extends Error {
+  constructor() {
+    super('존재하지 않는 답글입니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class DeletedReplyError extends Error {
+  constructor() {
+    super('삭제된 답글입니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NotTheAuthorOfTheReply extends Error {
+  constructor() {
+    super('답글의 작성자가 아닙니다.');
+    this.name = this.constructor.name;
+  }
+}

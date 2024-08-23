@@ -53,6 +53,7 @@ const PostPage = () => {
         const fetchedPostDetails = await fetchPostDetails(params.id);
         console.log(fetchedPostDetails);
         setPostContents(fetchedPostDetails);
+        setIsHearted(fetchedPostDetails.liked);
       } catch (error) {
         if (error instanceof ExpiredAccessTokenError) {
           try {
@@ -116,6 +117,7 @@ const PostPage = () => {
             }, 500); // 500ms의 딜레이
           }}
           disableHartToggle={!canToggle}
+          initHearted={isHearted}
         />
         <div className="post-comment-items">
           <div className="comment-thread">

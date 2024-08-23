@@ -24,6 +24,7 @@ const PostPage = () => {
   const [whoAmI, setWhoAmI] = useState({});
   const [postContents, setPostContents] = useState({});
   const [isHearted, setIsHearted] = useState(false);
+  const [canToggle, setCanToggle] = useState(true);
 
   useEffect(() => {
     const loadWhoAmI = async () => {
@@ -103,11 +104,18 @@ const PostPage = () => {
           commentCount={postContents.commentCount}
           heartCount={postContents.likeCount}
           onHeartToggle={(isHearted) => {
+            if (!canToggle) return; // 딜레이 중일 때는 아무 동작도 하지 않음
+
             console.log(isHearted);
             setIsHearted(isHearted);
             togglePostLike(params.id);
-            //TODO: 좋아요 API 호출
+
+            setCanToggle(false); // 클릭 후 딜레이 시작
+            setTimeout(() => {
+              setCanToggle(true); // 딜레이 종료
+            }, 500); // 500ms의 딜레이
           }}
+          disableHartToggle={!canToggle}
         />
         <div className="post-comment-items">
           <div className="comment-thread">

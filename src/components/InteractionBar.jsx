@@ -4,10 +4,11 @@ import FillHeart from '../assets/svg/cards-heart.svg?react';
 import './InteractionBar.css';
 import '../index.css';
 
-const InteractionBar = ({ onHeartToggle, commentCount, heartCount }) => {
+const InteractionBar = ({ onHeartToggle, commentCount, heartCount, disableHartToggle = false }) => {
   const [isHearted, setIsHearted] = useState(false);
 
   const toggleHeart = () => {
+    if (disableHartToggle) return;
     if (onHeartToggle) onHeartToggle(!isHearted);
     setIsHearted(!isHearted);
   };

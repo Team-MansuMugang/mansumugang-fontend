@@ -1,0 +1,11 @@
+.post-re-comment-more-button {
+  display: inline-block;
+  font-size: var(--text-size-detail);
+  margin-left: 20px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--color-neutral-60);
+  font-weight: bold;
+}

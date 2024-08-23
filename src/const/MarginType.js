@@ -7,5 +7,6 @@ export const MarginPostion = {
 
 export const MarginSize = {
   S10: 's10',
-  S14: 's14',
+  S15: 's15',
+  S18: 's18',
 };

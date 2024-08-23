@@ -7,16 +7,16 @@
 }
 
 .post-comment-item .item-comment-container {
+  width: 100%;
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  flex: 1;
   position: relative;
 }
 
 .post-comment-item .img-container {
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
   overflow: hidden;
   border-radius: 50%;
   display: flex;
@@ -30,15 +30,48 @@
   object-fit: cover;
 }
 
-.post-comment-item .item-details {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex: 1;
-  max-width: calc(100% - 120px);
+.post-comment-item .item-detail {
+  flex-grow: 1;
 }
 
-.post-comment-item .item-name,
+.post-comment-item .item-detail .item-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.post-comment-item .item-detail .item-header .left {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+
+.post-comment-item .item-detail .item-header .right {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+}
+
+.post-comment-item button {
+  font-size: var(--text-size-body-small);
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--color-neutral-60);
+}
+
+.post-comment-item .item-header .item-date {
+  font-size: var(--text-size-body-small);
+  color: var(--color-neutral-60);
+  white-space: normal;
+  overflow: hidden;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+}
+
+.post-comment-item .item-header .item-name,
 .post-comment-item .item-data {
   font-size: var(--text-size-body-medium);
   white-space: normal;
@@ -49,16 +82,4 @@
 
 .post-comment-item .item-data {
   word-break: break-word;
-}
-
-.post-comment-item button {
-  position: absolute;
-  font-size: var(--text-size-detail);
-  bottom: 10px;
-  right: 10px;
-  padding: 0;
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: var(--color-neutral-60);
 }

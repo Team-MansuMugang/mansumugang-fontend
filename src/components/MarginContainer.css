@@ -14,18 +14,34 @@
   margin-right: 10px;
 }
 
-.top-s14 {
-  margin-top: 14px;
+.top-s15 {
+  margin-top: 15px;
 }
 
-.bottom-s14 {
-  margin-bottom: 14px;
+.bottom-s15 {
+  margin-bottom: 15px;
 }
 
-.left-s14 {
-  margin-left: 14px;
+.left-s15 {
+  margin-left: 15px;
 }
 
-.right-s14 {
-  margin-right: 14px;
+.right-s18 {
+  margin-right: 18px;
+}
+
+.top-s18 {
+  margin-top: 18px;
+}
+
+.bottom-s18 {
+  margin-bottom: 18px;
+}
+
+.left-s18 {
+  margin-left: 18px;
+}
+
+.right-s18 {
+  margin-right: 18px;
 }

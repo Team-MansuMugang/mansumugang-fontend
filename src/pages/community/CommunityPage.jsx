@@ -67,8 +67,8 @@ const CommunityPage = () => {
       <MainHeader title={'커뮤니티'} isLeftButtonEnable={false} />
       <MarginContainer marginSet={tagListContainerMargin}>
         <RowScrollContainer>
-          <TagButton disabled={false}>전체</TagButton>
-          <TagButton disabled={true}>인기글</TagButton>
+          <TagButton disabled={true}>전체</TagButton>
+          <TagButton disabled={false}>인기글</TagButton>
         </RowScrollContainer>
       </MarginContainer>
       {posts.map((post, index) => (
@@ -81,7 +81,7 @@ const CommunityPage = () => {
           onClick={() => navigate(`/community/post/${post.id}`)}
         ></CommunityLargeItem>
       ))}
-      <div ref={ref} className="live_loading_indicator" />
+      <div ref={ref} />
     </>
   );
 };

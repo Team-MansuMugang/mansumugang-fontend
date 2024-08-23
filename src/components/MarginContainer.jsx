@@ -7,8 +7,6 @@ const MarginContainer = ({ children, marginSet }) => {
 
   const className = classNameList.join(' ');
 
-  console.log(className);
-
   return <div className={className}>{children}</div>;
 };
 

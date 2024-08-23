@@ -37,7 +37,7 @@ import FillMeridiemToggle from '../../components/FillMeridiemToggle';
 import NotificationItem from '../../components/NotificationItem';
 import CategoryHeader from '../../components/CategoryHeader';
 import AddedSearchItem from '../../components/AddedSearchItem';
-import PostItemContainer from '../../components/PostItemContainer';
+import PostDetailComment from '../../components/PostDetailComment';
 import PostCommentItem from '../../components/PostCommentItem';
 import PostReCommentItem from '../../components/PostReCommentItem';
 import CommunityLargeItem from '../../components/CommunityLargeItem';
@@ -53,7 +53,7 @@ const TestPage = () => {
       <AddedSearchItem search={'치매'}></AddedSearchItem>
       <AddedSearchItem search={'당뇨'}></AddedSearchItem>
       <AddedSearchItem search={'고혈압'}></AddedSearchItem>
-      <PostItemContainer commentCount={'3'} heartCount={'3'}></PostItemContainer>
+      <PostDetailComment commentCount={'3'} likeCount={'3'}></PostDetailComment>
       <PostCommentItem
         profileImage={'https://picsum.photos/200/300'}
         name={'김정숙'}
@@ -101,9 +101,9 @@ const TestPage = () => {
       <PostPictureUpload></PostPictureUpload>
       <PostLargeItem
         profileImage={'https://picsum.photos/200/300'}
-        name={'김정숙'}
-        date={'2024. 04. 27 '}
-        views={'100'}
+        nickname={'김정숙'}
+        date={'2024-08-21T17:44:36.846446'}
+        likes={'100'}
       ></PostLargeItem>
       <MainHeader title="테스트 페이지" rightText="hoho" />
       <NameContainer name={'이병헌'} nickname={'귀여미'}></NameContainer>

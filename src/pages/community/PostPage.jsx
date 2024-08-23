@@ -14,23 +14,70 @@ import fetchPostDetails from '../../apis/api/fetchPostDetails';
 import { timeAgoByStr } from '../../utility/dates';
 import postCategory from '../../const/postCategory';
 import togglePostLike from '../../apis/api/togglePostLike';
+import fetchWhoAmI from '../../apis/api/fetchWhoAmI';
+import renewRefreshToken from '../../apis/api/renewRefreshToken';
+import { NotValidAccessTokenError, ExpiredAccessTokenError } from '../../apis/utility/errors';
 
 const PostPage = () => {
   const navigate = useNavigate();
   const params = useParams();
+  const [whoAmI, setWhoAmI] = useState({});
   const [postContents, setPostContents] = useState({});
   const [isHearted, setIsHearted] = useState(false);
 
   useEffect(() => {
-    fetchPostDetails(params.id).then((data) => {
-      console.log(data);
-      setPostContents(data);
-    });
+    const loadWhoAmI = async () => {
+      try {
+        const fetchedWhoAmI = await fetchWhoAmI();
+        setWhoAmI(fetchedWhoAmI);
+      } catch (error) {
+        if (error instanceof ExpiredAccessTokenError) {
+          try {
+            await renewRefreshToken();
+            loadWhoAmI();
+          } catch (error) {
+            navigate('/');
+          }
+        } else if (error instanceof NotValidAccessTokenError) navigate('/');
+        else console.error(error);
+      }
+    };
+
+    loadWhoAmI();
+  }, []);
+
+  useEffect(() => {
+    const loadPostDetails = async () => {
+      try {
+        const fetchedPostDetails = await fetchPostDetails(params.id);
+        console.log(fetchedPostDetails);
+        setPostContents(fetchedPostDetails);
+      } catch (error) {
+        if (error instanceof ExpiredAccessTokenError) {
+          try {
+            await renewRefreshToken();
+            loadPostDetails();
+          } catch (error) {
+            navigate('/');
+          }
+        } else if (error instanceof NotValidAccessTokenError) navigate('/');
+        else console.error(error);
+      }
+    };
+
+    loadPostDetails();
   }, [params.id, isHearted]);
 
   return (
     <>
-      <MainHeader title="게시글" onClickLeft={() => navigate(-1)} />
+      <MainHeader
+        title="게시글"
+        rightText={whoAmI.nickname === postContents.nickname ? '수정' : ''}
+        onClickLeft={() => navigate(-1)}
+        onClickRight={() => {
+          if (whoAmI.nickname === postContents) console.log('수정하긔');
+        }}
+      />
       <div className="post-page">
         <h2>{postContents.title}</h2>
         <div className="post-tag">

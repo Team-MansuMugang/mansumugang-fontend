@@ -1,0 +1,20 @@
+.prescription-viewer {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  background-color: var(--toastify-color-dark);
+  height: 256px;
+  overflow: hidden;
+}
+
+.prescription-viewer .close-button {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.prescription-viewer .prescription-img {
+  object-fit: contain;
+  height: 256px;
+}

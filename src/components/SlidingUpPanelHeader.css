@@ -1,0 +1,15 @@
+.slide-up-panel-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 18px;
+}
+
+.slide-up-panel-header .header-left .item-disable-button {
+  width: 24px;
+  visibility: hidden;
+}
+
+.slide-up-panel-header .header-center {
+  font-size: var(--text-size-title);
+  font-weight: bold;
+}

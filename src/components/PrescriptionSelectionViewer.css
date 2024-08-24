@@ -1,0 +1,16 @@
+.prescription-selection-viewer {
+  background-color: var(--color-neutral-95);
+  border: 1px solid var(--color-neutral-90);
+  height: 256px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.prescription-selection-viewer .viewer-description {
+  font-size: var(--text-size-body-medium);
+  color: var(--color-neutral-30);
+}

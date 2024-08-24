@@ -8,7 +8,7 @@
 }
 
 .slide-up-panel-wrapper .slide-panel {
-  padding: 8px 0;
+  padding-bottom: 8px;
   position: fixed;
   bottom: -100%; /* 처음에 하단에 숨겨진 상태 */
   left: 0;

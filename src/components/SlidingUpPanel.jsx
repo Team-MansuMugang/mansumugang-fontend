@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './SlidingUpPanel.css'; // CSS 파일을 별도로 만듭니다.
+import './SlidingUpPanel.css';
 import SlidingUpPanelHeader from './SlidingUpPanelHeader';
 
 const SlidingUpPanel = ({ children, isOpened, onOpen, onClose, title }) => {

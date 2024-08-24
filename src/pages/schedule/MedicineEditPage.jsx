@@ -29,10 +29,19 @@ import updateMedicine from '../../apis/api/updateMedicine';
 import medicineDetailRetrieval from '../../apis/api/medicineDetailRetrieval';
 import renewRefreshToken from '../../apis/api/renewRefreshToken';
 import deleteMedicine from '../../apis/api/deleteMedicine';
+import SlidingUpPanel from '../../components/SlidingUpPanel';
+import PrescriptionListContainer from '../../components/PrescriptionListContainer';
+import PrescriptionViewerContainer from '../../components/PrescriptionViewerContainer';
 
 const MedicineEditPage = () => {
   const navigate = useNavigate();
   const params = useParams();
+
+  // 처방전 관련 상태
+  const [isPanelOpened, setIsPanelOpened] = useState(false);
+  const [isPrescriptionViewerOpened, setIsPrescriptionViewerOpened] = useState(true);
+  const [selectedPrescriptionImg, setSelectedPrescriptionImg] = useState(null);
+
   const [medicineImage, setMedicineImage] = useState(null);
   const [medicineName, setMedicineName] = useState('');
   const [hospitalName, setHospitalName] = useState('');
@@ -94,6 +103,36 @@ const MedicineEditPage = () => {
 
     fetchMedicineDetails();
   }, [params.medicineId]);
+
+  const handleMedicineImgAddToPrescriptionImg = async () => {
+    const response = await fetch(selectedPrescriptionImg);
+    const blob = await response.blob();
+    const file = new File([blob], 'medicineImage.jpg', { type: blob.type });
+    setMedicineImage(file);
+    setInitImageUrl(URL.createObjectURL(file));
+  };
+
+  const handlePanelOpen = () => {
+    document.body.style.overflow = 'hidden'; // <body> 태그의 스크롤 방지
+    setIsPanelOpened(true);
+  };
+
+  const handlePanelClose = () => {
+    document.body.style.overflow = 'scroll'; // <body> 태그의 스크롤 적용
+    setIsPanelOpened(false);
+  };
+
+  const handlePrescriptionViewerOpen = () => {
+    setIsPrescriptionViewerOpened(true);
+  };
+
+  const handlePrescriptionViewerClose = () => {
+    setIsPrescriptionViewerOpened(false);
+  };
+
+  const handlePrescriptionUpdate = (src) => {
+    setSelectedPrescriptionImg(src);
+  };
 
   const handleDrugFormSubmit = async () => {
     if (medicineName.length < 2 || medicineName.length > 20) {
@@ -232,117 +271,141 @@ const MedicineEditPage = () => {
   };
 
   return (
-    <div className="medicine-edit-page">
-      <MainHeader
-        title="약 편집 페이지"
-        onClickLeft={() => navigate(-1)}
-        rightText="삭제"
-        onClickRight={handleDeleteMedicine}
-      />
-      <div className="contents">
-        <div className="top-container">
-          <ImageUploader
-            type="drugs"
-            onImageUpload={(image) => setMedicineImage(image)}
-            init={initImageUrl}
-          />
-          <FilledDualInput
-            placeholder={['약 이름', '병원 이름']}
-            init={[medicineName, hospitalName]}
-            onInputChange={(inputIndex, value) => {
-              if (inputIndex === 'input1') setMedicineName(value);
-              if (inputIndex === 'input2') setHospitalName(value);
-            }}
-          />
-        </div>
-        <FilledTextArea
-          init={medicineDescription}
-          placeholder="메모"
-          onTextChange={(value) => setMedicineDescription(value)}
+    // SlidiingUpPanel의 children props로 2가지의 컴포넌트를 전송
+    <SlidingUpPanel
+      isOpened={isPanelOpened}
+      onOpen={handlePanelOpen}
+      onClose={handlePanelClose}
+      title={'함께 볼 처방전 선택'}
+    >
+      {/* 첫번째 컴포넌트 */}
+      <div className="medicine-edit-page">
+        <MainHeader
+          title="약 편집"
+          onClickLeft={() => navigate(-1)}
+          rightText="삭제"
+          onClickRight={handleDeleteMedicine}
         />
-
-        <h2>요일 반복</h2>
-        <DaySelector
-          initSelectedDays={medicineIntakeDays}
-          onSelect={(days) => setMedicineIntakeDays(days)}
+        <PrescriptionViewerContainer
+          prescriptionImg={selectedPrescriptionImg}
+          isPrescriptionOpened={isPrescriptionViewerOpened}
+          onOpenPanel={handlePanelOpen}
+          onOpenPrescriptionViewer={handlePrescriptionViewerOpen}
+          onClosePrescriptionViewer={handlePrescriptionViewerClose}
+          onUpdatePrescrpitonImg={handlePrescriptionUpdate}
+          onAddMedicineImgToPrescriptionImg={handleMedicineImgAddToPrescriptionImg}
         />
+        <div className="contents">
+          <div className="top-container">
+            <ImageUploader
+              type="drugs"
+              onImageUpload={(image) => setMedicineImage(image)}
+              init={initImageUrl}
+            />
+            <FilledDualInput
+              placeholder={['약 이름', '병원 이름']}
+              init={[medicineName, hospitalName]}
+              onInputChange={(inputIndex, value) => {
+                if (inputIndex === 'input1') setMedicineName(value);
+                if (inputIndex === 'input2') setHospitalName(value);
+              }}
+            />
+          </div>
+          <FilledTextArea
+            init={medicineDescription}
+            placeholder="메모"
+            onTextChange={(value) => setMedicineDescription(value)}
+          />
 
-        <h2>반복 종료 날짜</h2>
-        <div className="date-input-container">
-          <FilledDateInput
-            type="years"
-            init={inputMedicineIntakeStopDay.year}
-            onInput={(value) =>
-              setInputMedicineIntakeStopDay({ ...inputMedicineIntakeStopDay, year: value })
-            }
+          <h2>요일 반복</h2>
+          <DaySelector
+            initSelectedDays={medicineIntakeDays}
+            onSelect={(days) => setMedicineIntakeDays(days)}
           />
-          <FilledDateInput
-            init={inputMedicineIntakeStopDay.month}
-            onInput={(value) =>
-              setInputMedicineIntakeStopDay({ ...inputMedicineIntakeStopDay, month: value })
-            }
-            type="months"
-          />
-          <FilledDateInput
-            init={inputMedicineIntakeStopDay.day}
-            onInput={(value) =>
-              setInputMedicineIntakeStopDay({ ...inputMedicineIntakeStopDay, day: value })
-            }
-            year={inputMedicineIntakeStopDay.year}
-            month={inputMedicineIntakeStopDay.month}
-            type="days"
-          />
-        </div>
 
-        <h2>시간</h2>
-        <div className="time-input-container">
-          <FillMeridiemToggle
-            onChange={(value) =>
-              setInputMedicineIntakeTimes({ ...inputMedicineIntakeTimes, meridiem: value })
-            }
-          />
-          <FilledTimeInput
-            type="hours"
-            onInput={(value) =>
-              setInputMedicineIntakeTimes({ ...inputMedicineIntakeTimes, hours: value })
-            }
-          />
-          <FilledTimeInput
-            type="minutes"
-            onInput={(value) =>
-              setInputMedicineIntakeTimes({ ...inputMedicineIntakeTimes, minutes: value })
-            }
-          />
-          <CheckButton onClick={handleAddTime}>추가</CheckButton>
-        </div>
-        {[...medicineIntakeTimes].map((time) => {
-          const [hours, minutes] = time.split(':');
-          const hourInt = parseInt(hours, 10);
-          const meridiem = hourInt >= 12 ? '오후' : '오전';
-          const formattedHour = hourInt > 12 ? hourInt - 12 : hourInt === 0 ? 12 : hourInt;
-
-          return (
-            <AddedTimeItem
-              key={time}
-              id={time}
-              meridiem={meridiem}
-              hour={String(formattedHour)}
-              minutes={minutes}
-              onRemove={(id) =>
-                setMedicineIntakeTimes((prevTimes) => {
-                  const newTimes = new Set(prevTimes);
-                  newTimes.delete(id);
-                  return newTimes;
-                })
+          <h2>반복 종료 날짜</h2>
+          <div className="date-input-container">
+            <FilledDateInput
+              type="years"
+              init={inputMedicineIntakeStopDay.year}
+              onInput={(value) =>
+                setInputMedicineIntakeStopDay({ ...inputMedicineIntakeStopDay, year: value })
               }
             />
-          );
-        })}
+            <FilledDateInput
+              init={inputMedicineIntakeStopDay.month}
+              onInput={(value) =>
+                setInputMedicineIntakeStopDay({ ...inputMedicineIntakeStopDay, month: value })
+              }
+              type="months"
+            />
+            <FilledDateInput
+              init={inputMedicineIntakeStopDay.day}
+              onInput={(value) =>
+                setInputMedicineIntakeStopDay({ ...inputMedicineIntakeStopDay, day: value })
+              }
+              year={inputMedicineIntakeStopDay.year}
+              month={inputMedicineIntakeStopDay.month}
+              type="days"
+            />
+          </div>
+
+          <h2>시간</h2>
+          <div className="time-input-container">
+            <FillMeridiemToggle
+              onChange={(value) =>
+                setInputMedicineIntakeTimes({ ...inputMedicineIntakeTimes, meridiem: value })
+              }
+            />
+            <FilledTimeInput
+              type="hours"
+              onInput={(value) =>
+                setInputMedicineIntakeTimes({ ...inputMedicineIntakeTimes, hours: value })
+              }
+            />
+            <FilledTimeInput
+              type="minutes"
+              onInput={(value) =>
+                setInputMedicineIntakeTimes({ ...inputMedicineIntakeTimes, minutes: value })
+              }
+            />
+            <CheckButton onClick={handleAddTime}>추가</CheckButton>
+          </div>
+          {[...medicineIntakeTimes].map((time) => {
+            const [hours, minutes] = time.split(':');
+            const hourInt = parseInt(hours, 10);
+            const meridiem = hourInt >= 12 ? '오후' : '오전';
+            const formattedHour = hourInt > 12 ? hourInt - 12 : hourInt === 0 ? 12 : hourInt;
+
+            return (
+              <AddedTimeItem
+                key={time}
+                id={time}
+                meridiem={meridiem}
+                hour={String(formattedHour)}
+                minutes={minutes}
+                onRemove={(id) =>
+                  setMedicineIntakeTimes((prevTimes) => {
+                    const newTimes = new Set(prevTimes);
+                    newTimes.delete(id);
+                    return newTimes;
+                  })
+                }
+              />
+            );
+          })}
+        </div>
+        <div className="big-button-wrap">
+          <BigButton onClick={handleDrugFormSubmit}>약 편집하기</BigButton>
+        </div>
       </div>
-      <div className="big-button-wrap">
-        <BigButton onClick={handleDrugFormSubmit}>약 편집하기</BigButton>
-      </div>
-    </div>
+      {/* 두번째 컴포넌트 */}
+      <PrescriptionListContainer
+        patientId={params.patientId}
+        onClosePanel={handlePanelClose}
+        onUpdatePrescrpitonImg={handlePrescriptionUpdate}
+      />
+    </SlidingUpPanel>
   );
 };
 

@@ -1,12 +1,22 @@
 import './PrescriptionViewer.css';
-import CloseIcon from '../assets/svg/close-white.svg?react';
+import CloseBigIcon from '../assets/svg/close-big.svg?react';
 import PinchZoomImage from './PinchZoomImage';
+import DrugsBigIcon from '../assets/svg/drugs-big.svg?react';
 
-const PrescriptionViewer = ({ prescriptionImg, onUpdatePrescrpitonImg }) => {
+const PrescriptionViewer = ({
+  prescriptionImg,
+  onUpdatePrescrpitonImg,
+  onAddMedicineImgToPrescriptionImg,
+}) => {
   return (
     <div className="prescription-viewer">
-      <div className="close-button" onClick={() => onUpdatePrescrpitonImg(null)}>
-        <CloseIcon />
+      <div className="prescription-header">
+        <div className="medicine-img-button" onClick={() => onAddMedicineImgToPrescriptionImg()}>
+          <DrugsBigIcon />
+        </div>
+        <div className="close-button" onClick={() => onUpdatePrescrpitonImg(null)}>
+          <CloseBigIcon />
+        </div>
       </div>
       <PinchZoomImage
         className={'prescription-img'}

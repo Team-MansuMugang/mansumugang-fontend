@@ -1,8 +1,12 @@
-import { useEffect, useState } from 'react';
 import PrescriptionSelectionViewer from './PrescriptionSelectionViewer';
 import PrescriptionViewer from './PrescriptionViewer';
 
-const PrescriptionViewerContainer = ({ onOpenPanel, prescriptionImg, onUpdatePrescrpitonImg }) => {
+const PrescriptionViewerContainer = ({
+  onOpenPanel,
+  prescriptionImg,
+  onUpdatePrescrpitonImg,
+  onAddMedicineImgToPrescriptionImg,
+}) => {
   return (
     <div className="prescription-viewer-container">
       {prescriptionImg == null ? (
@@ -11,6 +15,7 @@ const PrescriptionViewerContainer = ({ onOpenPanel, prescriptionImg, onUpdatePre
         <PrescriptionViewer
           prescriptionImg={prescriptionImg}
           onUpdatePrescrpitonImg={onUpdatePrescrpitonImg}
+          onAddMedicineImgToPrescriptionImg={onAddMedicineImgToPrescriptionImg}
         />
       )}
     </div>

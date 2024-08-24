@@ -56,6 +56,13 @@ const MedicineAddPage = () => {
     day: '',
   });
 
+  const handleMedicineImgAddToPrescriptionImg = async () => {
+    const response = await fetch(selectedPrescriptionImg);
+    const blob = await response.blob();
+    const file = new File([blob], 'medicineImage.jpg', { type: blob.type });
+    setMedicineImage(file);
+  };
+
   const handlePanelOpen = () => {
     document.body.style.overflow = 'hidden'; // <body> 태그의 스크롤 방지
     setIsPanelOpened(true);
@@ -199,10 +206,15 @@ const MedicineAddPage = () => {
           onOpenPanel={handlePanelOpen}
           prescriptionImg={selectedPrescriptionImg}
           onUpdatePrescrpitonImg={handlePrescriptionUpdate}
+          onAddMedicineImgToPrescriptionImg={handleMedicineImgAddToPrescriptionImg}
         />
         <div className="contents">
           <div className="top-container">
-            <ImageUploader type="drugs" onImageUpload={(image) => setMedicineImage(image)} />
+            <ImageUploader
+              type="drugs"
+              onImageUpload={(image) => setMedicineImage(image)}
+              init={medicineImage !== null ? URL.createObjectURL(medicineImage) : null}
+            />
             <FilledDualInput
               placeholder={['약 이름', '병원 이름']}
               onInputChange={(inputIndex, value) => {

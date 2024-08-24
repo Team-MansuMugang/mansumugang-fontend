@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CommunityTag from '../../components/CommunityTag';
 import MainHeader from '../../components/MainHeader';
@@ -16,6 +16,8 @@ import postCategory from '../../const/postCategory';
 import togglePostLike from '../../apis/api/togglePostLike';
 import fetchWhoAmI from '../../apis/api/fetchWhoAmI';
 import renewRefreshToken from '../../apis/api/renewRefreshToken';
+import submitComment from '../../apis/api/submitComment';
+import fetchCommentList from '../../apis/api/fetchCommentList';
 import { NotValidAccessTokenError, ExpiredAccessTokenError } from '../../apis/utility/errors';
 
 const PostPage = () => {
@@ -24,6 +26,31 @@ const PostPage = () => {
   const [whoAmI, setWhoAmI] = useState({});
   const [postContents, setPostContents] = useState({});
   const [isHearted, setIsHearted] = useState(false);
+  const [commentList, setCommentList] = useState({});
+  const [lastCommentId, setLastCommentId] = useState(undefined);
+  const bottomElementRef = useRef(null); // 스크롤 감지를 위한 ref
+
+  // 페이지 하단 감지
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        console.log('-------------------');
+        console.log(`마지막이었던 댓글 Id:${lastCommentId}`);
+        loadMoreCommentList(lastCommentId);
+        console.log(commentList);
+        console.log('-------------------');
+      }
+    });
+
+    if (bottomElementRef.current) {
+      observer.observe(bottomElementRef.current);
+    }
+
+    return () => {
+      if (bottomElementRef.current) observer.unobserve(bottomElementRef.current);
+      observer.disconnect();
+    };
+  }, [lastCommentId]);
 
   useEffect(() => {
     const loadWhoAmI = async () => {
@@ -46,19 +73,10 @@ const PostPage = () => {
     loadWhoAmI();
   }, []);
 
-  const toggleHeart = async () => {
-    try {
-      const togglePostLikeResult = await togglePostLike(params.id);
-      setIsHearted(togglePostLikeResult);
-      console.log(togglePostLikeResult);
-      setPostContents({
-        ...postContents,
-        likeCount: togglePostLikeResult ? postContents.likeCount + 1 : postContents.likeCount - 1,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  useEffect(() => {
+    loadPostDetails();
+    loadCommentList();
+  }, [params.id]);
 
   const loadPostDetails = async () => {
     try {
@@ -78,9 +96,85 @@ const PostPage = () => {
       else console.error(error);
     }
   };
-  useEffect(() => {
-    loadPostDetails();
-  }, [params.id]);
+
+  const loadCommentList = async () => {
+    try {
+      const fetchedCommentList = await fetchCommentList(params.id);
+      setCommentList(fetchedCommentList);
+      setLastCommentId(fetchedCommentList.comments.at(-1).comment.commentId);
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          loadCommentList();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
+  };
+
+  const loadMoreCommentList = async (cursor) => {
+    if (!cursor) return;
+
+    try {
+      const fetchedCommentList = await fetchCommentList(params.id, cursor);
+      if (fetchedCommentList.comments.length <= 0) return;
+      setLastCommentId(fetchedCommentList.comments.at(-1).comment.commentId);
+      console.log('히히히');
+      setCommentList((previousCommentList) => ({
+        ...previousCommentList,
+        comments: [...previousCommentList.comments, ...fetchedCommentList.comments],
+      }));
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          loadCommentList();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
+  };
+
+  const toggleHeart = async () => {
+    try {
+      // Optimistic UI 업데이트: 즉시 변경을 반영
+      setPostContents((prevPostContents) => ({
+        ...prevPostContents,
+        likeCount: isHearted ? prevPostContents.likeCount - 1 : prevPostContents.likeCount + 1,
+      }));
+      setIsHearted(!isHearted);
+
+      // 실제 서버 요청 처리
+      const togglePostLikeResult = await togglePostLike(params.id);
+
+      // 서버 요청 결과에 따라 UI 수정 (필요 시)
+      if (togglePostLikeResult !== !isHearted) {
+        setIsHearted(togglePostLikeResult);
+        setPostContents((prevPostContents) => ({
+          ...prevPostContents,
+          likeCount: togglePostLikeResult
+            ? prevPostContents.likeCount + 1
+            : prevPostContents.likeCount - 1,
+        }));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const submitCommentHandler = async (content) => {
+    try {
+      await submitComment({ postId: params.id, content });
+      loadCommentList();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -120,45 +214,29 @@ const PostPage = () => {
           isHearted={isHearted}
         />
         <div className="post-comment-items">
-          <div className="comment-thread">
-            <PostCommentItem
-              profileImage={'https://picsum.photos/200/300'}
-              name={'김정숙'}
-              data={'안녕하세요!! '}
-            />
-          </div>
-          <div className="comment-thread">
-            <PostCommentItem
-              profileImage={'https://picsum.photos/200/300'}
-              name={'김정숙'}
-              data={
-                '안녕하세요!! 저는 이러한 저러한 병이 있습니다 이런한 저런한 병을 고치기 위해 많은 약을 먹었습니다 하지만 제 이러한 저러한 병은 났지 않았습니다. 여러분이 이러한 것들을 알려주세요!!'
-              }
-            />
-            <PostReCommentItem
-              profileImage={'https://picsum.photos/200/300'}
-              name={'김정숙'}
-              data={
-                '안녕하세요!! 저는 이러한 저러한 병이 있습니다 이런한 저런한 병을 고치기 위해 많은 약을 먹었습니다 하지만 제 이러한 저러한 병은 났지 않았습니다. 여러분이 이러한 것들을 알려주세요!!'
-              }
-            />
-            <PostReCommentItem
-              profileImage={'https://picsum.photos/200/300'}
-              name={'김정숙'}
-              data={
-                '안녕하세요!! 저는 이러한 저러한 병이 있습니다 이런한 저런한 병을 고치기 위해 많은 약을 먹었습니다 하지만 제 이러한 저러한 병은 났지 않았습니다. 여러분이 이러한 것들을 알려주세요!!'
-              }
-            />
-          </div>
-          <div className="comment-thread">
-            <PostCommentItem
-              profileImage={'https://picsum.photos/200/300'}
-              name={'김정숙'}
-              data={'안녕하세요!! '}
-            />
-          </div>
-          <CommentTextarea />
+          {commentList.comments?.length > 0 &&
+            commentList.comments.map((item) => (
+              <div key={item.comment.commentId} className="comment-thread">
+                <PostCommentItem
+                  profileImage="https://picsum.photos/200/300"
+                  name={item.comment.creator}
+                  data={item.comment.content}
+                />
+                {item.reply?.length > 0 &&
+                  item.reply.map((reply) => (
+                    <PostReCommentItem
+                      key={reply.replyId}
+                      profileImage="https://picsum.photos/200/300"
+                      name={reply.creator}
+                      data={reply.content}
+                    />
+                  ))}
+                {item.reply?.length > 0 && <button>답글 더보기</button>}
+              </div>
+            ))}
+          <CommentTextarea onSubmit={(content) => submitCommentHandler(content)} />
         </div>
+        <div ref={bottomElementRef} style={{ height: '1px' }} /> {/* 페이지 하단 감지용 요소 */}
       </div>
     </>
   );

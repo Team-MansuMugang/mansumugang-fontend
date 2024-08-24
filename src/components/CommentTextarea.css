@@ -59,3 +59,7 @@
   height: 30px;
   color: var(--color-neutral-75);
 }
+
+.comment-input-container button.active svg {
+  color: var(--color-secondary-green-2);
+}

@@ -3,7 +3,7 @@ import SendOutLineIcon from '../assets/svg/send-outline-rounded.svg?react';
 import './CommentTextarea.css';
 import '../index.css';
 
-const CommentTextarea = () => {
+const CommentTextarea = ({ onSubmit }) => {
   const [comment, setComment] = useState('');
   const textareaRef = useRef(null);
 
@@ -13,7 +13,7 @@ const CommentTextarea = () => {
       textareaRef.current.style.height = 'auto';
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  }, [comment]); // 댓글 내용이 변경될 때마다 호출
+  }, [comment]);
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
@@ -21,21 +21,25 @@ const CommentTextarea = () => {
 
   const handleSendClick = () => {
     if (comment.trim()) {
-      // 댓글 전송 처리
-      console.log('댓글 전송:', comment);
-      setComment('');
+      if (onSubmit) onSubmit(comment);
+      setComment(''); // 전송 후 텍스트 초기화
     }
   };
+
   return (
     <div className="comment-input-container">
       <textarea
         placeholder="따뜻한 댓글을 달아주세요"
         value={comment}
         onChange={handleCommentChange}
-        ref={textareaRef} // ref를 textarea에 설정
-        rows="1" // 기본 한 줄 표시
+        ref={textareaRef}
+        rows="1"
       />
-      <button onClick={handleSendClick}>
+      <button
+        onClick={handleSendClick}
+        disabled={!comment.trim()} // 댓글이 없으면 버튼 비활성화
+        className={`send-button ${comment.trim() ? 'active' : ''}`}
+      >
         <SendOutLineIcon />
       </button>
     </div>

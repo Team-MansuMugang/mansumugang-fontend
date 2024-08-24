@@ -11,12 +11,11 @@ import {
 const baseURL = 'http://minnnisu.iptime.org';
 
 const fetchPostDetail = async (postId, cursor) => {
-  let apiUrl = `${baseURL}/api/post/comment?postId=${postId}`;
-  if (cursor !== null) {
-    apiUrl = `${apiUrl}&cursor=${cursor}`;
-  }
+  let apiURL = `${baseURL}/api/post/comment?postId=${postId}`;
+  if (cursor) apiURL += `&cursor=${cursor}`;
+  console.log(`api 주소:${apiURL}`);
 
-  const response = await fetch(apiUrl, {
+  const response = await fetch(apiURL, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },

@@ -31,9 +31,9 @@ const togglePostLike = async (postId) => {
     throw new HttpResponseError(response.status, errorResult.message);
   }
 
-  console.log(response.message);
+  const result = await response.json();
 
-  return true;
+  return result.message === '게시물에 좋아요를 누르셨습니다.';
 };
 
 export default togglePostLike;

@@ -24,7 +24,6 @@ const PostPage = () => {
   const [whoAmI, setWhoAmI] = useState({});
   const [postContents, setPostContents] = useState({});
   const [isHearted, setIsHearted] = useState(false);
-  const [canToggle, setCanToggle] = useState(true);
 
   useEffect(() => {
     const loadWhoAmI = async () => {
@@ -47,28 +46,41 @@ const PostPage = () => {
     loadWhoAmI();
   }, []);
 
-  useEffect(() => {
-    const loadPostDetails = async () => {
-      try {
-        const fetchedPostDetails = await fetchPostDetails(params.id);
-        console.log(fetchedPostDetails);
-        setPostContents(fetchedPostDetails);
-        setIsHearted(fetchedPostDetails.liked);
-      } catch (error) {
-        if (error instanceof ExpiredAccessTokenError) {
-          try {
-            await renewRefreshToken();
-            loadPostDetails();
-          } catch (error) {
-            navigate('/');
-          }
-        } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else console.error(error);
-      }
-    };
+  const toggleHeart = async () => {
+    try {
+      const togglePostLikeResult = await togglePostLike(params.id);
+      setIsHearted(togglePostLikeResult);
+      console.log(togglePostLikeResult);
+      setPostContents({
+        ...postContents,
+        likeCount: togglePostLikeResult ? postContents.likeCount + 1 : postContents.likeCount - 1,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  const loadPostDetails = async () => {
+    try {
+      const fetchedPostDetails = await fetchPostDetails(params.id);
+      console.log(fetchedPostDetails);
+      setPostContents(fetchedPostDetails);
+      setIsHearted(fetchedPostDetails.liked);
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          loadPostDetails();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
+  };
+  useEffect(() => {
     loadPostDetails();
-  }, [params.id, isHearted]);
+  }, [params.id]);
 
   return (
     <>
@@ -103,21 +115,9 @@ const PostPage = () => {
         </div>
         <InteractionBar
           commentCount={postContents.commentCount}
+          onHeartToggle={toggleHeart}
           heartCount={postContents.likeCount}
-          onHeartToggle={(isHearted) => {
-            if (!canToggle) return; // 딜레이 중일 때는 아무 동작도 하지 않음
-
-            console.log(isHearted);
-            setIsHearted(isHearted);
-            togglePostLike(params.id);
-
-            setCanToggle(false); // 클릭 후 딜레이 시작
-            setTimeout(() => {
-              setCanToggle(true); // 딜레이 종료
-            }, 500); // 500ms의 딜레이
-          }}
-          disableHartToggle={!canToggle}
-          initHearted={isHearted}
+          isHearted={isHearted}
         />
         <div className="post-comment-items">
           <div className="comment-thread">

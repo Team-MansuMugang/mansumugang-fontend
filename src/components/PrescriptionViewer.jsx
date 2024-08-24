@@ -1,5 +1,5 @@
 import './PrescriptionViewer.css';
-import CloseBigIcon from '../assets/svg/close-big.svg?react';
+import CloseBigIcon from '../assets/svg/close-big-green.svg?react';
 import PinchZoomImage from './PinchZoomImage';
 import DrugsBigIcon from '../assets/svg/drugs-big.svg?react';
 

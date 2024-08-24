@@ -3,6 +3,7 @@
   bottom: -1000px; /* 처음에 하단에 숨겨진 상태 */
   height: 1000px;
   width: 100%;
+  z-index: 100;
   background-color: rgba(48, 48, 48, 0.405);
 }
 

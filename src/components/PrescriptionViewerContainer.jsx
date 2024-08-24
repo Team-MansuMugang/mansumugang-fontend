@@ -1,5 +1,6 @@
 import PrescriptionSelectionViewer from './PrescriptionSelectionViewer';
 import PrescriptionViewer from './PrescriptionViewer';
+import './PrescriptionViewerContainer.css';
 
 const PrescriptionViewerContainer = ({
   onOpenPanel,

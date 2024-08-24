@@ -37,6 +37,7 @@ const MedicineAddPage = () => {
 
   // 처방전 관련 상태
   const [isPanelOpened, setIsPanelOpened] = useState(false);
+  const [isPrescriptionViewerOpened, setIsPrescriptionViewerOpened] = useState(true);
   const [selectedPrescriptionImg, setSelectedPrescriptionImg] = useState(null);
 
   const [medicineImage, setMedicineImage] = useState(null);
@@ -71,6 +72,14 @@ const MedicineAddPage = () => {
   const handlePanelClose = () => {
     document.body.style.overflow = 'scroll'; // <body> 태그의 스크롤 적용
     setIsPanelOpened(false);
+  };
+
+  const handlePrescriptionViewerOpen = () => {
+    setIsPrescriptionViewerOpened(true);
+  };
+
+  const handlePrescriptionViewerClose = () => {
+    setIsPrescriptionViewerOpened(false);
   };
 
   const handlePrescriptionUpdate = (src) => {
@@ -203,8 +212,11 @@ const MedicineAddPage = () => {
       <div className="medicine-edit-page">
         <MainHeader title="약 등록" onClickLeft={() => navigate(-1)} />
         <PrescriptionViewerContainer
-          onOpenPanel={handlePanelOpen}
           prescriptionImg={selectedPrescriptionImg}
+          isPrescriptionOpened={isPrescriptionViewerOpened}
+          onOpenPanel={handlePanelOpen}
+          onOpenPrescriptionViewer={handlePrescriptionViewerOpen}
+          onClosePrescriptionViewer={handlePrescriptionViewerClose}
           onUpdatePrescrpitonImg={handlePrescriptionUpdate}
           onAddMedicineImgToPrescriptionImg={handleMedicineImgAddToPrescriptionImg}
         />

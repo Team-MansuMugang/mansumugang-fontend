@@ -10,6 +10,15 @@
   margin-bottom: 14px;
 }
 
+.prescription-selection-viewer .close-button {
+  padding: 6px 6px 3px 6px;
+  z-index: 100;
+  position: absolute;
+  right: 14px;
+  top: 7px;
+  border-radius: 18px;
+}
+
 .prescription-selection-viewer .viewer-description {
   font-size: var(--text-size-body-medium);
   color: var(--color-neutral-30);

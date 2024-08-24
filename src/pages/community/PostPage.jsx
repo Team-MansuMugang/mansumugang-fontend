@@ -18,6 +18,7 @@ import fetchWhoAmI from '../../apis/api/fetchWhoAmI';
 import renewRefreshToken from '../../apis/api/renewRefreshToken';
 import submitComment from '../../apis/api/submitComment';
 import fetchCommentList from '../../apis/api/fetchCommentList';
+import deleteComment from '../../apis/api/deleteComment';
 import { NotValidAccessTokenError, ExpiredAccessTokenError } from '../../apis/utility/errors';
 
 const PostPage = () => {
@@ -33,13 +34,7 @@ const PostPage = () => {
   // 페이지 하단 감지
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        console.log('-------------------');
-        console.log(`마지막이었던 댓글 Id:${lastCommentId}`);
-        loadMoreCommentList(lastCommentId);
-        console.log(commentList);
-        console.log('-------------------');
-      }
+      if (entries[0].isIntersecting) loadMoreCommentList(lastCommentId);
     });
 
     if (bottomElementRef.current) {
@@ -122,7 +117,6 @@ const PostPage = () => {
       const fetchedCommentList = await fetchCommentList(params.id, cursor);
       if (fetchedCommentList.comments.length <= 0) return;
       setLastCommentId(fetchedCommentList.comments.at(-1).comment.commentId);
-      console.log('히히히');
       setCommentList((previousCommentList) => ({
         ...previousCommentList,
         comments: [...previousCommentList.comments, ...fetchedCommentList.comments],
@@ -176,6 +170,15 @@ const PostPage = () => {
     }
   };
 
+  const deleteCommentHandler = async (commentId) => {
+    try {
+      await deleteComment({ commentId });
+      loadCommentList();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <MainHeader
@@ -221,6 +224,10 @@ const PostPage = () => {
                   profileImage="https://picsum.photos/200/300"
                   name={item.comment.creator}
                   data={item.comment.content}
+                  isOwner={item.comment.creator === whoAmI.nickname}
+                  onReplyClick={() => console.log('답글 달기')}
+                  onEditClick={() => console.log('수정')}
+                  cnDeleteClick={() => deleteCommentHandler(item.comment.commentId)}
                 />
                 {item.reply?.length > 0 &&
                   item.reply.map((reply) => (

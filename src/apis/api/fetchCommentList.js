@@ -13,7 +13,6 @@ const baseURL = 'http://minnnisu.iptime.org';
 const fetchPostDetail = async (postId, cursor) => {
   let apiURL = `${baseURL}/api/post/comment?postId=${postId}`;
   if (cursor) apiURL += `&cursor=${cursor}`;
-  console.log(`api 주소:${apiURL}`);
 
   const response = await fetch(apiURL, {
     headers: {

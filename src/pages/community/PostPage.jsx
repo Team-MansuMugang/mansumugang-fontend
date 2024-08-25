@@ -36,6 +36,7 @@ const PostPage = () => {
   const [lastCommentId, setLastCommentId] = useState(undefined);
   const [commentTextareaStatus, setCommentTextareaStatus] = useState({ mode: 'comment' });
   const [commentInput, setCommentInput] = useState('');
+  const [noMoreRepliesCommentIds, setNoMoreRepliesCommentIds] = useState([]);
   const bottomElementRef = useRef(null); // 스크롤 감지를 위한 ref
 
   // 페이지 하단 감지
@@ -147,6 +148,12 @@ const PostPage = () => {
 
     try {
       const fetchedReplyList = await fetchReplyList(commentId, cursor);
+      if (fetchedReplyList.replies.length <= 0) {
+        setNoMoreRepliesCommentIds((previous) => [...previous, { commentId, cursor }]);
+        console.log(noMoreRepliesCommentIds);
+        return;
+      }
+      console.log('hihih');
       console.log(commentId, cursor);
       console.log(fetchedReplyList);
       setCommentList((previousCommentList) => {
@@ -348,6 +355,13 @@ const PostPage = () => {
                     onClick={() =>
                       loadMoreReplyList(item.comment.commentId, item.reply.replies.at(-1).replyId)
                     }
+                    disabled={noMoreRepliesCommentIds.some((element) => {
+                      if (
+                        element.commentId === item.comment.commentId &&
+                        element.cursor === item.reply.replies.at(-1).replyId
+                      )
+                        return true;
+                    })}
                   >
                     답글 더보기
                   </button>

@@ -53,13 +53,13 @@
 .post-page .post-comment-items {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 15px;
 }
 
 .post-page .post-comment-items .comment-thread {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 15px;
 }
 
 .post-page .overlay {
@@ -79,9 +79,13 @@
   background-color: white;
   border: none;
   cursor: pointer;
-  padding: 0 0 12px 0;
-  border-bottom: 9px solid var(--color-neutral-95);
-  width: 100vw;
-  margin-left: calc((100% - 100vw) / 2);
-  color: var(--color-primary);
+  height: 35px;
+  border-radius: var(--round-size-small);
+  background-color: var(--color-secondary-green-1);
+  color: var(--color-secondary-green-2);
+  margin-top: -10px;
+}
+
+.post-page .more-reply-button:disabled {
+  display: none;
 }

@@ -59,6 +59,7 @@
 .post-re-comment-item .bottom-container {
   display: flex;
   gap: 10px;
+  height: 19.5px;
 }
 
 .post-re-comment-item .bottom-container button {

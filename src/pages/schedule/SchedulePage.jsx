@@ -41,7 +41,7 @@ const SchedulePage = () => {
     const fetchAndSetPatientList = async () => {
       try {
         const patientList = await fetchPatientList();
-        setPatients(patientList);
+        setPatients(patientList.patients);
         const patientIndex = patientList.findIndex(
           (patient) => patient.patientId === Number(params.patientId),
         );

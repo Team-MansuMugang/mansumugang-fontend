@@ -97,8 +97,8 @@ const MainPage = () => {
     const fetchAndSetPatientList = async () => {
       try {
         const patientList = await fetchPatientList();
-        setPatients(patientList);
-        if (patientList.length === 0) setIsPatientNull(true);
+        setPatients(patientList.patients);
+        if (patientList.patients.length === 0) setIsPatientNull(true);
         else setIsPatientNull(false);
       } catch (error) {
         if (error instanceof ExpiredAccessTokenError) {

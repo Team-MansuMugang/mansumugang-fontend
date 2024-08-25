@@ -1,15 +1,17 @@
 import {
   HttpResponseError,
-  NotValidAccessTokenError,
-  ExpiredAccessTokenError,
   UserNotFoundError,
   AccessDeniedError,
-} from '../utility/errors';
+  NotValidAccessTokenError,
+  ExpiredAccessTokenError,
+  NoUserProfileImageError,
+} from '../utility/errors.js';
 
 const baseURL = 'http://minnnisu.iptime.org';
 
-const fetchPatientList = async () => {
-  const response = await fetch(`${baseURL}/api/user/inquiry/patients`, {
+const updateMedicine = async () => {
+  const response = await fetch(`${baseURL}/api/user/protector/profileImage`, {
+    method: 'DELETE',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
@@ -22,11 +24,10 @@ const fetchPatientList = async () => {
     if (result.errorType === 'ExpiredAccessTokenError') throw new ExpiredAccessTokenError();
     if (result.errorType === 'UserNotFoundError') throw new UserNotFoundError();
     if (result.errorType === 'AccessDeniedError') throw new AccessDeniedError();
+    if (result.errorType === 'NoUserProfileImageError') throw new NoUserProfileImageError();
 
     throw new HttpResponseError(response.status, result.message);
   }
-
-  return result;
 };
 
-export default fetchPatientList;
+export default updateMedicine;

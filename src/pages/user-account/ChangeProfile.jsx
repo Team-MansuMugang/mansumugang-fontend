@@ -10,16 +10,21 @@ import { produce } from 'immer';
 import './ChangeProfile.css';
 import { validName, validNickname } from '../utility/accountValidation';
 import checkNicknameUnique from '../../apis/api/checkNicknameUnique';
+import submitProfileImage from '../../apis/api/submitProfileImage';
+import deleteProfileImage from '../../apis/api/deleteProfileImage';
 import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/utility/errors';
 import fetchMyInfo from '../../apis/api/fetchMyInfo';
 import { toast } from 'react-toastify';
 import updateMyInfo from '../../apis/api/updateMyInfo';
+import ImageUploader from '../../components/ImageUploader';
 
 const ChangeProfile = () => {
   const [originalUserInfo, setOriginalUserInfo] = useState(null);
   const [name, setName] = useState({ value: '', status: 'default', description: '' });
   const [nickname, setNickname] = useState({ value: '', status: 'default', description: '' });
   const [isSuccess, setIsSuccess] = useState(false);
+  const [initProfileImage, setInitProfileImage] = useState(null);
+  const [profileImage, setProfileImage] = useState({ value: null, status: 'default' });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,7 +41,6 @@ const ChangeProfile = () => {
 
   const handleNameChange = (event) => {
     const { status, description } = validName(event.target.value);
-
     setName((currentName) =>
       produce(currentName, (draft) => {
         draft.value = event.target.value;
@@ -51,6 +55,15 @@ const ChangeProfile = () => {
       try {
         const myInfo = await fetchMyInfo();
         setOriginalUserInfo(myInfo);
+        console.log(myInfo);
+
+        if (myInfo.profileImageName !== null) {
+          const response = await fetch(`${myInfo.imageApiUrl}${myInfo.profileImageName}`);
+          const blob = await response.blob();
+          const file = new File([blob], 'medicineImage.jpg', { type: blob.type });
+          setInitProfileImage(URL.createObjectURL(file));
+        }
+
         setName((currentName) => ({
           ...currentName,
           value: myInfo.name,
@@ -88,6 +101,58 @@ const ChangeProfile = () => {
         draft.description = description;
       }),
     );
+  };
+
+  const handleProfileimageUpload = async () => {
+    try {
+      if (profileImage.value !== null && profileImage.status === 'changed') {
+        await submitProfileImage(profileImage.value);
+
+        // 상태 초기화
+        setInitProfileImage(URL.createObjectURL(profileImage.value));
+        setProfileImage({ value: null, status: 'default' });
+
+        toast.info('새로운 프로필 이미지를 등록하였습니다.', {
+          position: 'bottom-center',
+        });
+        return;
+      }
+
+      if (
+        initProfileImage !== null &&
+        profileImage.value === null &&
+        profileImage.status === 'changed'
+      ) {
+        await deleteProfileImage();
+
+        // 상태 초기화
+        setInitProfileImage(null);
+        setProfileImage({ value: null, status: 'default' });
+
+        toast.info('프로필 이미지를 삭제하였습니다.', {
+          position: 'bottom-center',
+        });
+        return;
+      }
+
+      toast.error('새로운 프로필 이미지를 선택해주세요', {
+        position: 'bottom-center',
+      });
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          fetchAndSetMyInfo();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
+  };
+
+  const handleImageChange = (image) => {
+    setProfileImage({ value: image, status: 'changed' });
   };
 
   const handleUpload = async () => {
@@ -174,8 +239,12 @@ const ChangeProfile = () => {
     <>
       <MainHeader title="프로필 수정하기" onClickLeft={() => navigate(-1)}></MainHeader>
       <div className="profile-change">
-        <img id="change-img" src="https://picsum.photos/200/300" />
-        {/* <SubButton className="sub-button">사진 수정하기</SubButton> */}
+        <div className="profile-image-uploader-wrapper">
+          <ImageUploader init={initProfileImage} onImageUpload={handleImageChange} />
+          <SubButton className="sub-button" onClick={handleProfileimageUpload}>
+            사진 수정하기
+          </SubButton>
+        </div>
         <InputWrapper
           description="이름 수정"
           status={name.status}

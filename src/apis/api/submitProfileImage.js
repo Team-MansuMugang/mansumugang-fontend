@@ -1,18 +1,23 @@
 import {
   HttpResponseError,
-  NotValidAccessTokenError,
-  ExpiredAccessTokenError,
   UserNotFoundError,
   AccessDeniedError,
-} from '../utility/errors';
+  NotValidAccessTokenError,
+  ExpiredAccessTokenError,
+} from '../utility/errors.js';
 
 const baseURL = 'http://minnnisu.iptime.org';
 
-const fetchPatientList = async () => {
-  const response = await fetch(`${baseURL}/api/user/inquiry/patients`, {
+const submitProfileImage = async (imageFile) => {
+  const formData = new FormData();
+  formData.append('image', imageFile);
+
+  const response = await fetch(`${baseURL}/api/user/protector/profileImage`, {
+    method: 'POST',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
+    body: formData,
   });
 
   const result = await response.json();
@@ -25,8 +30,6 @@ const fetchPatientList = async () => {
 
     throw new HttpResponseError(response.status, result.message);
   }
-
-  return result;
 };
 
-export default fetchPatientList;
+export default submitProfileImage;

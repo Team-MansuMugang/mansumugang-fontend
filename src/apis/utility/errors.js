@@ -175,3 +175,10 @@ export class NoSuchHospitalError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class NoUserProfileImageError extends Error {
+  constructor() {
+    super('프로필 이미지가 존재하지 않습니다.');
+    this.name = this.constructor.name;
+  }
+}

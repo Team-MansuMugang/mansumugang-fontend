@@ -22,7 +22,7 @@ const VoiceMessagePage = () => {
     const loadPatients = async () => {
       try {
         const patients = await fetchPatientList();
-        setPatients(patients);
+        setPatients(patients.patients);
       } catch (error) {
         console.error('Failed to load patients:', error);
       }

@@ -18,7 +18,7 @@
 }
 
 .with-drow-page .small {
-  font-weight: var(--text-size-detail);
+  font-size: var(--text-size-detail);
   color: var(--color-neutral-45);
 }
 

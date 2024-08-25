@@ -9,6 +9,7 @@ const PostCommentItem = ({
   onEditClick,
   cnDeleteClick,
   isOwner = false,
+  isDeleted = false,
 }) => {
   return (
     <div className="post-comment-item">
@@ -20,7 +21,7 @@ const PostCommentItem = ({
           <div className="item-name">{name}</div>
           <div className="item-data">{data}</div>
           <div className="bottom-container">
-            <button onClick={onReplyClick}>답글 달기</button>
+            {!isDeleted && <button onClick={onReplyClick}>답글 달기</button>}
             {isOwner && (
               <>
                 <span>·</span>

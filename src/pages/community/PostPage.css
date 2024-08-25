@@ -59,7 +59,7 @@
 .post-page .post-comment-items .comment-thread {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 25px;
 }
 
 .post-page .overlay.active {

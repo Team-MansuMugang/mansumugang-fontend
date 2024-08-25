@@ -21,6 +21,7 @@ import fetchCommentList from '../../apis/api/fetchCommentList';
 import deleteComment from '../../apis/api/deleteComment';
 import updateComment from '../../apis/api/updateComment';
 import submitReply from '../../apis/api/submitReply';
+import fetchReplyList from '../../apis/api/fetchReplyList';
 import { NotValidAccessTokenError, ExpiredAccessTokenError } from '../../apis/utility/errors';
 
 const PostPage = () => {
@@ -99,6 +100,7 @@ const PostPage = () => {
   const loadCommentList = async () => {
     try {
       const fetchedCommentList = await fetchCommentList(params.id);
+      console.log(fetchedCommentList);
       setCommentList(fetchedCommentList);
       setLastCommentId(fetchedCommentList.comments.at(-1).comment.commentId);
     } catch (error) {
@@ -130,6 +132,42 @@ const PostPage = () => {
         try {
           await renewRefreshToken();
           loadCommentList();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
+  };
+
+  const loadMoreReplyList = async (commentId, cursor) => {
+    if (!cursor) return;
+
+    try {
+      const fetchedReplyList = await fetchReplyList(commentId, cursor);
+      console.log(commentId, cursor);
+      console.log(fetchedReplyList);
+      setCommentList((previousCommentList) => {
+        return {
+          ...previousCommentList,
+          comments: previousCommentList.comments.map((comment) => {
+            if (comment.comment.commentId === commentId) {
+              return {
+                ...comment,
+                reply: {
+                  replies: [...comment.reply.replies, ...fetchedReplyList.replies],
+                },
+              };
+            }
+            return comment;
+          }),
+        };
+      });
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          loadMoreReplyList();
         } catch (error) {
           navigate('/');
         }
@@ -194,6 +232,16 @@ const PostPage = () => {
     }
   };
 
+  const submitReplyHandler = async (commentId, content) => {
+    try {
+      await submitReply({ commentId, content });
+      loadCommentList();
+      setCommentTextareaStatus({ mode: 'comment' });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <MainHeader
@@ -240,7 +288,10 @@ const PostPage = () => {
                   name={item.comment.creator}
                   data={item.comment.content}
                   isOwner={item.comment.creator === whoAmI.nickname}
-                  onReplyClick={() => console.log('답글 달기')}
+                  isDeleted={item.comment.content === '삭제된 댓글입니다.'}
+                  onReplyClick={() => {
+                    setCommentTextareaStatus({ mode: 'reply', commentId: item.comment.commentId });
+                  }}
                   onEditClick={() => {
                     setCommentInput(item.comment.content);
                     setCommentTextareaStatus({
@@ -250,8 +301,8 @@ const PostPage = () => {
                   }}
                   cnDeleteClick={() => deleteCommentHandler(item.comment.commentId)}
                 />
-                {item.reply?.length > 0 &&
-                  item.reply.map((reply) => (
+                {item.reply.replies?.length > 0 &&
+                  item.reply.replies.map((reply) => (
                     <PostReCommentItem
                       key={reply.replyId}
                       profileImage="https://picsum.photos/200/300"
@@ -259,7 +310,15 @@ const PostPage = () => {
                       data={reply.content}
                     />
                   ))}
-                {item.reply?.length > 0 && <button>답글 더보기</button>}
+                {item.reply.replies?.length > 0 && (
+                  <button
+                    onClick={() =>
+                      loadMoreReplyList(item.comment.commentId, item.reply.replies.at(-1).replyId)
+                    }
+                  >
+                    답글 더보기
+                  </button>
+                )}
               </div>
             ))}
           <CommentTextarea
@@ -267,7 +326,8 @@ const PostPage = () => {
               if (commentTextareaStatus.mode === 'comment') submitCommentHandler(content);
               if (commentTextareaStatus.mode === 'commentEdit')
                 updateCommentHandler(commentTextareaStatus.commentId, content);
-              if (commentTextareaStatus.mode === 'reply') console.log('답글 전송');
+              if (commentTextareaStatus.mode === 'reply')
+                submitReplyHandler(commentTextareaStatus.commentId, content);
               if (commentTextareaStatus.mode === 'replyEdit') console.log('답글 수정');
             }}
             initComment={commentInput}

@@ -10,6 +10,8 @@ import SearchButton from '../../components/SearchButton';
 import postCategory from '../../const/postCategory';
 import fetchPostSummary from '../../apis/api/fetchPostSummary';
 import { timeAgoByStr } from '../../utility/dates';
+import renewRefreshToken from '../../apis/api/renewRefreshToken';
+import { NotValidAccessTokenError, ExpiredAccessTokenError } from '../../apis/utility/errors';
 
 const CommunityPage = () => {
   const navigate = useNavigate();
@@ -49,24 +51,48 @@ const CommunityPage = () => {
   }, [postSummary, selectedCategory]);
 
   const loadFirstPostSummary = async (selectedCategory = '') => {
-    const fetchedPostSummary = await fetchPostSummary({ category: selectedCategory, page: 1 });
-    console.log(fetchedPostSummary);
-    setPostSummary(fetchedPostSummary.posts);
-    setCurrentPage(1);
-    setTotalPage(fetchedPostSummary.metaData.totalPage);
-    console.log(fetchedPostSummary.metaData.totalPage);
+    try {
+      const fetchedPostSummary = await fetchPostSummary({ category: selectedCategory, page: 1 });
+      console.log(fetchedPostSummary);
+      setPostSummary(fetchedPostSummary.posts);
+      setCurrentPage(1);
+      setTotalPage(fetchedPostSummary.metaData.totalPage);
+      console.log(fetchedPostSummary.metaData.totalPage);
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          loadFirstPostSummary(selectedCategory);
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
   };
 
   const loadMorePosts = async () => {
     if (currentPage >= totalPage) return;
 
-    const fetchedPostSummary = await fetchPostSummary({
-      category: selectedCategory,
-      page: currentPage + 1,
-    });
-    console.log(fetchedPostSummary);
-    setPostSummary((prevPosts) => [...prevPosts, ...fetchedPostSummary.posts]);
-    setCurrentPage(currentPage + 1);
+    try {
+      const fetchedPostSummary = await fetchPostSummary({
+        category: selectedCategory,
+        page: currentPage + 1,
+      });
+      console.log(fetchedPostSummary);
+      setPostSummary((prevPosts) => [...prevPosts, ...fetchedPostSummary.posts]);
+      setCurrentPage(currentPage + 1);
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          loadMorePosts();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
   };
 
   return (

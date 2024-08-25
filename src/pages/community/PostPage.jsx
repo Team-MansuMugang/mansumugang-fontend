@@ -344,6 +344,7 @@ const PostPage = () => {
                   ))}
                 {item.reply.replies?.length > 0 && (
                   <button
+                    className="more-reply-button"
                     onClick={() =>
                       loadMoreReplyList(item.comment.commentId, item.reply.replies.at(-1).replyId)
                     }

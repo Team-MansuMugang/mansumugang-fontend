@@ -62,7 +62,7 @@
   gap: 25px;
 }
 
-.post-page .overlay.active {
+.post-page .overlay {
   display: none;
 }
 .post-page .overlay.active {
@@ -73,4 +73,15 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.post-page .more-reply-button {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  padding: 0 0 12px 0;
+  border-bottom: 9px solid var(--color-neutral-95);
+  width: 100vw;
+  margin-left: calc((100% - 100vw) / 2);
+  color: var(--color-primary);
 }

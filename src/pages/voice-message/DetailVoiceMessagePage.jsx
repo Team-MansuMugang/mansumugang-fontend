@@ -5,7 +5,6 @@ import MainHeader from '../../components/MainHeader';
 import NavBar from '../../components/NavBar';
 import VoicePlayerBar from '../../components/VoicePlayerBar';
 import { useLocation } from 'react-router-dom';
-import { parseLocalDateTime } from '../../utility/dates';
 import deleteVoiceMessage from '../../apis/api/deleteVoiceMessage';
 import MainHeaderColor from '../../const/MainHeaderColor';
 
@@ -20,8 +19,7 @@ const handleVoiceMessageDelete = async (recordId, navigate) => {
 
 const DetailVoiceMessagePage = () => {
   const location = useLocation();
-  const voiceMessage = location.state; // navigate로 전달된 데이터
-  const { formattedDate, formattedTime } = parseLocalDateTime(voiceMessage.uploadedTime);
+  const { imageApiUrlPrefix, audioApiUrlPrefix, voiceMessage } = location.state; // navigate로 전달된 데이터
 
   const navigate = useNavigate();
 
@@ -39,11 +37,14 @@ const DetailVoiceMessagePage = () => {
       ></MainHeader>
       <div className="voice-message-detail">
         <VoicePlayerBar
-          profileImage={'https://picsum.photos/200/300'}
           name={voiceMessage.name}
-          date={formattedDate}
-          time={formattedTime}
-          audioSrc={voiceMessage.audioApiUrlPrefix + voiceMessage.recordFileName}
+          uploadedTime={voiceMessage.uploadedTime}
+          audioSrc={audioApiUrlPrefix + voiceMessage.recordFileName}
+          profileImage={
+            voiceMessage.profileImageName !== null
+              ? imageApiUrlPrefix + voiceMessage.profileImageName
+              : null
+          }
         ></VoicePlayerBar>
         <p className="text-head">음성 메세지 내용</p>
         <pre className="text-area">추후 출시할 기능입니다.</pre>

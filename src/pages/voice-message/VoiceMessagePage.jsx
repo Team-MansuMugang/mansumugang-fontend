@@ -16,7 +16,8 @@ const VoiceMessagePage = () => {
 
   const [patients, setPatients] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState(-1);
-  const [voiceMessages, setVoiceMessages] = useState([]);
+  const [voiceMessages, setVoiceMessages] = useState(null);
+  console.log(voiceMessages);
 
   useEffect(() => {
     const loadPatients = async () => {
@@ -100,17 +101,28 @@ const VoiceMessagePage = () => {
         </div>
 
         <div className="Large-voice-Message">
-          {voiceMessages.map((vocieMessage, index) => (
-            <LargeVoiceMessageItem
-              key={index}
-              profileImage={'https://picsum.photos/200/300'}
-              name={vocieMessage.name}
-              dateTime={vocieMessage.uploadedTime}
-              onClick={() => {
-                navigate('/voice-message/detail', { state: voiceMessages[index] });
-              }}
-            ></LargeVoiceMessageItem>
-          ))}
+          {voiceMessages !== null &&
+            voiceMessages.records.map((voiceMessage, index) => (
+              <LargeVoiceMessageItem
+                key={index}
+                profileImage={
+                  voiceMessage.profileImageName !== null
+                    ? `${voiceMessages.imageApiUrl}${voiceMessage.profileImageName}`
+                    : null
+                }
+                name={voiceMessage.name}
+                dateTime={voiceMessage.uploadedTime}
+                onClick={() => {
+                  navigate('/voice-message/detail', {
+                    state: {
+                      imageApiUrlPrefix: voiceMessages.imageApiUrl,
+                      audioApiUrlPrefix: voiceMessages.audioApiUrlPrefix,
+                      voiceMessage,
+                    },
+                  });
+                }}
+              ></LargeVoiceMessageItem>
+            ))}
         </div>
       </div>
     </>

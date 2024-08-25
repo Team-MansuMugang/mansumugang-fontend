@@ -52,7 +52,7 @@ const MainPage = () => {
   const [patients, setPatients] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState(0);
   const [isPatientNull, setIsPatientNull] = useState(undefined);
-  const [voiceMessages, setVoiceMessages] = useState([]);
+  const [voiceMessages, setVoiceMessages] = useState(null);
   const [medicineSchedules, setMedicineSchedules] = useState([]);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
   const [detailData, setDetailData] = useState({});
@@ -117,6 +117,8 @@ const MainPage = () => {
     const loadAllPatientVocieMessages = async () => {
       try {
         const voiceMessages = await fetchAllPatientVocieMessageList();
+        console.log(voiceMessages);
+
         setVoiceMessages(voiceMessages);
       } catch (error) {
         if (error instanceof UserRecordInfoNotFoundError) {
@@ -298,24 +300,31 @@ const MainPage = () => {
   const renderPatientContent = () => (
     <div className="patient-content">
       <h1>홈</h1>
-      <SubTitle
-        title="음성 메세지"
-        showButton={voiceMessages.length !== 0}
-        linkTo="/voice-message"
-      />
-      <RowScrollContainer>
-        {voiceMessages &&
-          voiceMessages.map((voiceMessage, index) => (
-            <SmallVoiceMessageItem
-              key={index}
-              profileImage={'https://picsum.photos/200/300'}
-              name={voiceMessage.name}
-              time={voiceMessage.uploadedTime}
-              onClick={() => navigate('/voice-message/detail', { state: voiceMessage })}
-            />
-          ))}
-        {voiceMessages.length === 0 && <p>아직 받으신 음성 메시지가 없습니다</p>}
-      </RowScrollContainer>
+      {voiceMessages !== null && (
+        <>
+          <SubTitle
+            title="음성 메세지"
+            showButton={voiceMessages.length !== 0}
+            linkTo="/voice-message"
+          />
+          <RowScrollContainer>
+            {voiceMessages.records.map((voiceMessage, index) => (
+              <SmallVoiceMessageItem
+                key={index}
+                profileImage={
+                  voiceMessage.profileImageName !== null
+                    ? `${voiceMessages.imageApiUrl}${voiceMessage.profileImageName}`
+                    : null
+                }
+                name={voiceMessage.name}
+                time={voiceMessage.uploadedTime}
+                onClick={() => navigate('/voice-message/detail', { state: voiceMessage })}
+              />
+            ))}
+            {voiceMessages.length === 0 && <p>아직 받으신 음성 메시지가 없습니다</p>}
+          </RowScrollContainer>
+        </>
+      )}
 
       <hr />
 

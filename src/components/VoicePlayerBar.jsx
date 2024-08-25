@@ -4,13 +4,17 @@ import '../index.css';
 import StopIcon from '../assets/svg/stop-circle.svg?react';
 import PlayIcon from '../assets/svg/play-circle.svg?react';
 import PauseIcon from '../assets/svg/pause-circle.svg?react';
+import AccountCircleIcon from '../assets/svg/account-circle.svg?react';
+import { parseLocalDateTime } from '../utility/dates';
 
-const VoicePlayerBar = ({ profileImage, name, date, time, audioSrc }) => {
+const VoicePlayerBar = ({ profileImage, name, uploadedTime, audioSrc }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef(null);
+
+  const { formattedDate, formattedTime } = parseLocalDateTime(uploadedTime);
 
   useEffect(() => {
     const onLoadedMetadata = () => {
@@ -73,10 +77,16 @@ const VoicePlayerBar = ({ profileImage, name, date, time, audioSrc }) => {
   return (
     <div className="voice-player-bar">
       <div className="item-info-container">
-        <img src={profileImage} alt={`${name} profile`} />
+        {profileImage !== null ? (
+          <img className="profile-image" src={profileImage} />
+        ) : (
+          <div className="profile-image-wrapper">
+            <AccountCircleIcon />
+          </div>
+        )}
         <div className="item-details">
           <div className="item-name">{name}</div>
-          <div className="item-date-time">{`${date} · ${time}`}</div>
+          <div className="item-date-time">{`${formattedDate} · ${formattedTime}`}</div>
         </div>
       </div>
 

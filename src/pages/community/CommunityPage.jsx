@@ -46,7 +46,7 @@ const CommunityPage = () => {
         observer.unobserve(observerRef.current);
       }
     };
-  }, [currentPage, selectedCategory]);
+  }, [postSummary, selectedCategory]);
 
   const loadFirstPostSummary = async (selectedCategory = '') => {
     const fetchedPostSummary = await fetchPostSummary({ category: selectedCategory, page: 1 });
@@ -54,6 +54,7 @@ const CommunityPage = () => {
     setPostSummary(fetchedPostSummary.posts);
     setCurrentPage(1);
     setTotalPage(fetchedPostSummary.metaData.totalPage);
+    console.log(fetchedPostSummary.metaData.totalPage);
   };
 
   const loadMorePosts = async () => {

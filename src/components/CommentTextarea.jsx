@@ -3,9 +3,13 @@ import SendOutLineIcon from '../assets/svg/send-outline-rounded.svg?react';
 import './CommentTextarea.css';
 import '../index.css';
 
-const CommentTextarea = ({ onSubmit }) => {
+const CommentTextarea = ({ onSubmit, initComment = '' }) => {
   const [comment, setComment] = useState('');
   const textareaRef = useRef(null);
+
+  useEffect(() => {
+    setComment(initComment);
+  }, [initComment]);
 
   useEffect(() => {
     if (textareaRef.current) {

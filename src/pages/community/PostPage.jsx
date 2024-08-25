@@ -19,6 +19,8 @@ import renewRefreshToken from '../../apis/api/renewRefreshToken';
 import submitComment from '../../apis/api/submitComment';
 import fetchCommentList from '../../apis/api/fetchCommentList';
 import deleteComment from '../../apis/api/deleteComment';
+import updateComment from '../../apis/api/updateComment';
+import submitReply from '../../apis/api/submitReply';
 import { NotValidAccessTokenError, ExpiredAccessTokenError } from '../../apis/utility/errors';
 
 const PostPage = () => {
@@ -29,6 +31,8 @@ const PostPage = () => {
   const [isHearted, setIsHearted] = useState(false);
   const [commentList, setCommentList] = useState({});
   const [lastCommentId, setLastCommentId] = useState(undefined);
+  const [commentTextareaStatus, setCommentTextareaStatus] = useState({ mode: 'comment' });
+  const [commentInput, setCommentInput] = useState('');
   const bottomElementRef = useRef(null); // 스크롤 감지를 위한 ref
 
   // 페이지 하단 감지
@@ -170,6 +174,17 @@ const PostPage = () => {
     }
   };
 
+  const updateCommentHandler = async (commentId, value) => {
+    try {
+      console.log(commentId, value);
+      await updateComment({ commentId, content: value });
+      loadCommentList();
+      setCommentTextareaStatus({ mode: 'comment' });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const deleteCommentHandler = async (commentId) => {
     try {
       await deleteComment({ commentId });
@@ -226,7 +241,13 @@ const PostPage = () => {
                   data={item.comment.content}
                   isOwner={item.comment.creator === whoAmI.nickname}
                   onReplyClick={() => console.log('답글 달기')}
-                  onEditClick={() => console.log('수정')}
+                  onEditClick={() => {
+                    setCommentInput(item.comment.content);
+                    setCommentTextareaStatus({
+                      mode: 'commentEdit',
+                      commentId: item.comment.commentId,
+                    });
+                  }}
                   cnDeleteClick={() => deleteCommentHandler(item.comment.commentId)}
                 />
                 {item.reply?.length > 0 &&
@@ -241,8 +262,24 @@ const PostPage = () => {
                 {item.reply?.length > 0 && <button>답글 더보기</button>}
               </div>
             ))}
-          <CommentTextarea onSubmit={(content) => submitCommentHandler(content)} />
+          <CommentTextarea
+            onSubmit={(content) => {
+              if (commentTextareaStatus.mode === 'comment') submitCommentHandler(content);
+              if (commentTextareaStatus.mode === 'commentEdit')
+                updateCommentHandler(commentTextareaStatus.commentId, content);
+              if (commentTextareaStatus.mode === 'reply') console.log('답글 전송');
+              if (commentTextareaStatus.mode === 'replyEdit') console.log('답글 수정');
+            }}
+            initComment={commentInput}
+          />
         </div>
+        <dir
+          className={`overlay ${commentTextareaStatus.mode === 'comment' ? '' : 'active'}`}
+          onClick={() => {
+            setCommentTextareaStatus({ mode: 'comment' });
+            setCommentInput('');
+          }}
+        />
         <div ref={bottomElementRef} style={{ height: '1px' }} /> {/* 페이지 하단 감지용 요소 */}
       </div>
     </>

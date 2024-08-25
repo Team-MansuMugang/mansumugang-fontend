@@ -231,3 +231,17 @@ export class NotTheAuthorOfTheReply extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class NoImageFileError extends Error {
+  constructor() {
+    super('이미지 파일이 없습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class ImageSaveError extends Error {
+  constructor() {
+    super('이미지 저장에 실패했습니다.');
+    this.name = this.constructor.name;
+  }
+}

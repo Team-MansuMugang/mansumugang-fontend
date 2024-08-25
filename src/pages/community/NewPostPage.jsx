@@ -3,11 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import CategoryHeader from '../../components/CategoryHeader';
 import './NewPostPage.css';
 import PostPictureUpload from '../../components/PostPictureUpload';
+import postCategory from '../../const/postCategory';
+import submitPost from '../../apis/api/submitPost';
 
 const NewPostPage = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(undefined);
+  const [images, setImages] = useState([]);
 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
@@ -26,9 +30,39 @@ const NewPostPage = () => {
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
 
+  const submitPostHandler = () => {
+    console.log('제목:', title);
+    console.log('내용:', content);
+    console.log(
+      '카테고리:',
+      Object.keys(postCategory).find((key) => postCategory[key] === selectedCategory),
+    );
+    console.log('이미지:', images);
+    submitPost(
+      {
+        title,
+        content,
+        categoryCode: Object.keys(postCategory).find(
+          (key) => postCategory[key] === selectedCategory,
+        ),
+      },
+      images,
+    );
+  };
+
+  const handleImagesChange = (newImages) => {
+    setImages(newImages);
+    console.log(newImages);
+  };
+
   return (
     <>
-      <CategoryHeader rightText="작성" onClickLeft={() => navigate(-1)} />
+      <CategoryHeader
+        rightText="작성"
+        onClickLeft={() => navigate(-1)}
+        onSelected={(category) => setSelectedCategory(category)}
+        onClickRight={submitPostHandler}
+      />
       <div className="new-post-page">
         <textarea
           placeholder="제목을 입력하세요"
@@ -51,7 +85,7 @@ const NewPostPage = () => {
           ref={contentRef}
         />
 
-        <PostPictureUpload />
+        <PostPictureUpload onImagesChange={handleImagesChange} />
       </div>
     </>
   );

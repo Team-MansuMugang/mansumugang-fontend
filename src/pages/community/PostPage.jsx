@@ -23,6 +23,7 @@ import updateComment from '../../apis/api/updateComment';
 import submitReply from '../../apis/api/submitReply';
 import deleteReply from '../../apis/api/deleteReply';
 import fetchReplyList from '../../apis/api/fetchReplyList';
+import updateReply from '../../apis/api/updateReply';
 import { NotValidAccessTokenError, ExpiredAccessTokenError } from '../../apis/utility/errors';
 
 const PostPage = () => {
@@ -243,6 +244,17 @@ const PostPage = () => {
     }
   };
 
+  const updateReplyHandler = async (replyId, value) => {
+    try {
+      console.log(replyId, value);
+      await updateReply({ replyId, content: value });
+      loadCommentList();
+      setCommentTextareaStatus({ mode: 'comment' });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const deleteReplyHandler = async (replyId) => {
     console.log('hi');
     try {
@@ -321,6 +333,13 @@ const PostPage = () => {
                       data={reply.content}
                       isOwner={reply.creator === whoAmI.nickname}
                       onDeleteClick={() => deleteReplyHandler(reply.replyId)}
+                      onEditClick={() => {
+                        setCommentInput(reply.content);
+                        setCommentTextareaStatus({
+                          mode: 'replyEdit',
+                          replyId: reply.replyId,
+                        });
+                      }}
                     />
                   ))}
                 {item.reply.replies?.length > 0 && (
@@ -341,7 +360,8 @@ const PostPage = () => {
                 updateCommentHandler(commentTextareaStatus.commentId, content);
               if (commentTextareaStatus.mode === 'reply')
                 submitReplyHandler(commentTextareaStatus.commentId, content);
-              if (commentTextareaStatus.mode === 'replyEdit') console.log('답글 수정');
+              if (commentTextareaStatus.mode === 'replyEdit')
+                updateReplyHandler(commentTextareaStatus.replyId, content);
             }}
             initComment={commentInput}
           />

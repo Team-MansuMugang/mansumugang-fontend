@@ -21,6 +21,7 @@ import fetchCommentList from '../../apis/api/fetchCommentList';
 import deleteComment from '../../apis/api/deleteComment';
 import updateComment from '../../apis/api/updateComment';
 import submitReply from '../../apis/api/submitReply';
+import deleteReply from '../../apis/api/deleteReply';
 import fetchReplyList from '../../apis/api/fetchReplyList';
 import { NotValidAccessTokenError, ExpiredAccessTokenError } from '../../apis/utility/errors';
 
@@ -242,6 +243,16 @@ const PostPage = () => {
     }
   };
 
+  const deleteReplyHandler = async (replyId) => {
+    console.log('hi');
+    try {
+      await deleteReply({ replyId });
+      loadCommentList();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <MainHeader
@@ -299,7 +310,7 @@ const PostPage = () => {
                       commentId: item.comment.commentId,
                     });
                   }}
-                  cnDeleteClick={() => deleteCommentHandler(item.comment.commentId)}
+                  onDeleteClick={() => deleteCommentHandler(item.comment.commentId)}
                 />
                 {item.reply.replies?.length > 0 &&
                   item.reply.replies.map((reply) => (
@@ -308,6 +319,8 @@ const PostPage = () => {
                       profileImage="https://picsum.photos/200/300"
                       name={reply.creator}
                       data={reply.content}
+                      isOwner={reply.creator === whoAmI.nickname}
+                      onDeleteClick={() => deleteReplyHandler(reply.replyId)}
                     />
                   ))}
                 {item.reply.replies?.length > 0 && (

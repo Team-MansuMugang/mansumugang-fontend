@@ -82,3 +82,7 @@ body {
   opacity: 1;
   visibility: visible;
 }
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}

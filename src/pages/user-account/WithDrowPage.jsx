@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MainHeader from '../../components/MainHeader';
 import SecessionBigButton from '../../components/SecessionBigButton';
 import './WithDrowPage.css';
 import '../../index.css';
 
 const WithDrowPage = () => {
+  const navigate = useNavigate();
+
   const [isTabVisible, setIsTabVisible] = useState(false); // WithDrowTab 표시 상태
 
   const handleButtonClick = () => {
@@ -17,7 +20,7 @@ const WithDrowPage = () => {
 
   return (
     <>
-      <MainHeader title="회원 탈퇴하기" isLeftButtonEnable></MainHeader>
+      <MainHeader title="회원 탈퇴하기" onClickLeft={() => navigate(-1)}></MainHeader>
       <div className="with-drow-page">
         <p>
           회원님께서 서비스에서 탈퇴할 경우,{' '}

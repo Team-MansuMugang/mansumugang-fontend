@@ -12,6 +12,7 @@ import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/ut
 import fetchMyInfo from '../../apis/api/fetchMyInfo';
 import UserInfoItem from '../../components/UserInfoItem';
 import { getLocalDate } from '../../utility/dates';
+import SubLink from '../../components/SubLink';
 
 const AccountPage = () => {
   const navigate = useNavigate();
@@ -108,6 +109,7 @@ const AccountPage = () => {
             {patients.length === 0 ? '구성원을 추가해주세요' : null}
           </BorderContainer>
         </div>
+        <SubLink to="/account/with-drow">회원 탈퇴하기</SubLink>
       </div>
     </>
   );

@@ -355,13 +355,13 @@ const PostPage = () => {
                     onClick={() =>
                       loadMoreReplyList(item.comment.commentId, item.reply.replies.at(-1).replyId)
                     }
-                    disabled={noMoreRepliesCommentIds.some((element) => {
-                      if (
-                        element.commentId === item.comment.commentId &&
-                        element.cursor === item.reply.replies.at(-1).replyId
-                      )
-                        return true;
-                    })}
+                    disabled={
+                      noMoreRepliesCommentIds.some(
+                        (element) =>
+                          element.commentId === item.comment.commentId &&
+                          element.cursor === item.reply.replies.at(-1).replyId,
+                      ) || item.reply.replies.length < 5
+                    }
                   >
                     답글 더보기
                   </button>

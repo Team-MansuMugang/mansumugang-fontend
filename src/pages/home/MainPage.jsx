@@ -318,7 +318,15 @@ const MainPage = () => {
                 }
                 name={voiceMessage.name}
                 time={voiceMessage.uploadedTime}
-                onClick={() => navigate('/voice-message/detail', { state: voiceMessage })}
+                onClick={() =>
+                  navigate('/voice-message/detail', {
+                    state: {
+                      imageApiUrlPrefix: voiceMessages.imageApiUrl,
+                      audioApiUrlPrefix: voiceMessages.audioApiUrlPrefix,
+                      voiceMessage,
+                    },
+                  })
+                }
               />
             ))}
             {voiceMessages.length === 0 && <p>아직 받으신 음성 메시지가 없습니다</p>}

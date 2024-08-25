@@ -45,11 +45,13 @@ import CommunityTag from '../../components/CommunityTag';
 import PostPictureUpload from '../../components/PostPictureUpload';
 import PostLargeItem from '../../components/PostLargeItem';
 import SecessionBigButton from '../../components/SecessionBigButton';
+import WithDrowTab from '../../components/WithDrowTab';
 
 const TestPage = () => {
   return (
     <>
       <FloatingActionButton />
+      <WithDrowTab></WithDrowTab>
       <CategoryHeader rightText="작성" title="카테고리"></CategoryHeader>
       <AddedSearchItem search={'치매'}></AddedSearchItem>
       <AddedSearchItem search={'당뇨'}></AddedSearchItem>

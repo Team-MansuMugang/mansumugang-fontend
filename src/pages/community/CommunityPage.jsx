@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CommunityPage.css';
 import '../../index.css';
@@ -15,8 +15,9 @@ const CommunityPage = () => {
   const navigate = useNavigate();
   const [postSummary, setPostSummary] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [currentPage, setCurrentPage] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState();
+  const observerRef = useRef(null);
 
   useEffect(() => {
     if (postSummary.length === 0) loadFirstPostSummary();
@@ -27,14 +28,24 @@ const CommunityPage = () => {
   }, [selectedCategory]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        loadMorePosts();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMorePosts();
+        }
+      },
+      { threshold: 1.0 }, // 모든 요소가 뷰포트에 들어왔을 때 감지
+    );
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observer.unobserve(observerRef.current);
       }
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
   }, [currentPage, selectedCategory]);
 
   const loadFirstPostSummary = async (selectedCategory = '') => {
@@ -42,7 +53,7 @@ const CommunityPage = () => {
     console.log(fetchedPostSummary);
     setPostSummary(fetchedPostSummary.posts);
     setCurrentPage(1);
-    setTotalPage(fetchedPostSummary.totalPage);
+    setTotalPage(fetchedPostSummary.metaData.totalPage);
   };
 
   const loadMorePosts = async () => {
@@ -103,6 +114,7 @@ const CommunityPage = () => {
             }}
           />
         ))}
+        <div ref={observerRef} style={{ height: '1px' }}></div>
       </div>
       <NavBar activeTab="커뮤니티" />
     </div>

@@ -106,16 +106,18 @@ const VoicePlayerBar = ({ profileImage, name, uploadedTime, audioSrc }) => {
               {isPlaying && ' '}
               <span className="current-time">{formatTime(currentTime)}</span>
             </div>
-            <button
-              className="play-pause-btn"
-              onClick={handlePlayPauseToggle}
-              aria-label={isPaused ? 'Play' : 'Pause'}
-            >
-              {isPaused ? <PlayIcon /> : <PauseIcon />}
-            </button>
-            <button className="stop-btn" onClick={handleStopAudio} aria-label="Stop">
-              <StopIcon />
-            </button>
+            <div className="play-pause-btn-container">
+              <button
+                className="play-pause-btn"
+                onClick={handlePlayPauseToggle}
+                aria-label={isPaused ? 'Play' : 'Pause'}
+              >
+                {isPaused ? <PlayIcon /> : <PauseIcon />}
+              </button>
+              <button className="stop-btn" onClick={handleStopAudio} aria-label="Stop">
+                <StopIcon />
+              </button>
+            </div>
           </>
         )}
       </div>

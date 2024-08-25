@@ -29,6 +29,7 @@ import CommunityPage from './pages/community/CommunityPage';
 import SearchResult from './pages/community/SearchResult';
 import PostPage from './pages/community/PostPage';
 import NewPostPage from './pages/community/NewPostPage';
+import WithDrowPage from './pages/user-account/WithDrowPage';
 
 const router = createBrowserRouter([
   { path: '/', element: <SignInPage /> },
@@ -73,6 +74,7 @@ const router = createBrowserRouter([
       { path: 'edit-birthday', element: <ChangeBirthday /> },
       { path: 'edit-email', element: <ChangeEmail /> },
       { path: 'edit-password', element: <PasswordChange /> },
+      { path: 'with-drow', element: <WithDrowPage /> },
       // { path: 'add-member', element: <AddMember /> },
       // { path: 'edit-member', element: <MemberEdit /> },
     ],

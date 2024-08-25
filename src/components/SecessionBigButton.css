@@ -11,6 +11,11 @@
   box-sizing: border-box;
 }
 
+.secession-big-button.white-black {
+  background-color: var(--color-neutral-100);
+  color: var(--color-neutral-0);
+}
+
 .secession-big-button:disabled {
   background-color: var(--color-neutral-100);
   color: var(--color-neutral-0);

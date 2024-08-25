@@ -1,9 +1,11 @@
 import './SecessionBigButton.css';
 import '../index.css';
 
-const SecessionBigButton = ({ children, disabled = false, onClick }) => {
+const SecessionBigButton = ({ children, onClick, variant = 'default' }) => {
+  const buttonClass = `secession-big-button ${variant === 'white-black' ? 'white-black' : ''}`;
+
   return (
-    <button className="secession-big-button" disabled={disabled} onClick={onClick}>
+    <button className={buttonClass} onClick={onClick}>
       {children}
     </button>
   );

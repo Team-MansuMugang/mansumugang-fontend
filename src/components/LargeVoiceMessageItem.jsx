@@ -10,7 +10,7 @@ const LargeVoiceMessageItem = ({ profileImage, name, dateTime, onClick }) => {
   return (
     <div className="large-voice-message-item" onClick={onClick}>
       <div className="item-info-container">
-        {profileImage !== null ? (
+        {profileImage ? (
           <img className="profile-image" src={profileImage} />
         ) : (
           <div className="profile-image-wrapper">

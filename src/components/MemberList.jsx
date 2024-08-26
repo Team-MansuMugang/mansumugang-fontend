@@ -8,7 +8,7 @@ const MemberList = ({ profileImage, name, showCancelButton, onCancel }) => {
     <div className="member-list-item">
       {/* <img src={profileImage} alt={`${name} profile`} /> */}
       <div className="item-info-container">
-        {profileImage !== null ? (
+        {profileImage ? (
           <img className="profile-image" src={profileImage} />
         ) : (
           <div className="profile-image-wrapper">

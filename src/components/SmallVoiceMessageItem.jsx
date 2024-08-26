@@ -6,7 +6,7 @@ import AccountCircleIcon from '../assets/svg/account-circle.svg?react';
 const SmallVoiceMessageItem = ({ profileImage, name, time, onClick }) => {
   return (
     <div className="small-voice-message-item" onClick={onClick}>
-      {profileImage !== null ? (
+      {profileImage ? (
         <img className="profile-image" src={profileImage} />
       ) : (
         <div className="profile-image-wrapper">

@@ -142,7 +142,7 @@ const AccountPage = () => {
               patients.patients.map((patient) => (
                 <MemberList
                   profileImage={
-                    patient.patientProfileImageName !== null
+                    patient.patientProfileImageName
                       ? `${patients.imageApiUrl}${patient.patientProfileImageName}`
                       : null
                   }

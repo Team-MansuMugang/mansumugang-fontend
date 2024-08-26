@@ -218,11 +218,11 @@ const TestPage = () => {
         name={'김정숙'}
         dateTime={'2024-08-04T13:49:27.459797'}
       ></LargeVoiceMessageItem>
-      <VoicePlayerBar
+      {/* <VoicePlayerBar
         profileImage={'https://picsum.photos/200/300'}
         name={'유호진'}
         dateTime={'2024-08-04T13:49:27.459797'}
-      ></VoicePlayerBar>
+      ></VoicePlayerBar> */}
       <FilledDualInput />
       <FilledTextArea />
       <FilledDualInfo

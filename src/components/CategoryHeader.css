@@ -21,10 +21,14 @@
   cursor: pointer;
   font-size: var(--text-size-button);
   transition: opacity 0.3s ease;
+  color: var(--color-primary);
 }
 
 .category-header .right-button {
   justify-self: end;
+}
+.category-header .right-button.red {
+  color: var(--color-semantic-important);
 }
 
 .category-header .left-button {
@@ -33,7 +37,6 @@
 
 .category-header .button > span {
   margin: 0 9px;
-  color: var(--color-primary);
 }
 
 .category-header .button > svg {

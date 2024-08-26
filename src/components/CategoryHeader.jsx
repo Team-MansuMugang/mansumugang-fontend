@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './CategoryHeader.css';
+import '../index.css';
 import ArrowDown from '../assets/svg/keyboard-arrow-down.svg?react';
 import ChevronLeft from '../assets/svg/chevron-left.svg?react';
 import postCategory from '../const/postCategory';
 
 const CategoryHeader = ({
   rightText = '작성',
+  rightTextColor = 'default',
   onClickLeft,
   onClickRight,
   onSelected,
@@ -41,7 +43,7 @@ const CategoryHeader = ({
           <ArrowDown />
         </div>
         {!isDropdownOpen && (
-          <button className="button right-button" onClick={onClickRight}>
+          <button className={`button right-button ${rightTextColor}`} onClick={onClickRight}>
             <span>{rightText}</span>
           </button>
         )}

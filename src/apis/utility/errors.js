@@ -245,3 +245,24 @@ export class ImageSaveError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class S3_DELETE_OBJECT_ERROR extends Error {
+  constructor() {
+    super('S3 객체 삭제에 실패했습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class ImageDeleteError extends Error {
+  constructor() {
+    super('이미지 삭제에 실패했습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NotTheAuthorOfThePost extends Error {
+  constructor() {
+    super('게시글의 작성자가 아닙니다.');
+    this.name = this.constructor.name;
+  }
+}

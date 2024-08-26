@@ -8,6 +8,7 @@ import postCategory from '../../const/postCategory';
 import submitPost from '../../apis/api/submitPost'; // TODO: 수정하기
 import fetchPostDetails from '../../apis/api/fetchPostDetails';
 import renewRefreshToken from '../../apis/api/renewRefreshToken';
+import deletePost from '../../apis/api/deletePost';
 import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/utility/errors';
 
 const EditPostPage = () => {
@@ -17,6 +18,7 @@ const EditPostPage = () => {
   const [content, setContent] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(undefined);
   const [images, setImages] = useState([]);
+  const [isModified, setIsModified] = useState(false);
 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
@@ -115,6 +117,12 @@ const EditPostPage = () => {
     }
   };
 
+  const deletePostHandler = async () => {
+    await deletePost(params.id);
+    navigate('/home/community');
+    console.log('삭제');
+  };
+
   const handleImagesChange = (newImages) => {
     setImages(newImages);
     console.log(newImages);
@@ -123,10 +131,26 @@ const EditPostPage = () => {
   return (
     <>
       <CategoryHeader
-        rightText="수정"
+        rightTextColor={isModified ? '' : 'red'}
+        rightText={isModified ? '수정' : '삭제'}
         onClickLeft={() => navigate(-1)}
-        onClickRight={() => console.log(title, content, selectedCategory, images)}
+        onClickRight={() => {
+          if (isModified) {
+            console.log(
+              title,
+              content,
+              Object.keys(postCategory).find((key) => postCategory[key] === selectedCategory),
+              images,
+            );
+
+            editPostHandler();
+          } else deletePostHandler();
+        }}
         initSelected={postCategory[selectedCategory]}
+        onSelected={(category) => {
+          setSelectedCategory(category);
+          setIsModified(true);
+        }}
       />
       <div className="edit-post-page">
         <textarea
@@ -141,6 +165,7 @@ const EditPostPage = () => {
               e.preventDefault(); // 줄바꿈 막음
             }
           }}
+          onInput={() => setIsModified(true)}
         />
         <textarea
           placeholder="내용을 입력하세요"
@@ -148,6 +173,7 @@ const EditPostPage = () => {
           onChange={handleContentChange}
           className="content-textarea"
           ref={contentRef}
+          onInput={() => setIsModified(true)}
         />
 
         <PostPictureUpload onImagesChange={handleImagesChange} />

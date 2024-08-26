@@ -279,7 +279,8 @@ const PostPage = () => {
         rightText={whoAmI.nickname === postContents.nickname ? '수정' : ''}
         onClickLeft={() => navigate(-1)}
         onClickRight={() => {
-          if (whoAmI.nickname === postContents) console.log('수정하긔');
+          if (whoAmI.nickname === postContents.nickname)
+            navigate(`/community/edit-post/${params.id}`);
         }}
       />
       <div className="post-page">

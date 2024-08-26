@@ -14,9 +14,15 @@ import {
   validBirthYear,
   validBirthMonth,
   validBirthDay,
+  validPhoneNumber,
   validateEmail,
 } from '../utility/accountValidation';
-import { formatBirthYear, formatBirthMonth, formatBirthDay } from '../utility/inputFormatter';
+import {
+  formatBirthYear,
+  formatBirthMonth,
+  formatBirthDay,
+  formatPhoneNumber,
+} from '../utility/inputFormatter';
 import checkUsernameUnique from '../../apis/api/checkUsernameUnique';
 import checkNicknameUnique from '../../apis/api/checkNicknameUnique';
 import submitProtectorSignup from '../../apis/api/submitProtectorSignup';
@@ -46,6 +52,7 @@ const GuardianSignUpPage = () => {
     month: { value: '', status: 'default' },
     day: { value: '', status: 'default' },
   });
+  const [phoneNumber, setPhoneNumber] = useState({ value: '', status: 'default', description: '' });
   const [email, setEmail] = useState({ value: '', status: 'default', description: '' });
   const [nickname, setNickname] = useState({ value: '', status: 'default', description: '' });
   const [isAllSuccess, setIsAllSuccess] = useState(false);
@@ -70,6 +77,7 @@ const GuardianSignUpPage = () => {
       birth.month.status === 'success' &&
       birth.day.status === 'success' &&
       email.status === 'success' &&
+      phoneNumber.status === 'success' &&
       nickname.status === 'success'
     ) {
       setIsAllSuccess(true);
@@ -85,6 +93,7 @@ const GuardianSignUpPage = () => {
     birth.month.status,
     birth.day.status,
     email.status,
+    phoneNumber.status,
     nickname.status,
   ]);
 
@@ -244,6 +253,28 @@ const GuardianSignUpPage = () => {
     );
   };
 
+  const handlePhoneNumberChange = (event) => {
+    const { status, description } = validPhoneNumber(event.target.value);
+
+    setPhoneNumber((currentPhoneNumber) =>
+      produce(currentPhoneNumber, (draft) => {
+        draft.value = event.target.value;
+        draft.status = status;
+        draft.description = description;
+      }),
+    );
+  };
+
+  const handlePhoneNumberInput = (event) => {
+    event.target.value = formatPhoneNumber(event.target.value);
+
+    setPhoneNumber((currentPhoneNumber) =>
+      produce(currentPhoneNumber, (draft) => {
+        draft.value = event.target.value;
+      }),
+    );
+  };
+
   const handleEmailChange = (event) => {
     const { status, description } = validateEmail(event.target.value);
 
@@ -337,6 +368,7 @@ const GuardianSignUpPage = () => {
         name: name.value,
         birthdate: `${birth.year.value}-${birth.month.value.toString().padStart(2, '0')}-${birth.day.value.toString().padStart(2, '0')}`,
         email: email.value,
+        telephone: phoneNumber.value,
         nickname: nickname.value,
       });
 
@@ -420,6 +452,14 @@ const GuardianSignUpPage = () => {
           }
           if (description.field === 'email') {
             setEmail((currentId) =>
+              produce(currentId, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
+          if (description.field === 'telephone') {
+            setPhoneNumber((currentId) =>
               produce(currentId, (draft) => {
                 draft.status = 'warning';
                 draft.description = description.message;
@@ -515,6 +555,20 @@ const GuardianSignUpPage = () => {
             value={birth.day.value}
             onChange={handleBirthDayChange}
             onInput={handleBirthDayInput}
+          />
+        </InputWrapper>
+
+        <InputWrapper
+          description="전화번호"
+          status={phoneNumber.status}
+          statusDescription={phoneNumber.description}
+        >
+          <Input
+            placeholder="010-1234-5678"
+            type="string"
+            onChange={handlePhoneNumberChange}
+            onInput={handlePhoneNumberInput}
+            status={phoneNumber.status}
           />
         </InputWrapper>
 

@@ -28,6 +28,7 @@ const submitProtectorSignup = async (params) => {
     'name',
     'birthdate',
     'email',
+    'telephone',
     'nickname',
   ]);
 

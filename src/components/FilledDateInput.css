@@ -1,0 +1,47 @@
+.filled-date-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  height: 45px;
+  background-color: var(--color-neutral-95);
+  border-radius: var(--round-size-medium);
+  color: var(--color-neutral-45);
+  font-size: var(--text-size-body-medium);
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.filled-date-input input {
+  background-color: unset;
+  border: none;
+  outline: none;
+  width: 20px;
+  height: 100%;
+  color: var(--color-neutral-45);
+  font-size: var(--text-size-body-medium);
+  text-align: right;
+}
+
+.filled-date-input input::placeholder {
+  color: var(--color-neutral-80);
+}
+
+.filled-date-input span {
+  width: 20px;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.filled-date-input.years input {
+  width: 40px;
+}
+.filled-date-input.years span {
+  width: 25px;
+}

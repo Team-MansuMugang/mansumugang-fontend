@@ -1,0 +1,7 @@
+.post-image img {
+  width: 151px;
+  height: 151px;
+  border: none;
+  border-radius: var(--round-size-small);
+  margin-right: 5px;
+}

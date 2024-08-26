@@ -1,0 +1,11 @@
+.cancel-button {
+  font-size: var(--text-size-button);
+  height: 32px;
+  width: 68px;
+  border-radius: var(--round-size-medium);
+  background-color: var(--color-semantic-important);
+  color: var(--color-neutral-100);
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}

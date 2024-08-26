@@ -1,0 +1,33 @@
+.schedule-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.schedule-item svg {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: var(--color-neutral-100);
+}
+.schedule-item svg.status-checked {
+  color: var(--color-semantic-success);
+}
+.schedule-item svg.status-unchecked {
+  color: var(--color-neutral-75);
+}
+
+.schedule-item .schedule-title {
+  font-size: var(--text-size-body-medium);
+  white-space: nowrap;
+}
+
+.schedule-item .schedule-data {
+  font-size: var(--text-size-detail);
+  color: var(--color-neutral-45);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

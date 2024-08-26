@@ -1,0 +1,51 @@
+.main-header {
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  place-items: center;
+  height: 52px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--color-neutral-100);
+  z-index: 998;
+}
+
+.main-header .button {
+  display: flex;
+  padding: 0 18px;
+  color: var(--color-neutral-0);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--text-size-button);
+}
+.main-header .right-button {
+  justify-self: end;
+}
+
+.main-header .right-button > .red-color {
+  color: red;
+}
+
+.main-header .right-button > .black-color {
+  color: black;
+}
+
+.main-header .left-button {
+  justify-self: start;
+}
+.main-header .button > span {
+  margin: 0 9px;
+  color: var(--color-primary);
+}
+.main-header .button > svg {
+  font-size: 28px;
+  color: var(--color-neutral-0);
+}
+
+.main-header h1 {
+  font-size: var(--text-size-heading-small);
+  color: var(--color--neutral-0);
+  font-weight: bold;
+}

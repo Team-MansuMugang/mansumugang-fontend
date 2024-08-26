@@ -1,0 +1,29 @@
+.filled-meridiem-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  height: 45px;
+  background-color: var(--color-neutral-95);
+  border-radius: var(--round-size-medium);
+  border: none;
+  color: var(--color-neutral-45);
+  font-size: var(--text-size-body-medium);
+  padding: 0 12px;
+  box-sizing: border-box;
+  cursor: pointer;
+  user-select: none;
+}
+
+.filled-meridiem-toggle .toggle-icons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.filled-meridiem-toggle .toggle-icons svg:first-child {
+  transform: rotate(90deg);
+}
+.filled-meridiem-toggle .toggle-icons svg:last-child {
+  transform: rotate(-90deg);
+}

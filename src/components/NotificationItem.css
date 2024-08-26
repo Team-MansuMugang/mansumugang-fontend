@@ -1,0 +1,47 @@
+.notification-item {
+  display: flex;
+  align-items: start;
+  gap: 15px;
+  margin: 14px 20px;
+  background-color: var(--color-neutral-100);
+}
+
+.notification-item .icon-wrap {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-top: 4.5px;
+  background-color: var(--color-secondary-green-1);
+}
+
+.notification-item .icon-wrap svg {
+  width: 30px;
+  height: 30px;
+  color: var(--color-secondary-green-2);
+}
+
+.notification-item .notification-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.notification-item .notification-content .notification-title {
+  font-weight: bold;
+  font-size: var(--text-size-body-medium);
+  color: var(--color-neutral-0);
+}
+
+.notification-item .notification-content .notification-body {
+  font-size: var(--text-size-body-medium);
+  color: var(--color-neutral-0);
+}
+
+.notification-item .notification-content .notification-time {
+  font-size: var(--text-size-detail);
+  color: var(--color-neutral-45);
+}

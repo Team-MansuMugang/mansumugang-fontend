@@ -6,6 +6,24 @@
   cursor: default;
 }
 
+.post-large-item .icon-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--color-secondary-green-1);
+}
+
+.post-large-item .icon-wrap svg {
+  width: 80%;
+  height: 80%;
+  object-fit: cover;
+  color: var(--color-secondary-green-2);
+}
+
 .post-large-item img {
   width: 42px;
   height: 42px;

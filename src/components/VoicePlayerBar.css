@@ -3,7 +3,6 @@
   align-items: center;
   justify-content: space-between;
   background-color: var(--color-neutral-100); /* 기본 배경색 */
-  padding: 13px 19px;
   cursor: pointer; /* 마우스 커서 변경 */
   transition: background-color 0s ease; /* 호버 시 배경색 변화 없음 */
 }
@@ -18,9 +17,28 @@
   gap: 19px;
 }
 
+.item-info-container .profile-image-wrapper {
+  cursor: pointer;
+  border-radius: 50%;
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+}
+
+.item-info-container .profile-image-wrapper svg {
+  width: 100%;
+  height: 100%;
+  padding: 15%;
+  border-radius: 50%;
+  color: var(--color-secondary-green-2);
+  background-color: var(--color-secondary-green-1);
+  box-sizing: border-box;
+}
+
 .voice-player-bar img {
-  width: 47px;
-  height: 47px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -48,6 +66,7 @@
 
 .audio-controls {
   display: flex;
+  flex-direction: column;
   align-items: center;
   width: auto;
   gap: 5px; /* Increased gap for better spacing */
@@ -71,6 +90,10 @@
 .play-label {
   font-size: var(--text-size-detail); /* Font size for the label */
   color: var(--color-neutral-45); /* Color for the label */
+}
+
+.play-pause-btn-container {
+  display: flex;
 }
 
 .play-pause-btn,

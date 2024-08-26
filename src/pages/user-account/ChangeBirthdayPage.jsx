@@ -7,9 +7,15 @@ import InputWrapper from '../../components/InputWrapper';
 import MainHeader from '../../components/MainHeader';
 import { formatBirthYear, formatBirthMonth, formatBirthDay } from '../utility/inputFormatter';
 import { validBirthYear, validBirthMonth, validBirthDay } from '../utility/accountValidation';
+import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/utility/errors';
+import updateMyInfo from '../../apis/api/updateMyInfo';
+import fetchMyInfo from '../../apis/api/fetchMyInfo';
+import { toast } from 'react-toastify';
+
 import './ChangeBirthdayPage.css';
 
 const ChangeBirthdayPage = () => {
+  const [originalUserInfo, setOriginalUserInfo] = useState(null);
   const [birth, setBirth] = useState({
     status: 'default',
     description: '',
@@ -31,6 +37,27 @@ const ChangeBirthdayPage = () => {
       setIsAllSuccess(false);
     }
   }, [birth.year.status, birth.month.status, birth.day.status]);
+
+  useEffect(() => {
+    const fetchAndSetMyInfo = async () => {
+      try {
+        const myInfo = await fetchMyInfo();
+        setOriginalUserInfo(myInfo);
+      } catch (error) {
+        if (error instanceof ExpiredAccessTokenError) {
+          try {
+            await renewRefreshToken();
+            fetchAndSetMyInfo();
+          } catch (error) {
+            navigate('/');
+          }
+        } else if (error instanceof NotValidAccessTokenError) navigate('/');
+        else console.error(error);
+      }
+    };
+
+    fetchAndSetMyInfo();
+  }, []);
 
   const handleBirthYearChange = (event) => {
     const { status, description } = validBirthYear(event.target.value);
@@ -101,14 +128,39 @@ const ChangeBirthdayPage = () => {
   };
 
   const handleUpload = async () => {
+    if (originalUserInfo === null) {
+      toast.error('오류가 발생했습니다. 잠시 후 다시 시도해주세요', {
+        position: 'bottom-center',
+      });
+      return;
+    }
+
+    const requestBody = {
+      userId: originalUserInfo.protectorId,
+      name: originalUserInfo.name,
+      birthdate: `${birth.year.value}-${birth.month.value.toString().padStart(2, '0')}-${birth.day.value.toString().padStart(2, '0')}`,
+      telephone: originalUserInfo.telephone,
+      email: originalUserInfo.email,
+      nickname: originalUserInfo.nickname,
+    };
+
     try {
-      // await submitProtectorSignup({
-      //   birthdate: `${birth.year.value}-${birth.month.value.toString().padStart(2, '0')}-${birth.day.value.toString().padStart(2, '0')}`,
-      // });
+      try {
+        await updateMyInfo(requestBody);
+      } catch (error) {
+        if (error instanceof ExpiredAccessTokenError) {
+          try {
+            await renewRefreshToken();
+            fetchAndSetMyInfo();
+          } catch (error) {
+            navigate('/');
+          }
+        } else if (error instanceof NotValidAccessTokenError) navigate('/');
+        else console.error(error);
+      }
 
       try {
-        // toast.info('회원가입이 완료되었습니다. 환영합니다!', { position: 'top-center' });
-        // navigate(-1);
+        navigate(-1);
       } catch (error) {
         toast.error('오류가 발생했습니다. 잠시 후 다시 시도해주세요', {
           position: 'bottom-center',
@@ -116,19 +168,6 @@ const ChangeBirthdayPage = () => {
       }
     } catch (error) {
       toast.warn('입력된 정보들을 확인해주세요', { position: 'top-center' });
-
-      if (error instanceof NotValidRequestError) {
-        error.errorDescriptions.forEach((description) => {
-          if (description.field === 'birthdate') {
-            setBirth((currentId) =>
-              produce(currentId, (draft) => {
-                draft.status = 'warning';
-                draft.description = description.message;
-              }),
-            );
-          }
-        });
-      }
     }
   };
 

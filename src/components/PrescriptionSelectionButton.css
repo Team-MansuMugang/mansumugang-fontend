@@ -1,0 +1,9 @@
+.prescription-selection-button {
+  border: 0;
+  background-color: var(--color-primary);
+  color: var(--color-neutral-100);
+  font-size: var(--text-size-body-small);
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+}

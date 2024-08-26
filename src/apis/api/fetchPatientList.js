@@ -26,7 +26,7 @@ const fetchPatientList = async () => {
     throw new HttpResponseError(response.status, result.message);
   }
 
-  return result.patients;
+  return result;
 };
 
 export default fetchPatientList;

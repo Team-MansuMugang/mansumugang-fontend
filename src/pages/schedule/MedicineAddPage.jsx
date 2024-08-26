@@ -78,15 +78,16 @@ const MedicineAddPage = () => {
     }
 
     const { year, month, day } = inputMedicineIntakeStopDay;
-    const isValidDate = (year, month, day) => {
-      const date = new Date(`${year}-${month}-${day}`);
-      return (
-        date.getFullYear() === parseInt(year) &&
-        date.getMonth() + 1 === parseInt(month) &&
-        date.getDate() === parseInt(day)
-      );
-    };
-    if (isNaN(year) || isNaN(month) || isNaN(day) || !isValidDate(year, month, day)) {
+    // const isValidDate = (year, month, day) => {
+    //   const date = new Date(`${year}-${month}-${day}`);
+    //   return (
+    //     date.getFullYear() === parseInt(year) &&
+    //     date.getMonth() + 1 === parseInt(month) &&
+    //     date.getDate() === parseInt(day)
+    //   );
+    // };
+    // if (isNaN(year) || isNaN(month) || isNaN(day) || !isValidDate(year, month, day)) {
+    if (isNaN(year) || isNaN(month) || isNaN(day)) {
       toast.warn('유효하지 않은 날짜 형식입니다.', { position: 'bottom-center' });
       return;
     }

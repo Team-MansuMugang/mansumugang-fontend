@@ -175,3 +175,24 @@ export class NoSuchHospitalError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class S3_DELETE_OBJECT_ERROR extends Error {
+  constructor() {
+    super('S3 파일 삭제를 실패하였습니다');
+    this.name = this.constructor.name;
+  }
+}
+
+export class ImageDeleteError extends Error {
+  constructor() {
+    super('이미지 삭제에 실패하였습니다');
+    this.name = this.constructor.name;
+  }
+}
+
+export class InternalSeverError extends Error {
+  constructor() {
+    super('알 수 없는 오류가 발생하였습니다. 문제가 지속되면 관리자에게 문의하세요.');
+    this.name = this.constructor.name;
+  }
+}

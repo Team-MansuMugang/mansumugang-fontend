@@ -4,19 +4,64 @@ import MainHeader from '../../components/MainHeader';
 import SecessionBigButton from '../../components/SecessionBigButton';
 import './WithDrowPage.css';
 import '../../index.css';
+import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/utility/errors';
+import fetchMyInfo from '../../apis/api/fetchMyInfo';
+import deleteGuardian from '../../apis/api/deleteGuardian';
 
 const WithDrowPage = () => {
+  const [myInfo, setMyInfo] = useState(null);
+  const [isTabVisible, setIsTabVisible] = useState(false);
   const navigate = useNavigate();
 
-  const [isTabVisible, setIsTabVisible] = useState(false); // WithDrowTab 표시 상태
+  const handleUserDelete = async () => {
+    try {
+      await deleteGuardian(myInfo.protectorId);
+      navigate('/');
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          handleUserDelete(); // API 함수 재실행 (재귀함수)
+        } catch (error) {
+          navigate('/'); // 엑세스토큰 재발급 실패했을때
+        }
+      } else if (error instanceof NotValidAccessTokenError) {
+        navigate('/'); // 아예 존재하지 않던 엑세스토큰일때
+      } else {
+        console.error(error);
+      }
+    }
+  };
 
   const handleButtonClick = () => {
-    setIsTabVisible(true); // 버튼 클릭 시 WithDrowTab 표시
+    setIsTabVisible(true);
   };
 
   const handleCancelClick = () => {
-    setIsTabVisible(false); // 취소 버튼 클릭 시 WithDrowTab 숨김
+    setIsTabVisible(false);
   };
+
+  const fetchAndSetMyInfo = async () => {
+    try {
+      const myInfo = await fetchMyInfo();
+      setMyInfo(myInfo);
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          fetchAndSetMyInfo();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) {
+        navigate('/');
+      } else {
+        console.error(error);
+      }
+    }
+  };
+
+  fetchAndSetMyInfo();
 
   return (
     <>
@@ -52,27 +97,21 @@ const WithDrowPage = () => {
 
       {isTabVisible && (
         <div className="overlay">
-          <WithDrowTab onCancel={handleCancelClick} />
+          <div className="with-drow-tab">
+            <h3>정말로 탈퇴하시겠습니까?</h3>
+            <p>
+              보호자와 케어 멤버님의 계정의
+              <br />
+              &nbsp;&nbsp;&nbsp; 정보가 모두 삭제 됩니다
+            </p>
+            <SecessionBigButton onClick={handleUserDelete}>탈퇴하기</SecessionBigButton>
+            <SecessionBigButton onClick={handleCancelClick} variant="white-black">
+              취소
+            </SecessionBigButton>
+          </div>
         </div>
       )}
     </>
-  );
-};
-
-const WithDrowTab = ({ onCancel }) => {
-  return (
-    <div className="with-drow-tab">
-      <h3>정말로 탈퇴하시겠습니까?</h3>
-      <p>
-        보호자와 케어 맴버님의 계정의
-        <br />
-        &nbsp;&nbsp;&nbsp; 정보가 모두 삭제 됩니다
-      </p>
-      <SecessionBigButton onClick={onclick}>탈퇴하기</SecessionBigButton>
-      <SecessionBigButton onClick={onCancel} variant="white-black">
-        취소
-      </SecessionBigButton>
-    </div>
   );
 };
 

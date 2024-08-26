@@ -100,7 +100,7 @@ const VoiceMessagePage = () => {
           ))}
         </div>
 
-        <div className="Large-voice-Message">
+        <div className="large-voice-message">
           {voiceMessages !== null &&
             voiceMessages.records.map((voiceMessage, index) => (
               <LargeVoiceMessageItem

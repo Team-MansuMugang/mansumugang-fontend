@@ -13,9 +13,15 @@ import {
   validBirthYear,
   validBirthMonth,
   validBirthDay,
+  validPhoneNumber,
   validGuardianId,
 } from '../utility/accountValidation';
-import { formatBirthYear, formatBirthMonth, formatBirthDay } from '../utility/inputFormatter';
+import {
+  formatBirthYear,
+  formatBirthMonth,
+  formatBirthDay,
+  formatPhoneNumber,
+} from '../utility/inputFormatter';
 import checkUsernameUnique from '../../apis/api/checkUsernameUnique';
 import checkProtectorUsername from '../../apis/api/checkProtectorUsername';
 import submitPatientSignup from '../../apis/api/submitPatientSignup';
@@ -44,6 +50,7 @@ const PatientSignUpPage = () => {
     month: { value: '', status: 'default' },
     day: { value: '', status: 'default' },
   });
+  const [phoneNumber, setPhoneNumber] = useState({ value: '', status: 'default', description: '' });
   const [guardianId, setGuardianId] = useState({ value: '', status: 'default', description: '' });
   const [isAllSuccess, setIsAllSuccess] = useState(false);
 
@@ -65,6 +72,7 @@ const PatientSignUpPage = () => {
       birth.year.status === 'success' &&
       birth.month.status === 'success' &&
       birth.day.status === 'success' &&
+      phoneNumber.status === 'success' &&
       guardianId.status === 'success'
     ) {
       setIsAllSuccess(true);
@@ -79,6 +87,7 @@ const PatientSignUpPage = () => {
     birth.year.status,
     birth.month.status,
     birth.day.status,
+    phoneNumber.status,
     guardianId.status,
   ]);
 
@@ -228,6 +237,28 @@ const PatientSignUpPage = () => {
     );
   };
 
+  const handlePhoneNumberChange = (event) => {
+    const { status, description } = validPhoneNumber(event.target.value);
+
+    setPhoneNumber((currentPhoneNumber) =>
+      produce(currentPhoneNumber, (draft) => {
+        draft.value = event.target.value;
+        draft.status = status;
+        draft.description = description;
+      }),
+    );
+  };
+
+  const handlePhoneNumberInput = (event) => {
+    event.target.value = formatPhoneNumber(event.target.value);
+
+    setPhoneNumber((currentPhoneNumber) =>
+      produce(currentPhoneNumber, (draft) => {
+        draft.value = event.target.value;
+      }),
+    );
+  };
+
   const handleGuardianIdChange = (event) => {
     const { status, description } = validGuardianId(event.target.value);
 
@@ -320,6 +351,7 @@ const PatientSignUpPage = () => {
         passwordCheck: passwordCheck.value,
         name: name.value,
         birthdate: `${birth.year.value}-${birth.month.value.toString().padStart(2, '0')}-${birth.day.value.toString().padStart(2, '0')}`,
+        telephone: phoneNumber.value,
         protectorUsername: guardianId.value,
       });
 
@@ -406,6 +438,14 @@ const PatientSignUpPage = () => {
               }),
             );
           }
+          if (description.field === 'telephone') {
+            setPhoneNumber((currentId) =>
+              produce(currentId, (draft) => {
+                draft.status = 'warning';
+                draft.description = description.message;
+              }),
+            );
+          }
           if (description.field === 'protectorUsername') {
             setGuardianId((currentGuardianId) =>
               produce(currentGuardianId, (draft) => {
@@ -484,6 +524,20 @@ const PatientSignUpPage = () => {
             value={birth.day.value}
             onChange={handleBirthDayChange}
             onInput={handleBirthDayInput}
+          />
+        </InputWrapper>
+
+        <InputWrapper
+          description="전화번호"
+          status={phoneNumber.status}
+          statusDescription={phoneNumber.description}
+        >
+          <Input
+            placeholder="010-1234-5678"
+            type="string"
+            onChange={handlePhoneNumberChange}
+            onInput={handlePhoneNumberInput}
+            status={phoneNumber.status}
           />
         </InputWrapper>
 

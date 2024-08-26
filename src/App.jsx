@@ -82,7 +82,7 @@ const router = createBrowserRouter([
     path: '/community',
     children: [
       { path: 'search', element: <SearchPage /> },
-      { path: 'search-results', element: <SearchResultPage /> },
+      { path: 'search-results/:search', element: <SearchResultPage /> },
       { path: 'post/:id', element: <PostPage /> },
       { path: 'new-post', element: <NewPostPage /> },
       { path: 'edit-post/:id', element: <EditPostPage /> },

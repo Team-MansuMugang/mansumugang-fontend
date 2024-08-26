@@ -273,3 +273,10 @@ export class NotTheAuthorOfThePost extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class InvalidQueryError extends Error {
+  constructor() {
+    super('유효하지 않은 쿼리입니다.');
+    this.name = this.constructor.name;
+  }
+}

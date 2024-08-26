@@ -1,71 +1,113 @@
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import './SearchResultPage.css';
 import MainHeader from '../../components/MainHeader';
-import TagButton from '../../components/TagButton';
 import NavBar from '../../components/NavBar';
 import CommunityLargeItem from '../../components/CommunityLargeItem';
+import fetchSearchedPostList from '../../apis/api/fetchSearchedPostList';
+import { timeAgoByStr } from '../../utility/dates';
+import postCategory from '../../const/postCategory';
 
 const SearchResultPage = () => {
+  const navigate = useNavigate();
+  const { search } = useParams();
+  const [postSummary, setPostSummary] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState();
+  const observerRef = useRef(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          console.log('Load more posts');
+        }
+      },
+      { threshold: 1.0 }, // 모든 요소가 뷰포트에 들어왔을 때 감지
+    );
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observer.unobserve(observerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (postSummary.length === 0) loadFirstPostSummary();
+    console.log(search);
+  }, []);
+
+  const loadFirstPostSummary = async () => {
+    try {
+      const fetchedPostSummary = await fetchSearchedPostList(search, 1);
+      console.log(fetchedPostSummary);
+      setPostSummary(fetchedPostSummary.posts);
+      setCurrentPage(1);
+      setTotalPage(fetchedPostSummary.metaData.totalPage);
+      console.log(fetchedPostSummary.metaData.totalPage);
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          loadFirstPostSummary();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
+  };
+
+  const loadMorePosts = async () => {
+    if (currentPage >= totalPage) return;
+
+    try {
+      const fetchedPostSummary = await fetchSearchedPostList(search, currentPage + 1);
+      console.log(fetchedPostSummary);
+      setPostSummary((prevPosts) => [...prevPosts, ...fetchedPostSummary.posts]);
+      setCurrentPage(currentPage + 1);
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          loadMorePosts();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
+  };
+
   return (
     <>
       <div className="search-result-page">
-        <MainHeader title="치매 예방법 검색 결과" isLeftButtonEnable={true} />
-        <div className="sub-header">
-          <div className="community-tags">
-            <TagButton disabled={true}>전체</TagButton>
-            <TagButton>인기글</TagButton>
-            <TagButton>자유</TagButton>
-            <TagButton>당뇨</TagButton>
-            <TagButton>고혈압</TagButton>
-            <TagButton>저혈압</TagButton>
-            <TagButton>치매</TagButton>
-            <TagButton>암</TagButton>
-            <TagButton>기타 질병</TagButton>
-            <TagButton>홍보</TagButton>
-          </div>
-        </div>
+        <MainHeader
+          title="치매 예방법 검색 결과"
+          onClickLeft={() => {
+            navigate('/home/community');
+          }}
+          isLeftButtonEnable={true}
+        />
         <div className="community-items">
-          <CommunityLargeItem
-            title={'치매 어떻게 케어하시나요?'}
-            summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
-            time={'25분'}
-            category={'기타 질병'}
-            count={'7'}
-          ></CommunityLargeItem>
-          <CommunityLargeItem
-            title={'치매 어떻게 케어하시나요?'}
-            summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
-            time={'25분'}
-            category={'기타 질병'}
-            count={'7'}
-          ></CommunityLargeItem>
-          <CommunityLargeItem
-            title={'치매 어떻게 케어하시나요?'}
-            summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
-            time={'25분'}
-            category={'기타 질병'}
-            count={'7'}
-          ></CommunityLargeItem>
-          <CommunityLargeItem
-            title={'치매 어떻게 케어하시나요?'}
-            summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
-            time={'25분'}
-            category={'기타 질병'}
-            count={'7'}
-          ></CommunityLargeItem>
-          <CommunityLargeItem
-            title={'치매 어떻게 케어하시나요?'}
-            summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
-            time={'25분'}
-            category={'기타 질병'}
-            count={'7'}
-          ></CommunityLargeItem>
-          <CommunityLargeItem
-            title={'치매 어떻게 케어하시나요?'}
-            summary={'다들 치매 어떻게 관리하시는지 정보좀 부탁드려요!!'}
-            time={'25분'}
-            category={'기타 질병'}
-            count={'7'}
-          ></CommunityLargeItem>
+          {postSummary.map((post) => (
+            <CommunityLargeItem
+              key={post.id}
+              title={post.title}
+              summary={post.content}
+              category={postCategory[post.categoryCode]}
+              author={post.nickname}
+              time={`${timeAgoByStr(post.createdAt)}`}
+              onClick={() => {
+                navigate(`/community/post/${post.id}`);
+              }}
+            />
+          ))}
+          <div ref={observerRef} style={{ height: '1px' }}></div>
         </div>
         <NavBar activeTab="커뮤니티" />
       </div>

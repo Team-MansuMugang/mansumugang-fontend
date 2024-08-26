@@ -4,7 +4,7 @@
   background-color: var(--color-neutral-100);
   cursor: default;
   position: relative;
-  margin-left: 20px;
+  margin-left: 15px;
 }
 
 .post-re-comment-item .item-re-comment-container {
@@ -37,7 +37,6 @@
   flex-direction: column;
   gap: 4px;
   flex: 1;
-  max-width: calc(100% - 120px);
 }
 
 .post-re-comment-item .item-name,
@@ -49,23 +48,33 @@
   text-overflow: ellipsis;
 }
 
+.post-re-comment-item .item-name {
+  font-weight: bold;
+}
+
 .post-re-comment-item .item-data {
   word-break: break-word;
 }
 
-.post-re-comment-item button {
-  position: absolute;
+.post-re-comment-item .bottom-container {
+  display: flex;
+  gap: 10px;
+  height: 19.5px;
+}
+
+.post-re-comment-item .bottom-container button {
   font-size: var(--text-size-detail);
-  bottom: 10px;
-  right: 10px;
-  padding: 0;
+  padding: 5px;
+  margin: calc(-5px + 5px) -5px -5px -5px;
   border: none;
+  border-radius: var(--round-size-medium);
   background: none;
   cursor: pointer;
+  text-align: start;
+  width: fit-content;
   color: var(--color-neutral-60);
 }
 
-.post-re-comment-item .arrow-icon {
-  margin-top: 3px;
-  color: var(--color-neutral-60);
+.post-re-comment-item .bottom-container span {
+  color: var(--color-neutral-50);
 }

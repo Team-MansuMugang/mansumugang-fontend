@@ -1,44 +1,91 @@
 .post-page {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 0 15px;
+  padding: 0 18px;
+  margin-bottom: calc(56px + 40px);
 }
-.post-page p {
-  margin: 0;
-  padding: 20px 0 10px 0;
-}
-.post-page h3 {
-  padding-top: 15px;
+.post-page h2 {
   margin: 0;
   font-size: var(--text-size-heading-small);
   font-weight: bold;
+  margin-top: 15px;
 }
 .post-page .post-tag {
   display: flex;
   gap: 4px;
-  margin-bottom: 10px;
+  margin-top: 8px;
+  margin-bottom: 20px;
 }
 
-.post-page .post-comment-items {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.post-page pre {
+  margin: 0;
+  font-size: var(--text-size-body-medium);
+  white-space: pre-wrap;
+  font-family: unset;
+  line-height: 165%;
+  margin-top: 25px;
 }
 
 .post-page .post-images {
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
-  gap: 3px;
-  margin-bottom: 24px;
+  gap: 10px;
+  margin: 0 -18px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
-
-/* WebKit 브라우저에서 스크롤바 숨기기 */
 .post-page .post-images::-webkit-scrollbar {
   display: none;
 }
 
-.post-page .post-images .post-image {
-  flex: 0 0 auto;
+.post-page .post-images > :first-child {
+  margin-left: 18px;
+}
+.post-page .post-images > :last-child {
+  margin-right: 18px;
+}
+
+.post-page .interaction-bar {
+  margin-bottom: 10px;
+}
+
+.post-page .post-comment-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.post-page .post-comment-items .comment-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.post-page .overlay {
+  display: none;
+}
+.post-page .overlay.active {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.post-page .more-reply-button {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  height: 35px;
+  border-radius: var(--round-size-small);
+  background-color: var(--color-secondary-green-1);
+  color: var(--color-secondary-green-2);
+  margin-top: -10px;
+}
+
+.post-page .more-reply-button:disabled {
+  display: none;
 }

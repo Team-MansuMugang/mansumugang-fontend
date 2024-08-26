@@ -23,6 +23,7 @@
   --color-neutral-80: #bcc9c4;
   --color-neutral-75: #a6b4af;
   --color-neutral-60: #94a19c;
+  --color-neutral-50: #78847f;
   --color-neutral-45: #636c69;
   --color-neutral-30: #474c4a;
   --color-neutral-15: #303030;
@@ -80,4 +81,8 @@ body {
 .schedule-page-overlay.show {
   opacity: 1;
   visibility: visible;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
 }

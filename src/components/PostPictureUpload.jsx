@@ -4,32 +4,33 @@ import DeleteImg from '../assets/svg/check-indeterminate-small.svg?react';
 import './PostPictureUpload.css';
 import '../index.css';
 
-function PostPictureUpload() {
+function PostPictureUpload({ onImagesChange }) {
+  // onImagesChange 콜백 추가
   const [images, setImages] = useState([]);
   const [modalImage, setModalImage] = useState(null);
 
   const handleAddImage = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      const fileType = file.type;
+    if (event.target.files && event.target.files.length > 0) {
+      const files = Array.from(event.target.files);
+      const newImages = [...images, ...files];
 
-      if (fileType.startsWith('image/')) {
-        const newImageUrl = URL.createObjectURL(file);
-        setImages([...images, newImageUrl]);
-        event.target.value = '';
-      } else {
-        alert('사진 파일을 넣어주세요!!');
-        event.target.value = '';
-      }
+      setImages(newImages);
+      onImagesChange(newImages); // 이미지 객체 배열을 콜백 함수로 전달
+      event.target.value = ''; // 파일 입력 초기화
+    } else {
+      alert('사진 파일을 넣어주세요!!');
     }
   };
 
   const handleRemoveImage = (index) => {
-    setImages(images.filter((_, i) => i !== index));
+    const newImages = images.filter((_, i) => i !== index);
+    setImages(newImages);
+    onImagesChange(newImages); // 업데이트된 이미지 객체 배열을 콜백 함수로 전달
   };
 
   const openModal = (image) => {
-    setModalImage(image);
+    const imageUrl = URL.createObjectURL(image);
+    setModalImage(imageUrl);
   };
 
   const closeModal = () => {
@@ -45,6 +46,7 @@ function PostPictureUpload() {
             accept="image/*"
             id="image-upload"
             onChange={handleAddImage}
+            multiple // 다중 파일 선택 가능하도록 설정
             style={{ display: 'none' }}
           />
           <label htmlFor="image-upload" className="add-photo-button">
@@ -55,7 +57,7 @@ function PostPictureUpload() {
         {images.map((image, index) => (
           <div key={index} className="image-box">
             <img
-              src={image}
+              src={URL.createObjectURL(image)} // 이미지 객체를 URL로 변환하여 표시
               alt={`Uploaded ${index}`}
               className="image"
               onClick={() => openModal(image)}

@@ -1,11 +1,11 @@
 import './PostImage.css';
 import '../index.css';
 
-const PostImage = ({ postImage }) => {
+const PostImage = ({ src }) => {
   return (
     <div className="post-image-container">
       <div className="post-image">
-        <img src={postImage} alt="Post" />
+        <img src={src} alt="Post" />
       </div>
     </div>
   );

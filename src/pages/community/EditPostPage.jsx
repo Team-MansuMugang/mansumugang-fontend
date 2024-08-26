@@ -1,19 +1,24 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import CategoryHeader from '../../components/CategoryHeader';
-import './NewPostPage.css';
+import './EditPostPage.css';
 import PostPictureUpload from '../../components/PostPictureUpload';
 import postCategory from '../../const/postCategory';
-import submitPost from '../../apis/api/submitPost';
+import submitPost from '../../apis/api/submitPost'; // TODO: 수정하기
+import fetchPostDetails from '../../apis/api/fetchPostDetails';
+import renewRefreshToken from '../../apis/api/renewRefreshToken';
+import deletePost from '../../apis/api/deletePost';
 import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/utility/errors';
 
-const NewPostPage = () => {
+const EditPostPage = () => {
   const navigate = useNavigate();
+  const params = useParams();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(undefined);
   const [images, setImages] = useState([]);
+  const [isModified, setIsModified] = useState(false);
 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
@@ -32,7 +37,31 @@ const NewPostPage = () => {
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
 
-  const submitPostHandler = async () => {
+  useEffect(() => {
+    loadPostDetails();
+  }, []);
+
+  const loadPostDetails = async () => {
+    try {
+      const fetchedPostDetails = await fetchPostDetails(params.id);
+      console.log(fetchedPostDetails.content, fetchedPostDetails.title);
+      setTitle(fetchedPostDetails.title);
+      setContent(fetchedPostDetails.content);
+      setSelectedCategory(fetchedPostDetails.categoryCode);
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          loadPostDetails();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
+  };
+
+  const editPostHandler = async () => {
     console.log('제목:', title);
     console.log('내용:', content);
     console.log(
@@ -61,7 +90,6 @@ const NewPostPage = () => {
       toast.warn('카테고리를 선택하세요');
       return;
     }
-    // toast.warn('병원 이름의 길이는 2에서 20자 사이여야 합니다', { position: 'bottom-center' });
 
     try {
       await submitPost(
@@ -80,13 +108,19 @@ const NewPostPage = () => {
       if (error instanceof ExpiredAccessTokenError) {
         try {
           await renewRefreshToken();
-          submitPostHandler();
+          editPostHandler();
         } catch (error) {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
       else console.error(error);
     }
+  };
+
+  const deletePostHandler = async () => {
+    await deletePost(params.id);
+    navigate('/home/community');
+    console.log('삭제');
   };
 
   const handleImagesChange = (newImages) => {
@@ -97,12 +131,28 @@ const NewPostPage = () => {
   return (
     <>
       <CategoryHeader
-        rightText="작성"
+        rightTextColor={isModified ? '' : 'red'}
+        rightText={isModified ? '수정' : '삭제'}
         onClickLeft={() => navigate(-1)}
-        onSelected={(category) => setSelectedCategory(category)}
-        onClickRight={submitPostHandler}
+        onClickRight={() => {
+          if (isModified) {
+            console.log(
+              title,
+              content,
+              Object.keys(postCategory).find((key) => postCategory[key] === selectedCategory),
+              images,
+            );
+
+            editPostHandler();
+          } else deletePostHandler();
+        }}
+        initSelected={postCategory[selectedCategory]}
+        onSelected={(category) => {
+          setSelectedCategory(category);
+          setIsModified(true);
+        }}
       />
-      <div className="new-post-page">
+      <div className="edit-post-page">
         <textarea
           placeholder="제목을 입력하세요"
           value={title}
@@ -115,6 +165,7 @@ const NewPostPage = () => {
               e.preventDefault(); // 줄바꿈 막음
             }
           }}
+          onInput={() => setIsModified(true)}
         />
         <textarea
           placeholder="내용을 입력하세요"
@@ -122,6 +173,7 @@ const NewPostPage = () => {
           onChange={handleContentChange}
           className="content-textarea"
           ref={contentRef}
+          onInput={() => setIsModified(true)}
         />
 
         <PostPictureUpload onImagesChange={handleImagesChange} />
@@ -130,4 +182,4 @@ const NewPostPage = () => {
   );
 };
 
-export default NewPostPage;
+export default EditPostPage;

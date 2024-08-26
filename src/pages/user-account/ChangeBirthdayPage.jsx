@@ -7,13 +7,14 @@ import InputWrapper from '../../components/InputWrapper';
 import MainHeader from '../../components/MainHeader';
 import { formatBirthYear, formatBirthMonth, formatBirthDay } from '../utility/inputFormatter';
 import { validBirthYear, validBirthMonth, validBirthDay } from '../utility/accountValidation';
-import './ChangeBirthday.css';
 import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/utility/errors';
 import updateMyInfo from '../../apis/api/updateMyInfo';
 import fetchMyInfo from '../../apis/api/fetchMyInfo';
 import { toast } from 'react-toastify';
 
-const ChangeBirthday = () => {
+import './ChangeBirthdayPage.css';
+
+const ChangeBirthdayPage = () => {
   const [originalUserInfo, setOriginalUserInfo] = useState(null);
   const [birth, setBirth] = useState({
     status: 'default',
@@ -211,4 +212,4 @@ const ChangeBirthday = () => {
   );
 };
 
-export default ChangeBirthday;
+export default ChangeBirthdayPage;

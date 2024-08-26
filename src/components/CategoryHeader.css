@@ -8,7 +8,6 @@
   width: 100%;
   box-sizing: border-box;
   background-color: var(--color-neutral-100);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   transition: opacity 0.3s ease;
 }
@@ -22,10 +21,14 @@
   cursor: pointer;
   font-size: var(--text-size-button);
   transition: opacity 0.3s ease;
+  color: var(--color-primary);
 }
 
 .category-header .right-button {
   justify-self: end;
+}
+.category-header .right-button.red {
+  color: var(--color-semantic-important);
 }
 
 .category-header .left-button {
@@ -34,7 +37,6 @@
 
 .category-header .button > span {
   margin: 0 9px;
-  color: var(--color-primary);
 }
 
 .category-header .button > svg {

@@ -6,13 +6,13 @@ import Input from '../../components/Input';
 import InputWrapper from '../../components/InputWrapper';
 import MainHeader from '../../components/MainHeader';
 import { validateEmail } from '../utility/accountValidation';
-import './ChangeEmail.css';
+import './ChangeEmailPage.css';
 import fetchMyInfo from '../../apis/api/fetchMyInfo';
 import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/utility/errors';
 import { toast } from 'react-toastify';
 import updateMyInfo from '../../apis/api/updateMyInfo';
 
-const ChangeEmail = () => {
+const ChangeEmailPage = () => {
   const [originalUserInfo, setOriginalUserInfo] = useState(null);
   const [email, setEmail] = useState({ value: '', status: 'default', description: '' });
   const [isAllSuccess, setIsAllSuccess] = useState(false);
@@ -113,4 +113,4 @@ const ChangeEmail = () => {
   );
 };
 
-export default ChangeEmail;
+export default ChangeEmailPage;

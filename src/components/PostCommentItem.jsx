@@ -7,7 +7,7 @@ const PostCommentItem = ({
   data,
   onReplyClick,
   onEditClick,
-  cnDeleteClick,
+  onDeleteClick,
   isOwner = false,
   isDeleted = false,
 }) => {
@@ -27,7 +27,7 @@ const PostCommentItem = ({
                 <span>·</span>
                 <button onClick={onEditClick}>수정</button>
                 <span>·</span>
-                <button onClick={cnDeleteClick}>삭제</button>
+                <button onClick={onDeleteClick}>삭제</button>
               </>
             )}
           </div>

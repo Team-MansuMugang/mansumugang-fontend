@@ -37,6 +37,7 @@ import {
   ExpiredAccessTokenError,
   UserRecordInfoNotFoundError,
   AccessDeniedError,
+  UserNotFoundError,
 } from '../../apis/utility/errors';
 
 import { initializeApp } from 'firebase/app';
@@ -60,6 +61,8 @@ const MainPage = () => {
   const [latLng, setLatLng] = useState({ lat: 35.86224780000001, lng: 129.195123 });
   const [address, setAddress] = useState('');
   const navigate = useNavigate();
+
+  console.log(voiceMessages);
 
   const loadPatientLatestLocation = async () => {
     try {
@@ -109,7 +112,9 @@ const MainPage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else if (error instanceof AccessDeniedError) setIsPatientNull(true);
+        else if (error instanceof UserNotFoundError) {
+          setIsPatientNull(true);
+        } else if (error instanceof AccessDeniedError) setIsPatientNull(true);
         else console.error(error);
       }
     };
@@ -122,7 +127,7 @@ const MainPage = () => {
         setVoiceMessages(voiceMessages);
       } catch (error) {
         if (error instanceof UserRecordInfoNotFoundError) {
-          setVoiceMessages([]);
+          setVoiceMessages(null);
         } else if (error instanceof ExpiredAccessTokenError) {
           try {
             await renewRefreshToken();
@@ -131,6 +136,7 @@ const MainPage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
+        else if (error instanceof UserNotFoundError) setVoiceMessages(null);
         else console.error(error);
       }
     };
@@ -176,8 +182,10 @@ const MainPage = () => {
   }, []);
 
   useEffect(() => {
-    if (patients.length > 0) handlePatientSelection(0);
-    if (patients[selectedPatient]) loadPatientLatestLocation();
+    if (patients !== null) {
+      if (patients.length > 0) handlePatientSelection(0);
+      if (patients[selectedPatient]) loadPatientLatestLocation();
+    }
   }, [patients]);
 
   const handlePatientSelection = async (patientIndex) => {
@@ -300,15 +308,19 @@ const MainPage = () => {
   const renderPatientContent = () => (
     <div className="patient-content">
       <h1>홈</h1>
-      {voiceMessages !== null && (
-        <>
+
+      <>
+        {voiceMessages !== null && (
           <SubTitle
             title="음성 메세지"
-            showButton={voiceMessages.length !== 0}
+            showButton={voiceMessages.records.length !== 0}
             linkTo="/voice-message"
           />
-          <RowScrollContainer>
-            {voiceMessages.records.map((voiceMessage, index) => (
+        )}
+
+        <RowScrollContainer>
+          {voiceMessages !== null &&
+            voiceMessages.records.map((voiceMessage, index) => (
               <SmallVoiceMessageItem
                 key={index}
                 profileImage={
@@ -329,10 +341,9 @@ const MainPage = () => {
                 }
               />
             ))}
-            {voiceMessages.length === 0 && <p>아직 받으신 음성 메시지가 없습니다</p>}
-          </RowScrollContainer>
-        </>
-      )}
+          {voiceMessages === null && <p>아직 받으신 음성 메시지가 없습니다</p>}
+        </RowScrollContainer>
+      </>
 
       <hr />
 

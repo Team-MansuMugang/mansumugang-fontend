@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import MainHeader from '../../components/MainHeader';
 import NavBar from '../../components/NavBar';
 import NotificationItem from '../../components/NotificationItem';
+import './NotificationPage.css';
 
 const NotificationPage = () => {
   const [notifications, setNotificaitons] = useState([]);
@@ -57,9 +58,9 @@ const NotificationPage = () => {
   }, []);
 
   return (
-    <>
+    <div className="notification-page">
       <NavBar activeTab="알람"></NavBar>
-      <MainHeader isLeftButtonEnable={false} title={'알림'}></MainHeader>
+      <MainHeader isLeftButtonEnable={false} title={'알림'} />
       {notifications.map((notification, index) => (
         <NotificationItem
           key={index}
@@ -68,7 +69,7 @@ const NotificationPage = () => {
           timeAgo={notification.createdAt}
         />
       ))}
-    </>
+    </div>
   );
 };
 

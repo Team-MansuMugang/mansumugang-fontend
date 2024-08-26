@@ -1,0 +1,7 @@
+.notification-page {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0px;
+  box-sizing: border-box;
+  margin-bottom: 70px;
+}

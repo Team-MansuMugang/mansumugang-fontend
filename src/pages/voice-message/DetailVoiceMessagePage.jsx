@@ -21,6 +21,8 @@ const DetailVoiceMessagePage = () => {
   const location = useLocation();
   const { imageApiUrlPrefix, audioApiUrlPrefix, voiceMessage } = location.state; // navigate로 전달된 데이터
 
+  console.log(voiceMessage);
+
   const navigate = useNavigate();
 
   return (
@@ -47,7 +49,7 @@ const DetailVoiceMessagePage = () => {
           }
         ></VoicePlayerBar>
         <p className="text-head">음성 메세지 내용</p>
-        <pre className="text-area">추후 출시할 기능입니다.</pre>
+        <pre className="text-area">{voiceMessage.recordContent}</pre>
       </div>
     </>
   );

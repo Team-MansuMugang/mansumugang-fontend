@@ -37,6 +37,7 @@ import {
   ExpiredAccessTokenError,
   UserRecordInfoNotFoundError,
   AccessDeniedError,
+  UserNotFoundError,
 } from '../../apis/utility/errors';
 
 import { initializeApp } from 'firebase/app';
@@ -52,7 +53,7 @@ const MainPage = () => {
   const [patients, setPatients] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState(0);
   const [isPatientNull, setIsPatientNull] = useState(undefined);
-  const [voiceMessages, setVoiceMessages] = useState([]);
+  const [voiceMessages, setVoiceMessages] = useState(null);
   const [medicineSchedules, setMedicineSchedules] = useState([]);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
   const [detailData, setDetailData] = useState({});
@@ -60,6 +61,8 @@ const MainPage = () => {
   const [latLng, setLatLng] = useState({ lat: 35.86224780000001, lng: 129.195123 });
   const [address, setAddress] = useState('');
   const navigate = useNavigate();
+
+  console.log(voiceMessages);
 
   const loadPatientLatestLocation = async () => {
     try {
@@ -97,8 +100,8 @@ const MainPage = () => {
     const fetchAndSetPatientList = async () => {
       try {
         const patientList = await fetchPatientList();
-        setPatients(patientList);
-        if (patientList.length === 0) setIsPatientNull(true);
+        setPatients(patientList.patients);
+        if (patientList.patients.length === 0) setIsPatientNull(true);
         else setIsPatientNull(false);
       } catch (error) {
         if (error instanceof ExpiredAccessTokenError) {
@@ -109,7 +112,9 @@ const MainPage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else if (error instanceof AccessDeniedError) setIsPatientNull(true);
+        else if (error instanceof UserNotFoundError) {
+          setIsPatientNull(true);
+        } else if (error instanceof AccessDeniedError) setIsPatientNull(true);
         else console.error(error);
       }
     };
@@ -117,10 +122,12 @@ const MainPage = () => {
     const loadAllPatientVocieMessages = async () => {
       try {
         const voiceMessages = await fetchAllPatientVocieMessageList();
+        console.log(voiceMessages);
+
         setVoiceMessages(voiceMessages);
       } catch (error) {
         if (error instanceof UserRecordInfoNotFoundError) {
-          setVoiceMessages([]);
+          setVoiceMessages(null);
         } else if (error instanceof ExpiredAccessTokenError) {
           try {
             await renewRefreshToken();
@@ -129,6 +136,7 @@ const MainPage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
+        else if (error instanceof UserNotFoundError) setVoiceMessages(null);
         else console.error(error);
       }
     };
@@ -174,8 +182,10 @@ const MainPage = () => {
   }, []);
 
   useEffect(() => {
-    if (patients.length > 0) handlePatientSelection(0);
-    if (patients[selectedPatient]) loadPatientLatestLocation();
+    if (patients !== null) {
+      if (patients.length > 0) handlePatientSelection(0);
+      if (patients[selectedPatient]) loadPatientLatestLocation();
+    }
   }, [patients]);
 
   const handlePatientSelection = async (patientIndex) => {
@@ -298,24 +308,42 @@ const MainPage = () => {
   const renderPatientContent = () => (
     <div className="patient-content">
       <h1>홈</h1>
-      <SubTitle
-        title="음성 메세지"
-        showButton={voiceMessages.length !== 0}
-        linkTo="/voice-message"
-      />
-      <RowScrollContainer>
-        {voiceMessages &&
-          voiceMessages.map((voiceMessage, index) => (
-            <SmallVoiceMessageItem
-              key={index}
-              profileImage={'https://picsum.photos/200/300'}
-              name={voiceMessage.name}
-              time={voiceMessage.uploadedTime}
-              onClick={() => navigate('/voice-message/detail', { state: voiceMessage })}
-            />
-          ))}
-        {voiceMessages.length === 0 && <p>아직 받으신 음성 메시지가 없습니다</p>}
-      </RowScrollContainer>
+
+      <>
+        {voiceMessages !== null && (
+          <SubTitle
+            title="음성 메세지"
+            showButton={voiceMessages.records.length !== 0}
+            linkTo="/voice-message"
+          />
+        )}
+
+        <RowScrollContainer>
+          {voiceMessages !== null &&
+            voiceMessages.records.map((voiceMessage, index) => (
+              <SmallVoiceMessageItem
+                key={index}
+                profileImage={
+                  voiceMessage.profileImageName !== null
+                    ? `${voiceMessages.imageApiUrl}${voiceMessage.profileImageName}`
+                    : null
+                }
+                name={voiceMessage.name}
+                time={voiceMessage.uploadedTime}
+                onClick={() =>
+                  navigate('/voice-message/detail', {
+                    state: {
+                      imageApiUrlPrefix: voiceMessages.imageApiUrl,
+                      audioApiUrlPrefix: voiceMessages.audioApiUrlPrefix,
+                      voiceMessage,
+                    },
+                  })
+                }
+              />
+            ))}
+          {voiceMessages === null && <p>아직 받으신 음성 메시지가 없습니다</p>}
+        </RowScrollContainer>
+      </>
 
       <hr />
 

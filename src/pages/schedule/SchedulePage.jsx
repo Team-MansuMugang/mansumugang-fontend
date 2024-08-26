@@ -37,12 +37,14 @@ const SchedulePage = () => {
     new Date(new Date().getTime() + 9 * 60 * 60 * 1000).toISOString().split('T')[0],
   );
 
+  console.log(patients);
+
   useEffect(() => {
     const fetchAndSetPatientList = async () => {
       try {
         const patientList = await fetchPatientList();
-        setPatients(patientList);
-        const patientIndex = patientList.findIndex(
+        setPatients(patientList.patients);
+        const patientIndex = patientList.patients.findIndex(
           (patient) => patient.patientId === Number(params.patientId),
         );
         setSelectedPatient(patientIndex);

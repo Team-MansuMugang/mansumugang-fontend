@@ -1,19 +1,23 @@
 import {
   HttpResponseError,
-  NotValidAccessTokenError,
-  ExpiredAccessTokenError,
   UserNotFoundError,
   AccessDeniedError,
-  UserRecordInfoNotFoundError,
-} from '../utility/errors';
+  NotValidAccessTokenError,
+  ExpiredAccessTokenError,
+} from '../utility/errors.js';
 
 const baseURL = 'http://minnnisu.iptime.org';
 
-const fetchAllPatientVocieMessageList = async () => {
-  const response = await fetch(`${baseURL}/api/record`, {
+const submitProfileImage = async (imageFile) => {
+  const formData = new FormData();
+  formData.append('image', imageFile);
+
+  const response = await fetch(`${baseURL}/api/user/protector/profileImage`, {
+    method: 'POST',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
+    body: formData,
   });
 
   const result = await response.json();
@@ -23,12 +27,9 @@ const fetchAllPatientVocieMessageList = async () => {
     if (result.errorType === 'ExpiredAccessTokenError') throw new ExpiredAccessTokenError();
     if (result.errorType === 'UserNotFoundError') throw new UserNotFoundError();
     if (result.errorType === 'AccessDeniedError') throw new AccessDeniedError();
-    if (result.errorType === 'UserRecordInfoNotFoundError') throw new UserRecordInfoNotFoundError();
 
     throw new HttpResponseError(response.status, result.message);
   }
-
-  return result;
 };
 
-export default fetchAllPatientVocieMessageList;
+export default submitProfileImage;

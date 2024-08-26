@@ -4,6 +4,7 @@
   align-items: center;
   padding: 10px 0;
   font-size: var(--text-size-body-medium);
+  cursor: pointer;
 }
 
 .searched-item button {

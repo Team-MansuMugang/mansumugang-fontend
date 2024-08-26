@@ -289,7 +289,7 @@ const PostPage = () => {
           <CommunityTag>{postCategory[postContents.categoryCode]}</CommunityTag>
         </div>
         <PostLargeItem
-          profileImage={'https://picsum.photos/200/300'}
+          profileImage={postContents.imageApiUrl + postContents.profileImageName}
           name={postContents.nickname}
           date={timeAgoByStr(postContents.updatedAt)}
         />
@@ -315,7 +315,11 @@ const PostPage = () => {
             commentList.comments.map((item) => (
               <div key={item.comment.commentId} className="comment-thread">
                 <PostCommentItem
-                  profileImage="https://picsum.photos/200/300"
+                  profileImage={
+                    item.comment.profileImageName
+                      ? commentList.imageApiUrl + item.comment.profileImageName
+                      : ''
+                  }
                   name={item.comment.creator}
                   data={item.comment.content}
                   isOwner={item.comment.creator === whoAmI.nickname}
@@ -336,7 +340,11 @@ const PostPage = () => {
                   item.reply.replies.map((reply) => (
                     <PostReCommentItem
                       key={reply.replyId}
-                      profileImage="https://picsum.photos/200/300"
+                      profileImage={
+                        reply.profileImageName
+                          ? commentList.imageApiUrl + reply.profileImageName
+                          : ''
+                      }
                       name={reply.creator}
                       data={reply.content}
                       isOwner={reply.creator === whoAmI.nickname}

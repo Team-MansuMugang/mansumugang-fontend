@@ -1,5 +1,6 @@
 import './PostCommentItem.css';
 import '../index.css';
+import AccountCircleIcon from '../assets/svg/account-circle.svg?react';
 
 const PostCommentItem = ({
   profileImage,
@@ -15,7 +16,11 @@ const PostCommentItem = ({
     <div className="post-comment-item">
       <div className="item-comment-container">
         <div className="img-container">
-          <img src={profileImage} alt={`${name} profile`} />
+          {profileImage ? (
+            <img src={profileImage} alt={`${name} profile`} />
+          ) : (
+            <AccountCircleIcon />
+          )}
         </div>
         <div className="item-details">
           <div className="item-name">{name}</div>

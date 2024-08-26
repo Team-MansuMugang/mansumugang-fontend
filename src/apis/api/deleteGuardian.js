@@ -6,15 +6,16 @@ import {
   S3_DELETE_OBJECT_ERROR,
   ImageDeleteError,
   RecordDeleteError,
+  ProtectorHasActivePatientsError,
   InternalSeverError, // 알 수 없는 오류로 사용
 } from '../utility/errors.js';
 
 const baseURL = 'http://minnnisu.iptime.org';
 
-const deleteGuardian = async (protectorId) => {
+const deleteGuardian = async (id) => {
   try {
     // DELETE 요청 수행
-    const response = await fetch(`${baseURL}/api/user/protector${protectorId}`, {
+    const response = await fetch(`${baseURL}/api/user/protector/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`, // 엑세스 토큰 헤더에 포함
@@ -43,6 +44,9 @@ const deleteGuardian = async (protectorId) => {
       }
       if (result.errorType === 'RecordDeleteError') {
         throw new RecordDeleteError();
+      }
+      if (result.errorType === 'ProtectorHasActivePatientsError') {
+        throw new ProtectorHasActivePatientsError();
       }
       throw new HttpResponseError(response.status, result.message);
     }

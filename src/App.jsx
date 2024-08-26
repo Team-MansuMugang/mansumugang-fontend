@@ -30,6 +30,7 @@ import SearchResult from './pages/community/SearchResult';
 import PostPage from './pages/community/PostPage';
 import NewPostPage from './pages/community/NewPostPage';
 import WithDrowPage from './pages/user-account/WithDrowPage';
+import WithDrowPatientPage from './pages/user-account/WithDrowPatientPage';
 
 const router = createBrowserRouter([
   { path: '/', element: <SignInPage /> },
@@ -75,6 +76,7 @@ const router = createBrowserRouter([
       { path: 'edit-email', element: <ChangeEmail /> },
       { path: 'edit-password', element: <PasswordChange /> },
       { path: 'with-drow', element: <WithDrowPage /> },
+      { path: 'with-drow-patient', element: <WithDrowPatientPage /> },
       // { path: 'add-member', element: <AddMember /> },
       // { path: 'edit-member', element: <MemberEdit /> },
     ],

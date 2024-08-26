@@ -53,6 +53,11 @@ const validPhoneNumber = (value) => {
   if (onlyNumberValue.length < 11)
     return { status: 'warning', description: '전화번호를 끝까지 입력해주세요' };
 
+  const phoneNumberPattern = /^01[016789]-\d{3,4}-\d{4}$/;
+  if (!phoneNumberPattern.test(value)) {
+    return { status: 'warning', description: '유효한 전화번호 형식이 아닙니다' };
+  }
+
   return { status: 'success', description: '' };
 };
 

@@ -196,3 +196,17 @@ export class InternalSeverError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class NoUserProfileImageError extends Error {
+  constructor() {
+    super('프로필 이미지가 존재하지 않습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class ProtectorHasActivePatientsError extends Error {
+  constructor() {
+    super('모든 환자가 탈퇴 되지 않았습니다.');
+    this.name = this.constructor.name;
+  }
+}

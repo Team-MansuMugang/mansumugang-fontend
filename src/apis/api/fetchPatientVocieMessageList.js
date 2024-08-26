@@ -9,7 +9,7 @@ import {
 
 const baseURL = 'http://minnnisu.iptime.org';
 
-const fetchPatientList = async (patientId) => {
+const fetchPatientVocieMessageList = async (patientId) => {
   const response = await fetch(`${baseURL}/api/record/${patientId}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -28,7 +28,7 @@ const fetchPatientList = async (patientId) => {
     throw new HttpResponseError(response.status, result.message);
   }
 
-  return result.records;
+  return result;
 };
 
-export default fetchPatientList;
+export default fetchPatientVocieMessageList;

@@ -68,11 +68,11 @@ const WithDrowPage = () => {
       <MainHeader title="회원 탈퇴하기" onClickLeft={() => navigate(-1)}></MainHeader>
       <div className="with-drow-page">
         <p>
-          회원님께서 서비스에서 탈퇴할 경우,{' '}
+          보호자님께서 서비스에서 탈퇴를 원하시는 경우,{' '}
           <span className="bold">
-            회원님께서 보호자로 등록된 계정과, 계정에 연동된 모든 케어 멤버 계정
+            등록된 케어멤버 계정를 탈퇴를 모두 진행하신 후 보호자 탈퇴가 진행됩니다
           </span>{' '}
-          또한 일괄적으로 탈퇴됩니다.
+          먼저 연동된 모든 케어 멤버 계정을 탈퇴 부탁드립니다.
         </p>
         <p>
           보호자와 케어 멤버의 회원 탈퇴가 완료되면,{' '}
@@ -99,11 +99,7 @@ const WithDrowPage = () => {
         <div className="overlay">
           <div className="with-drow-tab">
             <h3>정말로 탈퇴하시겠습니까?</h3>
-            <p>
-              보호자와 케어 멤버님의 계정의
-              <br />
-              &nbsp;&nbsp;&nbsp; 정보가 모두 삭제 됩니다
-            </p>
+            <p>보호자의 정보가 모두 삭제됩니다</p>
             <SecessionBigButton onClick={handleUserDelete}>탈퇴하기</SecessionBigButton>
             <SecessionBigButton onClick={handleCancelClick} variant="white-black">
               취소

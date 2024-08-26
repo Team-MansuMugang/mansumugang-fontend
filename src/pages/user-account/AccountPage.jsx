@@ -12,17 +12,20 @@ import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/ut
 import fetchMyInfo from '../../apis/api/fetchMyInfo';
 import UserInfoItem from '../../components/UserInfoItem';
 import { getLocalDate } from '../../utility/dates';
+import AccountCircleIcon from '../../assets/svg/account-circle.svg?react';
 import SubLink from '../../components/SubLink';
 
 const AccountPage = () => {
   const navigate = useNavigate();
-  const [patients, setPatients] = useState([]);
+  const [patients, setPatients] = useState(null);
   const [myInfo, setMyInfo] = useState(null);
 
   useEffect(() => {
     const fetchAndSetPatientList = async () => {
       try {
         const patientList = await fetchPatientList();
+        console.log(patientList);
+
         setPatients(patientList);
       } catch (error) {
         if (error instanceof ExpiredAccessTokenError) {
@@ -63,9 +66,18 @@ const AccountPage = () => {
     <>
       <NavBar activeTab="계정"></NavBar>
       <div className="account-page">
-        <img id="change-img" src="https://picsum.photos/200/300" />
         {myInfo !== null ? (
           <>
+            {myInfo.profileImageName !== null ? (
+              <img
+                className="my-profile-image"
+                src={`${myInfo.imageApiUrl}${myInfo.profileImageName}`}
+              />
+            ) : (
+              <div className="my-profile-image-wrapper">
+                <AccountCircleIcon />
+              </div>
+            )}
             <p className="name-container-name">{myInfo.name}</p>
             <p className="name-container-nickname">{myInfo.nickname}</p>
           </>
@@ -98,18 +110,24 @@ const AccountPage = () => {
           {/* <SubTitle title="내 구성원" buttonName="편집" linkTo={'/account/edit-member'}></SubTitle> */}
           <SubTitle title="내 구성원" showButton={false}></SubTitle>
           <BorderContainer className="border-container">
-            {patients.map((patient) => (
-              <MemberList
-                profileImage={'https://picsum.photos/200/300'}
-                name={patient.patientName}
-                key={patient.patientId}
-                showCancelButton={false}
-              ></MemberList>
-            ))}
-            {patients.length === 0 ? '구성원을 추가해주세요' : null}
+            {patients !== null &&
+              patients.patients.map((patient) => (
+                <MemberList
+                  profileImage={
+                    patient.patientProfileImageName !== null
+                      ? `${patients.imageApiUrl}${patient.patientProfileImageName}`
+                      : null
+                  }
+                  name={patient.patientName}
+                  key={patient.patientId}
+                  showCancelButton={false}
+                ></MemberList>
+              ))}
+            {patients !== null && patients.length === 0 ? '구성원을 추가해주세요' : null}
           </BorderContainer>
         </div>
-        <SubLink to="/account/with-drow">회원 탈퇴하기</SubLink>
+        <SubLink to="/account/with-drow">보호자 탈퇴하기</SubLink>
+        <SubLink to="/account/with-drow-patient">케어멤버 탈퇴하기</SubLink>
       </div>
     </>
   );

@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import './MemberEdit.css';
+import './MemberEditPage.css';
 import MainHeader from '../../components/MainHeader';
 import MemberList from '../../components/MemberList';
 
-const MemberEdit = () => {
+const MemberEditPage = () => {
   const navigate = useNavigate();
 
   return (
@@ -35,4 +35,4 @@ const MemberEdit = () => {
   );
 };
 
-export default MemberEdit;
+export default MemberEditPage;

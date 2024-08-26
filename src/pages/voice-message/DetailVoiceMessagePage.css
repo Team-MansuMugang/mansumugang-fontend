@@ -2,7 +2,9 @@
   display: grid;
   gap: 27px;
   padding: 15px;
+  margin-bottom: 62.5px;
 }
+
 .voice-message-detail .text-head {
   font-size: var(--text-size-body-medium);
   font-weight: bold;

@@ -210,3 +210,87 @@ export class ProtectorHasActivePatientsError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class NoSuchCategoryError extends Error {
+  constructor() {
+    super('존재하지 않는 카테고리입니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NoSuchPostError extends Error {
+  constructor() {
+    super('존재하지 않는 게시글입니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NoSuchCommentError extends Error {
+  constructor() {
+    super('존재하지 않은 댓글로 접근했습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class DeletedCommentError extends Error {
+  constructor() {
+    super('삭제된 댓글입니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NotTheAuthorOfTheComment extends Error {
+  constructor() {
+    super('댓글의 작성자가 아닙니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NoSuchReplyError extends Error {
+  constructor() {
+    super('존재하지 않는 답글입니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class DeletedReplyError extends Error {
+  constructor() {
+    super('삭제된 답글입니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NotTheAuthorOfTheReply extends Error {
+  constructor() {
+    super('답글의 작성자가 아닙니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NoImageFileError extends Error {
+  constructor() {
+    super('이미지 파일이 없습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class ImageSaveError extends Error {
+  constructor() {
+    super('이미지 저장에 실패했습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class NotTheAuthorOfThePost extends Error {
+  constructor() {
+    super('게시글의 작성자가 아닙니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class InvalidQueryError extends Error {
+  constructor() {
+    super('유효하지 않은 쿼리입니다.');
+    this.name = this.constructor.name;
+  }
+}

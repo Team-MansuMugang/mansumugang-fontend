@@ -5,10 +5,10 @@ import BigButton from '../../components/BigButton';
 import Input from '../../components/Input';
 import InputWrapper from '../../components/InputWrapper';
 import MainHeader from '../../components/MainHeader';
-import './PasswordChange.css';
+import './PasswordChangePage.css';
 import { validatePassword } from '../utility/accountValidation';
 
-const PasswordChange = () => {
+const PasswordChangePage = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState({ value: '', status: 'default', description: '' });
   const [passwordCheck, setPasswordCheck] = useState({
@@ -164,4 +164,4 @@ const PasswordChange = () => {
   );
 };
 
-export default PasswordChange;
+export default PasswordChangePage;

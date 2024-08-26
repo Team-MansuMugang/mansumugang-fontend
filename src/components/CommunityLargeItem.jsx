@@ -1,19 +1,23 @@
 import './CommunityLargeItem.css';
 import '../index.css';
-import CommentMode from '../assets/svg/mode-comment.svg?react';
+import CommentModeIcon from '../assets/svg/mode-comment.svg?react';
 
-const CommunityLargeItem = ({ title, summary, onClick, children, count, time }) => {
+const CommunityLargeItem = ({ title, summary, onClick, author, category, count, time }) => {
   return (
     <div className="community-large-item" onClick={onClick}>
       <h2>{title}</h2>
-      <p className="community-summary">{summary}</p>
+      <p>{summary}</p>
       <div className="community-item-footer">
-        <button className="small-button">{children}</button>
+        <span className="category">{category}</span>
+        {/* <span className="divider">|</span>
+        <div className="comment-count">
+          <CommentModeIcon />
+          <p>{count}</p>
+        </div> */}
         <span className="divider">|</span>
-        <CommentMode className="mode-comment" />
-        <p>{count}</p>
+        <span>{time}</span>
         <span className="divider">|</span>
-        <span>{time} 전</span>
+        <span>{author}</span>
       </div>
     </div>
   );

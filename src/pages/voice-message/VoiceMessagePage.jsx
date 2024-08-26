@@ -80,8 +80,8 @@ const VoiceMessagePage = () => {
       <div className="voice-message-control">
         <div className="tag-item">
           <TagButton
-            disabled={selectedPatient === -1 ? true : false}
-            onclick={() => {
+            selected={selectedPatient === -1}
+            onClick={() => {
               setSelectedPatient(-1);
             }}
           >
@@ -90,8 +90,8 @@ const VoiceMessagePage = () => {
           {patients.map((patient, index) => (
             <TagButton
               key={index}
-              disabled={selectedPatient === index ? true : false}
-              onclick={() => {
+              selected={selectedPatient === index}
+              onClick={() => {
                 setSelectedPatient(index);
               }}
             >
@@ -100,9 +100,9 @@ const VoiceMessagePage = () => {
           ))}
         </div>
 
-        <div className="Large-voice-Message">
+        <div className="large-voice-message">
           {voiceMessages !== null &&
-            voiceMessages.records.map((voiceMessage, index) => (
+            voiceMessages.records?.map((voiceMessage, index) => (
               <LargeVoiceMessageItem
                 key={index}
                 profileImage={

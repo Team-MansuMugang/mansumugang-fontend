@@ -3,9 +3,9 @@ import BigButton from '../../components/BigButton';
 import Input from '../../components/Input';
 import InputWrapper from '../../components/InputWrapper';
 import MainHeader from '../../components/MainHeader';
-import './AddMember.css';
+import './AddMemberPage.css';
 
-const AddMember = () => {
+const AddMemberPage = () => {
   const navigate = useNavigate();
 
   return (
@@ -26,4 +26,4 @@ const AddMember = () => {
   );
 };
 
-export default AddMember;
+export default AddMemberPage;

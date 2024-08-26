@@ -24,12 +24,14 @@
   justify-self: end;
 }
 
-.main-header .right-button > .red-color {
-  color: red;
+.main-header .right-button > .default-color {
+  color: var(--color-primary);
 }
-
+.main-header .right-button > .red-color {
+  color: var(--color-semantic-important);
+}
 .main-header .right-button > .black-color {
-  color: black;
+  color: var(--color-neutral-0);
 }
 
 .main-header .left-button {

@@ -7,7 +7,7 @@ import MainHeader from '../../components/MainHeader';
 import SubButton from '../../components/SubButton';
 import CheckButton from '../../components/CheckButton';
 import { produce } from 'immer';
-import './ChangeProfile.css';
+import './ChangeProfilePage.css';
 import { validName, validNickname } from '../utility/accountValidation';
 import checkNicknameUnique from '../../apis/api/checkNicknameUnique';
 import submitProfileImage from '../../apis/api/submitProfileImage';
@@ -18,7 +18,7 @@ import { toast } from 'react-toastify';
 import updateMyInfo from '../../apis/api/updateMyInfo';
 import ImageUploader from '../../components/ImageUploader';
 
-const ChangeProfile = () => {
+const ChangeProfilePage = () => {
   const [originalUserInfo, setOriginalUserInfo] = useState(null);
   const [name, setName] = useState({ value: '', status: 'default', description: '' });
   const [nickname, setNickname] = useState({ value: '', status: 'default', description: '' });
@@ -282,4 +282,4 @@ const ChangeProfile = () => {
   );
 };
 
-export default ChangeProfile;
+export default ChangeProfilePage;

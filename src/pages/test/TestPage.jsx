@@ -36,8 +36,8 @@ import AddedTimeItem from '../../components/AddedTimeItem';
 import FillMeridiemToggle from '../../components/FillMeridiemToggle';
 import NotificationItem from '../../components/NotificationItem';
 import CategoryHeader from '../../components/CategoryHeader';
-import AddedSearchItem from '../../components/AddedSearchItem';
-import PostItemContainer from '../../components/PostItemContainer';
+import SearchedItem from '../../components/SearchedItem';
+import InteractionBar from '../../components/InteractionBar';
 import PostCommentItem from '../../components/PostCommentItem';
 import PostReCommentItem from '../../components/PostReCommentItem';
 import CommunityLargeItem from '../../components/CommunityLargeItem';
@@ -51,10 +51,10 @@ const TestPage = () => {
     <>
       <FloatingActionButton />
       <CategoryHeader rightText="작성" title="카테고리"></CategoryHeader>
-      <AddedSearchItem search={'치매'}></AddedSearchItem>
-      <AddedSearchItem search={'당뇨'}></AddedSearchItem>
-      <AddedSearchItem search={'고혈압'}></AddedSearchItem>
-      <PostItemContainer commentCount={'3'} heartCount={'3'}></PostItemContainer>
+      <SearchedItem search={'치매'}></SearchedItem>
+      <SearchedItem search={'당뇨'}></SearchedItem>
+      <SearchedItem search={'고혈압'}></SearchedItem>
+      <InteractionBar commentCount={'3'} heartCount={'3'}></InteractionBar>
       <PostCommentItem
         profileImage={'https://picsum.photos/200/300'}
         name={'김정숙'}

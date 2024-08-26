@@ -1,36 +1,52 @@
 .community-page {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  padding: 0px 15px;
   box-sizing: border-box;
+  margin-bottom: 62.5px;
+}
+
+.community-page .sub-header {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 52px;
+  padding: 0 18px;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  background-color: var(--color-neutral-100);
+}
+
+.community-page .sub-header .community-tags {
+  display: flex;
   position: relative;
-}
-
-.community-item {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-}
-
-.community-page .community-tag-button {
-  display: flex;
-  flex-wrap: nowrap;
   gap: 8px;
+  flex-wrap: nowrap;
   overflow-x: auto;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  position: relative;
-  margin-top: 5px;
-  margin-bottom: 10px;
 }
-
-/* WebKit 브라우저에서 스크롤바 숨기기 */
-.community-page .community-tag-button::-webkit-scrollbar {
+.community-page .sub-header .community-tags::-webkit-scrollbar {
   display: none;
 }
 
-.community-page .community-tag-button button {
-  min-width: 60px;
+.community-page .sub-header .community-tags > * {
   flex: 0 0 auto;
+}
+
+.community-page .sub-header .community-tags > :last-child {
+  margin-right: 30px;
+}
+
+.community-page .sub-header .gradation {
+  position: absolute;
+  right: calc(49.5px + 18px);
+  bottom: 0;
+  width: 70px;
+  height: 100px;
+  pointer-events: none;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
+}
+
+.community-page .community-items > :last-child {
+  border: none;
 }

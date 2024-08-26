@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 33px;
-  position: relative;
+  padding: 33px 18px;
+  padding-bottom: 18px;
 }
 
-.title-input,
-.content-textarea {
+.new-post-page .title-input,
+.new-post-page .content-textarea {
   font-size: var(--text-size-body-medium);
   color: var(--color-neutral-0);
   border: none;
@@ -19,25 +19,34 @@
   font-family: 'Arial', sans-serif;
 }
 
-.title-input {
+.new-post-page .title-input {
   font-size: var(--text-size-title);
   font-weight: bold;
   min-height: 1.2em;
   line-height: 1.2em;
 }
 
-.content-textarea {
-  min-height: 580px;
+.new-post-page .content-textarea {
+  min-height: calc(100vh - 52px - 26px - 33px - 18px - 10px * 2 - 90px);
 }
 
-.title-input::placeholder {
+.new-post-page .title-input::placeholder {
   color: var(--color-neutral-30);
 }
 
-.content-textarea::placeholder {
+.new-post-page .content-textarea::placeholder {
   color: var(--color-neutral-45);
 }
 
-.new-post-page > :last-child {
-  margin-top: 40px;
+.new-post-page .post-picture-upload {
+  width: 100vw;
+  margin: 0 calc((100% - 100vw) / 2);
+}
+
+.new-post-page .post-picture-upload > :first-child {
+  margin-left: 18px;
+}
+
+.new-post-page .post-picture-upload > :last-child {
+  margin-right: 18px;
 }

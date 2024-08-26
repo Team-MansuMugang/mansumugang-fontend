@@ -14,6 +14,10 @@ import UserInfoItem from '../../components/UserInfoItem';
 import { getLocalDate } from '../../utility/dates';
 import AccountCircleIcon from '../../assets/svg/account-circle.svg?react';
 import SubLink from '../../components/SubLink';
+import MainHeader from '../../components/MainHeader';
+import MainHeaderColor from '../../const/MainHeaderColor';
+import submitSignout from '../../apis/api/submitSignout';
+import renewRefreshToken from '../../apis/api/renewRefreshToken';
 
 const AccountPage = () => {
   const navigate = useNavigate();
@@ -62,10 +66,34 @@ const AccountPage = () => {
     fetchAndSetPatientList();
   }, []);
 
+  const logoutHandler = async () => {
+    try {
+      submitSignout();
+      navigate('/');
+    } catch (error) {
+      if (error instanceof ExpiredAccessTokenError) {
+        try {
+          await renewRefreshToken();
+          logoutHandler();
+        } catch (error) {
+          navigate('/');
+        }
+      } else if (error instanceof NotValidAccessTokenError) navigate('/');
+      else console.error(error);
+    }
+  };
+
   return (
     <>
-      <NavBar activeTab="계정"></NavBar>
+      <NavBar activeTab="계정" />
       <div className="account-page">
+        <MainHeader
+          title=""
+          isLeftButtonEnable={false}
+          rightText="로그아웃"
+          onClickRight={logoutHandler}
+          rightTextColor={MainHeaderColor.RED}
+        />
         {myInfo !== null ? (
           <>
             {myInfo.profileImageName !== null ? (

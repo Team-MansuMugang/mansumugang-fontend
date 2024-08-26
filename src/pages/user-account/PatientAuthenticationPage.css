@@ -1,0 +1,15 @@
+.patient-authentication-page {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 10px;
+  margin-top: 42px;
+  padding: 0 35px;
+}
+.patient-authentication-page .big-button {
+  position: fixed;
+  bottom: 19px;
+  left: 35px;
+  width: calc(100vw - 70px);
+  pointer-events: auto;
+}

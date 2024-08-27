@@ -1,6 +1,7 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import './SignUp.css';
 import ToggleSwitch from '../../components/ToggleSwitch';
+import mansumugangLogo from '../../assets/img/mansumugang-logo.png';
 
 const SignUpHeader = () => {
   const navigate = useNavigate();
@@ -24,7 +25,10 @@ const SignUpHeader = () => {
         >
           <path fill="currentColor" d="m14 18l-6-6l6-6l1.4 1.4l-4.6 4.6l4.6 4.6z" />
         </svg>
-        <h1>만수무강</h1>
+        <div className="logo-container">
+          <img src={mansumugangLogo} alt="만수무강 로고" className="logo" />
+          <h1>만수무강</h1>
+        </div>
       </div>
       <ToggleSwitch
         labels={['케어 멤버', '보호자']}

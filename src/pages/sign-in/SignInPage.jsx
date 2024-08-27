@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './SignInPage.css';
 import submitSignin from '../../apis/api/submitSignin';
 import { useNavigate } from 'react-router-dom';
+import mansumugangLogo from '../../assets/img/mansumugang-logo.png';
 
 const SignInPage = () => {
   const [id, setId] = useState('');
@@ -76,7 +77,10 @@ const SignInPage = () => {
   return (
     <>
       <div className="sign-in">
-        <h1>만수무강</h1>
+        <div className="logo-container">
+          <img src={mansumugangLogo} alt="만수무강 로고" className="logo" />
+          <h1>만수무강</h1>
+        </div>
 
         <p>만수무강을 위한 노인 케어 서비스</p>
 

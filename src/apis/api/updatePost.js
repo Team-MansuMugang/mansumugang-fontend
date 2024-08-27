@@ -13,8 +13,8 @@ import { validateParameters } from '../utility/validate.js';
 
 const baseURL = 'http://minnnisu.iptime.org';
 
-const submitPost = async (params, imageFiles) => {
-  validateParameters(params, ['title', 'content', 'categoryCode']);
+const updatePost = async (params, imageFiles) => {
+  validateParameters(params, ['postId', 'title', 'content', 'categoryCode']);
 
   const formData = new FormData();
   formData.append('post', new Blob([JSON.stringify(params)], { type: 'application/json' }));
@@ -31,8 +31,8 @@ const submitPost = async (params, imageFiles) => {
     );
   }
 
-  const response = await fetch(`${baseURL}/api/post/save`, {
-    method: 'POST',
+  const response = await fetch(`${baseURL}/api/post`, {
+    method: 'PATCH',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
@@ -56,4 +56,4 @@ const submitPost = async (params, imageFiles) => {
   }
 };
 
-export default submitPost;
+export default updatePost;

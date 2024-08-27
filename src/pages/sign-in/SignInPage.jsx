@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PatientLoginNotAllowedError, UserNotFoundError } from '../../apis/utility/errors';
 import BigButton from '../../components/BigButton';
 import Input from '../../components/Input';
@@ -9,6 +9,9 @@ import './SignInPage.css';
 import submitSignin from '../../apis/api/submitSignin';
 import { useNavigate } from 'react-router-dom';
 import mansumugangLogo from '../../assets/img/mansumugang-logo.png';
+import fetchWhoAmI from '../../apis/api/fetchWhoAmI';
+import renewRefreshToken from '../../apis/api/renewRefreshToken';
+import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/utility/errors';
 
 const SignInPage = () => {
   const [id, setId] = useState('');
@@ -16,6 +19,21 @@ const SignInPage = () => {
   const [idStatus, setIdStatus] = useState('default');
   const [passwordStatus, setPasswordStatus] = useState('default');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const autoLogin = async () => {
+      try {
+        await fetchWhoAmI();
+        navigate('/home');
+      } catch (error) {
+        if (error instanceof ExpiredAccessTokenError) {
+          await renewRefreshToken();
+          autoLogin();
+        } else console.error(error);
+      }
+    };
+    autoLogin();
+  }, []);
 
   const handleIdChange = (event) => {
     setId(event.target.value);

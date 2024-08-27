@@ -18,7 +18,7 @@
 
 .floating-action-button {
   position: fixed;
-  bottom: calc(62.5px + 18px);
+  bottom: calc(72.5px + 18px);
   right: 18px;
   display: flex;
   flex-direction: column;

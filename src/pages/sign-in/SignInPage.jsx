@@ -114,9 +114,6 @@ const SignInPage = () => {
 
         <BigButton onClick={handleLogin}>로그인</BigButton>
         <SubLink to="/sign-up">회원가입</SubLink>
-        <div className="found-link">
-          <SubLink to="/">아이디 / 비밀번호 찾기</SubLink>
-        </div>
       </div>
     </>
   );

@@ -176,9 +176,37 @@ export class NoSuchHospitalError extends Error {
   }
 }
 
+export class S3_DELETE_OBJECT_ERROR extends Error {
+  constructor() {
+    super('S3 파일 삭제를 실패하였습니다');
+    this.name = this.constructor.name;
+  }
+}
+
+export class ImageDeleteError extends Error {
+  constructor() {
+    super('이미지 삭제에 실패하였습니다');
+    this.name = this.constructor.name;
+  }
+}
+
+export class InternalSeverError extends Error {
+  constructor() {
+    super('알 수 없는 오류가 발생하였습니다. 문제가 지속되면 관리자에게 문의하세요.');
+    this.name = this.constructor.name;
+  }
+}
+
 export class NoUserProfileImageError extends Error {
   constructor() {
     super('프로필 이미지가 존재하지 않습니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class ProtectorHasActivePatientsError extends Error {
+  constructor() {
+    super('모든 환자가 탈퇴 되지 않았습니다.');
     this.name = this.constructor.name;
   }
 }
@@ -253,20 +281,6 @@ export class ImageSaveError extends Error {
   }
 }
 
-export class S3_DELETE_OBJECT_ERROR extends Error {
-  constructor() {
-    super('S3 객체 삭제에 실패했습니다.');
-    this.name = this.constructor.name;
-  }
-}
-
-export class ImageDeleteError extends Error {
-  constructor() {
-    super('이미지 삭제에 실패했습니다.');
-    this.name = this.constructor.name;
-  }
-}
-
 export class NotTheAuthorOfThePost extends Error {
   constructor() {
     super('게시글의 작성자가 아닙니다.');
@@ -277,6 +291,13 @@ export class NotTheAuthorOfThePost extends Error {
 export class InvalidQueryError extends Error {
   constructor() {
     super('유효하지 않은 쿼리입니다.');
+    this.name = this.constructor.name;
+  }
+}
+
+export class ProtectorLoginNotAllowedError extends Error {
+  constructor() {
+    super('보호자는 로그인할 수 없습니다.');
     this.name = this.constructor.name;
   }
 }

@@ -565,7 +565,7 @@ const GuardianSignUpPage = () => {
         >
           <Input
             placeholder="010-1234-5678"
-            type="string"
+            type="tel"
             onChange={handlePhoneNumberChange}
             onInput={handlePhoneNumberInput}
             status={phoneNumber.status}

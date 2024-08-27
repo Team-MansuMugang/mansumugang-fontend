@@ -44,6 +44,7 @@ import CommunityLargeItem from '../../components/CommunityLargeItem';
 import CommunityTag from '../../components/CommunityTag';
 import PostPictureUpload from '../../components/PostPictureUpload';
 import PostLargeItem from '../../components/PostLargeItem';
+import SecessionBigButton from '../../components/SecessionBigButton';
 
 const TestPage = () => {
   return (
@@ -140,6 +141,7 @@ const TestPage = () => {
         <Input placeholder="27" />
       </InputWrapper>
       <BigButton disabled={false}>회원가입</BigButton>
+      <SecessionBigButton disabled={false}>탈퇴하기</SecessionBigButton>
       <SubLink to="/">회원가입</SubLink>
       <ToggleSwitch labels={['보호자', '케어 멤버']} active={0} />
       <SubButton disabled={false}>프로필 수정하기</SubButton>

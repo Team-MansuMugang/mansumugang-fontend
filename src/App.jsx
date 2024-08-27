@@ -29,6 +29,9 @@ import CommunityPage from './pages/community/CommunityPage';
 import SearchResultPage from './pages/community/SearchResultPage';
 import PostPage from './pages/community/PostPage';
 import NewPostPage from './pages/community/NewPostPage';
+import WithdrawPage from './pages/user-account/WithdrawPage';
+import WithdrawPatientPage from './pages/user-account/WithdrawPatientPage';
+import WithdrawPatientSignInPage from './pages/user-account/WithdrawPatientSignInPage';
 import EditPostPage from './pages/community/EditPostPage';
 
 const router = createBrowserRouter([
@@ -74,8 +77,11 @@ const router = createBrowserRouter([
       { path: 'edit-birthday', element: <ChangeBirthdayPage /> },
       { path: 'edit-email', element: <ChangeEmailPage /> },
       { path: 'edit-password', element: <PasswordChangePage /> },
-      // { path: 'add-member', element: <AddMemberPage /> },
-      // { path: 'edit-member', element: <MemberEditPage /> },
+      { path: 'withdraw', element: <WithdrawPage /> },
+      { path: 'withdraw-patient', element: <WithdrawPatientPage /> },
+      { path: 'withdraw-patient/sign-in', element: <WithdrawPatientSignInPage /> },
+      // { path: 'add-member', element: <AddMember /> },
+      // { path: 'edit-member', element: <MemberEdit /> },
     ],
   },
   {

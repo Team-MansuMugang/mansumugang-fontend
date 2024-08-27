@@ -1,0 +1,36 @@
+/* WithdrawPage.css */
+
+.withdraw-patient-page {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 20px;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.withdraw-patient-page p {
+  font-size: var(--text-size-body-medium);
+  margin: 0;
+}
+
+.withdraw-patient-page .bold {
+  font-weight: bold;
+}
+
+.withdraw-patient-page .small {
+  font-size: var(--text-size-detail);
+  color: var(--color-neutral-45);
+}
+
+.withdraw-patient-page .secession-button {
+  position: fixed;
+  bottom: 19px;
+  left: 35px;
+  width: calc(100vw - 70px);
+  pointer-events: auto;
+}
+
+.withdraw-patient-page .secession-button .big-button {
+  background-color: var(--color-semantic-important);
+}

@@ -87,7 +87,7 @@ const SearchResultPage = () => {
     <>
       <div className="search-result-page">
         <MainHeader
-          title="치매 예방법 검색 결과"
+          title={`${search} 검색 결과`}
           onClickLeft={() => {
             navigate('/home/community');
           }}

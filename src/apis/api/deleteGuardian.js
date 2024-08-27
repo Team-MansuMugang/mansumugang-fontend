@@ -13,6 +13,7 @@ import {
 const baseURL = 'http://minnnisu.iptime.org';
 
 const deleteGuardian = async (id) => {
+  console.log(id, localStorage.getItem('accessToken-patient'));
   try {
     // DELETE 요청 수행
     const response = await fetch(`${baseURL}/api/user/protector/${id}`, {

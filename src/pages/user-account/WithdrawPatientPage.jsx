@@ -10,7 +10,10 @@ const WithdrawPatientPage = () => {
 
   return (
     <>
-      <MainHeader title="케어멤버 탈퇴하기" onClickLeft={() => navigate(-1)}></MainHeader>
+      <MainHeader
+        title="케어멤버 탈퇴하기"
+        onClickLeft={() => navigate('/home/account')}
+      ></MainHeader>
       <div className="withdraw-patient-page">
         <p>
           케어맴버님께서 서비스에서 탈퇴할 경우,{' '}

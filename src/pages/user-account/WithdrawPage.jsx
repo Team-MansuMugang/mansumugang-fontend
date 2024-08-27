@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainHeader from '../../components/MainHeader';
-import SecessionBigButton from '../../components/SecessionBigButton';
-import './WithDrowPage.css';
+import BigButton from '../../components/BigButton';
+import './WithdrawPage.css';
 import '../../index.css';
 import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/utility/errors';
 import fetchMyInfo from '../../apis/api/fetchMyInfo';
 import deleteGuardian from '../../apis/api/deleteGuardian';
 
-const WithDrowPage = () => {
+const WithdrawPage = () => {
   const [myInfo, setMyInfo] = useState(null);
   const [isTabVisible, setIsTabVisible] = useState(false);
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const WithDrowPage = () => {
   return (
     <>
       <MainHeader title="회원 탈퇴하기" onClickLeft={() => navigate(-1)}></MainHeader>
-      <div className="with-drow-page">
+      <div className="withdraw-page">
         <p>
           보호자님께서 서비스에서 탈퇴를 원하시는 경우,{' '}
           <span className="bold">
@@ -89,21 +89,19 @@ const WithDrowPage = () => {
           보관해주시길 바랍니다.
         </p>
         <div className="secession-button">
-          <SecessionBigButton disabled={false} onClick={handleButtonClick}>
+          <BigButton disabled={false} onClick={handleButtonClick}>
             탈퇴하기
-          </SecessionBigButton>
+          </BigButton>
         </div>
       </div>
 
       {isTabVisible && (
-        <div className="overlay">
-          <div className="with-drow-tab">
+        <div className="withdraw-page-overlay">
+          <div className="withdraw-tab">
             <h3>정말로 탈퇴하시겠습니까?</h3>
             <p>보호자의 정보가 모두 삭제됩니다</p>
-            <SecessionBigButton onClick={handleUserDelete}>탈퇴하기</SecessionBigButton>
-            <SecessionBigButton onClick={handleCancelClick} variant="white-black">
-              취소
-            </SecessionBigButton>
+            <BigButton onClick={handleUserDelete}>탈퇴하기</BigButton>
+            <BigButton onClick={handleCancelClick}>취소</BigButton>
           </div>
         </div>
       )}
@@ -111,4 +109,4 @@ const WithDrowPage = () => {
   );
 };
 
-export default WithDrowPage;
+export default WithdrawPage;

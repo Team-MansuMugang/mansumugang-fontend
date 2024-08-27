@@ -151,11 +151,11 @@ const AccountPage = () => {
                   showCancelButton={false}
                 ></MemberList>
               ))}
-            {patients !== null && patients.length === 0 ? '구성원을 추가해주세요' : null}
+            {patients == undefined ? '구성원을 추가해주세요' : null}
           </BorderContainer>
         </div>
-        <SubLink to="/account/with-drow">보호자 탈퇴하기</SubLink>
-        <SubLink to="/account/with-drow-patient">케어멤버 탈퇴하기</SubLink>
+        <SubLink to="/account/withdraw">보호자 탈퇴하기</SubLink>
+        <SubLink to="/account/withdraw-patient">케어멤버 탈퇴하기</SubLink>
       </div>
     </>
   );

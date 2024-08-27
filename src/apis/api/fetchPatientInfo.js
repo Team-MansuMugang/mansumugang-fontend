@@ -12,7 +12,7 @@ const fetchPatientInfo = async () => {
   const response = await fetch(`${baseURL}/api/user/inquiry/patientInfo`, {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      Authorization: `Bearer ${localStorage.getItem('accessToken-patient')}`,
     },
   });
 

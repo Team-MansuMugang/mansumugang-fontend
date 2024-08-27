@@ -294,3 +294,10 @@ export class InvalidQueryError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+export class ProtectorLoginNotAllowedError extends Error {
+  constructor() {
+    super('보호자는 로그인할 수 없습니다.');
+    this.name = this.constructor.name;
+  }
+}

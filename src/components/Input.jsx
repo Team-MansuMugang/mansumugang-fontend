@@ -15,6 +15,7 @@ const Input = ({
     <input
       className={`input input-${status}`}
       type={type}
+      pattern={type === 'tel' || 'number' ? '[0-9]*' : undefined}
       placeholder={placeholder}
       autoCapitalize={autoCapitalize}
       onChange={onChange}

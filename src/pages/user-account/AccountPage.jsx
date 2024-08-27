@@ -96,7 +96,7 @@ const AccountPage = () => {
         />
         {myInfo !== null ? (
           <>
-            {myInfo.profileImageName !== null ? (
+            {myInfo.profileImageName ? (
               <img
                 className="my-profile-image"
                 src={`${myInfo.imageApiUrl}${myInfo.profileImageName}`}

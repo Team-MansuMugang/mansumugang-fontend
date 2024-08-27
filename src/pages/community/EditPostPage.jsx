@@ -44,10 +44,10 @@ const EditPostPage = () => {
   const loadPostDetails = async () => {
     try {
       const fetchedPostDetails = await fetchPostDetails(params.id);
-      console.log(fetchedPostDetails.content, fetchedPostDetails.title);
+      console.log(fetchedPostDetails);
       setTitle(fetchedPostDetails.title);
       setContent(fetchedPostDetails.content);
-      setSelectedCategory(fetchedPostDetails.categoryCode);
+      setSelectedCategory(postCategory[fetchedPostDetails.categoryCode]);
     } catch (error) {
       if (error instanceof ExpiredAccessTokenError) {
         try {
@@ -146,7 +146,7 @@ const EditPostPage = () => {
             editPostHandler();
           } else deletePostHandler();
         }}
-        initSelected={postCategory[selectedCategory]}
+        initSelected={selectedCategory}
         onSelected={(category) => {
           setSelectedCategory(category);
           setIsModified(true);

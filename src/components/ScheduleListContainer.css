@@ -1,0 +1,16 @@
+.schedule-list-container {
+  gap: 10px;
+  background-color: var(--color-neutral-100);
+}
+
+.schedule-list-container .schedule-time {
+  font-size: var(text-size-body-medium);
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.schedule-list-container .schedule-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

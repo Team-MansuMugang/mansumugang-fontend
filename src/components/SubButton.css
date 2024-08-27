@@ -1,0 +1,11 @@
+.sub-button {
+  font-size: var(--text-size-button);
+  border-radius: var(--round-size-medium);
+  background-color: var(--color-secondary-green-1);
+  color: var(--color-secondary-green-2);
+  border: 1px solid var(--color-secondary-green-2);
+  height: 28px;
+  padding: 0 8px;
+  cursor: pointer;
+  box-sizing: border-box;
+}

@@ -1,0 +1,84 @@
+/* WithdrawPage.css */
+
+.withdraw-page {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 20px;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.withdraw-page p {
+  font-size: var(--text-size-body-medium);
+  margin: 0;
+}
+
+.withdraw-page .bold {
+  font-weight: bold;
+}
+
+.withdraw-page .small {
+  font-size: var(--text-size-detail);
+  color: var(--color-neutral-45);
+}
+
+.withdraw-page .secession-button {
+  position: fixed;
+  bottom: 19px;
+  left: 35px;
+  width: calc(100vw - 70px);
+  pointer-events: auto;
+}
+
+.withdraw-page .secession-button .big-button {
+  background-color: var(--color-semantic-important);
+}
+
+/* 배경과 Tab 스타일 */
+.withdraw-page-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 250px;
+  z-index: 999;
+}
+
+.withdraw-page-overlay .withdraw-tab {
+  background-color: var(--color-neutral-100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 278px;
+  border-radius: var(--round-size-medium);
+  border: none;
+  padding: 26px 12px 9px 12px;
+}
+
+.withdraw-page-overlay .withdraw-tab button {
+  background-color: var(--color-semantic-important);
+}
+
+.withdraw-page-overlay .withdraw-tab button:last-child {
+  background-color: var(--color-neutral-100);
+  color: var(--color-neutral-30);
+}
+
+.withdraw-tab h3 {
+  font-size: var(--text-size-title);
+  font-weight: bold;
+  margin: 0;
+  padding-bottom: 14px;
+}
+
+.withdraw-tab p {
+  font-size: var(--text-size-body-small);
+  margin: 0;
+  padding-bottom: 22px;
+}

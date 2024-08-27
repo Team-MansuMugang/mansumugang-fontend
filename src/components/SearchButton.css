@@ -1,0 +1,22 @@
+.search-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 16px;
+  box-sizing: border-box;
+  background-color: var(--color-secondary-green-1);
+  color: var(--color-secondary-green-2);
+  border: none;
+  border-radius: var(--round-size-large);
+  cursor: pointer;
+}
+
+.search-button svg {
+  width: 18px;
+  height: 18px;
+}
+.search-button:disabled {
+  background-color: var(--color-neutral-80);
+  color: var(--color-neutral-100);
+  cursor: not-allowed;
+}

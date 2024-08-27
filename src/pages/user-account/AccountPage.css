@@ -1,0 +1,66 @@
+.account-page {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: calc(62.5px + 20px);
+  padding: 0 12px;
+  gap: 9px;
+}
+.account-page p {
+  text-align: center;
+}
+
+.account-page .main-header {
+  position: static;
+  width: 100vw;
+  margin-left: calc((100% - 100vw) / 2);
+}
+
+.account-page .my-profile-image-wrapper {
+  align-self: center;
+  position: relative;
+  cursor: pointer;
+  border-radius: 50%;
+  display: inline-block;
+  width: 143px;
+  height: 143px;
+  overflow: hidden;
+}
+
+.account-page .my-profile-image-wrapper svg {
+  width: 100%;
+  height: 100%;
+  padding: 15%;
+  border-radius: 50%;
+  color: var(--color-secondary-green-2);
+  background-color: var(--color-secondary-green-1);
+  box-sizing: border-box;
+}
+
+.account-page .my-profile-image {
+  align-self: center;
+  width: 143px;
+  height: 143px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.account-page .sub-button {
+  align-self: center;
+  margin: 5px 0;
+}
+.account-page .fixed-page .border-container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.account-page .my-member .border-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.account-page .sub-link {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 15px;
+}

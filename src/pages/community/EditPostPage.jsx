@@ -5,7 +5,7 @@ import CategoryHeader from '../../components/CategoryHeader';
 import './EditPostPage.css';
 import PostPictureUpload from '../../components/PostPictureUpload';
 import postCategory from '../../const/postCategory';
-import submitPost from '../../apis/api/submitPost'; // TODO: 수정하기
+import updatePost from '../../apis/api/updatePost'; // TODO: 수정하기
 import fetchPostDetails from '../../apis/api/fetchPostDetails';
 import renewRefreshToken from '../../apis/api/renewRefreshToken';
 import deletePost from '../../apis/api/deletePost';
@@ -14,6 +14,7 @@ import { ExpiredAccessTokenError, NotValidAccessTokenError } from '../../apis/ut
 const EditPostPage = () => {
   const navigate = useNavigate();
   const params = useParams();
+  const [postId, setPostId] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(undefined);
@@ -48,6 +49,7 @@ const EditPostPage = () => {
       setTitle(fetchedPostDetails.title);
       setContent(fetchedPostDetails.content);
       setSelectedCategory(postCategory[fetchedPostDetails.categoryCode]);
+      setPostId(fetchedPostDetails.id);
     } catch (error) {
       if (error instanceof ExpiredAccessTokenError) {
         try {
@@ -92,8 +94,9 @@ const EditPostPage = () => {
     }
 
     try {
-      await submitPost(
+      await updatePost(
         {
+          postId,
           title,
           content,
           categoryCode: Object.keys(postCategory).find(

@@ -289,7 +289,11 @@ const PostPage = () => {
           <CommunityTag>{postCategory[postContents.categoryCode]}</CommunityTag>
         </div>
         <PostLargeItem
-          profileImage={postContents.imageApiUrl + postContents.profileImageName}
+          profileImage={
+            postContents.profileImageName
+              ? postContents.imageApiUrl + postContents.profileImageName
+              : ''
+          }
           name={postContents.nickname}
           date={timeAgoByStr(postContents.updatedAt)}
         />

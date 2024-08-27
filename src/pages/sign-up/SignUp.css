@@ -12,11 +12,24 @@
   margin-bottom: 36px;
 }
 
-.sign-up h1 {
+.sign-up .header .logo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sign-up .header .logo-container .logo {
+  width: 40px;
+  height: 40px;
+}
+
+.sign-up .header .logo-container h1 {
   font-size: var(--text-size-heading-large);
   color: var(--color-primary);
   text-align: center;
   margin: 0px;
+  margin-top: 5px;
+  font-family: 'Jalnan';
 }
 
 .sign-up .input-container {

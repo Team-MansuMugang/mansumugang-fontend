@@ -8,7 +8,7 @@ import MainHeader from '../../components/MainHeader';
 import './WithdrawPatientSignInPage.css';
 import submitPatientSignin from '../../apis/api/submitPatientSignin';
 import fetchPatientInfo from '../../apis/api/fetchPatientInfo';
-import deletePatient from '../../apis/api/deleteGuardian';
+import deletePatient from '../../apis/api/deletePatient';
 import { UserNotFoundError, ProtectorLoginNotAllowedError } from '../../apis/utility/errors';
 
 const WithdrawPatientSignInPage = () => {

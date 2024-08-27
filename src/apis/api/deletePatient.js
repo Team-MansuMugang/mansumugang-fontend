@@ -18,7 +18,7 @@ const deletePatient = async (id) => {
     const response = await fetch(`${baseURL}/api/user/patient/${id}`, {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`, // 엑세스 토큰 헤더에 포함
+        Authorization: `Bearer ${localStorage.getItem('accessToken-patient')}`, // 엑세스 토큰 헤더에 포함
       },
     });
 

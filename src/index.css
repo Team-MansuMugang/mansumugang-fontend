@@ -60,6 +60,11 @@
   --toastify-color-error: #ff5252;
 }
 
+@font-face {
+  font-family: 'Jalnan';
+  src: url(/src/assets/font/Jalnan2TTF.ttf);
+}
+
 body {
   margin: 0px;
 }

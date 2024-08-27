@@ -506,6 +506,7 @@ const PatientSignUpPage = () => {
         >
           <Input
             placeholder="2000"
+            type="number"
             status={birth.year.status}
             value={birth.year.value}
             onChange={handleBirthYearChange}
@@ -513,6 +514,7 @@ const PatientSignUpPage = () => {
           />
           <Input
             placeholder="4"
+            type="number"
             status={birth.month.status}
             value={birth.month.value}
             onChange={handleBirthMonthChange}

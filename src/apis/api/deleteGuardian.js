@@ -13,13 +13,12 @@ import {
 const baseURL = 'http://minnnisu.iptime.org';
 
 const deleteGuardian = async (id) => {
-  console.log(id, localStorage.getItem('accessToken-patient'));
   try {
     // DELETE 요청 수행
     const response = await fetch(`${baseURL}/api/user/protector/${id}`, {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken-patient')}`, // 엑세스 토큰 헤더에 포함
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`, // 엑세스 토큰 헤더에 포함
       },
     });
 

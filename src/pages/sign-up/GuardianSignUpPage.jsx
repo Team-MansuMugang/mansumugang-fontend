@@ -537,6 +537,7 @@ const GuardianSignUpPage = () => {
         >
           <Input
             placeholder="2000"
+            type="number"
             status={birth.year.status}
             value={birth.year.value}
             onChange={handleBirthYearChange}
@@ -544,6 +545,7 @@ const GuardianSignUpPage = () => {
           />
           <Input
             placeholder="4"
+            type="number"
             status={birth.month.status}
             value={birth.month.value}
             onChange={handleBirthMonthChange}
@@ -551,6 +553,7 @@ const GuardianSignUpPage = () => {
           />
           <Input
             placeholder="27"
+            type="number"
             status={birth.day.status}
             value={birth.day.value}
             onChange={handleBirthDayChange}

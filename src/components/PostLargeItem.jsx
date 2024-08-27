@@ -3,7 +3,6 @@ import '../index.css';
 import AccountCircleIcon from '../assets/svg/account-circle.svg?react';
 
 const PostLargeItem = ({ profileImage, name, date, views }) => {
-  profileImage = '';
   return (
     <div className="post-large-item">
       {profileImage ? (

@@ -40,7 +40,6 @@ const ChangeEmailPage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else console.error(error);
       }
     };
 

@@ -18,10 +18,6 @@ const WithdrawPatientSignInPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  useEffect(() => {
-    console.log(patientInfo);
-  }, [patientInfo]);
-
   const handleUserDelete = async () => {
     if (!patientInfo) return;
     try {
@@ -29,7 +25,6 @@ const WithdrawPatientSignInPage = () => {
       navigate('/home');
     } catch (error) {
       toast.error('다시 로그인해주세요', { position: 'top-center' });
-      console.error(error);
     }
   };
 
@@ -40,7 +35,6 @@ const WithdrawPatientSignInPage = () => {
       setPatientInfo(fetchedPatientInfo);
       setIsTabVisible(true);
     } catch (error) {
-      console.error(error);
       if (error instanceof UserNotFoundError)
         toast.warn('아이디 또는 비밀번호가 일치하지 않습니다', { position: 'top-center' });
       if (error instanceof ProtectorLoginNotAllowedError)

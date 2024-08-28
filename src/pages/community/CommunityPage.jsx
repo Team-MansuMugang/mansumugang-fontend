@@ -53,11 +53,9 @@ const CommunityPage = () => {
   const loadFirstPostSummary = async (selectedCategory = '') => {
     try {
       const fetchedPostSummary = await fetchPostSummary({ category: selectedCategory, page: 1 });
-      console.log(fetchedPostSummary);
       setPostSummary(fetchedPostSummary.posts);
       setCurrentPage(1);
       setTotalPage(fetchedPostSummary.metaData.totalPage);
-      console.log(fetchedPostSummary.metaData.totalPage);
     } catch (error) {
       if (error instanceof ExpiredAccessTokenError) {
         try {
@@ -67,7 +65,6 @@ const CommunityPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -79,7 +76,6 @@ const CommunityPage = () => {
         category: selectedCategory,
         page: currentPage + 1,
       });
-      console.log(fetchedPostSummary);
       setPostSummary((prevPosts) => [...prevPosts, ...fetchedPostSummary.posts]);
       setCurrentPage(currentPage + 1);
     } catch (error) {
@@ -91,7 +87,6 @@ const CommunityPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 

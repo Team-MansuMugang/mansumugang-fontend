@@ -12,16 +12,12 @@ const handleVoiceMessageDelete = async (recordId, navigate) => {
   try {
     await deleteVoiceMessage({ recordId });
     navigate(-1);
-  } catch (error) {
-    console.error('Failed to delete voice messsage:', error);
-  }
+  } catch (error) {}
 };
 
 const DetailVoiceMessagePage = () => {
   const location = useLocation();
   const { imageApiUrlPrefix, audioApiUrlPrefix, voiceMessage } = location.state; // navigate로 전달된 데이터
-
-  console.log(voiceMessage);
 
   const navigate = useNavigate();
 

@@ -17,16 +17,13 @@ const VoiceMessagePage = () => {
   const [patients, setPatients] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState(-1);
   const [voiceMessages, setVoiceMessages] = useState(null);
-  console.log(voiceMessages);
 
   useEffect(() => {
     const loadPatients = async () => {
       try {
         const patients = await fetchPatientList();
         setPatients(patients.patients);
-      } catch (error) {
-        console.error('Failed to load patients:', error);
-      }
+      } catch (error) {}
     };
 
     loadPatients();
@@ -40,8 +37,6 @@ const VoiceMessagePage = () => {
       } catch (error) {
         if (error instanceof UserRecordInfoNotFoundError) {
           setVoiceMessages([]);
-        } else {
-          console.error('Failed to load all patient voice messages:', error);
         }
       }
     };
@@ -55,8 +50,6 @@ const VoiceMessagePage = () => {
       } catch (error) {
         if (error instanceof UserRecordInfoNotFoundError) {
           setVoiceMessages([]);
-        } else {
-          console.error('Failed to load patient voice messages:', error);
         }
       }
     };

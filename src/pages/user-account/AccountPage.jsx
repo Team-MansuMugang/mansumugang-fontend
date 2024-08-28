@@ -28,7 +28,6 @@ const AccountPage = () => {
     const fetchAndSetPatientList = async () => {
       try {
         const patientList = await fetchPatientList();
-        console.log(patientList);
 
         setPatients(patientList);
       } catch (error) {
@@ -40,7 +39,6 @@ const AccountPage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else console.error(error);
       }
     };
 
@@ -57,7 +55,6 @@ const AccountPage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else console.error(error);
       }
     };
 
@@ -79,7 +76,6 @@ const AccountPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 

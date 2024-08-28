@@ -19,7 +19,7 @@ const SearchResultPage = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          console.log('Load more posts');
+          loadMorePosts();
         }
       },
       { threshold: 1.0 }, // 모든 요소가 뷰포트에 들어왔을 때 감지
@@ -38,17 +38,14 @@ const SearchResultPage = () => {
 
   useEffect(() => {
     if (postSummary.length === 0) loadFirstPostSummary();
-    console.log(search);
   }, []);
 
   const loadFirstPostSummary = async () => {
     try {
       const fetchedPostSummary = await fetchSearchedPostList(search, 1);
-      console.log(fetchedPostSummary);
       setPostSummary(fetchedPostSummary.posts);
       setCurrentPage(1);
       setTotalPage(fetchedPostSummary.metaData.totalPage);
-      console.log(fetchedPostSummary.metaData.totalPage);
     } catch (error) {
       if (error instanceof ExpiredAccessTokenError) {
         try {
@@ -58,7 +55,6 @@ const SearchResultPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -67,7 +63,6 @@ const SearchResultPage = () => {
 
     try {
       const fetchedPostSummary = await fetchSearchedPostList(search, currentPage + 1);
-      console.log(fetchedPostSummary);
       setPostSummary((prevPosts) => [...prevPosts, ...fetchedPostSummary.posts]);
       setCurrentPage(currentPage + 1);
     } catch (error) {
@@ -79,7 +74,6 @@ const SearchResultPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 

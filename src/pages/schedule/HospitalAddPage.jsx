@@ -139,8 +139,6 @@ const HospitalAddPage = () => {
         }
       });
 
-      console.log(medicineData);
-
       // 약 추가 API 호출
       await addHospital(medicineData);
       navigate('/home');
@@ -157,7 +155,7 @@ const HospitalAddPage = () => {
         toast.error('대한민국 내의 주소로 입력해주세요', { position: 'bottom-center' });
       } else if (error instanceof DuplicatedHospitalVisitingTimeError) {
         toast.error('이미 존재하는 병원 방문 시간입니다', { position: 'bottom-center' });
-      } else console.error(error);
+      }
     }
   };
 

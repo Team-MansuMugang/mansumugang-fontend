@@ -37,8 +37,6 @@ const SchedulePage = () => {
     new Date(new Date().getTime() + 9 * 60 * 60 * 1000).toISOString().split('T')[0],
   );
 
-  console.log(patients);
-
   useEffect(() => {
     const fetchAndSetPatientList = async () => {
       try {
@@ -57,7 +55,6 @@ const SchedulePage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else console.error(error);
       }
     };
 
@@ -89,7 +86,6 @@ const SchedulePage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -149,7 +145,6 @@ const SchedulePage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 

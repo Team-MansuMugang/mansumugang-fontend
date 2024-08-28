@@ -69,7 +69,6 @@ const PostPage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else console.error(error);
       }
     };
 
@@ -84,7 +83,6 @@ const PostPage = () => {
   const loadPostDetails = async () => {
     try {
       const fetchedPostDetails = await fetchPostDetails(params.id);
-      console.log(fetchedPostDetails);
       setPostContents(fetchedPostDetails);
       setIsHearted(fetchedPostDetails.liked);
     } catch (error) {
@@ -96,14 +94,12 @@ const PostPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
   const loadCommentList = async () => {
     try {
       const fetchedCommentList = await fetchCommentList(params.id);
-      console.log(fetchedCommentList);
       setCommentList(fetchedCommentList);
       setLastCommentId(fetchedCommentList.comments.at(-1).comment.commentId);
     } catch (error) {
@@ -115,7 +111,6 @@ const PostPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -139,7 +134,6 @@ const PostPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -150,12 +144,8 @@ const PostPage = () => {
       const fetchedReplyList = await fetchReplyList(commentId, cursor);
       if (fetchedReplyList.replies.length <= 0) {
         setNoMoreRepliesCommentIds((previous) => [...previous, { commentId, cursor }]);
-        console.log(noMoreRepliesCommentIds);
         return;
       }
-      console.log('hihih');
-      console.log(commentId, cursor);
-      console.log(fetchedReplyList);
       setCommentList((previousCommentList) => {
         return {
           ...previousCommentList,
@@ -181,7 +171,6 @@ const PostPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -207,38 +196,29 @@ const PostPage = () => {
             : prevPostContents.likeCount - 1,
         }));
       }
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   const submitCommentHandler = async (content) => {
     try {
       await submitComment({ postId: params.id, content });
       loadCommentList();
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   const updateCommentHandler = async (commentId, value) => {
     try {
-      console.log(commentId, value);
       await updateComment({ commentId, content: value });
       loadCommentList();
       setCommentTextareaStatus({ mode: 'comment' });
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   const deleteCommentHandler = async (commentId) => {
     try {
       await deleteComment({ commentId });
       loadCommentList();
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   const submitReplyHandler = async (commentId, content) => {
@@ -246,30 +226,22 @@ const PostPage = () => {
       await submitReply({ commentId, content });
       loadCommentList();
       setCommentTextareaStatus({ mode: 'comment' });
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   const updateReplyHandler = async (replyId, value) => {
     try {
-      console.log(replyId, value);
       await updateReply({ replyId, content: value });
       loadCommentList();
       setCommentTextareaStatus({ mode: 'comment' });
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   const deleteReplyHandler = async (replyId) => {
-    console.log('hi');
     try {
       await deleteReply({ replyId });
       loadCommentList();
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   return (

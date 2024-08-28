@@ -55,7 +55,6 @@ const ChangeProfilePage = () => {
       try {
         const myInfo = await fetchMyInfo();
         setOriginalUserInfo(myInfo);
-        console.log(myInfo);
 
         if (myInfo.profileImageName !== null) {
           const response = await fetch(`${myInfo.imageApiUrl}${myInfo.profileImageName}`);
@@ -82,7 +81,6 @@ const ChangeProfilePage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else console.error(error);
       }
     };
 
@@ -147,7 +145,6 @@ const ChangeProfilePage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -184,7 +181,6 @@ const ChangeProfilePage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else console.error(error);
       }
 
       try {

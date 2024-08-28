@@ -14,7 +14,6 @@ const medicineInfoRetrieval = async (params) => {
   if (!('date' in params)) {
     const today = new Date();
     const koreaTime = new Date(today.getTime() + 9 * 60 * 60 * 1000);
-    console.log(koreaTime.toISOString().split('T')[0]);
     params['date'] = koreaTime.toISOString().split('T')[0];
   }
   validateParameters(params, ['date', 'patientId']);

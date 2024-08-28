@@ -28,9 +28,7 @@ const SearchPage = () => {
         if (storedSearches) {
           setRecentSearches(JSON.parse(storedSearches));
         }
-      } catch (error) {
-        console.error('Failed to fetch user info:', error);
-      }
+      } catch (error) {}
     };
 
     fetchUserInfo();

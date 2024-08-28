@@ -28,7 +28,6 @@ const WithdrawPage = () => {
       } else if (error instanceof NotValidAccessTokenError) {
         navigate('/'); // 아예 존재하지 않던 엑세스토큰일때
       } else {
-        console.error(error);
       }
     }
   };
@@ -56,7 +55,6 @@ const WithdrawPage = () => {
       } else if (error instanceof NotValidAccessTokenError) {
         navigate('/');
       } else {
-        console.error(error);
       }
     }
   };

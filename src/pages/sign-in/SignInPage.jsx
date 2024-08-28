@@ -29,7 +29,7 @@ const SignInPage = () => {
         if (error instanceof ExpiredAccessTokenError) {
           await renewRefreshToken();
           autoLogin();
-        } else console.error(error);
+        }
       }
     };
     autoLogin();

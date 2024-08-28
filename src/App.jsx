@@ -35,7 +35,11 @@ import WithdrawPatientSignInPage from './pages/user-account/WithdrawPatientSignI
 import EditPostPage from './pages/community/EditPostPage';
 
 const router = createBrowserRouter([
-  { path: '/', element: <SignInPage /> },
+  {
+    path: '/',
+    element: <SignInPage />,
+    errorElement: <MainPage />,
+  },
   {
     element: <SignUpHeader />,
     children: [

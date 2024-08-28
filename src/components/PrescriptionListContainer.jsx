@@ -25,7 +25,6 @@ const PrescriptionListContainer = ({ patientId, onClosePanel, onUpdatePrescrpito
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else console.error(error);
       }
     };
 

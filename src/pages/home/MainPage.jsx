@@ -62,12 +62,9 @@ const MainPage = () => {
   const [address, setAddress] = useState('');
   const navigate = useNavigate();
 
-  console.log(voiceMessages);
-
   const loadPatientLatestLocation = async () => {
     try {
       const patientLocation = await fetchPatientLatestLocation(patients[selectedPatient].patientId);
-      console.log('Patient location:', patientLocation);
       setLatLng({ lat: patientLocation.latitude, lng: patientLocation.longitude });
 
       let geocoder = new kakao.maps.services.Geocoder();
@@ -75,7 +72,6 @@ const MainPage = () => {
 
       geocoder.coord2Address(coord.getLng(), coord.getLat(), (result, status) => {
         if (status === kakao.maps.services.Status.OK) {
-          console.log(result[0].address.address_name);
           setAddress(result[0].address.address_name);
         }
       });
@@ -88,7 +84,6 @@ const MainPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -115,14 +110,12 @@ const MainPage = () => {
         else if (error instanceof UserNotFoundError) {
           setIsPatientNull(true);
         } else if (error instanceof AccessDeniedError) setIsPatientNull(true);
-        else console.error(error);
       }
     };
 
     const loadAllPatientVocieMessages = async () => {
       try {
         const voiceMessages = await fetchAllPatientVocieMessageList();
-        console.log(voiceMessages);
 
         setVoiceMessages(voiceMessages);
       } catch (error) {
@@ -137,7 +130,6 @@ const MainPage = () => {
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
         else if (error instanceof UserNotFoundError) setVoiceMessages(null);
-        else console.error(error);
       }
     };
 
@@ -156,24 +148,16 @@ const MainPage = () => {
 
       if (isTokenSentToServer() === false) {
         if (permission === 'granted') {
-          console.log('알림 요청 권한을 얻었습니다.');
-
           try {
             const currentToken = await getToken(messaging, { vapidKey });
             if (currentToken) {
-              console.log(currentToken);
               sendTokenToServer(currentToken);
             } else {
-              console.log('토큰을 발급 받을 수 없습니다.');
               setTokenSentToServer(false);
             }
           } catch (error) {
-            console.log('토큰을 발급받는 동안 에러가 발생하였습니다.');
-            console.error(error);
             setTokenSentToServer(false);
           }
-        } else {
-          console.log('알림 요청 권한을 얻는데 실패하였습니다.');
         }
       }
     };
@@ -197,9 +181,7 @@ const MainPage = () => {
     try {
       const result = await medicineInfoRetrieval({ patientId: selectedPatientId });
       setMedicineSchedules(result.medicineSchedules);
-    } catch (error) {
-      console.error('Failed to retrieve medicine schedule:', error);
-    }
+    } catch (error) {}
   };
 
   const generateScheduleItems = (schedule) => {
@@ -245,11 +227,9 @@ const MainPage = () => {
 
   const fetchAndSetDetailData = async (type, id, thisTime, thisStatus) => {
     try {
-      console.log('id:', id);
       let result;
       if (type === 'medicine') result = await medicineDetailRetrieval(id);
       if (type === 'hospital') result = await hospitalDetailRetrieval(id);
-      console.log('result:', result);
       setDetailData({ ...result, thisTime, thisStatus });
     } catch (error) {
       if (error instanceof ExpiredAccessTokenError) {
@@ -260,7 +240,6 @@ const MainPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -299,9 +278,7 @@ const MainPage = () => {
         } catch (error) {
           navigate('/'); // 엑세스토큰 재발급 실패했을때
         }
-      } else if (error instanceof NotValidAccessTokenError)
-        navigate('/'); // 아예 존재하지 않던 엑세스토큰일때
-      else console.error(error);
+      } else if (error instanceof NotValidAccessTokenError) navigate('/'); // 아예 존재하지 않던 엑세스토큰일때
     }
   };
 

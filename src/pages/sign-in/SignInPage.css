@@ -85,6 +85,8 @@
   bottom: 5svh;
   font-size: var(--text-size-body-small);
   color: var(--color-neutral-45);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .explanation {

@@ -65,6 +65,10 @@
   src: url(/src/assets/font/Jalnan2TTF.ttf);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0px;
 }

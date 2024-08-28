@@ -53,8 +53,8 @@ Insert gif or link to demo
 
 ## 🖼️ Screenshots
 
-|                                                                                             |                                                                                             |
-| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+|   |   |
+|---|---|
 | ![Image 1](https://github.com/user-attachments/assets/19ba0343-79c5-469f-861e-f92246100f98) | ![Image 2](https://github.com/user-attachments/assets/bab5a9b3-f579-4e4a-964b-09b9e04a42da) |
 | ![Image 3](https://github.com/user-attachments/assets/1c927c51-c48e-423e-9823-98f7e16794e8) | ![Image 6](https://github.com/user-attachments/assets/eb388b02-a65e-409e-99fc-f1121e5c545e) |
 | ![Image 7](https://github.com/user-attachments/assets/078b7231-c614-40c8-8488-2cab5e01dc39) | ![Image 9](https://github.com/user-attachments/assets/cd95516e-95ca-4d02-8e23-2d846dd5f5fb) |

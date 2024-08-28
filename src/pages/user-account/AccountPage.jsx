@@ -39,7 +39,6 @@ const AccountPage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else console.error(error);
       }
     };
 
@@ -56,7 +55,6 @@ const AccountPage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else console.error(error);
       }
     };
 
@@ -78,7 +76,6 @@ const AccountPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 

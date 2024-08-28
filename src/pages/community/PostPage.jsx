@@ -69,7 +69,6 @@ const PostPage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else console.error(error);
       }
     };
 
@@ -95,7 +94,6 @@ const PostPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -113,7 +111,6 @@ const PostPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -137,7 +134,6 @@ const PostPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -175,7 +171,6 @@ const PostPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -201,18 +196,14 @@ const PostPage = () => {
             : prevPostContents.likeCount - 1,
         }));
       }
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   const submitCommentHandler = async (content) => {
     try {
       await submitComment({ postId: params.id, content });
       loadCommentList();
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   const updateCommentHandler = async (commentId, value) => {
@@ -220,18 +211,14 @@ const PostPage = () => {
       await updateComment({ commentId, content: value });
       loadCommentList();
       setCommentTextareaStatus({ mode: 'comment' });
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   const deleteCommentHandler = async (commentId) => {
     try {
       await deleteComment({ commentId });
       loadCommentList();
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   const submitReplyHandler = async (commentId, content) => {
@@ -239,9 +226,7 @@ const PostPage = () => {
       await submitReply({ commentId, content });
       loadCommentList();
       setCommentTextareaStatus({ mode: 'comment' });
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   const updateReplyHandler = async (replyId, value) => {
@@ -249,18 +234,14 @@ const PostPage = () => {
       await updateReply({ replyId, content: value });
       loadCommentList();
       setCommentTextareaStatus({ mode: 'comment' });
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   const deleteReplyHandler = async (replyId) => {
     try {
       await deleteReply({ replyId });
       loadCommentList();
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   return (

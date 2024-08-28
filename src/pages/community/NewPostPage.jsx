@@ -77,7 +77,6 @@ const NewPostPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 

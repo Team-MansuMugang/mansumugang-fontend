@@ -55,7 +55,6 @@ const SchedulePage = () => {
             navigate('/');
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
-        else console.error(error);
       }
     };
 
@@ -87,7 +86,6 @@ const SchedulePage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -147,7 +145,6 @@ const SchedulePage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 

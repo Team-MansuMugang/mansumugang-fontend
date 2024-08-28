@@ -23,9 +23,7 @@ const VoiceMessagePage = () => {
       try {
         const patients = await fetchPatientList();
         setPatients(patients.patients);
-      } catch (error) {
-        console.error('Failed to load patients:', error);
-      }
+      } catch (error) {}
     };
 
     loadPatients();
@@ -39,8 +37,6 @@ const VoiceMessagePage = () => {
       } catch (error) {
         if (error instanceof UserRecordInfoNotFoundError) {
           setVoiceMessages([]);
-        } else {
-          console.error('Failed to load all patient voice messages:', error);
         }
       }
     };
@@ -54,8 +50,6 @@ const VoiceMessagePage = () => {
       } catch (error) {
         if (error instanceof UserRecordInfoNotFoundError) {
           setVoiceMessages([]);
-        } else {
-          console.error('Failed to load patient voice messages:', error);
         }
       }
     };

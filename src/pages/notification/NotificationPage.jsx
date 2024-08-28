@@ -45,13 +45,7 @@ const NotificationPage = () => {
 
           setNotificaitons(sortedNotifications);
         };
-
-        getAllRequest.onerror = (event) => {
-          console.error('Fetch error: ' + event.target.errorCode);
-        };
-      } catch (error) {
-        console.error('Database open error: ', error);
-      }
+      } catch (error) {}
     };
 
     fetchData();

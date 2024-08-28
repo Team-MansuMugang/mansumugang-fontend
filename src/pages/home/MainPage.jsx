@@ -84,7 +84,6 @@ const MainPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -111,7 +110,6 @@ const MainPage = () => {
         else if (error instanceof UserNotFoundError) {
           setIsPatientNull(true);
         } else if (error instanceof AccessDeniedError) setIsPatientNull(true);
-        else console.error(error);
       }
     };
 
@@ -132,7 +130,6 @@ const MainPage = () => {
           }
         } else if (error instanceof NotValidAccessTokenError) navigate('/');
         else if (error instanceof UserNotFoundError) setVoiceMessages(null);
-        else console.error(error);
       }
     };
 
@@ -159,7 +156,6 @@ const MainPage = () => {
               setTokenSentToServer(false);
             }
           } catch (error) {
-            console.error(error);
             setTokenSentToServer(false);
           }
         }
@@ -185,9 +181,7 @@ const MainPage = () => {
     try {
       const result = await medicineInfoRetrieval({ patientId: selectedPatientId });
       setMedicineSchedules(result.medicineSchedules);
-    } catch (error) {
-      console.error('Failed to retrieve medicine schedule:', error);
-    }
+    } catch (error) {}
   };
 
   const generateScheduleItems = (schedule) => {
@@ -246,7 +240,6 @@ const MainPage = () => {
           navigate('/');
         }
       } else if (error instanceof NotValidAccessTokenError) navigate('/');
-      else console.error(error);
     }
   };
 
@@ -285,9 +278,7 @@ const MainPage = () => {
         } catch (error) {
           navigate('/'); // 엑세스토큰 재발급 실패했을때
         }
-      } else if (error instanceof NotValidAccessTokenError)
-        navigate('/'); // 아예 존재하지 않던 엑세스토큰일때
-      else console.error(error);
+      } else if (error instanceof NotValidAccessTokenError) navigate('/'); // 아예 존재하지 않던 엑세스토큰일때
     }
   };
 

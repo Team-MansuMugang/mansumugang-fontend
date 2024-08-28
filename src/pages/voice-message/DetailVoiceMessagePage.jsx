@@ -12,9 +12,7 @@ const handleVoiceMessageDelete = async (recordId, navigate) => {
   try {
     await deleteVoiceMessage({ recordId });
     navigate(-1);
-  } catch (error) {
-    console.error('Failed to delete voice messsage:', error);
-  }
+  } catch (error) {}
 };
 
 const DetailVoiceMessagePage = () => {

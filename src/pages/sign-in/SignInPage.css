@@ -1,36 +1,44 @@
 .sign-in {
   display: flex;
-  flex-direction: column;
-  text-align: center;
+  width: 100vw;
+  height: 100svh;
   padding: 0 35px;
-}
-
-.sign-in .logo-container {
-  display: flex;
-  gap: 8px;
+  box-sizing: border-box;
   justify-content: center;
   align-items: center;
-  margin-top: 166px;
 }
-.sign-in .logo-container .logo {
+.sign-in .container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transform: translateY(-6svh);
+}
+
+.sign-in .container .logo-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.sign-in .container .logo-container .logo {
   width: 50px;
   height: 50px;
 }
-.sign-in .logo-container h1 {
+.sign-in .container .logo-container h1 {
   color: var(--color-primary);
   font-weight: bold;
   margin: 0;
   margin-top: 9px;
   font-family: 'Jalnan';
 }
-.sign-in p {
+.sign-in .container p {
   font-size: 17px;
   font-weight: bold;
   color: #94a19c;
   margin-top: 18px;
   margin-bottom: 21px;
 }
-.sign-in-container {
+.sign-in .container .sign-in-container {
   margin-top: 16px;
   margin-bottom: 160px;
   display: flex;
@@ -38,14 +46,133 @@
   gap: 9px;
 }
 /* input 스타일 (Input 컴포넌트에 적용) */
-.sign-in-input {
+.sign-in .container .sign-in-input {
   margin-top: 1px;
   margin-bottom: 22px;
   display: flex;
   flex-direction: column;
   gap: 9px;
 }
-.sign-in .sub-link {
+.sign-in .container .sub-link {
   margin: 15px auto 0 auto;
   width: 100px;
+}
+
+.sign-in .to-explanation {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-secondary-green-1);
+  border: 1px solid var(--color-secondary-green-2);
+  bottom: 10svh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  text-decoration: none;
+  color: inherit;
+}
+.sign-in .to-explanation svg {
+  width: 30px;
+  height: 30px;
+  color: var(--color-secondary-green-2);
+}
+
+.sign-in .to-explanation-text {
+  position: absolute;
+  bottom: 5svh;
+  font-size: var(--text-size-body-small);
+  color: var(--color-neutral-45);
+}
+
+.explanation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-secondary-green-1);
+}
+
+.explanation h2 {
+  font-size: var(--text-size-heading-large);
+  color: var(--color-primary);
+  font-family: 'Jalnan';
+  margin: 80px auto 110px auto;
+  text-align: center;
+  line-height: 1.35;
+}
+
+.explanation p {
+  font-family: 'Jalnan';
+  color: var(--color-primary);
+  margin: 110px auto 150px auto;
+  border-radius: 50px;
+  font-size: var(--text-size-heading-small);
+  line-height: 1.55;
+  text-align: center;
+}
+
+.explanation .image-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  padding: 5px;
+  background-color: var(--color-primary);
+  width: fit-content;
+  height: fit-content;
+}
+
+.explanation .image-wrapper.right {
+  position: relative;
+  transform: skew(-2deg, 8deg);
+}
+
+.explanation .image-wrapper.left {
+  position: relative;
+  transform: skew(2deg, -8deg);
+}
+
+.explanation .image-wrapper img {
+  width: 60svw;
+  max-width: 300px;
+  border-radius: 35px;
+}
+
+.explanation .gradation-top {
+  background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
+  width: 100vw;
+  height: 100px;
+}
+
+.explanation .gradation-bottom {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
+  width: 100vw;
+  height: 100px;
+}
+
+.bottom-explanation {
+  display: flex;
+  height: 100vh;
+  margin-top: -20vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 85px;
+  font-size: var(--text-size-heading-small);
+  font-weight: bold;
+  color: var(--color-neutral-30);
+  text-align: center;
+}
+
+.bottom-explanation a {
+  margin-top: -60px;
+  padding: 10px 15px;
+  background-color: var(--color-primary);
+  border-radius: var(--round-size-medium);
+  text-decoration: none;
+  color: var(--color-neutral-100);
+  font-size: var(--text-size-button-large);
+  font-weight: normal;
 }

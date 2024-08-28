@@ -28,7 +28,6 @@ const AccountPage = () => {
     const fetchAndSetPatientList = async () => {
       try {
         const patientList = await fetchPatientList();
-        console.log(patientList);
 
         setPatients(patientList);
       } catch (error) {

@@ -149,8 +149,6 @@ const MedicineAddPage = () => {
         }
       });
 
-      console.log(medicineData);
-
       // 약 추가 API 호출
       await addMedicine(medicineData, medicineImage);
       navigate(-1);

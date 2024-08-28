@@ -84,7 +84,6 @@ const PostPage = () => {
   const loadPostDetails = async () => {
     try {
       const fetchedPostDetails = await fetchPostDetails(params.id);
-      console.log(fetchedPostDetails);
       setPostContents(fetchedPostDetails);
       setIsHearted(fetchedPostDetails.liked);
     } catch (error) {
@@ -103,7 +102,6 @@ const PostPage = () => {
   const loadCommentList = async () => {
     try {
       const fetchedCommentList = await fetchCommentList(params.id);
-      console.log(fetchedCommentList);
       setCommentList(fetchedCommentList);
       setLastCommentId(fetchedCommentList.comments.at(-1).comment.commentId);
     } catch (error) {
@@ -150,12 +148,8 @@ const PostPage = () => {
       const fetchedReplyList = await fetchReplyList(commentId, cursor);
       if (fetchedReplyList.replies.length <= 0) {
         setNoMoreRepliesCommentIds((previous) => [...previous, { commentId, cursor }]);
-        console.log(noMoreRepliesCommentIds);
         return;
       }
-      console.log('hihih');
-      console.log(commentId, cursor);
-      console.log(fetchedReplyList);
       setCommentList((previousCommentList) => {
         return {
           ...previousCommentList,
@@ -223,7 +217,6 @@ const PostPage = () => {
 
   const updateCommentHandler = async (commentId, value) => {
     try {
-      console.log(commentId, value);
       await updateComment({ commentId, content: value });
       loadCommentList();
       setCommentTextareaStatus({ mode: 'comment' });
@@ -253,7 +246,6 @@ const PostPage = () => {
 
   const updateReplyHandler = async (replyId, value) => {
     try {
-      console.log(replyId, value);
       await updateReply({ replyId, content: value });
       loadCommentList();
       setCommentTextareaStatus({ mode: 'comment' });
@@ -263,7 +255,6 @@ const PostPage = () => {
   };
 
   const deleteReplyHandler = async (replyId) => {
-    console.log('hi');
     try {
       await deleteReply({ replyId });
       loadCommentList();

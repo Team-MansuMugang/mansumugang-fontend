@@ -17,7 +17,6 @@ function ImageUploader({ type = 'profile', onImageUpload, init }) {
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
-    console.log(init);
     setImageUrl(init);
   }, [init]);
 

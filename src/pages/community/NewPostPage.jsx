@@ -33,14 +33,6 @@ const NewPostPage = () => {
   const handleContentChange = (e) => setContent(e.target.value);
 
   const submitPostHandler = async () => {
-    console.log('제목:', title);
-    console.log('내용:', content);
-    console.log(
-      '카테고리:',
-      Object.keys(postCategory).find((key) => postCategory[key] === selectedCategory),
-    );
-    console.log('이미지:', images);
-
     if (!title) {
       toast.warn('제목을 입력하세요');
       return;
@@ -91,7 +83,6 @@ const NewPostPage = () => {
 
   const handleImagesChange = (newImages) => {
     setImages(newImages);
-    console.log(newImages);
   };
 
   return (

@@ -18,10 +18,6 @@ const WithdrawPatientSignInPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  useEffect(() => {
-    console.log(patientInfo);
-  }, [patientInfo]);
-
   const handleUserDelete = async () => {
     if (!patientInfo) return;
     try {

@@ -21,8 +21,6 @@ const DetailVoiceMessagePage = () => {
   const location = useLocation();
   const { imageApiUrlPrefix, audioApiUrlPrefix, voiceMessage } = location.state; // navigate로 전달된 데이터
 
-  console.log(voiceMessage);
-
   const navigate = useNavigate();
 
   return (

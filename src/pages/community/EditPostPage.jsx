@@ -45,7 +45,6 @@ const EditPostPage = () => {
   const loadPostDetails = async () => {
     try {
       const fetchedPostDetails = await fetchPostDetails(params.id);
-      console.log(fetchedPostDetails);
       setTitle(fetchedPostDetails.title);
       setContent(fetchedPostDetails.content);
       setSelectedCategory(postCategory[fetchedPostDetails.categoryCode]);
@@ -64,14 +63,6 @@ const EditPostPage = () => {
   };
 
   const editPostHandler = async () => {
-    console.log('제목:', title);
-    console.log('내용:', content);
-    console.log(
-      '카테고리:',
-      Object.keys(postCategory).find((key) => postCategory[key] === selectedCategory),
-    );
-    console.log('이미지:', images);
-
     if (!title) {
       toast.warn('제목을 입력하세요');
       return;
@@ -123,12 +114,10 @@ const EditPostPage = () => {
   const deletePostHandler = async () => {
     await deletePost(params.id);
     navigate('/home/community');
-    console.log('삭제');
   };
 
   const handleImagesChange = (newImages) => {
     setImages(newImages);
-    console.log(newImages);
   };
 
   return (
@@ -139,13 +128,6 @@ const EditPostPage = () => {
         onClickLeft={() => navigate(-1)}
         onClickRight={() => {
           if (isModified) {
-            console.log(
-              title,
-              content,
-              Object.keys(postCategory).find((key) => postCategory[key] === selectedCategory),
-              images,
-            );
-
             editPostHandler();
           } else deletePostHandler();
         }}

@@ -17,7 +17,6 @@ const VoiceMessagePage = () => {
   const [patients, setPatients] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState(-1);
   const [voiceMessages, setVoiceMessages] = useState(null);
-  console.log(voiceMessages);
 
   useEffect(() => {
     const loadPatients = async () => {

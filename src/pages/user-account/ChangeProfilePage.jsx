@@ -55,7 +55,6 @@ const ChangeProfilePage = () => {
       try {
         const myInfo = await fetchMyInfo();
         setOriginalUserInfo(myInfo);
-        console.log(myInfo);
 
         if (myInfo.profileImageName !== null) {
           const response = await fetch(`${myInfo.imageApiUrl}${myInfo.profileImageName}`);

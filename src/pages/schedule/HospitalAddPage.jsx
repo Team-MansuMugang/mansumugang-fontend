@@ -139,8 +139,6 @@ const HospitalAddPage = () => {
         }
       });
 
-      console.log(medicineData);
-
       // 약 추가 API 호출
       await addHospital(medicineData);
       navigate('/home');

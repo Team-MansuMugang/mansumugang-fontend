@@ -183,8 +183,6 @@ const HospitalEditPage = () => {
         }
       });
 
-      console.log(medicineData);
-
       // 병원 수정 API 호출
       await updateHospital(medicineData);
       navigate('/home');

@@ -202,8 +202,6 @@ const MedicineEditPage = () => {
         }
       });
 
-      console.log(medicineData);
-
       await updateMedicine(medicineData, medicineImage);
       navigate(-1);
     } catch (error) {

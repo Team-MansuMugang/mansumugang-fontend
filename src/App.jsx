@@ -33,11 +33,17 @@ import WithdrawPage from './pages/user-account/WithdrawPage';
 import WithdrawPatientPage from './pages/user-account/WithdrawPatientPage';
 import WithdrawPatientSignInPage from './pages/user-account/WithdrawPatientSignInPage';
 import EditPostPage from './pages/community/EditPostPage';
+import TermsOfUsePage from './pages/terms-of-use/TermsOfUsePage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <SignInPage />,
+    errorElement: <MainPage />,
+  },
+  {
+    path: '/terms-of-use',
+    element: <TermsOfUsePage />,
     errorElement: <MainPage />,
   },
   {

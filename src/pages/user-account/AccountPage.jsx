@@ -152,6 +152,7 @@ const AccountPage = () => {
         </div>
         <SubLink to="/account/withdraw">보호자 탈퇴하기</SubLink>
         <SubLink to="/account/withdraw-patient">케어멤버 탈퇴하기</SubLink>
+        <SubLink to="/terms-of-use">이용 약관</SubLink>
       </div>
     </>
   );
